@@ -1,0 +1,12 @@
+# Mysql environment variables
+
+export MYSQL_ADMIN_USER=${MYSQL_ADMIN_USER:-root}
+export MYSQL_ADMIN_PASSWORD=${MYSQL_ADMIN_PASSWORD:-password}
+
+export MYSQL_APP_USER=${MYSQL_APP_USER:-een}
+export MYSQL_APP_PASSWORD=${MYSQL_APP_PASSWORD:-een}
+
+export MYSQL_HOST=${MYSQL_HOST:-localhost}
+export MYSQL_PORT=${MYSQL_PORT:-3306}
+
+export DB=${DB:-een}
