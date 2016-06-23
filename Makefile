@@ -7,7 +7,10 @@
 
 .DEFAULT: build
 
+# UUID Use by drupal to differentiate site
 UUID ?= "f4543550-d17a-4ac0-9798-efe6aff4aeef"
+
+# Location of the drush executable (drupal manager)
 DRUSH ?= ../bin/drush
 
 ################################################################################
@@ -25,7 +28,13 @@ install:
 	@make -s install-site
 	@make -s default-admin
 	@make -s clear-cache
+	@make -s delete-shortcut
 	@make -s import-config
+	@echo "Installation completed"
+	@echo "Go to http://enn/ to connect"
+	@echo "Default administrator:"
+	@echo "login: admin"
+	@echo "password: password"
 
 install-site:
 	@./script/install-site.sh
@@ -41,9 +50,8 @@ clear-cache:
 reset-db:
 	@./script/reset-db.sh 2>&1 | grep -v "Warning: Using a password on the command line interface can be insecure."
 
-
 default-admin:
-	@echo "Changing default user..."
+	@echo "Changing default user admin password..."
 	@sh -c "cd drupal && $(DRUSH) upwd admin --password=password -y"
 
 delete-shortcut:
@@ -60,3 +68,11 @@ export-config:
 	@echo "Exporting configuration..."
 	@sh -c "cd drupal && $(DRUSH) config-export deploy -y"
 	@echo "Done."
+
+################################################################################
+#                                                                              #
+#                               Shortcuts                                      #
+#                                                                              #
+################################################################################
+
+cc: clear-cache
