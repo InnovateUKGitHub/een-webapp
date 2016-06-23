@@ -6,3 +6,5 @@
 .idea_modules/
 *.iws
 atlassian-ide-plugin.xml
+node_modules/*
+.sass-cache/
