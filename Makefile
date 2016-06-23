@@ -69,6 +69,16 @@ export-config:
 	@sh -c "cd drupal && $(DRUSH) config-export deploy -y"
 	@echo "Done."
 
+export-sql:
+	@echo "Exporting database..."
+	@sh -c "cd drupal && $(DRUSH) sql-dump -y > ../sql/een.sql"
+	@echo "Done."
+
+import-sql:
+	@echo "Importing database..."
+	@sh -c "cd drupal && $(DRUSH) sql-cli -y < ../sql/een.sql"
+	@echo "Done."
+
 ################################################################################
 #                                                                              #
 #                               Shortcuts                                      #
