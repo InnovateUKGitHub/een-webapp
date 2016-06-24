@@ -1,0 +1,5 @@
+global-styling:
+  version: 1
+  css:
+    theme:
+      css/een.css: {}

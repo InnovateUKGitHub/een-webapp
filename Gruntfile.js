@@ -9,7 +9,7 @@ module.exports = function(grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'drupal/themes/template.css': 'drupal/themes/template.scss'
+                    'drupal/themes/custom/een/css/een.css': 'drupal/themes/custom/een/css/een.scss'
                 }
             }
         },

@@ -1,10 +1,19 @@
 ##############
-###PHPSTORM###
+## PHPSTORM ##
 ##############
 
 .idea/*
 .idea_modules/
 *.iws
 atlassian-ide-plugin.xml
+
+##############
+##   NODE   ##
+##############
 node_modules/*
 .sass-cache/
+
+##############
+##  DRUPAL  ##
+##############
+/drupal/themes/custom/een/css/*.css

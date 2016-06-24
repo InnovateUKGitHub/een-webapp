@@ -1,0 +1,22 @@
+uuid: 5d427666-9055-4d37-98ff-636e3f9e588b
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - een
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: een_help
+theme: een
+region: content
+weight: -30
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }
