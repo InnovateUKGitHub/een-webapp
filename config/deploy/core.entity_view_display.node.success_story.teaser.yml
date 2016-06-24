@@ -1,0 +1,26 @@
+uuid: 9d139f83-0b32-4d2e-9ffc-3106932d44a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.success_story.body
+    - node.type.success_story
+  module:
+    - text
+    - user
+id: node.success_story.teaser
+targetEntityType: node
+bundle: success_story
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden: {  }

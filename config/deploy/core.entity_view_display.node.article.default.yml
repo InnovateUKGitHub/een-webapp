@@ -4,13 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.node.article.body
-    - field.field.node.article.comment
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
-    - image.style.large
     - node.type.article
   module:
-    - comment
     - image
     - text
     - user
@@ -27,21 +24,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     label: hidden
-  comment:
-    label: above
-    type: comment_default
-    weight: 20
-    settings:
-      pager_id: 0
-    third_party_settings: {  }
   field_image:
-    type: image
-    weight: -1
+    weight: 101
+    label: above
     settings:
-      image_style: large
+      image_style: ''
       image_link: ''
     third_party_settings: {  }
-    label: hidden
+    type: image
   field_tags:
     type: entity_reference_label
     weight: 10
@@ -52,5 +42,4 @@ content:
   links:
     weight: 100
 hidden:
-  field_image: true
   field_tags: true

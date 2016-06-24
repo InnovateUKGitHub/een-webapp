@@ -2,6 +2,8 @@ uuid: 98598ac1-1184-4b77-9286-4e3e215f8608
 langcode: en
 status: true
 dependencies:
+  module:
+    - user
   theme:
     - bartik
 _core:
@@ -17,4 +19,11 @@ settings:
   label: 'Primary admin actions'
   provider: core
   label_display: '0'
-visibility: {  }
+visibility:
+  user_role:
+    id: user_role
+    roles:
+      administrator: administrator
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
