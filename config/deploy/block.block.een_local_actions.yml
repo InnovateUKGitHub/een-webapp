@@ -11,7 +11,7 @@ _core:
 id: een_local_actions
 theme: een
 region: content
-weight: -20
+weight: -6
 provider: null
 plugin: local_actions_block
 settings:

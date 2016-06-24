@@ -5,8 +5,5 @@ features:
   favicon: true
 logo:
   use_default: true
-  path: 'public://een_logo_0.png'
 favicon:
   use_default: true
-  path: 'public://favicon_0.png'
-  mimetype: image/png

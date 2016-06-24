@@ -1,0 +1,24 @@
+uuid: 7a34fe08-eed3-4fa8-86cc-8aa55ebc871b
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.social
+  module:
+    - system
+  theme:
+    - een
+id: social
+theme: een
+region: footer_second
+weight: null
+provider: null
+plugin: 'system_menu_block:social'
+settings:
+  id: 'system_menu_block:social'
+  label: Social
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

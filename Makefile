@@ -46,6 +46,7 @@ install-dependencies:
 clear-cache:
 	@echo "Clearing cache..."
 	@sh -c "cd drupal && $(DRUSH) cr"
+	@sh -c "cd drupal && $(DRUSH) cc css-js"
 
 reset-db:
 	@./script/reset-db.sh 2>&1 | grep -v "Warning: Using a password on the command line interface can be insecure."
