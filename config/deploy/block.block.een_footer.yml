@@ -1,4 +1,4 @@
-uuid: dad773d2-9f0c-4910-b824-e24143690f2b
+uuid: ed4b2a05-c1b6-4393-addf-eb0e490c7bff
 langcode: en
 status: true
 dependencies:
@@ -12,8 +12,8 @@ _core:
   default_config_hash: kkISXE1LT2FJEoYnqCrCpeFB-2pmGmMxMklVk7rQcfg
 id: een_footer
 theme: een
-region: footer_first
-weight: -5
+region: footer_fifth
+weight: 0
 provider: null
 plugin: 'system_menu_block:footer'
 settings:

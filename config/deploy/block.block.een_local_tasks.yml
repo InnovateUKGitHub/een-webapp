@@ -1,4 +1,4 @@
-uuid: 3faf6308-f685-4bad-b3f7-d79dc563f0af
+uuid: 175db379-b8dd-406a-ab30-2e4de09cd6bb
 langcode: en
 status: true
 dependencies:
@@ -9,7 +9,7 @@ _core:
 id: een_local_tasks
 theme: een
 region: content
-weight: -6
+weight: -40
 provider: null
 plugin: local_tasks_block
 settings:

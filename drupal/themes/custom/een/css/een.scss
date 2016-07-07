@@ -3,6 +3,6 @@ $menu_color: #fff;
 //Example changing menu of the theme
 .region-primary-menu .menu a {
   border-radius: 0;
-  background-color: transparent;
-  color: $menu_color;
+  background-color: transparent !important;
+  color: $menu_color !important;
 }

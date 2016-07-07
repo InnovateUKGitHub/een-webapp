@@ -1,20 +1,18 @@
-uuid: 4d022571-83ee-4ef9-beb8-f43ed2163f05
+uuid: c6f60e55-c4e0-4759-913e-8118062e3c68
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.success_story.body
-    - field.field.node.success_story.field_image
-    - field.field.node.success_story.field_tags
-    - image.style.thumbnail
-    - node.type.success_story
+    - field.field.node.page.body
+    - node.type.page
   module:
-    - image
     - path
     - text
-id: node.success_story.default
+_core:
+  default_config_hash: KSvzyFhdLuxniTsunUnUfpfMmod2l57GibtVjL8ymHM
+id: node.page.default
 targetEntityType: node
-bundle: success_story
+bundle: page
 mode: default
 content:
   body:
@@ -30,21 +28,6 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
-  field_image:
-    weight: 32
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_tags:
-    weight: 33
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
   path:
     type: path
     weight: 30

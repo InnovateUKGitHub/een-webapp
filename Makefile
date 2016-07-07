@@ -28,8 +28,10 @@ install:
 	@make -s install-site
 	@make -s default-admin
 	@make -s clear-cache
+	@make -s npm-install
 	@make -s delete-shortcut
 	@make -s import-config
+#	@make -s import-sql
 	@echo "Installation completed"
 	@echo "Go to http://enn/ to connect"
 	@echo "Default administrator:"
@@ -42,6 +44,7 @@ install-site:
 install-dependencies:
 	@echo "Installing dependencies..."
 	@sh -c "cd drupal && composer install --optimize-autoloader"
+	@sh -c "cd drupal/core && composer install --optimize-autoloader"
 
 clear-cache:
 	@echo "Clearing cache..."
@@ -79,6 +82,15 @@ import-sql:
 	@echo "Importing database..."
 	@sh -c "cd drupal && $(DRUSH) sql-cli -y < ../sql/een.sql"
 	@echo "Done."
+
+npm-install:
+	@echo "Installing npm modules"
+	@sh -c "npm install"
+
+sass:
+	@echo "Updating css"
+	@sh -c "grunt sass"
+	@make -s clear-cache
 
 ################################################################################
 #                                                                              #

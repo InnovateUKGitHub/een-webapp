@@ -1,4 +1,4 @@
-uuid: 38178cef-69a8-47e3-ac36-7bc64b41cc0e
+uuid: c387a88b-e565-4b04-af84-226cfd509e38
 langcode: en
 status: true
 dependencies:
@@ -16,7 +16,7 @@ provider: null
 plugin: system_powered_by_block
 settings:
   id: system_powered_by_block
-  label: 'Powered by Aerian'
+  label: 'Powered by Drupal'
   provider: system
   label_display: '0'
 visibility: {  }

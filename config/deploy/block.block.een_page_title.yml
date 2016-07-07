@@ -1,4 +1,4 @@
-uuid: 339db36c-47c7-4fd8-8118-03f4c9e9e76a
+uuid: 7d635a4d-045a-4377-9b89-99d0453a83ed
 langcode: en
 status: true
 dependencies:
@@ -9,7 +9,7 @@ _core:
 id: een_page_title
 theme: een
 region: content
-weight: -6
+weight: -50
 provider: null
 plugin: page_title_block
 settings:

@@ -717,3 +717,18 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
 # if (file_exists(__DIR__ . '/settings.local.php')) {
 #   include __DIR__ . '/settings.local.php';
 # }
+
+$settings['trusted_host_patterns'] = [
+    '^127.0.0.1$',
+    '^localhost$',
+    '^192.168.10.10$',
+    '^een$'
+];
+
+// Default config directories provided by the installer.
+$config_directories['active'] = '../config/active';
+$config_directories['staging'] = '../config/staging';
+
+// Config directory used for deployments.
+$config_directories['deploy'] = '../config/deploy';
+

@@ -21,7 +21,7 @@ fi
 
 MYSQL_CONNECTION_ARGS="--port=${MYSQL_PORT} --host=${MYSQL_HOST} --user=${MYSQL_ADMIN_USER} ${MYSQL_PASSWORD_ARG}"
 
-echo "Deleting old config..."
+echo "Deleting old database config..."
 mysql ${MYSQL_CONNECTION_ARGS} --execute "DROP DATABASE IF EXISTS ${DB};"
 mysql ${MYSQL_CONNECTION_ARGS} --execute "GRANT USAGE ON *.* TO '${MYSQL_APP_USER}'@'${MYSQL_HOST}';"
 mysql ${MYSQL_CONNECTION_ARGS} --execute "DROP USER '${MYSQL_APP_USER}'@'${MYSQL_HOST}';"

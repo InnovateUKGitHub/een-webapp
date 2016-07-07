@@ -1,4 +1,4 @@
-uuid: 4c008b43-0eeb-4990-9243-6ea4298942e3
+uuid: 32f4013a-a84f-4177-9d58-c4361f96abc1
 langcode: en
 status: true
 dependencies:
@@ -10,7 +10,7 @@ _core:
   default_config_hash: za-39d5WDUg6XvbyqSnuVYEeq6QM4qKJxW8MnoAha5A
 id: een_search
 theme: een
-region: header
+region: sidebar_first
 weight: -1
 provider: null
 plugin: search_form_block

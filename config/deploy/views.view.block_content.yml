@@ -1,4 +1,4 @@
-uuid: b47fd078-c89a-404e-bb14-78b9f2f410d3
+uuid: d67848bd-da7a-4fcf-a213-7d2ea7c87a3f
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     - block_content
     - user
 _core:
-  default_config_hash: tp4wP6wVrEPZfApiCfkpoCxUzN-B1ceGcGv5sEzQ2Sg
+  default_config_hash: msYnighLW1IbiBfyQbwbQwb2cU-5LECiFryt60k0Nfk
 id: block_content
 label: 'Custom block library'
 module: views
@@ -395,7 +395,7 @@ display:
           plugin_id: string
         type:
           id: type
-          table: block_content
+          table: block_content_field_data
           field: type
           relationship: none
           group_type: group

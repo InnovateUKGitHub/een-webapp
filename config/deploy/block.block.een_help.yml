@@ -1,4 +1,4 @@
-uuid: 5d427666-9055-4d37-98ff-636e3f9e588b
+uuid: 03ce6d1e-a85e-49ea-a24d-043e49222d2a
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ _core:
 id: een_help
 theme: een
 region: content
-weight: -6
+weight: -30
 provider: null
 plugin: help_block
 settings:

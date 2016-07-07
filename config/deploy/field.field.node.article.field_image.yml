@@ -1,4 +1,4 @@
-uuid: afe9a2a4-0412-4572-b37b-7cc72b67c840
+uuid: a5536533-abe2-4796-8c0f-03b707c733a9
 langcode: en
 status: true
 dependencies:
@@ -7,6 +7,8 @@ dependencies:
     - node.type.article
   module:
     - image
+_core:
+  default_config_hash: tgJzhA7Swh4M_gWU5FwFe5lPxPj5rebpMbvhpdNrERs
 id: node.article.field_image
 field_name: field_image
 entity_type: node
@@ -14,7 +16,7 @@ bundle: article
 label: Image
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -24,11 +26,11 @@ settings:
   max_resolution: ''
   min_resolution: ''
   alt_field: true
-  alt_field_required: true
   title_field: false
+  alt_field_required: true
   title_field_required: false
   default_image:
-    uuid: ''
+    uuid: null
     alt: ''
     title: ''
     width: null

@@ -1,26 +1,28 @@
-uuid: 9d139f83-0b32-4d2e-9ffc-3106932d44a9
+uuid: 07b5942f-c675-4b60-a6b0-b849e1b46627
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.success_story.body
-    - node.type.success_story
+    - field.field.node.page.body
+    - node.type.page
   module:
     - text
     - user
-id: node.success_story.teaser
+_core:
+  default_config_hash: rN2zrScZAJ9xB16hm_Deb9QJKy6JXnn0PdI2n5Z3KRs
+id: node.page.teaser
 targetEntityType: node
-bundle: success_story
+bundle: page
 mode: teaser
 content:
   body:
     label: hidden
     type: text_summary_or_trimmed
-    weight: 101
+    weight: 100
     settings:
       trim_length: 600
     third_party_settings: {  }
   links:
-    weight: 100
+    weight: 101
 hidden: {  }

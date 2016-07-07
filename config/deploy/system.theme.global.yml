@@ -1,6 +1,6 @@
 favicon:
-  mimetype: image/png
-  path: 'public://favicon_0.png'
+  mimetype: image/vnd.microsoft.icon
+  path: ''
   url: ''
   use_default: true
 features:
@@ -9,7 +9,7 @@ features:
   favicon: true
   node_user_picture: true
 logo:
-  path: 'public://een_logo_0.png'
+  path: ''
   url: ''
   use_default: true
 _core:

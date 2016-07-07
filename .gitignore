@@ -17,3 +17,6 @@ node_modules/*
 ##  DRUPAL  ##
 ##############
 /drupal/themes/custom/een/css/*.css
+/drupal/core/composer.lock
+/drupal/core/vendor
+/drupal/vendor

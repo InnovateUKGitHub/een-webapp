@@ -1,9 +1,7 @@
-uuid: 2209f962-b9e9-4588-b23b-9a014ee372db
+uuid: b13f6d3e-6f05-4221-b833-72fa91ea9333
 langcode: en
 status: true
 dependencies:
-  module:
-    - user
   theme:
     - een
 _core:
@@ -11,7 +9,7 @@ _core:
 id: een_local_actions
 theme: een
 region: content
-weight: -6
+weight: -20
 provider: null
 plugin: local_actions_block
 settings:
@@ -19,11 +17,4 @@ settings:
   label: 'Primary admin actions'
   provider: core
   label_display: '0'
-visibility:
-  user_role:
-    id: user_role
-    roles:
-      administrator: administrator
-    negate: false
-    context_mapping:
-      user: '@user.current_user_context:current_user'
+visibility: {  }
