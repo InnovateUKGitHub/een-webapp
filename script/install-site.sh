@@ -3,8 +3,11 @@
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source "${SCRIPT_DIR}/mysql.environment"
 
-rm -rf drupal/sites/default/settings.php
+## Delete old settings
+sudo rm -rf drupal/sites/default/settings.php
 cd drupal && ../bin/drush si --db-url=mysql://${MYSQL_APP_USER}:${MYSQL_APP_PASSWORD}@${MYSQL_HOST}/${DB} -y
+## Change rights on settings.php
+sudo chmod 760 sites/default/settings.php
 
 config="
 // Default trusted hosts provided by the installer.
