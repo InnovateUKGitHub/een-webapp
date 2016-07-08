@@ -31,6 +31,7 @@ install:
 	@make -s npm-install
 	@make -s delete-shortcut
 	@make -s import-config
+	@make -s import-sql
 	@make -s sass
 	@echo "Installation completed"
 	@echo "Go to http://enn/ to connect"
@@ -73,13 +74,11 @@ export-config:
 	@echo "Done."
 
 export-sql:
-	@echo "Exporting database..."
-	@sh -c "cd drupal && $(DRUSH) sql-dump -y > ../sql/een.sql"
-	@echo "Done."
+	@echo "Do a script to export the wanted tables in a new file"
 
 import-sql:
 	@echo "Importing database..."
-	@sh -c "cd drupal && $(DRUSH) sql-cli -y < ../sql/een.sql"
+	@./script/import-sql.sh
 	@echo "Done."
 
 npm-install:

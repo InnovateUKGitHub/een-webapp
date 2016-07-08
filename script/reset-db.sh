@@ -3,23 +3,7 @@
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source "${SCRIPT_DIR}/mysql.environment"
 
-# Inelegant nested if/else blocks due to my bash ignorance (n.d. Marco)
-if [[ -z "$MYSQL_ADMIN_PASSWORD"  ]]
-then
-    echo "Empty mysql password provided: skipping password parameter when connecting!"
-    MYSQL_PASSWORD_ARG=""
-else
-    if [[ ! `mysql --port=${MYSQL_PORT} --host=${MYSQL_HOST} --user=${MYSQL_ADMIN_USER} --password=${MYSQL_ADMIN_PASSWORD} --execute "SELECT 1;"` ]]
-    then
-        echo "Provided mysql password is incorrect, trying without password!"
-        MYSQL_PASSWORD_ARG=""
-    else
-        MYSQL_PASSWORD_ARG="--password=${MYSQL_ADMIN_PASSWORD}"
-    fi
-fi
-
-
-MYSQL_CONNECTION_ARGS="--port=${MYSQL_PORT} --host=${MYSQL_HOST} --user=${MYSQL_ADMIN_USER} ${MYSQL_PASSWORD_ARG}"
+MYSQL_CONNECTION_ARGS="--port=${MYSQL_PORT} --host=${MYSQL_HOST} --user=${MYSQL_ADMIN_USER} --password=${MYSQL_ADMIN_PASSWORD}"
 
 echo "Deleting old database config..."
 mysql ${MYSQL_CONNECTION_ARGS} --execute "DROP DATABASE IF EXISTS ${DB};"
