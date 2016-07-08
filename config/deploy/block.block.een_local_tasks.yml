@@ -9,7 +9,7 @@ _core:
 id: een_local_tasks
 theme: een
 region: content
-weight: -40
+weight: -6
 provider: null
 plugin: local_tasks_block
 settings:
