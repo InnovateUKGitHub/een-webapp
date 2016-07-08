@@ -31,7 +31,7 @@ install:
 	@make -s npm-install
 	@make -s delete-shortcut
 	@make -s import-config
-#	@make -s import-sql
+	@make -s sass
 	@echo "Installation completed"
 	@echo "Go to http://enn/ to connect"
 	@echo "Default administrator:"
@@ -44,7 +44,6 @@ install-site:
 install-dependencies:
 	@echo "Installing dependencies..."
 	@sh -c "cd drupal && composer install --optimize-autoloader"
-	@sh -c "cd drupal/core && composer install --optimize-autoloader"
 
 clear-cache:
 	@echo "Clearing cache..."
