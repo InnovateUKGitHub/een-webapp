@@ -45,6 +45,7 @@ install-site:
 install-dependencies:
 	@echo "Installing dependencies..."
 	@sh -c "cd drupal && composer install --optimize-autoloader"
+	@sh -c "cd elasticsearch && composer install --optimize-autoloader"
 
 clear-cache:
 	@echo "Clearing cache..."
