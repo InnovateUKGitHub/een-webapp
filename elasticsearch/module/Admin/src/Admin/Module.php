@@ -1,6 +1,6 @@
 <?php
 
-namespace Ingest;
+namespace Admin;
 
 use ZF\Apigility\Provider\ApigilityProviderInterface;
 

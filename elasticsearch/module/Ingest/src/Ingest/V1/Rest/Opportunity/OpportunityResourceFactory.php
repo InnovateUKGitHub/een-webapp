@@ -5,11 +5,6 @@ namespace Ingest\V1\Rest\Opportunity;
 use Elasticsearch\ClientBuilder;
 use Zend\Di\ServiceLocator;
 
-/**
- * Class OpportunityResourceFactory
- *
- * @package Ingest\V1\Rest\Opportunity
- */
 class OpportunityResourceFactory
 {
     /**

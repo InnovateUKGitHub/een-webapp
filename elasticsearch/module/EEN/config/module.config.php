@@ -1,5 +1,8 @@
 <?php
 
+use EEN\V1\ElasticSearch\Service\ElasticSearchService;
+use EEN\V1\ElasticSearch\Factory\ElasticSearchServiceFactory;
+
 return [
     'service_manager'        => [
         'factories' => [

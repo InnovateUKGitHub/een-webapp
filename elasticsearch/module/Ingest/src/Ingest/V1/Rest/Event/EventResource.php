@@ -4,24 +4,20 @@ namespace Ingest\V1\Rest\Event;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use Elasticsearch\Client as ElasticSearchClient;
+use Elasticsearch\Client;
 
-/**
- * Class EventResource
- *
- * @package Ingest\V1\Rest\Event
- */
 class EventResource extends AbstractResourceListener
 {
-    /**
-     * ElasticSearchClient client
-     */
+    const ES_INDEX = 'event';
+    const ES_TYPE = 'event';
+
+    /** @var Client */
     private $elasticSearch;
     
     /**
-     * @param ElasticSearchClient $elasticSearch
+     * @param Client $elasticSearch
      */
-    public function __construct(ElasticSearchClient $elasticSearch)
+    public function __construct(Client $elasticSearch)
     {
         $this->elasticSearch = $elasticSearch;
     }
@@ -34,7 +30,15 @@ class EventResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        $values = $this->getInputFilter()->getValues();
+        $params = [
+            'body' => $values,
+            'index' => self::ES_INDEX,
+            'type' => self::ES_TYPE,
+            'id' => $values['id'],
+        ];
+
+        return $this->elasticSearch->index($params);
     }
 
     /**

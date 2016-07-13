@@ -1,16 +1,13 @@
 <?php
 
-namespace Ingest\V1\Rest\Opportunity;
+namespace Admin\V1\Rest\Delete;
 
+use Elasticsearch\Client;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use Elasticsearch\Client;
 
-class OpportunityResource extends AbstractResourceListener
+class DeleteResource extends AbstractResourceListener
 {
-    const ES_INDEX = 'opportunity';
-    const ES_TYPE = 'opportunity';
-
     /** @var Client */
     private $elasticSearch;
 
@@ -26,25 +23,24 @@ class OpportunityResource extends AbstractResourceListener
      * Create a resource
      *
      * @param  mixed $data
+     *
      * @return ApiProblem|mixed
      */
     public function create($data)
     {
         $values = $this->getInputFilter()->getValues();
         $params = [
-            'body' => $values,
-            'index' => self::ES_INDEX,
-            'type' => self::ES_TYPE,
-            'id' => $values['id'],
+            'index' => $values['index'] === 'all' ? '*' : $values['index'],
         ];
 
-        return $this->elasticSearch->index($params);
+        return $this->elasticSearch->indices()->delete($params);
     }
 
     /**
      * Delete a resource
      *
      * @param  mixed $id
+     *
      * @return ApiProblem|mixed
      */
     public function delete($id)
@@ -56,6 +52,7 @@ class OpportunityResource extends AbstractResourceListener
      * Delete a collection, or members of a collection
      *
      * @param  mixed $data
+     *
      * @return ApiProblem|mixed
      */
     public function deleteList($data)
@@ -67,6 +64,7 @@ class OpportunityResource extends AbstractResourceListener
      * Fetch a resource
      *
      * @param  mixed $id
+     *
      * @return ApiProblem|mixed
      */
     public function fetch($id)
@@ -78,9 +76,10 @@ class OpportunityResource extends AbstractResourceListener
      * Fetch all or a subset of resources
      *
      * @param  array $params
+     *
      * @return ApiProblem|mixed
      */
-    public function fetchAll($params = array())
+    public function fetchAll($params = [])
     {
         return new ApiProblem(405, 'The GET method has not been defined for collections');
     }
@@ -90,6 +89,7 @@ class OpportunityResource extends AbstractResourceListener
      *
      * @param  mixed $id
      * @param  mixed $data
+     *
      * @return ApiProblem|mixed
      */
     public function patch($id, $data)
@@ -101,6 +101,7 @@ class OpportunityResource extends AbstractResourceListener
      * Replace a collection or members of a collection
      *
      * @param  mixed $data
+     *
      * @return ApiProblem|mixed
      */
     public function replaceList($data)
@@ -113,6 +114,7 @@ class OpportunityResource extends AbstractResourceListener
      *
      * @param  mixed $id
      * @param  mixed $data
+     *
      * @return ApiProblem|mixed
      */
     public function update($id, $data)

@@ -22,4 +22,6 @@ return array(
     'ZF\\Rpc',
     'ZF\\Versioning',
     'EEN',
+    'Ingest',
+    'Data',
 );

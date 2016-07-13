@@ -3,6 +3,11 @@
     "description": "Skeleton Application for Apigility",
     "type": "library",
     "license": "BSD-3-Clause",
+    "autoload": {
+        "psr-4": {
+            "Data\\": "module/Data/src"
+        }
+    },
     "keywords": [
         "api",
         "apigility",
@@ -31,7 +36,8 @@
         "zfcampus/zf-apigility": "~1.1",
         "zfcampus/zf-apigility-documentation": "^1.0.5",
         "zfcampus/zf-development-mode": "~2.0",
-        "elasticsearch/elasticsearch": "^2.2"
+        "elasticsearch/elasticsearch": "^2.2",
+        "fzaninotto/faker": "^1.6"
     },
     "require-dev": {
         "zendframework/zftool": "dev-master",
