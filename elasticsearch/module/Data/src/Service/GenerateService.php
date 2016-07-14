@@ -9,6 +9,8 @@ class GenerateService
 {
     const OPPORTUNITY = 'opportunity';
     const EVENT = 'event';
+    const ALL = 'all';
+
     /** @var ConnectionService */
     private $connection;
     /** @var Generator */
@@ -27,13 +29,13 @@ class GenerateService
     public function generate($index, $number)
     {
         switch ($index) {
-            case 'opportunity':
+            case self::OPPORTUNITY:
                 $this->generateOpportunities($number);
                 break;
-            case 'event':
+            case self::EVENT:
                 $this->generateEvents($number);
                 break;
-            case 'all':
+            case self::ALL:
             default:
                 $this->generateOpportunities($number);
                 $this->generateEvents($number);

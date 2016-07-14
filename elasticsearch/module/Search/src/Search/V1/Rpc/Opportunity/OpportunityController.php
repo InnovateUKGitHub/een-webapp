@@ -1,6 +1,6 @@
 <?php
 
-namespace EEN\V1\Rpc\Opportunity;
+namespace Search\V1\Rpc\Opportunity;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use ZF\ContentNegotiation\ViewModel;
@@ -8,7 +8,7 @@ use ZF\ContentNegotiation\ViewModel;
 /**
  * Class OpportunityController
  *
- * @package EEN\V1\Rpc\Opportunity
+ * @package Search\V1\Rpc\Opportunity
  */
 class OpportunityController extends AbstractActionController
 {

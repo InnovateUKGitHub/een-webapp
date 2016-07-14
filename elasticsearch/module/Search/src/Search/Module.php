@@ -1,5 +1,6 @@
 <?php
-namespace EEN;
+
+namespace Search;
 
 use ZF\Apigility\Provider\ApigilityProviderInterface;
 

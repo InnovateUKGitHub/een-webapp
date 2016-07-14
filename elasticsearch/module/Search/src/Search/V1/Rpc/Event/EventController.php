@@ -1,6 +1,6 @@
 <?php
 
-namespace EEN\V1\Rpc\Event;
+namespace Search\V1\Rpc\Event;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use ZF\ContentNegotiation\ViewModel;
@@ -8,7 +8,7 @@ use ZF\ContentNegotiation\ViewModel;
 /**
  * Class EventController
  *
- * @package EEN\V1\Rpc\Event
+ * @package Search\V1\Rpc\Event
  */
 class EventController extends AbstractActionController
 {

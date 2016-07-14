@@ -17,8 +17,8 @@ return [
     'ZF\\Rest',
     'ZF\\Rpc',
     'ZF\\Versioning',
-    'EEN',
-    'Ingest',
-    'Data',
     'Admin',
+    'Data',
+    'Ingest',
+    'Search',
 ];

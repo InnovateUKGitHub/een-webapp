@@ -91,6 +91,11 @@ sass:
 	@sh -c "grunt sass"
 	@make -s clear-cache
 
+test:
+	@echo "Running unit test..."
+	@sh -c "cd elasticsearch && vendor/bin/phpunit"
+	@echo "Done."
+
 ################################################################################
 #                                                                              #
 #                               Shortcuts                                      #

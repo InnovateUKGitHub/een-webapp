@@ -1,11 +1,11 @@
 <?php
 
-namespace EEN\V1\Rpc\Opportunity;
+namespace Search\V1\Rpc\Opportunity;
 
 /**
  * Class OpportunityControllerFactory
  *
- * @package EEN\V1\Rpc\Opportunity
+ * @package Search\V1\Rpc\Opportunity
  */
 class OpportunityControllerFactory
 {

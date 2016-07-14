@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.0/phpunit.xsd"
+        bootstrap="vendor/autoload.php"
+        colors="true"
+>
+    <testsuites>
+        <testsuite name="ElasticSearch">
+            <directory>module/Data/test</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhintitelist="true">
+            <directory suffix=".php">module/Data/src</directory>
+        </whitelist>
+    </filter>
+
+    <listeners>
+        <listener class="Mockery\Adapter\Phpunit\TestListener"/>
+    </listeners>
+</phpunit>

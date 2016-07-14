@@ -34,8 +34,10 @@ class GenerateController extends AbstractActionController
         if (!($this->getRequest() instanceof Request)) {
             throw new BadMethodCallException('This is a console tool only');
         }
+
         $index = $this->params('index', 'all');
         $number = $this->params('number', 100);
+
         if (Helper::checkValidType($index) === false) {
             throw new InvalidArgumentException('The index enter is not valid');
         }
@@ -43,6 +45,8 @@ class GenerateController extends AbstractActionController
             throw new InvalidArgumentException('The number enter is not valid');
         }
         $this->generateService->generate($index, $number);
+
+        return ['generate' => 'success'];
     }
 
     public function deleteAction()
@@ -58,5 +62,7 @@ class GenerateController extends AbstractActionController
         }
 
         $this->deleteService->delete($index);
+
+        return ['delete' => 'success'];
     }
 }

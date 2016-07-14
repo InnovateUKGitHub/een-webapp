@@ -1,9 +1,12 @@
 <?php
 
+use Admin\V1\Rest\Delete\DeleteResourceFactory;
+use Admin\V1\Rest\Delete\DeleteResource;
+
 return [
     'service_manager'        => [
         'factories' => [
-            'Admin\\V1\\Rest\\Delete\\DeleteResource' => 'Admin\\V1\\Rest\\Delete\\DeleteResourceFactory',
+            DeleteResource::class => DeleteResourceFactory::class,
         ],
     ],
     'router'                 => [

@@ -1,11 +1,11 @@
 <?php
 
-namespace EEN\V1\ElasticSearch\Service;
+namespace Search\V1\ElasticSearch\Service;
 
 /**
  * Class ElasticSearchService
  *
- * @package EEN\V1\ElasticSearch\Service
+ * @package Search\V1\ElasticSearch\Service
  */
 class ElasticSearchService
 {

@@ -1,7 +1,7 @@
 <?php
 
-use EEN\V1\ElasticSearch\Service\ElasticSearchService;
-use EEN\V1\ElasticSearch\Factory\ElasticSearchServiceFactory;
+use Search\V1\ElasticSearch\Service\ElasticSearchService;
+use Search\V1\ElasticSearch\Factory\ElasticSearchServiceFactory;
 
 return [
     'service_manager'        => [
@@ -16,7 +16,7 @@ return [
                 'options' => [
                     'route'    => '/v1/een/opportunity',
                     'defaults' => [
-                        'controller' => 'EEN\\V1\\Rpc\\Opportunity\\Controller',
+                        'controller' => 'Search\\V1\\Rpc\\Opportunity\\Controller',
                         'action'     => 'opportunity',
                     ],
                 ],
@@ -26,7 +26,7 @@ return [
                 'options' => [
                     'route'    => '/v1/een/event',
                     'defaults' => [
-                        'controller' => 'EEN\\V1\\Rpc\\Event\\Controller',
+                        'controller' => 'Search\\V1\\Rpc\\Event\\Controller',
                         'action'     => 'event',
                     ],
                 ],
@@ -42,27 +42,27 @@ return [
     'zf-rest'                => [],
     'zf-content-negotiation' => [
         'controllers'            => [
-            'EEN\\V1\\Rpc\\Opportunity\\Controller' => 'Json',
-            'EEN\\V1\\Rpc\\Event\\Controller'       => 'Json',
+            'Search\\V1\\Rpc\\Opportunity\\Controller' => 'Json',
+            'Search\\V1\\Rpc\\Event\\Controller'       => 'Json',
         ],
         'accept_whitelist'       => [
-            'EEN\\V1\\Rpc\\Opportunity\\Controller' => [
+            'Search\\V1\\Rpc\\Opportunity\\Controller' => [
                 0 => 'application/vnd.een.v1+json',
                 1 => 'application/json',
                 2 => 'application/*+json',
             ],
-            'EEN\\V1\\Rpc\\Event\\Controller'       => [
+            'Search\\V1\\Rpc\\Event\\Controller'       => [
                 0 => 'application/vnd.een.v1+json',
                 1 => 'application/json',
                 2 => 'application/*+json',
             ],
         ],
         'content_type_whitelist' => [
-            'EEN\\V1\\Rpc\\Opportunity\\Controller' => [
+            'Search\\V1\\Rpc\\Opportunity\\Controller' => [
                 0 => 'application/vnd.een.v1+json',
                 1 => 'application/json',
             ],
-            'EEN\\V1\\Rpc\\Event\\Controller'       => [
+            'Search\\V1\\Rpc\\Event\\Controller'       => [
                 0 => 'application/vnd.een.v1+json',
                 1 => 'application/json',
             ],
@@ -72,12 +72,12 @@ return [
         'metadata_map' => [],
     ],
     'zf-content-validation'  => [
-        'EEN\\V1\\Rpc\\Opportunity\\Controller' => [
-            'input_filter' => 'EEN\\V1\\Rpc\\Opportunity\\Validator',
+        'Search\\V1\\Rpc\\Opportunity\\Controller' => [
+            'input_filter' => 'Search\\V1\\Rpc\\Opportunity\\Validator',
         ],
     ],
     'input_filter_specs'     => [
-        'EEN\\V1\\Rest\\Opportunity\\Validator' => [
+        'Search\\V1\\Rest\\Opportunity\\Validator' => [
             0 => [
                 'required'          => true,
                 'validators'        => [
@@ -115,7 +115,7 @@ return [
                 'continue_if_empty' => true,
             ],
         ],
-        'EEN\\V1\\Rpc\\Opportunity\\Validator'  => [
+        'Search\\V1\\Rpc\\Opportunity\\Validator'  => [
             0 => [
                 'required'   => true,
                 'validators' => [],
@@ -132,19 +132,19 @@ return [
     ],
     'controllers'            => [
         'factories' => [
-            'EEN\\V1\\Rpc\\Opportunity\\Controller' => 'EEN\\V1\\Rpc\\Opportunity\\OpportunityControllerFactory',
-            'EEN\\V1\\Rpc\\Event\\Controller'       => 'EEN\\V1\\Rpc\\Event\\EventControllerFactory',
+            'Search\\V1\\Rpc\\Opportunity\\Controller' => 'Search\\V1\\Rpc\\Opportunity\\OpportunityControllerFactory',
+            'Search\\V1\\Rpc\\Event\\Controller'       => 'Search\\V1\\Rpc\\Event\\EventControllerFactory',
         ],
     ],
     'zf-rpc'                 => [
-        'EEN\\V1\\Rpc\\Opportunity\\Controller' => [
+        'Search\\V1\\Rpc\\Opportunity\\Controller' => [
             'service_name' => 'Opportunity',
             'http_methods' => [
                 0 => 'GET',
             ],
             'route_name'   => 'een.rpc.opportunity',
         ],
-        'EEN\\V1\\Rpc\\Event\\Controller'       => [
+        'Search\\V1\\Rpc\\Event\\Controller'       => [
             'service_name' => 'Event',
             'http_methods' => [
                 0 => 'GET',

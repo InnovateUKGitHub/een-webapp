@@ -5,7 +5,8 @@
     "license": "BSD-3-Clause",
     "autoload": {
         "psr-4": {
-            "Data\\": "module/Data/src"
+            "Data\\": "module/Data/src",
+            "DataTest\\": "module/Data/test"
         }
     },
     "keywords": [

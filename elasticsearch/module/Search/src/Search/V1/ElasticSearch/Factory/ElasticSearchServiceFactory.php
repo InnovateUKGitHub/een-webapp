@@ -1,15 +1,15 @@
 <?php
 
-namespace EEN\V1\ElasticSearch\Factory;
+namespace Search\V1\ElasticSearch\Factory;
 
-use EEN\V1\ElasticSearch\Service\ElasticSearchService;
+use Search\V1\ElasticSearch\Service\ElasticSearchService;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Class ElasticSearchServiceFactory
  *
- * @package EEN\V1\ElasticSearch\Factory
+ * @package Search\V1\ElasticSearch\Factory
  */
 class ElasticSearchServiceFactory implements FactoryInterface
 {

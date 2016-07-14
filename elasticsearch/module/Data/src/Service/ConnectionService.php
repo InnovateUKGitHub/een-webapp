@@ -25,6 +25,8 @@ class ConnectionService
     {
         $this->client->setHttpMethod($method);
         $this->client->setPathToService($path);
+        $this->client->setRequestBody(null);
+
         if ($body !== null) {
             $this->client->setRequestBody(json_encode($body));
         }

@@ -3,8 +3,6 @@
 namespace Data\Service;
 
 use Zend\Http\Client;
-use Zend\Http\Client\Adapter\AdapterInterface;
-use Zend\Http\Client\Adapter\Curl;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\Http\Exception\InvalidArgumentException;
@@ -31,24 +29,30 @@ class HttpService
     private $version;
     /** @var string http or https */
     private $httpScheme = 'http';
-    /** @var integer Request::METHOD_GET|PUT|POST|DELETE etc. */
+    /** @var string Request::METHOD_GET|PUT|POST|DELETE etc. */
     private $httpMethod = Request::METHOD_GET;
     /** @var Client */
-    private $httpClient;
-    /** @var AdapterInterface */
-    private $httpAdapter;
-    /** @var Response */
-    private $httpResponse;
+    private $client;
 
     /**
      * HttpService constructor.
      *
+     * @param Client $client
      * @param array $config
      */
-    public function __construct($config)
+    public function __construct(Client $client, $config)
     {
+        if (array_key_exists(self::SERVER, $config) === false) {
+            throw new InvalidArgumentException('The config file is incorrect. Please specify the server');
+        }
+        if (array_key_exists(self::PORT, $config) === false) {
+            throw new InvalidArgumentException('The config file is incorrect. Please specify the port');
+        }
+
         $this->server = $config[self::SERVER];
         $this->port = $config[self::PORT];
+
+        $this->client = $client;
     }
 
     /**
@@ -80,6 +84,14 @@ class HttpService
     }
 
     /**
+     * @return string
+     */
+    public function getHttpMethod()
+    {
+        return $this->httpMethod;
+    }
+
+    /**
      * The part of the URL after the hostname
      *
      * @param string $pathToService
@@ -91,6 +103,14 @@ class HttpService
         $this->pathToService = $pathToService;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPathToService()
+    {
+        return $this->pathToService;
     }
 
     /**
@@ -106,39 +126,39 @@ class HttpService
     }
 
     /**
+     * @return string
+     */
+    public function getRequestBody()
+    {
+        return $this->requestBody;
+    }
+
+    /**
      * @return string json
      */
     public function execute()
     {
-        $adapter = new Curl();
-        $adapter->setOptions([
-            CURLOPT_MAXCONNECTS   => 3,
-            CURLOPT_FRESH_CONNECT => true,
-        ]);
         $uri = $this->buildUri();
 
-        $httpClient = $this->getHttpClient();
-
-        $httpClient->setHeaders([
+        $this->client->setHeaders([
             'Accept'       => 'application/json',
             'Content-type' => 'application/json'
         ]);
 
-        $httpClient->setAdapter($this->getHttpAdapter());
-        $httpClient->setMethod($this->httpMethod);
-        $httpClient->setUri($uri);
+        $this->client->setMethod($this->httpMethod);
+        $this->client->setUri($uri);
 
         if ($this->requestBody !== null && $this->httpMethod === Request::METHOD_POST) {
-            $httpClient->setRawBody($this->requestBody);
+            $this->client->setRawBody($this->requestBody);
         }
 
-        $this->httpResponse = $httpClient->send();
+        $httpResponse = $this->client->send();
 
-        $rawContent = $this->httpResponse->getBody();
+        $rawContent = $httpResponse->getBody();
         $content = json_decode($rawContent, true);
 
         if ($content === null) {
-            throw new HttpException('Malformed JSON response' . (string)$this->httpResponse);
+            throw new HttpException('Malformed JSON response: ' . (string)$rawContent);
         }
 
         return $content;
@@ -166,35 +186,5 @@ class HttpService
         }
 
         return $uri;
-    }
-
-    /**
-     * @return Client
-     */
-    private function getHttpClient()
-    {
-        if ($this->httpClient === null) {
-            $client = new Client(null, ['timeout' => 30]);
-            $client->setAdapter($this->getHttpAdapter());
-            $this->httpClient = $client;
-        }
-
-        return $this->httpClient;
-    }
-
-    /**
-     * @return AdapterInterface
-     */
-    private function getHttpAdapter()
-    {
-        if ($this->httpAdapter === null) {
-            $adapter = new Curl();
-            $adapter->setCurlOption(CURLOPT_ENCODING, 'deflate');
-            // Sensible default - simply prevents infinite waiting time
-            $adapter->setOptions(['timeout' => 30]);
-            $this->httpAdapter = $adapter;
-        }
-
-        return $this->httpAdapter;
     }
 }

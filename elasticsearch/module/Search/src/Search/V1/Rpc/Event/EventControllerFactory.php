@@ -1,11 +1,11 @@
 <?php
 
-namespace EEN\V1\Rpc\Event;
+namespace Search\V1\Rpc\Event;
 
 /**
  * Class EventControllerFactory
  *
- * @package EEN\V1\Rpc\Event
+ * @package Search\V1\Rpc\Event
  */
 class EventControllerFactory
 {
