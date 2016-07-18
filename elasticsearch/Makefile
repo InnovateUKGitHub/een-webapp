@@ -16,36 +16,27 @@
 build: install
 
 install:
-	@echo "Installing..."
-	@make -s install-drupal
-	@echo "\n\n\n"
-	@make -s install-elasticsearch
+	@echo "Installing elastic-search..."
+	@make -s install-dependencies
+	@make -s clear-cache
 
-install-drupal:
-	@sh -c "cd drupal && make -s install"
-	@make -s npm-install
-	@make -s sass
-
-install-elasticsearch:
-	@sh -c "cd elasticsearch && make -s install"
+install-dependencies:
+	@echo "Installing dependencies..."
+	@sh -c "composer install --optimize-autoloader"
 
 clear-cache:
 	@echo "Clearing cache..."
-	@sh -c "cd drupal && make -s clear-cache"
-	@sh -c "cd elasticsearch && make -s  clear-cache"
-
-npm-install:
-	@echo "Installing npm modules"
-	@sh -c "npm install"
-
-sass:
-	@echo "Updating css"
-	@sh -c "grunt sass"
-	@make -s clear-cache
+	@sh -c "rm -rf data/cache/module*"
 
 test:
-	@sh -c "cd drupal && make -s test"
-	@sh -c "cd elasticsearch && make -s test"
+	@echo "Running elasticsearch unit test..."
+	@sh -c "vendor/bin/phpunit"
+
+generate:
+	@sh -c "php public/index.php generate"
+
+delete:
+	@sh -c "php public/index.php delete"
 
 ################################################################################
 #                                                                              #

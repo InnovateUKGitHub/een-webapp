@@ -8,13 +8,13 @@
 >
     <testsuites>
         <testsuite name="ElasticSearch">
-            <directory>module/Data/test</directory>
+            <directory>module/Console/test</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist processUncoveredFilesFromWhintitelist="true">
-            <directory suffix=".php">module/Data/src</directory>
+            <directory suffix=".php">module/Console/src</directory>
         </whitelist>
     </filter>
 

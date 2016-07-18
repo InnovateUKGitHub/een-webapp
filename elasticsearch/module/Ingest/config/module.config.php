@@ -1,14 +1,31 @@
 <?php
 
+use Ingest\V1\Rest\Delete\DeleteResourceFactory;
+use Ingest\V1\Rest\Delete\DeleteResource;
+use Ingest\V1\Rest\Event\EventResourceFactory;
+use Ingest\V1\Rest\Event\EventResource;
+use Ingest\V1\Rest\Opportunity\OpportunityResourceFactory;
+use Ingest\V1\Rest\Opportunity\OpportunityResource;
+
 return [
     'service_manager'        => [
         'factories' => [
-            'Ingest\\V1\\Rest\\Opportunity\\OpportunityResource' => 'Ingest\\V1\\Rest\\Opportunity\\OpportunityResourceFactory',
-            'Ingest\\V1\\Rest\\Event\\EventResource'             => 'Ingest\\V1\\Rest\\Event\\EventResourceFactory',
+            DeleteResource::class => DeleteResourceFactory::class,
+            EventResource::class => EventResourceFactory::class,
+            OpportunityResource::class => OpportunityResourceFactory::class,
         ],
     ],
     'router'                 => [
         'routes' => [
+            'ingest.rest.delete' => [
+                'type'    => 'Segment',
+                'options' => [
+                    'route'    => '/delete[/:delete_id]',
+                    'defaults' => [
+                        'controller' => 'Ingest\\V1\\Rest\\Delete\\Controller',
+                    ],
+                ],
+            ],
             'ingest.rest.opportunity' => [
                 'type'    => 'Segment',
                 'options' => [
@@ -31,11 +48,34 @@ return [
     ],
     'zf-versioning'          => [
         'uri' => [
-            0 => 'ingest.rest.opportunity',
-            1 => 'ingest.rest.event',
+            0 => 'ingest.rest.delete',
+            1 => 'ingest.rest.opportunity',
+            2 => 'ingest.rest.event',
         ],
     ],
     'zf-rest'                => [
+        'Ingest\\V1\\Rest\\Delete\\Controller' => [
+            'listener'                   => 'Ingest\\V1\\Rest\\Delete\\DeleteResource',
+            'route_name'                 => 'ingest.rest.delete',
+            'route_identifier_name'      => 'delete_id',
+            'collection_name'            => 'delete',
+            'entity_http_methods'        => [
+                0 => 'GET',
+                1 => 'PATCH',
+                2 => 'PUT',
+                3 => 'DELETE',
+            ],
+            'collection_http_methods'    => [
+                0 => 'GET',
+                1 => 'POST',
+            ],
+            'collection_query_whitelist' => [],
+            'page_size'                  => 25,
+            'page_size_param'            => null,
+            'entity_class'               => 'Ingest\\V1\\Rest\\Delete\\DeleteEntity',
+            'collection_class'           => 'Ingest\\V1\\Rest\\Delete\\DeleteCollection',
+            'service_name'               => 'Delete',
+        ],
         'Ingest\\V1\\Rest\\Opportunity\\Controller' => [
             'listener'                   => 'Ingest\\V1\\Rest\\Opportunity\\OpportunityResource',
             'route_name'                 => 'ingest.rest.opportunity',
@@ -83,10 +123,16 @@ return [
     ],
     'zf-content-negotiation' => [
         'controllers'            => [
+            'Ingest\\V1\\Rest\\Delete\\Controller' => 'HalJson',
             'Ingest\\V1\\Rest\\Opportunity\\Controller' => 'HalJson',
             'Ingest\\V1\\Rest\\Event\\Controller'       => 'HalJson',
         ],
         'accept_whitelist'       => [
+            'Ingest\\V1\\Rest\\Delete\\Controller' => [
+                0 => 'application/vnd.admin.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ],
             'Ingest\\V1\\Rest\\Opportunity\\Controller' => [
                 0 => 'application/vnd.ingest.v1+json',
                 1 => 'application/hal+json',
@@ -99,6 +145,10 @@ return [
             ],
         ],
         'content_type_whitelist' => [
+            'Ingest\\V1\\Rest\\Delete\\Controller' => [
+                0 => 'application/vnd.admin.v1+json',
+                1 => 'application/json',
+            ],
             'Ingest\\V1\\Rest\\Opportunity\\Controller' => [
                 0 => 'application/vnd.ingest.v1+json',
                 1 => 'application/json',
@@ -111,6 +161,18 @@ return [
     ],
     'zf-hal'                 => [
         'metadata_map' => [
+            'Ingest\\V1\\Rest\\Delete\\DeleteEntity'     => [
+                'entity_identifier_name' => 'id',
+                'route_name'             => 'ingest.rest.delete',
+                'route_identifier_name'  => 'delete_id',
+                'hydrator'               => 'Zend\\Hydrator\\ArraySerializable',
+            ],
+            'Ingest\\V1\\Rest\\Delete\\DeleteCollection' => [
+                'entity_identifier_name' => 'id',
+                'route_name'             => 'ingest.rest.delete',
+                'route_identifier_name'  => 'delete_id',
+                'is_collection'          => true,
+            ],
             'Ingest\\V1\\Rest\\Opportunity\\OpportunityEntity'     => [
                 'entity_identifier_name' => 'id',
                 'route_name'             => 'ingest.rest.opportunity',
@@ -138,6 +200,9 @@ return [
         ],
     ],
     'zf-content-validation'  => [
+        'Ingest\\V1\\Rest\\Delete\\Controller' => [
+            'input_filter' => 'Ingest\\V1\\Rest\\Delete\\Validator',
+        ],
         'Ingest\\V1\\Rest\\Opportunity\\Controller' => [
             'input_filter' => 'Ingest\\V1\\Rest\\Opportunity\\Validator',
         ],
@@ -146,6 +211,26 @@ return [
         ],
     ],
     'input_filter_specs'     => [
+        'Ingest\\V1\\Rest\\Delete\\Validator' => [
+            0 => [
+                'required'   => true,
+                'validators' => [
+                    0 => [
+                        'name'    => 'Zend\\Validator\\InArray',
+                        'options' => [
+                            'strict'   => \Zend\Validator\InArray::COMPARE_STRICT,
+                            'haystack' => [
+                                'opportunity',
+                                'event',
+                                'all',
+                            ],
+                        ],
+                    ],
+                ],
+                'filters'    => [],
+                'name'       => 'index',
+            ],
+        ],
         'Ingest\\V1\\Rest\\Opportunity\\Validator' => [
             0  => [
                 'required'   => true,

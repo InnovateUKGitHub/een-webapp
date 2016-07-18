@@ -17,8 +17,7 @@ return [
     'ZF\\Rest',
     'ZF\\Rpc',
     'ZF\\Versioning',
-    'Admin',
-    'Data',
+    'Console',
     'Ingest',
     'Search',
 ];
