@@ -9,12 +9,14 @@
     <testsuites>
         <testsuite name="ElasticSearch">
             <directory>module/Console/test</directory>
+            <directory>module/Ingest/test</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist processUncoveredFilesFromWhintitelist="true">
             <directory suffix=".php">module/Console/src</directory>
+            <directory suffix=".php">module/Ingest/src</directory>
         </whitelist>
     </filter>
 

@@ -28,12 +28,7 @@ class DeleteResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        $values = $this->getInputFilter()->getValues();
-        $params = [
-            'index' => $values['index'] === 'all' ? '*' : $values['index'],
-        ];
-
-        return $this->elasticSearch->indices()->delete($params);
+        return new ApiProblem(405, 'The POST method has not been defined for individual resources');
     }
 
     /**
