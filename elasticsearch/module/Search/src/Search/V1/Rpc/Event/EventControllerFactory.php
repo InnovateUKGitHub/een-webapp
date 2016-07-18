@@ -2,6 +2,9 @@
 
 namespace Search\V1\Rpc\Event;
 
+use Search\V1\ElasticSearch\Service\ElasticSearchService;
+use Zend\Mvc\Controller\ControllerManager;
+
 /**
  * Class EventControllerFactory
  *
@@ -10,12 +13,15 @@ namespace Search\V1\Rpc\Event;
 class EventControllerFactory
 {
     /**
-     * @param $controllers
+     * @param ControllerManager $controllers
      *
      * @return EventController
      */
-    public function __invoke($controllers)
+    public function __invoke(ControllerManager $controllers)
     {
-        return new EventController();
+        $serviceLocator = $controllers->getServiceLocator();
+        $service = $serviceLocator->get(ElasticSearchService::class);
+
+        return new EventController($service);
     }
 }

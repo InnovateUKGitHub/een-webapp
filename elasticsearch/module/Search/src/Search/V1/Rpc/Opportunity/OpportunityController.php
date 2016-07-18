@@ -2,6 +2,7 @@
 
 namespace Search\V1\Rpc\Opportunity;
 
+use Search\V1\ElasticSearch\Service\ElasticSearchService;
 use Zend\Mvc\Controller\AbstractActionController;
 use ZF\ContentNegotiation\ViewModel;
 
@@ -12,14 +13,31 @@ use ZF\ContentNegotiation\ViewModel;
  */
 class OpportunityController extends AbstractActionController
 {
+    /** @var ElasticSearchService */
+    private $service;
+
+    public function __construct(ElasticSearchService $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParams()
+    {
+        $inputFilter = $this->getEvent()->getParam('ZF\ContentValidation\InputFilter');
+
+        return $inputFilter->getValues();
+    }
+
     /**
      * @return ViewModel
      */
     public function opportunityAction()
     {
-        return new ViewModel([
-            'controller' => 'opportunity',
-            'success'    => true
-        ]);
+        $params = $this->getParams();
+
+        return new ViewModel($this->service->searchOpportunity($params));
     }
 }

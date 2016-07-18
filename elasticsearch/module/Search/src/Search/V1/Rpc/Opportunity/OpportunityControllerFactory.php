@@ -2,6 +2,9 @@
 
 namespace Search\V1\Rpc\Opportunity;
 
+use Search\V1\ElasticSearch\Service\ElasticSearchService;
+use Zend\Mvc\Controller\ControllerManager;
+
 /**
  * Class OpportunityControllerFactory
  *
@@ -10,12 +13,15 @@ namespace Search\V1\Rpc\Opportunity;
 class OpportunityControllerFactory
 {
     /**
-     * @param $controllers
+     * @param ControllerManager $controllers
      *
      * @return OpportunityController
      */
-    public function __invoke($controllers)
+    public function __invoke(ControllerManager $controllers)
     {
-        return new OpportunityController();
+        $serviceLocator = $controllers->getServiceLocator();
+        $service = $serviceLocator->get(ElasticSearchService::class);
+
+        return new OpportunityController($service);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Search\V1\ElasticSearch\Factory;
 
+use Elasticsearch\ClientBuilder;
 use Search\V1\ElasticSearch\Service\ElasticSearchService;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -20,6 +21,8 @@ class ElasticSearchServiceFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        return new ElasticSearchService();
+        $elasticSearch = ClientBuilder::create()->build();
+
+        return new ElasticSearchService($elasticSearch);
     }
 }

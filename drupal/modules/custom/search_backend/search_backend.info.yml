@@ -1,0 +1,7 @@
+type: module
+name: 'Search Backend'
+description: 'Offers an implementation of the Search API.'
+core: 8.x
+package: Searches
+dependencies:
+ - search_api

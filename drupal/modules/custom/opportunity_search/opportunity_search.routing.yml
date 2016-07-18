@@ -1,0 +1,7 @@
+opportunity_search.form:
+ path: '/opportunity/search'
+ defaults:
+   _title: 'Opportunity Search'
+   _form: '\Drupal\opportunity_search\Form\OpportunityForm'
+ requirements:
+   _permission: 'access content'

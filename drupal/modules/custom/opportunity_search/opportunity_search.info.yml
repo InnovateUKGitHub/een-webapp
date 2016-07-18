@@ -1,0 +1,5 @@
+name: Search Engine For Opportunities
+description: This is the Search Engine to realise searches on Opportunity.
+core: 8.x
+package: Searches
+type: module

@@ -1,0 +1,7 @@
+type: module
+name: 'Search Server'
+description: 'Configuration for a Default Server.'
+core: 8.x
+package: Searches
+dependencies:
+  - search_backend
