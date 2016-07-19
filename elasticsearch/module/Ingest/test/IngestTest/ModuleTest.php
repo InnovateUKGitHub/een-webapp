@@ -3,12 +3,14 @@
 namespace IngestTest;
 
 use Ingest\Module;
+use Ingest\V1\Factory\IndexServiceFactory;
 use Ingest\V1\Rest\Delete\DeleteResource;
 use Ingest\V1\Rest\Delete\DeleteResourceFactory;
 use Ingest\V1\Rest\Event\EventResource;
 use Ingest\V1\Rest\Event\EventResourceFactory;
 use Ingest\V1\Rest\Opportunity\OpportunityResource;
 use Ingest\V1\Rest\Opportunity\OpportunityResourceFactory;
+use Ingest\V1\Service\IndexService;
 
 /**
  * @covers Ingest\Module
@@ -18,13 +20,13 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
     public function testConfigIsCorrect()
     {
         $module = new Module();
-
         self::assertEquals([
             'service_manager'        => [
                 'factories' => [
                     DeleteResource::class      => DeleteResourceFactory::class,
                     EventResource::class       => EventResourceFactory::class,
                     OpportunityResource::class => OpportunityResourceFactory::class,
+                    IndexService::class        => IndexServiceFactory::class,
                 ],
             ],
             'router'                 => [
@@ -325,7 +327,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
                         ],
                         'name'       => 'advantage',
                     ],
-                    10  => [
+                    10 => [
                         'required'   => true,
                         'validators' => [],
                         'filters'    => [
@@ -539,9 +541,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
     public function testAutoloaderConfig()
     {
         $module = new Module();
-
         $result = $module->getAutoloaderConfig();
-
         self::assertArrayHasKey('ZF\Apigility\Autoloader', $result);
         self::assertArrayHasKey('namespaces', $result['ZF\Apigility\Autoloader']);
         self::assertArrayHasKey('Ingest', $result['ZF\Apigility\Autoloader']['namespaces']);

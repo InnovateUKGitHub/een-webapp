@@ -2,24 +2,24 @@
 
 namespace Ingest\V1\Rest\Event;
 
+use Ingest\V1\Service\IndexService;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use Elasticsearch\Client;
 
 class EventResource extends AbstractResourceListener
 {
     const ES_INDEX = 'event';
     const ES_TYPE = 'event';
 
-    /** @var Client */
-    private $elasticSearch;
-    
+    /** @var IndexService */
+    private $indexService;
+
     /**
-     * @param Client $elasticSearch
+     * @param IndexService $indexService
      */
-    public function __construct(Client $elasticSearch)
+    public function __construct(IndexService $indexService)
     {
-        $this->elasticSearch = $elasticSearch;
+        $this->indexService = $indexService;
     }
 
     /**
@@ -30,15 +30,11 @@ class EventResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        $values = $this->getInputFilter()->getValues();
-        $params = [
-            'body' => $values,
-            'index' => self::ES_INDEX,
-            'type' => self::ES_TYPE,
-            'id' => $values['id'],
-        ];
+        $this->indexService->createIndex(self::ES_INDEX);
 
-        return $this->elasticSearch->index($params);
+        $values = $this->getInputFilter()->getValues();
+
+        return $this->indexService->index($values, $values['id'], self::ES_INDEX, self::ES_TYPE);
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace IngestTest\V1\Rest\Opportunity;
 
-use Elasticsearch\Client;
 use Ingest\V1\Rest\Opportunity\OpportunityResource;
+use Ingest\V1\Service\IndexService;
 use Zend\InputFilter\InputFilter;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\ResourceEvent;
@@ -13,15 +13,15 @@ use ZF\Rest\ResourceEvent;
  */
 class OpportunityResourceTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Client */
-    private $client;
+    /** @var \PHPUnit_Framework_MockObject_MockObject|IndexService */
+    private $service;
     /** @var OpportunityResource */
     private $resource;
 
     public function Setup()
     {
-        $this->client = self::getMock(Client::class, [], [], '', false);
-        $this->resource = new OpportunityResource($this->client);
+        $this->service = self::getMock(IndexService::class, [], [], '', false);
+        $this->resource = new OpportunityResource($this->service);
     }
 
     public function testCreateOpportunity()
@@ -36,15 +36,15 @@ class OpportunityResourceTest extends \PHPUnit_Framework_TestCase
             ->method('getValues')
             ->willReturn(['id' => 1]);
 
-        $this->client
+        $this->service
+            ->expects(self::once())
+            ->method('createIndex')
+            ->with(OpportunityResource::ES_INDEX);
+
+        $this->service
             ->expects(self::once())
             ->method('index')
-            ->with([
-                'body' => ['id' => 1],
-                'index' => OpportunityResource::ES_INDEX,
-                'type' => OpportunityResource::ES_TYPE,
-                'id' => 1,
-            ])
+            ->with(['id' => 1], 1, OpportunityResource::ES_INDEX, OpportunityResource::ES_INDEX)
             ->willReturn(['success' => true]);
 
         self::assertEquals(['success' => true], $this->resource->dispatch($event));

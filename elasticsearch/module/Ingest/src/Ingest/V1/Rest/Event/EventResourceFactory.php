@@ -2,7 +2,7 @@
 
 namespace Ingest\V1\Rest\Event;
 
-use Elasticsearch\ClientBuilder;
+use Ingest\V1\Service\IndexService;
 use Zend\Di\ServiceLocator;
 
 class EventResourceFactory
@@ -14,8 +14,8 @@ class EventResourceFactory
      */
     public function __invoke($services)
     {
-        $elasticSearch = ClientBuilder::create()->build();
-        
-        return new EventResource($elasticSearch);
+        $indexService = $services->get(IndexService::class);
+
+        return new EventResource($indexService);
     }
 }

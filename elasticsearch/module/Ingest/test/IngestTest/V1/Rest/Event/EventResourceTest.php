@@ -2,8 +2,8 @@
 
 namespace IngestTest\V1\Rest\Event;
 
-use Elasticsearch\Client;
 use Ingest\V1\Rest\Event\EventResource;
+use Ingest\V1\Service\IndexService;
 use Zend\InputFilter\InputFilter;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\ResourceEvent;
@@ -13,15 +13,15 @@ use ZF\Rest\ResourceEvent;
  */
 class EventResourceTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Client */
-    private $client;
+    /** @var \PHPUnit_Framework_MockObject_MockObject|IndexService */
+    private $service;
     /** @var EventResource */
     private $resource;
 
     public function Setup()
     {
-        $this->client = self::getMock(Client::class, [], [], '', false);
-        $this->resource = new EventResource($this->client);
+        $this->service = self::getMock(IndexService::class, [], [], '', false);
+        $this->resource = new EventResource($this->service);
     }
 
     public function testCreateEvent()
@@ -36,15 +36,15 @@ class EventResourceTest extends \PHPUnit_Framework_TestCase
             ->method('getValues')
             ->willReturn(['id' => 1]);
 
-        $this->client
+        $this->service
+            ->expects(self::once())
+            ->method('createIndex')
+            ->with(EventResource::ES_INDEX);
+
+        $this->service
             ->expects(self::once())
             ->method('index')
-            ->with([
-                'body' => ['id' => 1],
-                'index' => EventResource::ES_INDEX,
-                'type' => EventResource::ES_TYPE,
-                'id' => 1,
-            ])
+            ->with(['id' => 1], 1, EventResource::ES_INDEX, EventResource::ES_INDEX)
             ->willReturn(['success' => true]);
 
         self::assertEquals(['success' => true], $this->resource->dispatch($event));

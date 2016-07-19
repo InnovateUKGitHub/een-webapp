@@ -40,6 +40,9 @@ install:
 install-site:
 	@../script/install-site.sh
 
+install-module:
+	$(DRUSH) en opportunity_search -y
+
 install-dependencies:
 	@echo "Installing drupal dependencies..."
 	@sh -c "composer install --optimize-autoloader"

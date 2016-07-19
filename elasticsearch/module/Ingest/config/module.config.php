@@ -1,10 +1,13 @@
 <?php
+
 use Ingest\V1\Rest\Delete\DeleteResourceFactory;
 use Ingest\V1\Rest\Delete\DeleteResource;
 use Ingest\V1\Rest\Event\EventResourceFactory;
 use Ingest\V1\Rest\Event\EventResource;
 use Ingest\V1\Rest\Opportunity\OpportunityResourceFactory;
 use Ingest\V1\Rest\Opportunity\OpportunityResource;
+use Ingest\V1\Service\IndexService;
+use Ingest\V1\Factory\IndexServiceFactory;
 
 return [
     'service_manager'        => [
@@ -12,6 +15,7 @@ return [
             DeleteResource::class      => DeleteResourceFactory::class,
             EventResource::class       => EventResourceFactory::class,
             OpportunityResource::class => OpportunityResourceFactory::class,
+            IndexService::class        => IndexServiceFactory::class,
         ],
     ],
     'router'                 => [
@@ -312,7 +316,7 @@ return [
                 ],
                 'name'       => 'advantage',
             ],
-            10  => [
+            10 => [
                 'required'   => true,
                 'validators' => [],
                 'filters'    => [

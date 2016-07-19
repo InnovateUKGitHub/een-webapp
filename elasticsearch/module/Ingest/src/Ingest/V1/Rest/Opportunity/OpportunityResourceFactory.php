@@ -2,7 +2,7 @@
 
 namespace Ingest\V1\Rest\Opportunity;
 
-use Elasticsearch\ClientBuilder;
+use Ingest\V1\Service\IndexService;
 use Zend\Di\ServiceLocator;
 
 class OpportunityResourceFactory
@@ -14,8 +14,8 @@ class OpportunityResourceFactory
      */
     public function __invoke($services)
     {
-        $elasticSearch = ClientBuilder::create()->build();
+        $indexService = $services->get(IndexService::class);
 
-        return new OpportunityResource($elasticSearch);
+        return new OpportunityResource($indexService);
     }
 }
