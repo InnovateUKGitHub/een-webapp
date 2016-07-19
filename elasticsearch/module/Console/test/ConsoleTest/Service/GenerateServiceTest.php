@@ -16,10 +16,10 @@ class GenerateServiceTest extends \PHPUnit_Framework_TestCase
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject|ConnectionService $connectionServiceMock */
         $connectionServiceMock = self::getMock(ConnectionService::class, [], [], '', false);
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Generator $generatorMock */
-        $generatorMock = self::getMock(Generator::class, [], [], '', false);
 
-        $service = new GenerateService($connectionServiceMock, $generatorMock);
+        $faker = \Faker\Factory::create();
+
+        $service = new GenerateService($connectionServiceMock, $faker);
 
         $connectionServiceMock
             ->expects(self::at(0))
@@ -39,10 +39,10 @@ class GenerateServiceTest extends \PHPUnit_Framework_TestCase
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject|ConnectionService $connectionServiceMock */
         $connectionServiceMock = self::getMock(ConnectionService::class, [], [], '', false);
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Generator $generatorMock */
-        $generatorMock = self::getMock(Generator::class, [], [], '', false);
 
-        $service = new GenerateService($connectionServiceMock, $generatorMock);
+        $faker = \Faker\Factory::create();
+
+        $service = new GenerateService($connectionServiceMock, $faker);
 
         $connectionServiceMock
             ->expects(self::exactly(1))
@@ -57,10 +57,10 @@ class GenerateServiceTest extends \PHPUnit_Framework_TestCase
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject|ConnectionService $connectionServiceMock */
         $connectionServiceMock = self::getMock(ConnectionService::class, [], [], '', false);
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Generator $generatorMock */
-        $generatorMock = self::getMock(Generator::class, [], [], '', false);
 
-        $service = new GenerateService($connectionServiceMock, $generatorMock);
+        $faker = \Faker\Factory::create();
+
+        $service = new GenerateService($connectionServiceMock, $faker);
 
         $connectionServiceMock
             ->expects(self::exactly(1))
@@ -75,10 +75,10 @@ class GenerateServiceTest extends \PHPUnit_Framework_TestCase
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject|ConnectionService $connectionServiceMock */
         $connectionServiceMock = self::getMock(ConnectionService::class, [], [], '', false);
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Generator $generatorMock */
-        $generatorMock = self::getMock(Generator::class, [], [], '', false);
 
-        $service = new GenerateService($connectionServiceMock, $generatorMock);
+        $faker = \Faker\Factory::create();
+
+        $service = new GenerateService($connectionServiceMock, $faker);
 
         $connectionServiceMock
             ->expects(self::at(0))
@@ -98,10 +98,10 @@ class GenerateServiceTest extends \PHPUnit_Framework_TestCase
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject|ConnectionService $connectionServiceMock */
         $connectionServiceMock = self::getMock(ConnectionService::class, [], [], '', false);
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Generator $generatorMock */
-        $generatorMock = self::getMock(Generator::class, [], [], '', false);
 
-        $service = new GenerateService($connectionServiceMock, $generatorMock);
+        $faker = \Faker\Factory::create();
+
+        $service = new GenerateService($connectionServiceMock, $faker);
 
         $connectionServiceMock
             ->expects(self::at(0))

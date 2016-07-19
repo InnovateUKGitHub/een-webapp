@@ -29,6 +29,10 @@ install-drupal:
 install-elasticsearch:
 	@sh -c "cd elasticsearch && make -s install"
 
+install-dependencies:
+	@sh -c "cd drupal && make -s install-dependencies"
+	@sh -c "cd elasticsearch && make -s install-dependencies"
+
 clear-cache:
 	@echo "Clearing cache..."
 	@sh -c "cd drupal && make -s clear-cache"

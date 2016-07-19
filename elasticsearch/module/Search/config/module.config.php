@@ -2,11 +2,14 @@
 
 use Search\V1\ElasticSearch\Service\ElasticSearchService;
 use Search\V1\ElasticSearch\Factory\ElasticSearchServiceFactory;
+use Search\V1\ElasticSearch\Service\QueryService;
+use Search\V1\ElasticSearch\Factory\QueryServiceFactory;
 
 return [
     'service_manager'        => [
         'factories' => [
             ElasticSearchService::class => ElasticSearchServiceFactory::class,
+            QueryService::class => QueryServiceFactory::class,
         ],
     ],
     'router'                 => [
@@ -85,19 +88,31 @@ return [
                 'required'   => true,
                 'validators' => [],
                 'filters'    => [],
-                'name'       => 'start',
+                'name'       => 'from',
             ],
             1 => [
                 'required'   => true,
                 'validators' => [],
                 'filters'    => [],
-                'name'       => 'length',
+                'name'       => 'size',
             ],
             2 => [
                 'required'   => true,
                 'validators' => [],
                 'filters'    => [],
                 'name'       => 'search',
+            ],
+            3 => [
+                'required'   => true,
+                'validators' => [],
+                'filters'    => [],
+                'name'       => 'sort',
+            ],
+            4 => [
+                'required'   => true,
+                'validators' => [],
+                'filters'    => [],
+                'name'       => 'source',
             ],
         ],
         'Search\\V1\\Rpc\\Event\\Validator'  => [
@@ -105,19 +120,31 @@ return [
                 'required'   => true,
                 'validators' => [],
                 'filters'    => [],
-                'name'       => 'start',
+                'name'       => 'from',
             ],
             1 => [
                 'required'   => true,
                 'validators' => [],
                 'filters'    => [],
-                'name'       => 'length',
+                'name'       => 'size',
             ],
             2 => [
                 'required'   => true,
                 'validators' => [],
                 'filters'    => [],
                 'name'       => 'search',
+            ],
+            3 => [
+                'required'   => true,
+                'validators' => [],
+                'filters'    => [],
+                'name'       => 'sort',
+            ],
+            4 => [
+                'required'   => true,
+                'validators' => [],
+                'filters'    => [],
+                'name'       => 'source',
             ],
         ],
     ],

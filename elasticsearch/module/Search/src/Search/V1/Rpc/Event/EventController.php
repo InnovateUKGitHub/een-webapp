@@ -22,7 +22,7 @@ class EventController extends AbstractActionController
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getParams()
     {
@@ -38,6 +38,6 @@ class EventController extends AbstractActionController
     {
         $params = $this->getParams();
 
-        return new ViewModel($this->service->searchOpportunity($params));
+        return new ViewModel($this->service->searchEvent($params));
     }
 }

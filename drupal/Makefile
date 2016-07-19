@@ -41,7 +41,7 @@ install-site:
 	@../script/install-site.sh
 
 install-dependencies:
-	@echo "Installing dependencies..."
+	@echo "Installing drupal dependencies..."
 	@sh -c "composer install --optimize-autoloader"
 
 clear-cache:

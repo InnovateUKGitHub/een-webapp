@@ -21,7 +21,7 @@ install:
 	@make -s clear-cache
 
 install-dependencies:
-	@echo "Installing dependencies..."
+	@echo "Installing elasticsearch dependencies..."
 	@sh -c "composer install --optimize-autoloader"
 
 clear-cache:
@@ -31,6 +31,10 @@ clear-cache:
 test:
 	@echo "Running elasticsearch unit test..."
 	@sh -c "vendor/bin/phpunit"
+
+test-coverage:
+	@echo "Running elasticsearch unit test with coverage..."
+	@sh -c "vendor/bin/phpunit  --coverage-html "`pwd`/html-coverage""
 
 generate:
 	@sh -c "php public/index.php generate"

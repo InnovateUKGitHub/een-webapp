@@ -4,7 +4,6 @@ namespace Console\Service;
 
 use Zend\Http\Client;
 use Zend\Http\Request;
-use Zend\Http\Response;
 use Zend\Http\Exception\InvalidArgumentException;
 use Zend\Json\Server\Exception\HttpException;
 
@@ -38,7 +37,7 @@ class HttpService
      * HttpService constructor.
      *
      * @param Client $client
-     * @param array $config
+     * @param array  $config
      */
     public function __construct(Client $client, $config)
     {
@@ -48,10 +47,8 @@ class HttpService
         if (array_key_exists(self::PORT, $config) === false) {
             throw new InvalidArgumentException('The config file is incorrect. Please specify the port');
         }
-
         $this->server = $config[self::SERVER];
         $this->port = $config[self::PORT];
-
         $this->client = $client;
     }
 
@@ -134,29 +131,47 @@ class HttpService
     }
 
     /**
+     * @param string $userName
+     */
+    public function setUserName($userName)
+    {
+        $this->userName = $userName;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @param string $version
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+    }
+
+    /**
      * @return string json
      */
     public function execute()
     {
         $uri = $this->buildUri();
-
         $this->client->setHeaders([
             'Accept'       => 'application/json',
-            'Content-type' => 'application/json'
+            'Content-type' => 'application/json',
         ]);
-
         $this->client->setMethod($this->httpMethod);
         $this->client->setUri($uri);
-
         if ($this->requestBody !== null && $this->httpMethod === Request::METHOD_POST) {
             $this->client->setRawBody($this->requestBody);
         }
-
         $httpResponse = $this->client->send();
-
         $rawContent = $httpResponse->getBody();
         $content = json_decode($rawContent, true);
-
         if ($content === null) {
             throw new HttpException('Malformed JSON response: ' . (string)$rawContent);
         }
@@ -170,7 +185,6 @@ class HttpService
     private function buildUri()
     {
         $uri = $this->httpScheme . '://';
-
         if (!empty($this->userName) || !empty($this->password)) {
             $uri .= $this->userName . '.' . $this->password . '@';
         }

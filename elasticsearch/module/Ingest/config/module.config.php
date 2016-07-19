@@ -239,6 +239,24 @@ return [
                 'required'   => true,
                 'validators' => [
                     0 => [
+                        'name'    => 'Zend\\Validator\\InArray',
+                        'options' => [
+                            'strict'   => 1,
+                            'haystack' => [
+                                0 => 'Technology',
+                                1 => 'Commercial',
+                                2 => 'Research',
+                            ],
+                        ],
+                    ],
+                ],
+                'filters'    => [],
+                'name'       => 'opportunity_type',
+            ],
+            4  => [
+                'required'   => true,
+                'validators' => [
+                    0 => [
                         'name'    => 'Zend\\Validator\\StringLength',
                         'options' => [
                             'min' => '2',
@@ -249,28 +267,17 @@ return [
                 'filters'    => [],
                 'name'       => 'country',
             ],
-            4  => [
+            5  => [
                 'required'   => true,
                 'validators' => [],
                 'filters'    => [],
                 'name'       => 'date',
             ],
-            5  => [
+            6  => [
                 'required'   => true,
                 'validators' => [],
                 'filters'    => [],
                 'name'       => 'types',
-            ],
-            6  => [
-                'required'   => true,
-                'validators' => [],
-                'filters'    => [
-                    0 => [
-                        'name'    => 'Zend\\Filter\\StringTrim',
-                        'options' => [],
-                    ],
-                ],
-                'name'       => 'description',
             ],
             7  => [
                 'required'   => true,
@@ -281,7 +288,7 @@ return [
                         'options' => [],
                     ],
                 ],
-                'name'       => 'expertise',
+                'name'       => 'description',
             ],
             8  => [
                 'required'   => true,
@@ -292,7 +299,7 @@ return [
                         'options' => [],
                     ],
                 ],
-                'name'       => 'advantage',
+                'name'       => 'expertise',
             ],
             9  => [
                 'required'   => true,
@@ -303,9 +310,9 @@ return [
                         'options' => [],
                     ],
                 ],
-                'name'       => 'stage',
+                'name'       => 'advantage',
             ],
-            10 => [
+            10  => [
                 'required'   => true,
                 'validators' => [],
                 'filters'    => [
@@ -314,7 +321,7 @@ return [
                         'options' => [],
                     ],
                 ],
-                'name'       => 'stage_reference',
+                'name'       => 'stage',
             ],
             11 => [
                 'required'   => true,
@@ -325,9 +332,20 @@ return [
                         'options' => [],
                     ],
                 ],
-                'name'       => 'ipr',
+                'name'       => 'stage_reference',
             ],
             12 => [
+                'required'   => true,
+                'validators' => [],
+                'filters'    => [
+                    0 => [
+                        'name'    => 'Zend\\Filter\\StringTrim',
+                        'options' => [],
+                    ],
+                ],
+                'name'       => 'ipr',
+            ],
+            13 => [
                 'required'   => true,
                 'validators' => [],
                 'filters'    => [
@@ -372,13 +390,21 @@ return [
             ],
             2  => [
                 'required'   => true,
-                'validators' => [],
-                'filters'    => [
+                'validators' => [
                     0 => [
-                        'name'    => 'Zend\\Filter\\StringTrim',
-                        'options' => [],
+                        'name'    => 'Zend\\Validator\\InArray',
+                        'options' => [
+                            'strict'   => 1,
+                            'haystack' => [
+                                0 => 'Seminar',
+                                1 => 'Brokerage Event',
+                                2 => 'Match-making Event',
+                                3 => 'Conference',
+                            ],
+                        ],
                     ],
                 ],
+                'filters'    => [],
                 'name'       => 'type',
             ],
             3  => [

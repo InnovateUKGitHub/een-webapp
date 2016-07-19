@@ -11,7 +11,7 @@ use Ingest\V1\Rest\Opportunity\OpportunityResource;
 use Ingest\V1\Rest\Opportunity\OpportunityResourceFactory;
 
 /**
- * @covers Console\Module
+ * @covers Ingest\Module
  */
 class ModuleTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,6 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $module = new Module();
 
         self::assertEquals([
-
             'service_manager'        => [
                 'factories' => [
                     DeleteResource::class      => DeleteResourceFactory::class,
@@ -253,6 +252,24 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
                         'required'   => true,
                         'validators' => [
                             0 => [
+                                'name'    => 'Zend\\Validator\\InArray',
+                                'options' => [
+                                    'strict'   => 1,
+                                    'haystack' => [
+                                        0 => 'Technology',
+                                        1 => 'Commercial',
+                                        2 => 'Research',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'filters'    => [],
+                        'name'       => 'opportunity_type',
+                    ],
+                    4  => [
+                        'required'   => true,
+                        'validators' => [
+                            0 => [
                                 'name'    => 'Zend\\Validator\\StringLength',
                                 'options' => [
                                     'min' => '2',
@@ -263,28 +280,17 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
                         'filters'    => [],
                         'name'       => 'country',
                     ],
-                    4  => [
+                    5  => [
                         'required'   => true,
                         'validators' => [],
                         'filters'    => [],
                         'name'       => 'date',
                     ],
-                    5  => [
+                    6  => [
                         'required'   => true,
                         'validators' => [],
                         'filters'    => [],
                         'name'       => 'types',
-                    ],
-                    6  => [
-                        'required'   => true,
-                        'validators' => [],
-                        'filters'    => [
-                            0 => [
-                                'name'    => 'Zend\\Filter\\StringTrim',
-                                'options' => [],
-                            ],
-                        ],
-                        'name'       => 'description',
                     ],
                     7  => [
                         'required'   => true,
@@ -295,7 +301,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
                                 'options' => [],
                             ],
                         ],
-                        'name'       => 'expertise',
+                        'name'       => 'description',
                     ],
                     8  => [
                         'required'   => true,
@@ -306,7 +312,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
                                 'options' => [],
                             ],
                         ],
-                        'name'       => 'advantage',
+                        'name'       => 'expertise',
                     ],
                     9  => [
                         'required'   => true,
@@ -317,9 +323,9 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
                                 'options' => [],
                             ],
                         ],
-                        'name'       => 'stage',
+                        'name'       => 'advantage',
                     ],
-                    10 => [
+                    10  => [
                         'required'   => true,
                         'validators' => [],
                         'filters'    => [
@@ -328,7 +334,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
                                 'options' => [],
                             ],
                         ],
-                        'name'       => 'stage_reference',
+                        'name'       => 'stage',
                     ],
                     11 => [
                         'required'   => true,
@@ -339,9 +345,20 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
                                 'options' => [],
                             ],
                         ],
-                        'name'       => 'ipr',
+                        'name'       => 'stage_reference',
                     ],
                     12 => [
+                        'required'   => true,
+                        'validators' => [],
+                        'filters'    => [
+                            0 => [
+                                'name'    => 'Zend\\Filter\\StringTrim',
+                                'options' => [],
+                            ],
+                        ],
+                        'name'       => 'ipr',
+                    ],
+                    13 => [
                         'required'   => true,
                         'validators' => [],
                         'filters'    => [
@@ -386,13 +403,21 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
                     ],
                     2  => [
                         'required'   => true,
-                        'validators' => [],
-                        'filters'    => [
+                        'validators' => [
                             0 => [
-                                'name'    => 'Zend\\Filter\\StringTrim',
-                                'options' => [],
+                                'name'    => 'Zend\\Validator\\InArray',
+                                'options' => [
+                                    'strict'   => 1,
+                                    'haystack' => [
+                                        0 => 'Seminar',
+                                        1 => 'Brokerage Event',
+                                        2 => 'Match-making Event',
+                                        3 => 'Conference',
+                                    ],
+                                ],
                             ],
                         ],
+                        'filters'    => [],
                         'name'       => 'type',
                     ],
                     3  => [

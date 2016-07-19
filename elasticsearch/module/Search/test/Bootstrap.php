@@ -1,6 +1,6 @@
 <?php
 
-namespace IngestTest;
+namespace SearchTest;
 
 use Zend\Console\Console;
 use Zend\ServiceManager\ServiceManager;

@@ -5,6 +5,7 @@ namespace IngestTest\V1\Rest\Delete;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Ingest\V1\Rest\Delete\DeleteResource;
 use Elasticsearch\Client;
+use Zend\Http\Response;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\ResourceEvent;
 
@@ -42,9 +43,11 @@ class DeleteResourceTest extends \PHPUnit_Framework_TestCase
             ->expects(self::once())
             ->method('delete')
             ->with(['index' => 'event'])
-            ->willReturn(['success' => true]);
+            ->willReturn(['acknowledge' => true]);
 
-        self::assertEquals(['success' => true], $this->resource->dispatch($event));
+        $response = $this->resource->dispatch($event);
+        self::assertInstanceOf(Response::class, $response);
+        self::assertEquals('{"acknowledge":true}', $response->getContent());
     }
 
     public function testDeleteAll()
@@ -62,9 +65,11 @@ class DeleteResourceTest extends \PHPUnit_Framework_TestCase
             ->expects(self::once())
             ->method('delete')
             ->with(['index' => '*'])
-            ->willReturn(['success' => true]);
+            ->willReturn(['acknowledge' => true]);
 
-        self::assertEquals(['success' => true], $this->resource->dispatch($event));
+        $response = $this->resource->dispatch($event);
+        self::assertInstanceOf(Response::class, $response);
+        self::assertEquals('{"acknowledge":true}', $response->getContent());
     }
 
     /**

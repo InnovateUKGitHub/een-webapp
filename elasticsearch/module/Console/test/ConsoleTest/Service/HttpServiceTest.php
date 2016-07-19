@@ -21,6 +21,9 @@ class HttpServiceTest extends \PHPUnit_Framework_TestCase
     ];
     const PATH_TO_SERVICE = 'path-to-service';
     const REQUEST_BODY = 'request-body';
+    const USER = 'user';
+    const PASSWORD = 'password';
+    const VERSION = 1;
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|Client */
     private $clientMock;
@@ -153,7 +156,11 @@ class HttpServiceTest extends \PHPUnit_Framework_TestCase
         $this->clientMock
             ->expects(self::once())
             ->method('setUri')
-            ->with(self::HTTP_SCHEME . '://' . self::CONFIG['server'] . ':' . self::CONFIG['port'] . '/' . self::PATH_TO_SERVICE);
+            ->with(
+                self::HTTP_SCHEME . '://' .
+                self::USER . '.' . self::PASSWORD . '@' . self::CONFIG['server'] . ':' . self::CONFIG['port'] . '/' .
+                self::VERSION . '/' . self::PATH_TO_SERVICE
+            );
         $this->clientMock
             ->expects(self::once())
             ->method('setRawBody')
@@ -169,6 +176,9 @@ class HttpServiceTest extends \PHPUnit_Framework_TestCase
             ->method('send')
             ->willReturn($responseMock);
 
+        $service->setUserName(self::USER);
+        $service->setPassword(self::PASSWORD);
+        $service->setVersion(self::VERSION);
         $service->setHttpMethod(Request::METHOD_POST);
         $service->setPathToService(self::PATH_TO_SERVICE);
         $service->setRequestBody(self::REQUEST_BODY);

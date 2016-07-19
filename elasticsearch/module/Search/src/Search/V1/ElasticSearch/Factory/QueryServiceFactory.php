@@ -2,23 +2,22 @@
 
 namespace Search\V1\ElasticSearch\Factory;
 
-use Search\V1\ElasticSearch\Service\ElasticSearchService;
+use Elasticsearch\ClientBuilder;
 use Search\V1\ElasticSearch\Service\QueryService;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ElasticSearchServiceFactory implements FactoryInterface
+class QueryServiceFactory implements FactoryInterface
 {
     /**
      * @param ServiceLocatorInterface $sm
      *
-     * @return ElasticSearchService
+     * @return QueryService
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        /** @var QueryService $query */
-        $query = $sm->get(QueryService::class);
+        $elasticSearch = ClientBuilder::create()->build();
 
-        return new ElasticSearchService($query);
+        return new QueryService($elasticSearch);
     }
 }
