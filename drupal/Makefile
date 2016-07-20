@@ -48,7 +48,7 @@ install-dependencies:
 	@sh -c "composer install --optimize-autoloader"
 
 clear-cache:
-	@echo "Clearing cache..."
+	@echo "Clearing drupal cache..."
 	@sh -c "$(DRUSH) cr"
 	@sh -c "$(DRUSH) cc css-js"
 

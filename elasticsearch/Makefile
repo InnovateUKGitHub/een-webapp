@@ -25,7 +25,7 @@ install-dependencies:
 	@sh -c "composer install --optimize-autoloader"
 
 clear-cache:
-	@echo "Clearing cache..."
+	@echo "Clearing elasticsearch cache..."
 	@sh -c "rm -rf data/cache/module*"
 
 test:

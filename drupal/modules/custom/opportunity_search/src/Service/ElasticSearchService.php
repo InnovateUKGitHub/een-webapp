@@ -42,8 +42,8 @@ class ElasticSearchService
     public function setParams(array $query)
     {
         $params = [
-            'start' => $this->searchFrom,
-            'length' => $this->searchSize
+            'from' => $this->searchFrom,
+            'size' => $this->searchSize,
         ];
         $body = array_merge($params, $query);
         $this->client->setRawBody(json_encode($body));
@@ -79,7 +79,7 @@ class ElasticSearchService
                 )
             );
         }
-drupal_set_message($result->getBody());
+
         return json_decode($result->getBody(), true);
     }
 }

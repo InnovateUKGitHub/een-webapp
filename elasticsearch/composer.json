@@ -6,8 +6,11 @@
     "autoload": {
         "psr-4": {
             "Console\\": "module/Console/src",
+            "Ingest\\": "module/Ingest/src",
+            "Search\\": "module/Search/src",
             "ConsoleTest\\": "module/Console/test",
-            "IngestTest\\": "module/Ingest/test"
+            "IngestTest\\": "module/Ingest/test",
+            "SearchTest\\": "module/Search/test"
         }
     },
     "keywords": [

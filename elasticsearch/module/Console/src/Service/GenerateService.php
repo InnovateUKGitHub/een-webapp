@@ -55,11 +55,7 @@ class GenerateService
 
     private function generateDate(\DateTime $date)
     {
-        return [
-            'date' => $date->format('d-m-Y'),
-            'timestamp' => $date->getTimestamp(),
-            'timezone' => $date->getTimezone()->getName(),
-        ];
+        return $date->format(\DateTime::W3C);
     }
 
     private function generateOpportunities($number)

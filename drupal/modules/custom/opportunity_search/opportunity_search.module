@@ -1,0 +1,15 @@
+<?php
+
+function opportunity_search_theme()
+{
+    return [
+        'opportunity_search' => [
+            'variables' => [
+                'name' => null,
+                'form' => null,
+                'results' => null,
+            ],
+            'template' => 'opportunity-search'
+        ],
+    ];
+}

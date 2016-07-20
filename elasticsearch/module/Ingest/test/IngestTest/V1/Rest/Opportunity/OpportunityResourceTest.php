@@ -4,6 +4,7 @@ namespace IngestTest\V1\Rest\Opportunity;
 
 use Ingest\V1\Rest\Opportunity\OpportunityResource;
 use Ingest\V1\Service\IndexService;
+use Zend\Http\Response;
 use Zend\InputFilter\InputFilter;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\ResourceEvent;
@@ -47,7 +48,9 @@ class OpportunityResourceTest extends \PHPUnit_Framework_TestCase
             ->with(['id' => 1], 1, OpportunityResource::ES_INDEX, OpportunityResource::ES_INDEX)
             ->willReturn(['success' => true]);
 
-        self::assertEquals(['success' => true], $this->resource->dispatch($event));
+        $response = $this->resource->dispatch($event);
+        self::assertInstanceOf(Response::class, $response);
+        self::assertEquals('{"success":true}', $response->getContent());
     }
 
     /**

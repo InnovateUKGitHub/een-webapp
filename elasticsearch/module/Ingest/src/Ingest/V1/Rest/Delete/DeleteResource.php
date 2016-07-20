@@ -3,8 +3,7 @@
 namespace Ingest\V1\Rest\Delete;
 
 use Elasticsearch\Client;
-use Zend\Http\Response;
-use Zend\Json\Json;
+use Ingest\Helper\Response;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 
@@ -46,15 +45,7 @@ class DeleteResource extends AbstractResourceListener
             'index' => $id === 'all' ? '*' : $id,
         ];
 
-        $result = $this->elasticSearch->indices()->delete($params);
-
-        $content = Json::encode($result);
-        $response = new Response();
-        $response->setContent($content);
-        $response->getHeaders()->addHeaderLine('Content-Type', 'application/json; charset=utf-8');
-        $response->getHeaders()->addHeaderLine('Content-Length', strlen($content));
-
-        return $response;
+        return Response::create($this->elasticSearch->indices()->delete($params));
     }
 
     /**

@@ -4,6 +4,7 @@ namespace IngestTest\V1\Rest\Event;
 
 use Ingest\V1\Rest\Event\EventResource;
 use Ingest\V1\Service\IndexService;
+use Zend\Http\Response;
 use Zend\InputFilter\InputFilter;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\ResourceEvent;
@@ -47,7 +48,9 @@ class EventResourceTest extends \PHPUnit_Framework_TestCase
             ->with(['id' => 1], 1, EventResource::ES_INDEX, EventResource::ES_INDEX)
             ->willReturn(['success' => true]);
 
-        self::assertEquals(['success' => true], $this->resource->dispatch($event));
+        $response = $this->resource->dispatch($event);
+        self::assertInstanceOf(Response::class, $response);
+        self::assertEquals('{"success":true}', $response->getContent());
     }
 
     /**

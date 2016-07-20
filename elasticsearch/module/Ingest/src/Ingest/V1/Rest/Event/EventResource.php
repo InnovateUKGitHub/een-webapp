@@ -2,6 +2,7 @@
 
 namespace Ingest\V1\Rest\Event;
 
+use Ingest\Helper\Response;
 use Ingest\V1\Service\IndexService;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
@@ -34,7 +35,9 @@ class EventResource extends AbstractResourceListener
 
         $values = $this->getInputFilter()->getValues();
 
-        return $this->indexService->index($values, $values['id'], self::ES_INDEX, self::ES_TYPE);
+        return Response::create(
+            $this->indexService->index($values, $values['id'], self::ES_INDEX, self::ES_TYPE)
+        );
     }
 
     /**

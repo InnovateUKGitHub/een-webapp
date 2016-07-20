@@ -34,7 +34,6 @@ install-dependencies:
 	@sh -c "cd elasticsearch && make -s install-dependencies"
 
 clear-cache:
-	@echo "Clearing cache..."
 	@sh -c "cd drupal && make -s clear-cache"
 	@sh -c "cd elasticsearch && make -s  clear-cache"
 
