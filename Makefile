@@ -44,7 +44,7 @@ npm-install:
 sass:
 	@echo "Updating css"
 	@sh -c "grunt sass"
-	@make -s clear-cache
+	@sh -c "cd drupal && make -s clear-cache"
 
 test:
 	@sh -c "cd drupal && make -s test"

@@ -70,14 +70,7 @@ class ElasticSearchService
         $result = $this->client->send();
 
         if (!$result->isSuccess()) {
-            throw new \UnexpectedValueException(
-                self::SERVICE_ERROR_MSG,
-                $result->getStatusCode(),
-                new \UnexpectedValueException(
-                    $result->getBody(),
-                    $result->getStatusCode()
-                )
-            );
+            return ['error' => t('Connection to the search engine failed')];
         }
 
         return json_decode($result->getBody(), true);

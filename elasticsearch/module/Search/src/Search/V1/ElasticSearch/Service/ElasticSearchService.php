@@ -22,11 +22,17 @@ class ElasticSearchService
 
     public function searchOpportunity($params)
     {
+        if ($this->query->exists(self::OPPORTUNITY) === false) {
+            return ['error' => 'Index not created'];
+        }
         return $this->query->search($params, self::OPPORTUNITY, self::OPPORTUNITY);
     }
 
     public function searchEvent($params)
     {
+        if ($this->query->exists(self::EVENT) === false) {
+            return ['error' => 'Index not created'];
+        }
         return $this->query->search($params, self::EVENT, self::EVENT);
     }
 }

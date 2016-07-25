@@ -31,6 +31,7 @@ install:
 	@make -s delete-shortcut
 	@make -s import-config
 	@make -s import-sql
+	@make -s install-module
 	@echo "Installation completed"
 	@echo "Go to http://enn/ to connect"
 	@echo "Default administrator:"

@@ -50,7 +50,7 @@ class OpportunityForm extends FormBase
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
         if (strlen($form_state->getValue('search')) < 1) {
-            $form_state->setErrorByName('search', $this->t('Please enter at least 1 characters to perform a search.'));
+            $form_state->setErrorByName('search', t('Please enter at least 1 characters to perform a search.'));
         }
     }
 
@@ -72,7 +72,13 @@ class OpportunityForm extends FormBase
                 'source' => ['name', 'type', 'date', 'description', 'country', 'opportunity_type']
             ]);
 
-        $this->results = $service->sendRequest();
+        $results = $service->sendRequest();
+
+        if (array_key_exists('error', $results)) {
+            drupal_set_message($results['error'], 'error');
+            return;
+        }
+        $this->results = $results;
         $form_state->setRebuild();
     }
 }

@@ -20,6 +20,11 @@ class QueryService
         $this->elasticSearch = $elasticSearch;
     }
 
+    public function exists($index)
+    {
+        return $this->elasticSearch->indices()->exists(['index' => $index]);
+    }
+
     public function search($params, $index, $type)
     {
         $query = [
