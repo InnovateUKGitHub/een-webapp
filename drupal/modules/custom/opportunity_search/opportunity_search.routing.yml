@@ -1,0 +1,7 @@
+opportunity_search.form:
+ path: '/opportunity/search'
+ defaults:
+   _title: 'Opportunity Search'
+   _controller: '\Drupal\opportunity_search\Controller\OpportunityController::content'
+ requirements:
+   _permission: 'access content'

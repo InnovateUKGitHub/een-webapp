@@ -3,6 +3,9 @@
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source "${SCRIPT_DIR}/mysql.environment"
 
+## Moving to root directory
+cd ${SCRIPT_DIR}/..
+
 ## Create files directory
 mkdir -p drupal/sites/default/files
 
