@@ -12,9 +12,12 @@ class OpportunityController extends ControllerBase
         $form = \Drupal::formBuilder()->getForm(OpportunityForm::class);
 
         return [
-            '#theme'   => 'opportunity_search',
-            '#form'    => $form,
-            '#results' => $form['results']
+            '#theme'     => 'opportunity_search',
+            '#form'      => $form,
+            '#results'   => $form['results']['results'],
+            '#total'     => $form['results']['total'],
+            '#page'      => 5,
+            '#pageTotal' => ceil($form['results']['total'] / 10),
         ];
     }
 }

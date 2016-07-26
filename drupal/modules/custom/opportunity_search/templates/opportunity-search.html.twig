@@ -4,10 +4,10 @@
     <div>
         <span>
             {% trans %}
-                {{ results['total'] }} Result(s) found
+                {{ total }} Result(s) found
             {% endtrans %}
         </span>
-        {% for row in results['results'] %}
+        {% for row in results %}
             <div>
                 <div class="header">
                     <span class="title">{{ row._source.name }}</span>
@@ -23,5 +23,8 @@
 
             </div>
         {% endfor %}
+
     </div>
 {% endif %}
+
+{% include 'themes/custom/een/templates/pagination.html.twig' %}

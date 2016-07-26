@@ -5,11 +5,14 @@ function opportunity_search_theme()
     return [
         'opportunity_search' => [
             'variables' => [
-                'name' => null,
-                'form' => null,
-                'results' => null,
+                'name'      => null,
+                'form'      => null,
+                'results'   => null,
+                'total'     => null,
+                'page'      => null,
+                'pageTotal' => null,
             ],
-            'template' => 'opportunity-search'
+            'template'  => 'opportunity-search',
         ],
     ];
 }

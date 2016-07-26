@@ -1,0 +1,75 @@
+{% if results is not empty %}
+
+    {% set pageRange = 3 %}
+    {% if pageRange > pageTotal %}
+        {% set pageRange = pageTotal %}
+    {% endif %}
+
+    {% set delta = (pageRange / 2) | round(0, 'ceil') %}
+
+    {% if page - delta > pageTotal - pageRange %}
+
+        {% set lowerBound = page - pageRange + 1 %}
+        {% set upperBound = pageTotal %}
+
+    {% else %}
+
+        {% if page - delta < 0 %}
+            {% set delta = page %}
+        {% endif %}
+
+        {% set offset = page - delta %}
+        {% set lowerBound = offset + 1 %}
+        {% set upperBound = offset + pageRange %}
+
+    {% endif %}
+    <div>
+        <ul class="pagination">
+            <!-- First page link & previous page link -->
+            {% if page == 1 %}
+                <li class="disabled"><span>First</span></li>
+                <li class="disabled"><span>&lt</span></li>
+            {% else %}
+                <li>
+                    <a href="">
+                        First
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        &lt;
+                    </a>
+                </li>
+            {% endif %}
+
+            <!-- Numbered page links -->
+            {% for i in lowerBound..upperBound %}
+            {% if false and i == page %}
+                <li class="active"><span><?= $this->escapeHtml($i) ?></span></li>
+            {% else %}
+                <li>
+                    <a href="">{{ i }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+
+            <!-- Next page link & last page link -->
+            {% if page == pageTotal %}
+                <li class="disabled"><span>&gt;</span></li>
+                <li class="disabled"><span>Last</span></li>
+            {% else %}
+                <li>
+                    <a href="">
+                        &gt;
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        Last
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+{% endif %}
