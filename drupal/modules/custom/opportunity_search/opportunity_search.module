@@ -1,9 +1,8 @@
 <?php
-
 function opportunity_search_theme()
 {
     return [
-        'opportunity_search' => [
+        'opportunity_form'    => [
             'variables' => [
                 'name'      => null,
                 'form'      => null,
@@ -12,7 +11,14 @@ function opportunity_search_theme()
                 'page'      => null,
                 'pageTotal' => null,
             ],
-            'template'  => 'opportunity-search',
+            'template'  => 'opportunity-form',
+        ],
+        'opportunity_details' => [
+            'variables' => [
+                'name'        => null,
+                'opportunity' => null,
+            ],
+            'template'  => 'opportunity-details',
         ],
     ];
 }

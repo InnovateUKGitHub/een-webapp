@@ -1,0 +1,3 @@
+services:
+  elastic_search_service:
+      class: Drupal\opportunity_search\Service\ElasticSearchService
