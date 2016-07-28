@@ -1,6 +1,9 @@
 {% if opportunity is not empty %}
     <div>
         <div>
+            <a href="{{ url('opportunities.results') }}">{{ 'Go back'|t }}</a>
+        </div>
+        <div>
             <h2>{{ opportunity.title }}</h2>
             <div>
                 {{ opportunity.country_code }}

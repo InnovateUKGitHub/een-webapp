@@ -12,6 +12,12 @@ function opportunities_theme()
             ],
             'template'  => 'opportunities-form',
         ],
+        'opportunities_results' => [
+            'variables' => [
+                'results' => null,
+            ],
+            'template'  => 'opportunities-results',
+        ],
         'opportunities_details' => [
             'variables' => [
                 'opportunity' => [
