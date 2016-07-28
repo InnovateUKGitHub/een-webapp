@@ -1,0 +1,3 @@
+services:
+  elastic_search.connection:
+      class: Drupal\elastic_search\Service\ElasticSearchService

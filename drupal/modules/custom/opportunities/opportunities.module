@@ -1,0 +1,42 @@
+<?php
+function opportunities_theme()
+{
+    return [
+        'opportunities_form'    => [
+            'variables' => [
+                'form'      => null,
+                'results'   => null,
+                'total'     => null,
+                'page'      => null,
+                'pageTotal' => null,
+            ],
+            'template'  => 'opportunities-form',
+        ],
+        'opportunities_details' => [
+            'variables' => [
+                'opportunity' => [
+                    'id'                 => 'string',
+                    'title'              => 'string',
+                    'summary'            => 'string',
+                    'description'        => 'string',
+                    'partner_expertise'  => 'string',
+                    'stage'              => 'string',
+                    'ipr'                => 'string',
+                    'ipr_comment'        => 'string',
+                    'country_code'       => 'string',
+                    'country'            => 'string',
+                    'date'               => 'string',
+                    'deadline'           => 'string',
+                    'partnership_sought' => 'array',
+                    'industries'         => 'array',
+                    'technologies'       => 'array',
+                    'commercials'        => 'array',
+                    'markets'            => 'array',
+                    'eoi'                => 'bool',
+                    'advantage'          => 'string',
+                ],
+            ],
+            'template'  => 'opportunities-details',
+        ],
+    ];
+}

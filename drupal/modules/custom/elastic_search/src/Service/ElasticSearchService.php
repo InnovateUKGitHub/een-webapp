@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\opportunity_search\Service;
+namespace Drupal\elastic_search\Service;
 
 use Zend\Http\Client;
 use Zend\Http\Request;
@@ -32,6 +32,18 @@ class ElasticSearchService
         $this->client->setMethod(Request::METHOD_POST);
     }
 
+    public function setMethod($method)
+    {
+        $this->client->setMethod($method);
+        return $this;
+    }
+
+    public function setQueryParams($params)
+    {
+        $this->client->setParameterGet($params);
+        return $this;
+    }
+
     public function setUrl($endPoint)
     {
         $this->client->setUri($this->baseUrl . $endPoint);
@@ -39,7 +51,7 @@ class ElasticSearchService
         return $this;
     }
 
-    public function setParams(array $query)
+    public function setSearchParams(array $query)
     {
         $params = [
             'from' => $this->searchFrom,

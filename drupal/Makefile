@@ -42,7 +42,8 @@ install-site:
 	@../script/install-site.sh
 
 install-module:
-	$(DRUSH) en opportunity_search -y
+	$(DRUSH) en opportunities -y
+	$(DRUSH) en elastic_search -y
 
 install-dependencies:
 	@echo "Installing drupal dependencies..."

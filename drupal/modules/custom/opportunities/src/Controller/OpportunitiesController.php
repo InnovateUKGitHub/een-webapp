@@ -1,12 +1,13 @@
 <?php
-namespace Drupal\opportunity_search\Controller;
+namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\opportunity_search\Form\OpportunityForm;
-use Drupal\opportunity_search\Service\ElasticSearchService;
+use Drupal\opportunities\Form\OpportunitiesForm;
+use Drupal\elastic_search\Service\ElasticSearchService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Zend\Http\Request;
 
-class OpportunityController extends ControllerBase
+class OpportunitiesController extends ControllerBase
 {
     /**
      * @var ElasticSearchService
@@ -21,16 +22,16 @@ class OpportunityController extends ControllerBase
     public static function create(ContainerInterface $container)
     {
         return new static(
-            $container->get('elastic_search_service')
+            \Drupal::service('elastic_search.connection')
         );
     }
 
     public function form()
     {
-        $form = \Drupal::formBuilder()->getForm(OpportunityForm::class);
+        $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
 
         return [
-            '#theme'     => 'opportunity_form',
+            '#theme'     => 'opportunities_form',
             '#form'      => $form,
             '#results'   => isset($form['results']) ? $form['results']['results'] : null,
             '#total'     => isset($form['results']) ? $form['results']['total'] : null,
@@ -39,12 +40,21 @@ class OpportunityController extends ControllerBase
         ];
     }
 
-    public function details($id)
+    public function details($profileId)
     {
+        $this->service
+            ->setUrl('opportunities/details/' . urlencode($profileId))
+            ->setMethod(Request::METHOD_GET);
+
+        $results = $this->service->sendRequest();
+
+        if (array_key_exists('error', $results)) {
+            drupal_set_message($results['error'], 'error');
+        }
+
         return [
-            '#theme'       => 'opportunity_details',
-            '#opportunity' => $id,
-            '#attributes'  => [],
+            '#theme'       => 'opportunities_details',
+            '#opportunity' => $results,
         ];
     }
 }

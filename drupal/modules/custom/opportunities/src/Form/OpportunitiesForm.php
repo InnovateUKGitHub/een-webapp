@@ -1,14 +1,32 @@
 <?php
 
-namespace Drupal\opportunity_search\Form;
+namespace Drupal\opportunities\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\opportunity_search\Service\ElasticSearchService;
+use Drupal\elastic_search\Service\ElasticSearchService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class OpportunityForm extends FormBase
+class OpportunitiesForm extends FormBase
 {
     private $results;
+
+    /**
+     * @var ElasticSearchService
+     */
+    protected $service;
+
+    public function __construct(ElasticSearchService $service)
+    {
+        $this->service = $service;
+    }
+
+    public static function create(ContainerInterface $container)
+    {
+        return new static(
+            \Drupal::service('elastic_search.connection')
+        );
+    }
 
     /**
      * {@inheritdoc}
@@ -61,10 +79,8 @@ class OpportunityForm extends FormBase
     {
         $values = $form_state->getValues();
 
-        $service = new ElasticSearchService();
-
-        $service->setUrl('opportunity')
-            ->setParams([
+        $this->service->setUrl('opportunities')
+            ->setSearchParams([
                 'search' => $values['search'],
                 'sort' => [
                     ['date' => 'desc']
@@ -72,7 +88,7 @@ class OpportunityForm extends FormBase
                 'source' => ['name', 'type', 'date', 'description', 'country', 'opportunity_type']
             ]);
 
-        $results = $service->sendRequest();
+        $results = $this->service->sendRequest();
 
         if (array_key_exists('error', $results)) {
             drupal_set_message($results['error'], 'error');
