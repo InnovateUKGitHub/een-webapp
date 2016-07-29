@@ -29,7 +29,6 @@ clear-cache:
 npm-install:
 	@echo "Installing npm modules"
 	@sh -c "npm install"
-
 sass:
 	@echo "Updating css"
 	@sh -c "grunt sass"

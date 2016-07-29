@@ -1,14 +1,43 @@
 <?php
-
-namespace Drupal\opportunity_search\Form;
+namespace Drupal\opportunities\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\opportunity_search\Service\ElasticSearchService;
+use Drupal\elastic_search\Service\ElasticSearchService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class OpportunityForm extends FormBase
+class OpportunitiesForm extends FormBase
 {
+    /**
+     * @var array
+     */
     private $results;
+    /**
+     * @var ElasticSearchService
+     */
+    protected $service;
+
+    /**
+     * OpportunitiesForm constructor.
+     *
+     * @param ElasticSearchService $service
+     */
+    public function __construct(ElasticSearchService $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     *
+     * @return OpportunitiesForm
+     */
+    public static function create(ContainerInterface $container)
+    {
+        return new self(
+            \Drupal::service('elastic_search.connection')
+        );
+    }
 
     /**
      * {@inheritdoc}
@@ -24,23 +53,24 @@ class OpportunityForm extends FormBase
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $form = [
-            'search' => [
+            'search'  => [
                 '#type'     => 'textfield',
                 '#title'    => t('Search:'),
                 '#required' => true,
             ],
             'actions' => [
-                '#type' => 'actions',
+                '#type'  => 'actions',
                 'submit' => [
                     '#type'        => 'submit',
                     '#value'       => $this->t('Search'),
                     '#button_type' => 'primary',
-                ]
+                ],
             ],
         ];
         if ($form_state->getValue('search')) {
             $form['results'] = $this->results;
         }
+
         return $form;
     }
 
@@ -60,22 +90,18 @@ class OpportunityForm extends FormBase
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $values = $form_state->getValues();
-
-        $service = new ElasticSearchService();
-
-        $service->setUrl('opportunity')
-            ->setParams([
+        $this->service->setUrl('opportunities')
+            ->setSearchParams([
                 'search' => $values['search'],
-                'sort' => [
-                    ['date' => 'desc']
+                'sort'   => [
+                    ['date' => 'desc'],
                 ],
-                'source' => ['name', 'type', 'date', 'description', 'country', 'opportunity_type']
+                'source' => ['name', 'type', 'date', 'description', 'country', 'opportunity_type'],
             ]);
-
-        $results = $service->sendRequest();
-
+        $results = $this->service->sendRequest();
         if (array_key_exists('error', $results)) {
             drupal_set_message($results['error'], 'error');
+
             return;
         }
         $this->results = $results;

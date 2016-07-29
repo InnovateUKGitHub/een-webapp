@@ -1,0 +1,13 @@
+opportunities.form:
+ path: '/opportunities/search'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::form'
+ requirements:
+   _permission: 'access content'
+
+opportunities.details:
+ path: '/opportunities/{profileId}'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::details'
+ requirements:
+   _permission: 'access content'
