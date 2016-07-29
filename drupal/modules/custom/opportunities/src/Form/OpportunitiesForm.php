@@ -1,5 +1,4 @@
 <?php
-
 namespace Drupal\opportunities\Form;
 
 use Drupal\Core\Form\FormBase;
@@ -9,21 +8,33 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class OpportunitiesForm extends FormBase
 {
+    /**
+     * @var array
+     */
     private $results;
-
     /**
      * @var ElasticSearchService
      */
     protected $service;
 
+    /**
+     * OpportunitiesForm constructor.
+     *
+     * @param ElasticSearchService $service
+     */
     public function __construct(ElasticSearchService $service)
     {
         $this->service = $service;
     }
 
+    /**
+     * @param ContainerInterface $container
+     *
+     * @return OpportunitiesForm
+     */
     public static function create(ContainerInterface $container)
     {
-        return new static(
+        return new self(
             \Drupal::service('elastic_search.connection')
         );
     }
@@ -42,23 +53,24 @@ class OpportunitiesForm extends FormBase
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $form = [
-            'search' => [
+            'search'  => [
                 '#type'     => 'textfield',
                 '#title'    => t('Search:'),
                 '#required' => true,
             ],
             'actions' => [
-                '#type' => 'actions',
+                '#type'  => 'actions',
                 'submit' => [
                     '#type'        => 'submit',
                     '#value'       => $this->t('Search'),
                     '#button_type' => 'primary',
-                ]
+                ],
             ],
         ];
         if ($form_state->getValue('search')) {
             $form['results'] = $this->results;
         }
+
         return $form;
     }
 
@@ -78,20 +90,18 @@ class OpportunitiesForm extends FormBase
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $values = $form_state->getValues();
-
         $this->service->setUrl('opportunities')
             ->setSearchParams([
                 'search' => $values['search'],
-                'sort' => [
-                    ['date' => 'desc']
+                'sort'   => [
+                    ['date' => 'desc'],
                 ],
-                'source' => ['name', 'type', 'date', 'description', 'country', 'opportunity_type']
+                'source' => ['name', 'type', 'date', 'description', 'country', 'opportunity_type'],
             ]);
-
         $results = $this->service->sendRequest();
-
         if (array_key_exists('error', $results)) {
             drupal_set_message($results['error'], 'error');
+
             return;
         }
         $this->results = $results;
