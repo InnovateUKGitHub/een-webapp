@@ -1,17 +1,11 @@
+<h2>{{ 'Find an opportunity'|t }}</h2>
 {% if results is not empty %}
     <div>
         {% for row in results %}
             <div>
-                <div class="header">
-                    <span class="title">{{ row.title }}</span>
-                </div>
-
+                <h3>{{ row.title }}</h3>
                 <p>{{ row.summary }}</p>
-
-                <div>
-                    <a href="{{ url('opportunities.details', {'profileId': row.id}) }}">{{ 'See more'|t }}</a>
-                </div>
-
+                <a href="{{ url('opportunities.details', {'profileId': row.id}) }}">{{ 'See more'|t }}</a>
             </div>
         {% endfor %}
 

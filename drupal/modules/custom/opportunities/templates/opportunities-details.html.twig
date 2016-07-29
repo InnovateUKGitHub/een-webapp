@@ -1,125 +1,124 @@
 {% if opportunity is not empty %}
     <div>
-        <div>
-            <a href="{{ url('opportunities.results') }}">{{ 'Go back'|t }}</a>
-        </div>
+        <a href="{{ url('opportunities.results') }}">{{ 'Go back'|t }}</a>
         <div>
             <h2>{{ opportunity.title }}</h2>
             <div>
                 {{ opportunity.country_code }}
                 {{ opportunity.id }}
                 {% if opportunity.eoi == true %}
-                    <span>Offers</span>
+                    <span>{{ 'Offers'|t }}</span>
                 {% else %}
                     <span>Requests</span>
                 {% endif %}
             </div>
             <div>
                 <div>
-                    <h3>Abstract</h3>
+                    <h3>{{ 'Abstract'|t }}</h3>
                     {% if opportunity.summary %}
                         <p>{{ opportunity.summary }}</p>
                     {% else %}
-                        <p>Not available</p>
+                        <p>{{ 'Not available'|t }}</p>
                     {% endif %}
                 </div>
                 <div>
-                    <h3>Full description</h3>
+                    <h3>{{ 'Full description'|t }}</h3>
                     {% if opportunity.description %}
                         <p>{{ opportunity.description }}</p>
                     {% else %}
-                        <p>Not available</p>
+                        <p>{{ 'Not available'|t }}</p>
                     {% endif %}
                 </div>
                 <div>
-                    <h3>Partner expertise sought</h3>
+                    <h3>{{ 'Partner expertise sought'|t }}</h3>
                     {% if opportunity.partner_expertise %}
                         <p>{{ opportunity.partner_expertise }}</p>
                     {% else %}
-                        <p>Not available</p>
+                        <p>{{ 'Not available'|t }}</p>
                     {% endif %}
                 </div>
                 <div>
-                    <h3>Advantages & innovations</h3>
+                    <h3>{{ 'Advantages & innovations'|t }}</h3>
                     {% if opportunity.advantage %}
                         <p>{{ opportunity.advantage }}</p>
                     {% else %}
-                        <p>Not available</p>
+                        <p>{{ 'Not available'|t }}</p>
                     {% endif %}
                 </div>
                 <div>
-                    <h3>Development Stage</h3>
+                    <h3>{{ 'Development Stage'|t }}</h3>
                     <p>{{ opportunity.stage }}</p>
                 </div>
                 <div>
-                    <h3>IPR</h3>
+                    <h3>{{ 'IPR'|t }}</h3>
                     {% if opportunity.ipr %}
                         <p><span>{{ opportunity.ipr }}</span>{{ opportunity.ipr_comment }}</p>
                     {% else %}
-                        <p>Not available</p>
+                        <p>{{ 'Not available'|t }}</p>
                     {% endif %}
                 </div>
             </div>
         </div>
         <div>
             <div>
-                <h3>Key information</h3>
+                <h3>{{ 'Key information'|t }}</h3>
                 <div>
-                    <span>Country of origin</span>
+                    <span>{{ 'Country of origin'|t }}</span>
                     <span>{{ opportunity.country }}</span>
                 </div>
                 <div>
-                    <span>Profile date</span>
-                    <span>{{ opportunity.date }}</span>
+                    <span>{{ 'Profile date'|t }}</span>
+                    <span>{{ opportunity.date|date("m/d/Y") }}</span>
                 </div>
                 <div>
-                    <span>Deadline</span>
-                    <span>{{ opportunity.deadline }}</span>
+                    <span>{{ 'Deadline'|t }}</span>
+                    <span>{{ opportunity.deadline|date("m/d/Y") }}</span>
                 </div>
             </div>
             <div>
-                <h3>Partnership(s) sought</h3>
+                <h3>{{ 'Partnership(s) sought'|t }}</h3>
                 {% if opportunity.partnership_sought %}
-                    <span>{{ opportunity.partnership_sought | join(' / ') }}</span>
+                    <span>{{ opportunity.partnership_sought|join(' / ') }}</span>
                 {% else %}
-                    <span>Not available</span>
+                    <span>{{ 'Not available'|t }}</span>
                 {% endif %}
             </div>
             <div>
-                <h3>Classification</h3>
+                <h3>{{ 'Classification'|t }}</h3>
                 <div>
-                    <h4>Industry sectors</h4>
+                    <h4>{{ 'Industry sectors'|t }}</h4>
                     {% if opportunity.industries %}
-                        <p>{{ opportunity.industries | join(' / ') }}</p>
+                        <p>{{ opportunity.industries|join(' / ') }}</p>
                     {% else %}
-                        <p>Not available</p>
+                        <p>{{ 'Not available'|t }}</p>
                     {% endif %}
                 </div>
                 <div>
-                    <h4>Technology keywords</h4>
+                    <h4>{{ 'Technology keywords'|t }}</h4>
                     {% if opportunity.technologies %}
-                        <p>{{ opportunity.technologies | join(' / ') }}</p>
+                        <p>{{ opportunity.technologies|join(' / ') }}</p>
                     {% else %}
-                        <p>Not available</p>
+                        <p>{{ 'Not available'|t }}</p>
                     {% endif %}
                 </div>
                 <div>
-                    <h4>Commercial keywords</h4>
+                    <h4>{{ 'Commercial keywords'|t }}</h4>
                     {% if opportunity.commercials %}
-                        <p>{{ opportunity.commercials | join(' / ') }}</p>
+                        <p>{{ opportunity.commercials|join(' / ') }}</p>
                     {% else %}
-                        <p>Not available</p>
+                        <p>{{ 'Not available'|t }}</p>
                     {% endif %}
                 </div>
                 <div>
-                    <h4>Market keywords</h4>
+                    <h4>{{ 'Market keywords'|t }}</h4>
                     {% if opportunity.markets %}
-                        <p>{{ opportunity.markets | join(' / ') }}</p>
+                        <p>{{ opportunity.markets|join(' / ') }}</p>
                     {% else %}
-                        <p>Not available</p>
+                        <p>{{ 'Not available'|t }}</p>
                     {% endif %}
                 </div>
             </div>
+            <a href="{{ url('opportunities.results') }}">{{ 'Go back'|t }}</a>
         </div>
     </div>
 {% endif %}

@@ -4,7 +4,7 @@
     <div>
         <span>
             {% trans %}
-                {{ total }} Result(s) found
+                {{ total }} {{ 'Result(s) found'|t }}
             {% endtrans %}
         </span>
         {% for row in results %}

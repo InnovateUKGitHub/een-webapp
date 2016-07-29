@@ -53,6 +53,9 @@ class OpportunitiesController extends ControllerBase
         ];
     }
 
+    /**
+     * @return array
+     */
     public function results()
     {
         $this->service
