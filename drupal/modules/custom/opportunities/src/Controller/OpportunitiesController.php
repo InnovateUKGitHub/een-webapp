@@ -2,8 +2,8 @@
 namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\elastic_search\Service\ElasticSearchService;
+use Drupal\opportunities\Form\OpportunitiesForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Zend\Http\Request;
 

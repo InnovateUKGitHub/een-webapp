@@ -12,10 +12,11 @@ class OpportunitiesForm extends FormBase
      * @var array
      */
     private $results;
+
     /**
      * @var ElasticSearchService
      */
-    protected $service;
+    private $service;
 
     /**
      * OpportunitiesForm constructor.
