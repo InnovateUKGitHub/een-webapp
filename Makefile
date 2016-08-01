@@ -24,7 +24,7 @@ clear-cache:
 
 sass:
 	@echo "Updating css"
-	@sh -c "grunt sass"
+	@sh -c "gulp sass"
 	@sh -c "cd drupal && make -s clear-cache"
 
 test:
