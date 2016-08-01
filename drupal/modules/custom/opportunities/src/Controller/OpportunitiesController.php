@@ -2,8 +2,8 @@
 namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\elastic_search\Service\ElasticSearchService;
+use Drupal\opportunities\Form\OpportunitiesForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Zend\Http\Request;
 
@@ -39,7 +39,7 @@ class OpportunitiesController extends ControllerBase
     /**
      * @return array
      */
-    public function form()
+    public function search()
     {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
 
@@ -50,6 +50,27 @@ class OpportunitiesController extends ControllerBase
             '#total'     => isset($form['results']) ? $form['results']['total'] : null,
             '#page'      => 1,
             '#pageTotal' => isset($form['results']) ? ceil($form['results']['total'] / 10) : null,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function results()
+    {
+        $this->service
+            ->setUrl('opportunities/list')
+            ->setMethod(Request::METHOD_GET);
+
+        $results = $this->service->sendRequest();
+
+        if (array_key_exists('error', $results)) {
+            drupal_set_message($results['error'], 'error');
+        }
+
+        return [
+            '#theme'   => 'opportunities_results',
+            '#results' => $results,
         ];
     }
 

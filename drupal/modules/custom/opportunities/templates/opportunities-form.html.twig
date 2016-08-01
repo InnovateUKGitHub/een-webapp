@@ -3,9 +3,7 @@
 {% if results is not empty %}
     <div>
         <span>
-            {% trans %}
-                {{ total }} Result(s) found
-            {% endtrans %}
+            {{ total }} {{ 'Result(s) found'|t }}
         </span>
         {% for row in results %}
             <div>
