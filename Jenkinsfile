@@ -33,7 +33,7 @@ node {
     } 
     
     remoteDeploy('integration_v3', packageName, deployMethod, false)
-    remoteDeploy('stage_brumear', packageName, deployMethod, true)
+    // remoteDeploy('stage_brumear', packageName, deployMethod, true)
     
     if (env.BRANCH_NAME == ("master")) {
         remoteDeploy('production_degore', packageName, deployMethod, true)
