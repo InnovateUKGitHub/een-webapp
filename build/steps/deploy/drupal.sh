@@ -1,7 +1,7 @@
 #!/bin/bash
 ####################################
 #
-# Apache virtualhosts, test and enable them
+# Drupal, installation and configuration
 #
 ####################################
 

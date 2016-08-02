@@ -1,4 +1,5 @@
 #!/bin/bash
+
 ####################################
 #
 # Apache virtualhosts, test and enable them
