@@ -27,6 +27,8 @@ if [ ! -z "$composerChanges" ] || [ ! -z "$forceCompile" ];then
         echo "running composer (no dev packages)"
         php ../bin/composer install --no-dev --optimize-autoloader
     fi
+
+    cd ..
 else
     echo "drupal/composer.lock has not changed, not running composer"
 fi

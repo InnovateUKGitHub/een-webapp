@@ -20,9 +20,10 @@ if [ ! -z "$csdTemplatesChanges" ] || [ ! -z "$forceCompile" ];then
     echo $csdTemplatesChanges
     echo "running gulp"
 
-    cd drupal/themes/custom/een/scss
-    gulp deploy --verbose
-    cd ../../../../../
+# TODO Add gulp to compile process
+#    cd drupal
+#    gulp deploy --verbose
+#    cd ../../../../../
 
 else
     echo "drupal/themes/custom/een/scss has not changed, not running gulp"

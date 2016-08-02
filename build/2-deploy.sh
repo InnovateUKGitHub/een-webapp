@@ -53,8 +53,8 @@ if [ "$APPLICATION_ENV" = "" ] || [ "$htdocs" = "" ] || [ "$appid" = "" ]; then
   echo "Required vars not set APPLICATION_ENV:$APPLICATION_ENV htdocs:$htdocs appid:$appid" && exit 1;
 fi
 
-$workspace/build/steps/deploy/drupal.sh
 $workspace/build/steps/deploy/folders.sh
+$workspace/build/steps/deploy/drupal.sh
 
 # only run these steps on a single node (0)
 if [ "$AWS_EC2_NODE_NO" = "" ] || [ "$AWS_EC2_NODE_NO" = "0" ] ; then

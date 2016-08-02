@@ -58,5 +58,5 @@ fi
 test -e $htdocs || forceCompile=true
 
 $workspace/build/steps/compile/composer.sh || { echo "Executing $workspace/build/steps/compile/composer.sh failed" ; exit 1; }
-$workspace/build/steps/compile/gulp.sh || { echo "Executing $workspace/build/steps/compile/grunt.sh failed" ; exit 1; }
 $workspace/build/steps/compile/npm.sh || { echo "Executing $workspace/build/steps/compile/npm.sh failed" ; exit 1; }
+$workspace/build/steps/compile/gulp.sh || { echo "Executing $workspace/build/steps/compile/grunt.sh failed" ; exit 1; }
