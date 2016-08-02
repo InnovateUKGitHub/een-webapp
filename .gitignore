@@ -8,6 +8,13 @@
 atlassian-ide-plugin.xml
 
 ##############
+##  CONFIG  ##
+##############
+logs/apache_access.log
+logs/apache_error.log
+logs/error.log
+
+##############
 ##   NODE   ##
 ##############
 node_modules
