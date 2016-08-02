@@ -35,7 +35,11 @@ echo "
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
 );
+
+\$config_directories['sync'] = 'sites/default/files/config/sync';
+
 " >> $htdocs/drupal/sites/default/settings.php
 
 echo "Clearing drupal cache"
 $htdocs/bin/drush cr
+$htdocs/bin/drush cc css-js
