@@ -11,3 +11,5 @@ mysql -h$dbhost -u$dbuser -p$dbpass -P$dbport --execute "CREATE DATABASE $dbname
 #mysql ${MYSQL_CONNECTION_ARGS} --execute "GRANT ALL on ${DB}.* to '${MYSQL_APP_USER}'@'%' IDENTIFIED BY '${MYSQL_APP_PASSWORD}';"
 #mysql ${MYSQL_CONNECTION_ARGS} --execute "FLUSH PRIVILEGES;"
 
+echo "Importing mysql schema and data"
+mysql -h$dbhost -u$dbuser -p$dbpass -P$dbport -D$dbname < $htdocs/db/init/initial-database.sql

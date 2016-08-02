@@ -75,7 +75,8 @@ export-config:
 	@sh -c "$(DRUSH) config-export deploy -y"
 
 export-sql:
-	@echo "Do a script to export the wanted tables in a new file"
+	@echo "Exporting database..."
+	@sh -c "$(DRUSH) sql-dump > ../db/init/initial-database.sql"
 
 import-sql:
 	@echo "Importing database..."
