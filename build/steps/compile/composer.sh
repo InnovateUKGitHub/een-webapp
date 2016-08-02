@@ -30,6 +30,10 @@ if [ ! -z "$composerChanges" ] || [ ! -z "$forceCompile" ];then
 
     cd ..
 else
-    echo "drupal/composer.lock has not changed, not running composer"
+    echo "drupal/composer.lock has not changed, only running autoload"
+
+    cd drupal
+    php ../bin/composer dump-autoload
+    cd ..
 fi
 
