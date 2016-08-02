@@ -10,7 +10,7 @@ atlassian-ide-plugin.xml
 ##############
 ##   NODE   ##
 ##############
-node_modules/*
+node_modules
 .sass-cache/
 
 ##############

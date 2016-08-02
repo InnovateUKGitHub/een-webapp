@@ -5,7 +5,7 @@ node {
     checkout scm
     
     def commitSha = sho('git rev-parse --short HEAD | tee .out')
-    def projectName = sho('basename `git config --get remote.origin.url | grep -o "bitbucket.org.*"` | tee .out')
+    def projectName = sho('basename `git config --get remote.origin.url | grep -o "devops.innovateuk.org.*"` | tee .out')
     projectName = projectName.substring(0, projectName.lastIndexOf('.'))
     
     stage 'Npm'
