@@ -49,10 +49,7 @@ read -d '' SCRIPT << EOF
     cd ~/packages/${FOLDER};
 
     # full sync also deleting files that don't exist on source, excluding resources
-    sudo rsync -av --delete --exclude='logs/*' --exclude='cache/*' --exclude='*httpdocs/resources*' --exclude='*httpdocs/images*' -O -p --no-g . ${htdocs}/
-
-    # add/update only sync for resources
-    test ! -e httpdocs/resources || sudo rsync -av -O -p --no-g httpdocs/resources ${htdocs}/httpdocs/resources
+    sudo rsync -av --delete --exclude='logs/*' --exclude='cache/*' --exclude='drupal/vendor/*' --exclude='drupal/sites/default/*' -O -p --no-g . ${htdocs}/
 
     APPLICATION_ENV=${APPLICATION_ENV};
     # execute remaining deploy steps
