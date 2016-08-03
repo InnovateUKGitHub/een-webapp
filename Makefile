@@ -28,7 +28,7 @@ sass:
 	@sh -c "cd drupal && make -s clear-cache"
 
 test:
-	@sh -c "cd drupal && make -s test"
+	@sh -c "./build/3-test.sh"
 
 ################################################################################
 #                                                                              #
