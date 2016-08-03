@@ -1,1 +1,1 @@
-server: 'http://een-elasticsearch/v1/een/'
+server: 'http://vagrant.een-elasticsearch.co.uk/v1/een/'
