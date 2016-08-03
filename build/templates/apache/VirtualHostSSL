@@ -1,0 +1,41 @@
+<VirtualHost %IP%:443>
+
+    ServerAdmin sysadmin@aerian.com
+    ServerName %HOSTNAME%
+    ServerAlias www.%HOSTNAME%
+         
+    AliasMatch ^/v(\d+)\.(\d+)(\.(\d+))*/(.*) %DOCROOT%/$5
+
+    DocumentRoot %DOCROOT%    
+ 
+    <Directory />
+        Options FollowSymLinks
+        AllowOverride All
+    </Directory>
+
+    <Directory %DOCROOT%/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        #apache2.4
+        Require all granted 
+    </Directory>
+ 
+    ErrorLog %HTDOCS%/logs/apache_error.log
+ 
+    LogLevel warn
+ 
+    CustomLog %HTDOCS%/logs/apache_access.log combined
+ 
+    UseCanonicalName Off
+
+    SetEnv APPLICATION_ENV %APPLICATION_ENV%
+
+    SSLEngine On
+    SSLCertificateFile %CERT%
+    SSLCertificateKeyFile %KEY% 
+
+    <IfModule php5_module>
+        php_value newrelic.appname "%HOSTNAME%"
+    </IfModule>
+
+</VirtualHost>

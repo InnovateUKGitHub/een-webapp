@@ -1,1 +1,0 @@
-INSERT INTO een.menu_link_content (bundle, uuid, langcode) VALUES ('menu_link_content', '9f7065a7-e95a-46fa-84af-f46bc81ae67d', 'en');
