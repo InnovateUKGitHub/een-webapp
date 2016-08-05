@@ -13,7 +13,9 @@ cd $htdocs/drupal
 
 configSource=$htdocs/drupal/modules/custom/elastic_search/config/install/elastic_search.default.settings.yml
 configDest=$htdocs/drupal/modules/custom/elastic_search/config/install/elastic_search.settings.yml
-sed "s/HOSTNAME_SERVICE/$hostnameapi/g" $configSource > $configDest
+
+cp $configSource $configDest
+sed "s/HOSTNAME_SERVICE/$hostnameapi/g" $configDest
 
 $htdocs/db/setup.sh
 
