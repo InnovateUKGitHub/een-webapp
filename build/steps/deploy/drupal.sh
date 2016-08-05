@@ -10,6 +10,11 @@ set -e
 
 cd $htdocs/drupal
 
+
+configSource=$htdocs/drupal/modules/custom/elastic_search/config/install/elastic_search.default.settings.yml
+configDest=$htdocs/drupal/modules/custom/elastic_search/config/install/elastic_search.settings.yml
+sed "s/HOSTNAME_SERVICE/$hostnameapi/g" $configSource > $configDest
+
 $htdocs/db/setup.sh
 
 cp $htdocs/drupal/sites/default/default.settings.php $htdocs/drupal/sites/default/settings.php
