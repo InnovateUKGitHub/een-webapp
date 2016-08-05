@@ -1,1 +1,1 @@
-server: 'http://vagrant.een-service.co.uk/v1/een/'
+server: 'http://HOSTNAME_SERVICE/v1/een/'
