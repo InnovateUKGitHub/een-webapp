@@ -42,6 +42,9 @@ if [ $apacheReturnCode -ne 0 ];then
     exit 1;
 fi
 
+# restart apache
+apachectl graceful
+
 # setup SSL vhost
 if [ "$letsencrypt" = "yes" ] || [ -f "$certpath.crt" ]; then 
 

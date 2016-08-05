@@ -10,6 +10,13 @@ set -e
 
 cd $htdocs/drupal
 
+
+configSource=$htdocs/drupal/modules/custom/elastic_search/config/install/elastic_search.default.settings.yml
+configDest=$htdocs/drupal/modules/custom/elastic_search/config/install/elastic_search.settings.yml
+
+cp $configSource $configDest
+sed -i -e "s/HOSTNAME_SERVICE/$hostnameapi/g" $configDest
+
 $htdocs/db/setup.sh
 
 cp $htdocs/drupal/sites/default/default.settings.php $htdocs/drupal/sites/default/settings.php
@@ -43,3 +50,7 @@ echo "
 echo "Clearing drupal cache"
 $htdocs/bin/drush cr
 $htdocs/bin/drush cc css-js
+
+echo "Installing modules"
+$htdocs/bin/drush pm-uninstall elastic_search -y
+$htdocs/bin/drush en elastic_search -y
