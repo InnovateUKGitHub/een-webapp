@@ -50,3 +50,7 @@ echo "
 echo "Clearing drupal cache"
 $htdocs/bin/drush cr
 $htdocs/bin/drush cc css-js
+
+echo "Installing modules"
+$htdocs/bin/drush pm-uninstall elastic_search -y
+$htdocs/bin/drush en elastic_search -y
