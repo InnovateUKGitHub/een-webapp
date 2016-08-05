@@ -20,13 +20,8 @@ if [ ! -z "$composerChanges" ] || [ ! -z "$forceCompile" ];then
     cd drupal
     php ../bin/composer self-update
 
-    if [ "$phpdox" = "true" ] || [ "$testcucumber" = "true" ] || [ "$testphpunit" = "true" ]; then
-        echo "running composer (with dev packages)"
-        php ../bin/composer install --optimize-autoloader
-    else
-        echo "running composer (no dev packages)"
-        php ../bin/composer install --no-dev --optimize-autoloader
-    fi
+    echo "running composer (with dev packages)"
+    php ../bin/composer install --optimize-autoloader
 
     cd ..
 else

@@ -20,7 +20,7 @@ if [ ! -z "$csdTemplatesChanges" ] || [ ! -z "$forceCompile" ];then
     echo $csdTemplatesChanges
     echo "running gulp"
 
-    gulp sass --verbose
+    ./node_modules/gulp-cli/bin/gulp.js sass --verbose
 
 else
     echo "drupal/themes/custom/een/scss has not changed, not running gulp"
