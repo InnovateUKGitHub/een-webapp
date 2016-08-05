@@ -1,7 +1,7 @@
 
-#Install project locally
+#Install drupal project locally
 ```
-git clone https://bitbucket.org/aerian/een.git
+git clone https://YOUR_USERNAME@devops.innovateuk.org/code-repository/scm/een/een.git
 git checkout master
 git checkout develop
 ```
