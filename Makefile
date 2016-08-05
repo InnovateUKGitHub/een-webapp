@@ -24,7 +24,7 @@ clear-cache:
 
 sass:
 	@echo "Updating css"
-	@sh -c "gulp sass"
+	@sh -c "./build/steps/compile/gulp.sh"
 	@sh -c "cd drupal && make -s clear-cache"
 
 test:
