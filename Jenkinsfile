@@ -18,7 +18,7 @@ node {
     sh "./build/steps/compile/composer.sh"
     
     stage 'Unit Tests'
-    //sh "export APPLICATION_ENV=development && ./build/steps/test/phpunit.sh"
+    sh "./build/steps/test/phpunit.sh"
     
     stage 'Package'
     sh "./build/steps/compile/package.sh"

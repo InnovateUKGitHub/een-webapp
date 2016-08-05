@@ -84,6 +84,7 @@ import-sql:
 
 test:
 	@echo "Running drupal unit test..."
+	@sh -c "./vendor/bin/phpunit"
 
 ################################################################################
 #                                                                              #
