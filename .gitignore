@@ -24,8 +24,9 @@ node_modules
 ##  DRUPAL  ##
 ##############
 cache/
-/drupal/themes/custom/een/css/*.css
 /drupal/core/composer.lock
 /drupal/core/vendor
 /drupal/vendor
 drupal/modules/custom/elastic_search/config/install/elastic_search.settings.yml
+drupal/themes/custom/een/css/
+html-coverage/
