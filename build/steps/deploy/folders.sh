@@ -10,16 +10,17 @@ test -e $htdocs || mkdir $htdocs
 test -e $htdocs/cache || mkdir $htdocs/cache
 test -e $htdocs/logs || mkdir $htdocs/logs
 
-test -e $htdocs/drupal/sites/default/files || mkdir -p $htdocs/drupal/sites/default/files
+test -e $htdocs/drupal/sites/default/files/config/sync || mkdir -p $htdocs/drupal/sites/default/files/config/sync
 
 # create log file
 touch $htdocs/logs/error.log
 
 # change directory permissions
-chmod 777 $htdocs/cache -R
-chmod 777 $htdocs/logs -R
+chmod 775 $htdocs/cache -R
+chmod 775 $htdocs/logs -R
 
-chmod 777 $htdocs/drupal
-chmod 777 $htdocs/drupal/sites
-chmod 777 $htdocs/drupal/sites/default
-chmod 777 $htdocs/drupal/sites/default/files
+chmod 775 $htdocs/drupal
+chmod 775 $htdocs/drupal/sites
+chmod 775 $htdocs/drupal/sites/default
+chmod 775 $htdocs/drupal/sites/default/files
+chmod 775 $htdocs/drupal/sites/default/files/config/sync

@@ -5,7 +5,7 @@ source "${SCRIPT_DIR}/mysql.environment"
 
 MYSQL_CONNECTION_ARGS="--port=${MYSQL_PORT} --host=${MYSQL_HOST} --user=${MYSQL_ADMIN_USER} --password=${MYSQL_ADMIN_PASSWORD}"
 
-MYSQL_FOLDER="${SCRIPT_DIR}/../sql/menu/*"
+MYSQL_FOLDER="${SCRIPT_DIR}/../db/update/*"
 
 for FILE in ${MYSQL_FOLDER}
 do
