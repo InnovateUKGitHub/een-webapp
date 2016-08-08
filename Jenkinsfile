@@ -57,8 +57,6 @@ def remoteDeploy(String targetEnvironment, String packageName, String deployMeth
     stage "Deploy to: ${targetEnvironment}"
     sh "./build/steps/deploy/remote-deploy.sh ${targetEnvironment} ${packageName} ${deployMethod}"
 
-    build job: 'een-integration-tests', parameters: [[$class: 'StringParameterValue', name: 'APPLICATION_ENV', value: ${targetEnvironment}]]
-
     def notifiationMsg = "Deployment of ${packageName} to ${targetEnvironment} finished"
     
     slackSend channel: 'jenkins', message: "${notifiationMsg}", teamDomain: 'aerian'
