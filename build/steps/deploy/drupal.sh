@@ -45,6 +45,12 @@ echo "
 
 \$config_directories['sync'] = 'sites/default/files/config/sync';
 
+\$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml';
+\$config['system.performance']['css']['preprocess'] = FALSE;
+\$config['system.performance']['js']['preprocess'] = FALSE;
+\$settings['cache']['bins']['render'] = 'cache.backend.null';
+\$settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
+
 " >> $htdocs/drupal/sites/default/settings.php
 
 echo "Clearing drupal cache"
