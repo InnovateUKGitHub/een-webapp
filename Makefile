@@ -8,7 +8,8 @@
 .DEFAULT: build
 
 # Location of the drush executable (drupal manager)
-DRUSH ?= ../bin/drush
+CURRENT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+DRUSH := $(CURRENT_DIR)/bin/drush
 
 ################################################################################
 #                                                                              #
@@ -26,7 +27,7 @@ install:
 sass:
 	@echo "Updating css"
 	@sh -c "./build/steps/compile/gulp.sh"
-	@sh -c "cd drupal && make -s clear-cache"
+	@make -s clear-cache
 
 test:
 	@sh -c "./build/3-test.sh"
@@ -37,6 +38,13 @@ test:
 #                                                                              #
 ################################################################################
 
+npm:
+	@sh -c "npm install"
+
+clear-cache:
+	@echo "Clearing cache..."
+	@sh -c "cd drupal && $(DRUSH) cr"
+
 install-module:
 	@sh -c "cd drupal && $(DRUSH) en opportunities elastic_search -y"
 
@@ -44,12 +52,8 @@ delete-module:
 	@sh -c "cd drupal && $(DRUSH) pm-uninstall opportunities elastic_search -y"
 
 install-dependencies:
-	@echo "Installing drupal dependencies..."
+	@echo "Installing dependencies..."
 	@sh -c "cd drupal && composer install --optimize-autoloader"
-
-clear-cache:
-	@echo "Clearing drupal cache..."
-	@sh -c "cd drupal && $(DRUSH) cr"
 
 default-admin:
 	@echo "Changing default user admin password..."

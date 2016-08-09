@@ -2,4 +2,4 @@ global-styling:
   version: 1.0
   css:
     theme:
-      css/een.css: {}
+      css/een.min.css: {}
