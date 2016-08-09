@@ -1,13 +1,14 @@
-<h2>{{ 'Find an opportunity'|t }}</h2>
+<h1 class="heading-xlarge">{{ 'Find an opportunity'|t }}</h1>
 {% if results is not empty %}
-    <div>
-        {% for row in results %}
-            <div>
-                <h3>{{ row.title }}</h3>
-                <p>{{ row.summary }}</p>
-                <a href="{{ url('opportunities.details', {'profileId': row.id}) }}">{{ 'See more'|t }}</a>
-            </div>
-        {% endfor %}
-
-    </div>
+    {% for row in results %}
+        <div class="row">
+            <h3>
+                <a href="{{ url('opportunities.details', {'profileId': row.id}) }}">
+                    {{ row.title }}
+                </a>
+            </h3>
+            <p>{{ row.summary }}</p>
+        </div>
+        <hr>
+    {% endfor %}
 {% endif %}

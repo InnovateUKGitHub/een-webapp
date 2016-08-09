@@ -20,6 +20,7 @@ sed -i -e "s/HOSTNAME_SERVICE/$hostnameapi/g" $configDest
 $htdocs/db/setup.sh
 
 cp $htdocs/drupal/sites/default/default.settings.php $htdocs/drupal/sites/default/settings.php
+chmod 775 $htdocs/drupal/sites/default/settings.php
 
 # TODO Generate the hash
 echo "
