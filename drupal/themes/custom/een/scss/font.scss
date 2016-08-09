@@ -1,16 +1,21 @@
 
 @font-face {
   font-family: 'Blogger Sans';
-  src: url('../font/Blogger Sans/Blogger Sans.otf') format("opentype"),
-  url('../font/Blogger Sans/Blogger Sans.ttf') format('truetype');
+  src: url('../font/blogger-sans/Blogger Sans.otf') format("opentype"),
+  url('../font/blogger-sans/Blogger Sans.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Blogger Sans Italic';
-  src: url('../font/Blogger Sans/Blogger Sans-Italic.otf') format("opentype"),
-  url('../font/Blogger Sans/Blogger Sans-Italic.ttf') format('truetype');
+  src: url('../font/blogger-sans/Blogger Sans-Italic.otf') format("opentype"),
+  url('../font/blogger-sans/Blogger Sans-Italic.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('../font/myriad-pro/MyriadPro-Regular.otf') format("opentype");
 }
