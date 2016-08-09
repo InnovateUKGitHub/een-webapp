@@ -66,6 +66,7 @@ class OpportunitiesController extends ControllerBase
 
         if (array_key_exists('error', $results)) {
             drupal_set_message($results['error'], 'error');
+            $results = null;
         }
 
         return [

@@ -60,10 +60,7 @@
 
 </header>
 
-
-{{ page.highlighted }}
-
-    {{ page.help }}
+{{ page.help }}
 
 <main role="main" id="content">
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
@@ -72,11 +69,13 @@
         <p>
             <strong class="phase-tag">ALPHA</strong>
             <span>This is a new service – your <a
-                        href="/contact/feedback">feedback</a> will help us to improve it.</span>
+                        href="{{ url('entity.contact_form.canonical', {contact_form: 'feedback'}) }}">feedback</a> will help us to improve it.</span>
         </p>
     </div>
 
     {{ page.breadcrumb }}
+
+    {{ page.highlighted }}
 
     <div class="layout-content">
         {{ page.content }}
