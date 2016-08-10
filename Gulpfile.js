@@ -1,13 +1,11 @@
 var gulp = require('gulp'),
-    sass = require('gulp-sass'),
-    cssMin = require('gulp-cssmin'),
-    rename = require('gulp-rename');
+    sass = require('gulp-sass');
 
 
 gulp.task('sass', function () {
     gulp.src('drupal/themes/custom/een/scss/een.scss')
         .pipe(sass({
-            // outputStyle: 'compressed',
+            outputStyle: 'compressed',
             sourceComments: 'map',
             includePaths : [
                 'drupal/themes/custom/een/scss/',
@@ -16,13 +14,6 @@ gulp.task('sass', function () {
                 'node_modules/govuk-elements-sass/public/sass'
             ]
         }))
-        .pipe(gulp.dest('drupal/themes/custom/een/css'));
-});
-
-gulp.task('css', function() {
-    return gulp.src('drupal/themes/custom/een/css/een.css')
-        .pipe(cssMin())
-        .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('drupal/themes/custom/een/css'));
 });
 
