@@ -24,10 +24,9 @@ install:
 	@sh -c "./build/2-deploy.sh"
 	@sh -c "./build/3-test.sh"
 
-sass:
+gulp:
 	@echo "Updating css"
 	@sh -c "./build/steps/compile/gulp.sh"
-	@make -s clear-cache
 
 test:
 	@sh -c "./build/3-test.sh"

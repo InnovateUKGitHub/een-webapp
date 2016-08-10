@@ -5,7 +5,7 @@ function opportunities_theme()
         'opportunities_form'    => [
             'variables' => [
                 'form'      => null,
-                'results'   => [],
+                'results'   => null,
                 'total'     => 0,
                 'page'      => 1,
                 'pageTotal' => 0,
@@ -14,7 +14,7 @@ function opportunities_theme()
         ],
         'opportunities_results' => [
             'variables' => [
-                'results' => [],
+                'results' => null,
             ],
             'template'  => 'opportunities-results',
         ],

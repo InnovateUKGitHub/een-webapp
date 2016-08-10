@@ -1,16 +1,17 @@
 {% if opportunity is not empty %}
+    <h1 class="heading-xlarge">{{ opportunity.title }}</h1>
     <div>
-        <a href="{{ url('opportunities.results') }}">{{ 'Go back'|t }}</a>
         <div>
-            <h2>{{ opportunity.title }}</h2>
             <div>
-                {{ opportunity.country_code }}
-                {{ opportunity.id }}
-                {% if opportunity.eoi == true %}
-                    <span>{{ 'Offers'|t }}</span>
-                {% else %}
-                    <span>Requests</span>
-                {% endif %}
+                <h2>
+                    {{ opportunity.country_code }}
+                    {{ opportunity.id }}
+                    {% if opportunity.eoi == true %}
+                        <span>{{ 'Offers'|t }}</span>
+                    {% else %}
+                        <span>Requests</span>
+                    {% endif %}
+                </h2>
             </div>
             <div>
                 <div>
@@ -118,7 +119,7 @@
                     {% endif %}
                 </div>
             </div>
-            <a href="{{ url('opportunities.results') }}">{{ 'Go back'|t }}</a>
         </div>
+        <a class="button" href="{{ url('opportunities.results') }}">{{ 'Go back'|t }}</a>
     </div>
 {% endif %}

@@ -1,6 +1,5 @@
 name: Een
 type: theme
-base theme: bartik
 description: 'A flexible, recolorable theme with many regions and a responsive, mobile-first layout based on bartik.'
 package: Custom
 libraries:
