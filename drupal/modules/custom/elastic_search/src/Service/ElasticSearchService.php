@@ -74,14 +74,9 @@ class ElasticSearchService
      *
      * @return $this
      */
-    public function setSearchParams(array $query)
+    public function setBody(array $query)
     {
-        $params = [
-            'from' => $this->searchFrom,
-            'size' => $this->searchSize,
-        ];
-        $body = array_merge($params, $query);
-        $this->client->setRawBody(json_encode($body));
+        $this->client->setRawBody(json_encode($query));
 
         return $this;
     }
@@ -118,10 +113,7 @@ class ElasticSearchService
         $response = $this->client->send();
         if (!$response->isSuccess()) {
             // Throw correct error if applicable
-            $this->manageErrorType($response);
-
-            // Return standard error message if no error type known
-            return ['error' => t('Connection to the search engine failed')];
+            return $this->manageErrorType($response);
         }
 
         return json_decode($response->getBody(), true);
@@ -129,13 +121,18 @@ class ElasticSearchService
 
     /**
      * @param Response $response
+     *
+     * @return array
      */
     private function manageErrorType(Response $response)
     {
+        $error = json_decode($response->getBody(), true);
+
         switch ($response->getStatusCode()) {
             case Response::STATUS_CODE_404:
-                $error = json_decode($response->getBody(), true);
                 throw new NotFoundHttpException($error['detail']);
         }
+        // Return standard error message if no error type known
+        return ['error' => t('The search engine is not available at the moment')];
     }
 }

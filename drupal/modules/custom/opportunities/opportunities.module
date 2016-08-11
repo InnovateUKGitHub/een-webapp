@@ -5,16 +5,16 @@ function opportunities_theme()
         'opportunities_form'    => [
             'variables' => [
                 'form'      => null,
-                'results'   => null,
-                'total'     => 0,
-                'page'      => 1,
-                'pageTotal' => 0,
             ],
             'template'  => 'opportunities-form',
         ],
         'opportunities_results' => [
             'variables' => [
-                'results' => null,
+                'results'   => null,
+                'total'     => 0,
+                'page'      => 1,
+                'pageTotal' => 0,
+                'route'     => 'opportunities.results',
             ],
             'template'  => 'opportunities-results',
         ],

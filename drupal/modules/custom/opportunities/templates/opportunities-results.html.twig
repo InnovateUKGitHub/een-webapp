@@ -1,13 +1,13 @@
-<h1 class="heading-xlarge">{{ 'Find an opportunity'|t }}</h1>
 {% if results %}
+    <h1 class="heading-xlarge">{{ 'Find an opportunity'|t }}</h1>
     {% for row in results %}
         <div class="row">
             <h3>
-                <a href="{{ url('opportunities.details', {'profileId': row.id}) }}">
-                    {{ row.title }}
+                <a href="{{ url('opportunities.details', {'profileId': row._id}) }}">
+                    {{ row._source.title }}
                 </a>
             </h3>
-            <p>{{ row.summary }}</p>
+            <p>{{ row._source.summary }}</p>
         </div>
         <hr>
     {% endfor %}

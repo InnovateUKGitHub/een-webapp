@@ -5,10 +5,15 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\elastic_search\Service\ElasticSearchService;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Zend\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class OpportunitiesController extends ControllerBase
 {
+    const PAGE_NUMBER = 'page';
+    const RESULT_PER_PAGE = 'resultPerPage';
+    const SEARCH = 'search';
+
     /**
      * @var ElasticSearchService
      */
@@ -53,14 +58,21 @@ class OpportunitiesController extends ControllerBase
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function results()
+    public function results(Request $request)
     {
+        $page = $request->query->get(self::PAGE_NUMBER, 1);
+        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, 10);
+
         $this->service
-            ->setUrl('opportunities/list')
-            ->setMethod(Request::METHOD_GET);
+            ->setUrl('opportunities')
+            ->setBody([
+                'from'   => ($page - 1) * $resultPerPage,
+                'size'   => $resultPerPage,
+                'sort'   => [
+                    ['date' => 'desc'],
+                ],
+                'source' => ['title', 'summary'],
+            ]);
 
         $results = $this->service->sendRequest();
 
@@ -70,8 +82,11 @@ class OpportunitiesController extends ControllerBase
         }
 
         return [
-            '#theme'   => 'opportunities_results',
-            '#results' => $results,
+            '#theme'         => 'opportunities_results',
+            '#results'       => $results['results'],
+            '#total'         => $results['total'],
+            '#page'          => $page,
+            '#resultPerPage' => $resultPerPage,
         ];
     }
 
@@ -83,7 +98,7 @@ class OpportunitiesController extends ControllerBase
     public function details($profileId)
     {
         $this->service
-            ->setUrl('opportunities/details/' . urlencode($profileId))
+            ->setUrl('opportunities/' . urlencode($profileId))
             ->setMethod(Request::METHOD_GET);
         $results = $this->service->sendRequest();
         if (array_key_exists('error', $results)) {
@@ -94,5 +109,19 @@ class OpportunitiesController extends ControllerBase
             '#theme'       => 'opportunities_details',
             '#opportunity' => $results,
         ];
+    }
+
+    /**
+     * @param $profileId
+     *
+     * @return JsonResponse
+     */
+    public function ajax($profileId)
+    {
+        $this->service
+            ->setUrl('opportunities/' . urlencode($profileId))
+            ->setMethod(Request::METHOD_GET);
+        $results = $this->service->sendRequest();
+        return new JsonResponse($results);
     }
 }

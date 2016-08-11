@@ -18,3 +18,10 @@ opportunities.details:
    _controller: '\Drupal\opportunities\Controller\OpportunitiesController::details'
  requirements:
    _permission: 'access content'
+
+opportunities.ajax:
+ path: '/opportunities/ajax/{profileId}'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::ajax'
+ requirements:
+   _permission: 'access content'
