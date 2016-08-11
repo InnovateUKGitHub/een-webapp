@@ -57,7 +57,7 @@ def remoteDeploy(String targetEnvironment, String packageName, String deployMeth
     stage "Deploy to: ${targetEnvironment}"
     sh "./build/steps/deploy/remote-deploy.sh ${targetEnvironment} ${packageName} ${deployMethod}"
 
-    stage "Run integration tests"
+    stage "Integration tests: ${targetEnvironment}"
     build job: 'een-integration-tests', parameters: [[$class: 'StringParameterValue', name: 'APPLICATION_ENV', value: "${targetEnvironment}"]]
 }
 
