@@ -131,8 +131,10 @@ class ElasticSearchService
         switch ($response->getStatusCode()) {
             case Response::STATUS_CODE_404:
                 throw new NotFoundHttpException($error['detail']);
+            case Response::STATUS_CODE_422:
+                return ['error' => $error['validation_messages']];
         }
         // Return standard error message if no error type known
-        return ['error' => t('The search engine is not available at the moment')];
+        return ['error' => $error['detail']];
     }
 }

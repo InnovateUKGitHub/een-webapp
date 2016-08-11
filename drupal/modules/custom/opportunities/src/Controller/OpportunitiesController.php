@@ -77,7 +77,13 @@ class OpportunitiesController extends ControllerBase
         $results = $this->service->sendRequest();
 
         if (array_key_exists('error', $results)) {
-            drupal_set_message($results['error'], 'error');
+            if (is_array($results['error'])) {
+                foreach ($results['error'] as $key => $error) {
+                    drupal_set_message($key . ' => ' . array_pop($error), 'error');
+                }
+            } else {
+                drupal_set_message($results['error'], 'error');
+            }
             $results = null;
         }
 
