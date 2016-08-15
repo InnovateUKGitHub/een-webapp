@@ -10,6 +10,8 @@ function opportunities_theme()
         ],
         'opportunities_results' => [
             'variables' => [
+                'form'      => null,
+                'search'    => null,
                 'results'   => null,
                 'total'     => 0,
                 'page'      => 1,

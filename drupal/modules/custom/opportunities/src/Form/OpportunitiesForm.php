@@ -5,14 +5,10 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\elastic_search\Service\ElasticSearchService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class OpportunitiesForm extends FormBase
 {
-    /**
-     * @var array
-     */
-    private $results;
-
     /**
      * @var ElasticSearchService
      */
@@ -56,21 +52,19 @@ class OpportunitiesForm extends FormBase
         $form = [
             'search'  => [
                 '#type'     => 'textfield',
-                '#title'    => t('Search:'),
+                '#title'    => t('Search an opportunity'),
                 '#required' => true,
             ],
+            'submit'  => [
+                '#type'        => 'submit',
+                '#value'       => $this->t('Search'),
+                '#button_type' => 'primary',
+            ],
             'actions' => [
-                '#type'  => 'actions',
-                'submit' => [
-                    '#type'        => 'submit',
-                    '#value'       => $this->t('Search'),
-                    '#button_type' => 'primary',
-                ],
+                '#type'   => 'actions',
+                '#method' => Request::METHOD_GET,
             ],
         ];
-        if ($form_state->getValue('search')) {
-            $form['results'] = $this->results;
-        }
 
         return $form;
     }
@@ -91,21 +85,12 @@ class OpportunitiesForm extends FormBase
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $values = $form_state->getValues();
-        $this->service->setUrl('opportunities')
-            ->setSearchParams([
-                'search' => $values['search'],
-                'sort'   => [
-                    ['date' => 'desc'],
-                ],
-                'source' => ['name', 'type', 'date', 'description', 'country', 'opportunity_type'],
-            ]);
-        $results = $this->service->sendRequest();
-        if (array_key_exists('error', $results)) {
-            drupal_set_message($results['error'], 'error');
-
-            return;
-        }
-        $this->results = $results;
-        $form_state->setRebuild();
+        $form_state->setRedirect(
+            'opportunities.results',
+            [],
+            [
+                'query' => ['search' => $values['search']],
+            ]
+        );
     }
 }
