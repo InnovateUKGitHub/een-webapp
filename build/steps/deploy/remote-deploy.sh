@@ -49,7 +49,7 @@ read -d '' SCRIPT << EOF
     cd ~/packages/${FOLDER};
 
     # full sync also deleting files that don't exist on source, excluding resources
-    sudo rsync -av --delete --exclude='logs/*' --exclude='cache/*' -O -p --no-g . ${htdocs}/
+    sudo rsync -av --delete --exclude='/logs/*' --exclude='/cache/*' -O -p --no-g . ${htdocs}/
 
     APPLICATION_ENV=${APPLICATION_ENV};
     # execute remaining deploy steps
