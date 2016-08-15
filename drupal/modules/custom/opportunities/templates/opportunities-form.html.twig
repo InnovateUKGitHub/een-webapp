@@ -1,0 +1,28 @@
+{{ form }}
+
+{% if results is not empty %}
+    <div>
+        <span>
+            {{ total }} {{ 'Result(s) found'|t }}
+        </span>
+        {% for row in results %}
+            <div>
+                <div class="header">
+                    <span class="title">{{ row._source.name }}</span>
+                    <span class="type">{{ row._source.type }}</span>
+                    <span>{{ row._source.country }}</span>
+                </div>
+
+                <p>{{ row._source.description }}</p>
+                <div>
+                    <span>{{ row._source.date }}</span>
+                    <span>{{ row._source.opportunity_type }}</span>
+                </div>
+
+            </div>
+        {% endfor %}
+
+    </div>
+{% endif %}
+
+{% include 'themes/custom/een/templates/pagination.html.twig' %}

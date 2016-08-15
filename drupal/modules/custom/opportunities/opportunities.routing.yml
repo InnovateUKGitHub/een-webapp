@@ -1,0 +1,27 @@
+opportunities.search:
+ path: '/opportunities/search'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::search'
+ requirements:
+   _permission: 'access content'
+
+opportunities.results:
+ path: '/opportunities'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::results'
+ requirements:
+   _permission: 'access content'
+
+opportunities.details:
+ path: '/opportunities/{profileId}'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::details'
+ requirements:
+   _permission: 'access content'
+
+opportunities.ajax:
+ path: '/opportunities/ajax/{profileId}'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::ajax'
+ requirements:
+   _permission: 'access content'

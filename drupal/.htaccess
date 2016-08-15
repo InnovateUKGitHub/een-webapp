@@ -69,6 +69,10 @@ AddEncoding gzip svgz
 <IfModule mod_rewrite.c>
   RewriteEngine on
 
+  # Rewrite all govuk image url to the good location
+  RewriteRule ^public/images/(.*)$ themes/custom/een/css/images/$1 [L]
+#  RewriteRule ^(.+)\.png $1\.svg [L]
+
   # Set "protossl" to "s" if we were accessed via https://.  This is used later
   # if you enable "www." stripping or enforcement, in order to ensure that
   # you don't bounce between http and https.
@@ -187,3 +191,8 @@ AddEncoding gzip svgz
   # Disable Proxy header, since it's an attack vector.
   RequestHeader unset Proxy
 </IfModule>
+
+Authtype Basic
+AuthName "Put whatever you want here"
+AuthUserFile /home/web/een/drupal/.htpasswd
+Require valid-user

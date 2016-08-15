@@ -1,0 +1,9 @@
+/* direct import of gov_uk elements from the node module */
+@import 'govuk-template';
+@import 'govuk-elements';
+@import 'variables';
+@import 'font';
+
+body {
+  font-family: $font_family;
+}
