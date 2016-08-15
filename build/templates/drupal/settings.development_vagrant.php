@@ -29,6 +29,7 @@ $config['system.performance']['js']['preprocess'] = false;
 $settings['cache']['bins']['render'] = 'cache.backend.null';
 $settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
 
+$config['system.logging']['error_level'] = 'verbose';
 $conf['error_level'] = 2;
 
 error_reporting(-1);
