@@ -77,7 +77,7 @@ export-sql:
 
 update-entity:
 	@echo "Updating database..."
-	@sh -c "cd drupal && $(DRUSH) entity-updates"
+	@sh -c "cd drupal && $(DRUSH) entity-updates -y"
 
 ################################################################################
 #                                                                              #

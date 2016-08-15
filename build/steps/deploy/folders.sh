@@ -16,11 +16,11 @@ test -e $htdocs/drupal/sites/default/files/config/sync || mkdir -p $htdocs/drupa
 touch $htdocs/logs/error.log
 
 # change directory permissions
-chmod 775 $htdocs/cache -R
-chmod 775 $htdocs/logs -R
+chmod 777 $htdocs/cache -R
+chmod 777 $htdocs/logs -R
 
 chmod 775 $htdocs/drupal
 chmod 775 $htdocs/drupal/sites
 chmod 775 $htdocs/drupal/sites/default
-chmod 775 $htdocs/drupal/sites/default/files
-chmod 775 $htdocs/drupal/sites/default/files/config/sync
+chmod 777 $htdocs/drupal/sites/default/files
+chmod 777 $htdocs/drupal/sites/default/files/config/sync
