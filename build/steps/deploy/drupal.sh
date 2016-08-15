@@ -10,29 +10,29 @@ set -e
 
 cd $htdocs/drupal
 
+echo "Coping drupal configuration files"
+serviceRoot=$htdocs/drupal/modules/custom/elastic_search/config/install
+drupalRoot=$htdocs/drupal/sites
+drupalSettings=$htdocs/drupal/sites/default/settings.php
 
-configServiceSource=$htdocs/drupal/modules/custom/elastic_search/config/install/elastic_search.default.settings.yml
-configServiceDestination=$htdocs/drupal/modules/custom/elastic_search/config/install/elastic_search.settings.yml
-
-cp $configServiceSource $configServiceDestination
-sed -i -e "s/HOSTNAME_SERVICE/$hostnameapi/g" $configServiceDestination
+cp $serviceRoot/elastic_search.default.settings.yml $serviceRoot/elastic_search.settings.yml
+sed -i -e "s/HOSTNAME_SERVICE/$hostnameapi/g" $serviceRoot/elastic_search.settings.yml
 
 $htdocs/db/setup.sh
 
-configDrupalSource=$htdocs/drupal/sites/default/default.settings.php
-configDrupalDestination=$htdocs/drupal/sites/default/settings.php
-
-
-cp $configDrupalSource $configDrupalDestination
-chmod 775 $configDrupalDestination
+cp $drupalRoot/default/default.settings.php $drupalSettings
+cp $drupalRoot/example.settings.local.php $drupalRoot/default/settings.local.php
+chmod 775 $drupalRoot/default/settings.php
+chmod 775 $drupalRoot/default/settings.local.php
 
 # TODO Generate the hash
-cat $htdocs/build/templates/drupal/settings.$APPLICATION_ENV.php >> $configDrupalDestination
-sed -i -e "s/HOSTNAME/$hostname/g" $configDrupalDestination
-sed -i -e "s/DB_NAME/$dbname/g" $configDrupalDestination
-sed -i -e "s/DB_USERNAME/$dbuser/g" $configDrupalDestination
-sed -i -e "s/DB_PASSWORD/$dbpass/g" $configDrupalDestination
-sed -i -e "s/DB_HOST/$dbhost/g" $configDrupalDestination
+cat $htdocs/build/templates/drupal/settings.$APPLICATION_ENV.php >> $drupalSettings
+
+sed -i -e "s/HOSTNAME/$hostname/g" $drupalSettings
+sed -i -e "s/DB_NAME/$dbname/g" $drupalSettings
+sed -i -e "s/DB_USERNAME/$dbuser/g" $drupalSettings
+sed -i -e "s/DB_PASSWORD/$dbpass/g" $drupalSettings
+sed -i -e "s/DB_HOST/$dbhost/g" $drupalSettings
 
 echo "Clearing drupal cache"
 $htdocs/bin/drush cr
