@@ -182,7 +182,6 @@ AddEncoding gzip svgz
       Header append Vary Accept-Encoding
     </FilesMatch>
   </IfModule>
-
 </IfModule>
 
 # Various header fixes.
