@@ -86,7 +86,7 @@ class OpportunitiesForm extends FormBase
     {
         $values = $form_state->getValues();
         $form_state->setRedirect(
-            'opportunities.results',
+            'opportunities.search',
             [],
             [
                 'query' => ['search' => $values['search']],

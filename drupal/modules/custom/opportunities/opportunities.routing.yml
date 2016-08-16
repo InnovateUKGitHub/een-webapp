@@ -1,14 +1,7 @@
 opportunities.search:
- path: '/opportunities/search'
- defaults:
-   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::search'
- requirements:
-   _permission: 'access content'
-
-opportunities.results:
  path: '/opportunities'
  defaults:
-   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::results'
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::search'
  requirements:
    _permission: 'access content'
 

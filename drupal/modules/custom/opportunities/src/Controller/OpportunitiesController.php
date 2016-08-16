@@ -42,24 +42,11 @@ class OpportunitiesController extends ControllerBase
     }
 
     /**
-     * @return array
-     */
-    public function search()
-    {
-        $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
-
-        return [
-            '#theme' => 'opportunities_form',
-            '#form'  => $form,
-        ];
-    }
-
-    /**
      * @param Request $request
      *
      * @return array
      */
-    public function results(Request $request)
+    public function search(Request $request)
     {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
 
@@ -98,24 +85,27 @@ class OpportunitiesController extends ControllerBase
         }
 
         return [
-            '#theme'         => 'opportunities_results',
+            '#theme'         => 'opportunities_search',
             '#form'          => $form,
             '#search'        => $search,
             '#results'       => isset($results) ? $results['results'] : null,
             '#total'         => isset($results) ? $results['total'] : null,
             '#page'          => $page,
             '#resultPerPage' => $resultPerPage,
-            '#route'         => 'opportunities.results',
+            '#route'         => 'opportunities.search',
         ];
     }
 
     /**
-     * @param $profileId
+     * @param string  $profileId
+     * @param Request $request
      *
      * @return array
      */
-    public function details($profileId)
+    public function details($profileId, Request $request)
     {
+        $search = $request->query->get(self::SEARCH);
+
         $this->service
             ->setUrl('opportunities/' . urlencode($profileId))
             ->setMethod(Request::METHOD_GET);
@@ -127,6 +117,7 @@ class OpportunitiesController extends ControllerBase
         return [
             '#theme'       => 'opportunities_details',
             '#opportunity' => $results,
+            '#search'      => $search,
         ];
     }
 
