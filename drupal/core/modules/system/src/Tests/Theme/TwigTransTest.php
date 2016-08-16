@@ -49,7 +49,7 @@ class TwigTransTest extends WebTestBase {
 
     // Setup test_theme.
     \Drupal::service('theme_handler')->install(array('test_theme'));
-    \Drupal::service('theme_handler')->setDefault('test_theme');
+    $this->config('system.theme')->set('default', 'test_theme')->save();
 
     // Create and log in as admin.
     $this->adminUser = $this->drupalCreateUser(array(
@@ -89,6 +89,30 @@ class TwigTransTest extends WebTestBase {
 
     $this->drupalGet('twig-theme-test/trans', array('language' => \Drupal::languageManager()->getLanguage('xx')));
     $this->assertTwigTransTags();
+  }
+
+  /**
+   * Test empty Twig "trans" tags.
+   */
+  public function testEmptyTwigTransTags() {
+    $elements = [
+      '#type' => 'inline_template',
+      '#template' => '{% trans %}{% endtrans %}',
+    ];
+    /** @var \Drupal\Core\Render\RendererInterface $renderer */
+    $renderer = \Drupal::service('renderer');
+
+    try {
+      $renderer->renderPlain($elements);
+
+      $this->fail('{% trans %}{% endtrans %} did not throw an exception.');
+    }
+    catch (\Twig_Error_Syntax $e) {
+      $this->assertTrue(strstr($e->getMessage(), '{% trans %} tag cannot be empty'), '{% trans %}{% endtrans %} threw the expected exception.');
+    }
+    catch (\Exception $e) {
+      $this->fail('{% trans %}{% endtrans %} threw an unexpected exception.');
+    }
   }
 
   /**

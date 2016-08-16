@@ -230,7 +230,7 @@ class BlockUiTest extends WebTestBase {
     $this->assertTrue(!empty($definition), 'The context-aware test block exists.');
     $edit = [
       'region' => 'content',
-      'settings[context_mapping][user]' => '@block_test.multiple_static_context:user2',
+      'settings[context_mapping][user]' => '@block_test.multiple_static_context:userB',
     ];
     $this->drupalPostForm($block_url, $edit, 'Save block');
 
@@ -257,12 +257,15 @@ class BlockUiTest extends WebTestBase {
     $url = 'admin/structure/block/add/test_block_instantiation/classy';
     $this->drupalGet($url);
     $this->assertFieldByName('id', 'displaymessage', 'Block form uses raw machine name suggestion when no instance already exists.');
-    $this->drupalPostForm($url, array(), 'Save block');
+    $edit = ['region' => 'content'];
+    $this->drupalPostForm($url, $edit, 'Save block');
+    $this->assertText('The block configuration has been saved.');
 
     // Now, check to make sure the form starts by autoincrementing correctly.
     $this->drupalGet($url);
     $this->assertFieldByName('id', 'displaymessage_2', 'Block form appends _2 to plugin-suggested machine name when an instance already exists.');
-    $this->drupalPostForm($url, array(), 'Save block');
+    $this->drupalPostForm($url, $edit, 'Save block');
+    $this->assertText('The block configuration has been saved.');
 
     // And verify that it continues working beyond just the first two.
     $this->drupalGet($url);
@@ -286,6 +289,22 @@ class BlockUiTest extends WebTestBase {
     // Resaving the block page will remove the block indicator.
     $this->drupalPostForm(NULL, array(), t('Save blocks'));
     $this->assertUrl('admin/structure/block/list/classy');
+  }
+
+  /**
+   * Tests if validation errors are passed plugin form to the parent form.
+   */
+  public function testBlockValidateErrors() {
+    $this->drupalPostForm('admin/structure/block/add/test_settings_validation/classy', ['region' => 'content', 'settings[digits]' => 'abc'], t('Save block'));
+
+    $arguments = [':message' => 'Only digits are allowed'];
+    $pattern = '//div[contains(@class,"messages messages--error")]/div[contains(text()[2],:message)]';
+    $elements = $this->xpath($pattern, $arguments);
+    $this->assertTrue($elements, 'Plugin error message found in parent form.');
+
+    $error_class_pattern = '//div[contains(@class,"form-item-settings-digits")]/input[contains(@class,"error")]';
+    $error_class = $this->xpath($error_class_pattern);
+    $this->assertTrue($error_class, 'Plugin error class found in parent form.');
   }
 
 }

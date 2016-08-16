@@ -4,6 +4,7 @@ namespace Drupal\block\Tests;
 
 use Drupal\Component\Utility\Html;
 use Drupal\block\Entity\Block;
+use Drupal\Core\Url;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 
@@ -128,11 +129,58 @@ class BlockTest extends BlockTestBase {
   }
 
   /**
+   * Tests adding a block from the library page with a destination query string.
+   */
+  public function testAddBlockFromLibrary() {
+    $default_theme = $this->config('system.theme')->get('default');
+    $help_url = Url::fromRoute('help.page', ['name' => 'block']);
+    // Set up the request so we land on the block help page after creation.
+    $options = [
+      'query' => [
+        'region' => 'sidebar_first',
+        'destination' => $help_url->toString(),
+      ],
+    ];
+    $this->drupalGet(Url::fromRoute('block.admin_library', ['theme' => $default_theme], $options));
+
+    $block_name = 'system_powered_by_block';
+    $add_url = Url::fromRoute('block.admin_add', ['plugin_id' => $block_name, 'theme' => $default_theme]);
+    $links = $this->xpath('//a[contains(@href, :href)]', [':href' => $add_url->toString()]);
+    $this->assertEqual(1, count($links), 'Found one matching link');
+
+    list($path, $query_string) = explode('?', $links[0]['href'], 2);
+    parse_str($query_string, $query_parts);
+    $this->assertEqual(t('Place block'), (string) $links[0]);
+    $this->assertEqual($help_url->toString(), $query_parts['destination'], 'Expected destination query string is in href');
+
+    // Create a random title for the block.
+    $title = $this->randomMachineName(8);
+    $block_id = strtolower($this->randomMachineName(8));
+    $edit = [
+      'id' => $block_id,
+      'settings[label]' => $title,
+    ];
+    // Create the block using the link parsed from the library page.
+    $this->drupalPostForm($this->getAbsoluteUrl($links[0]['href']), $edit, t('Save block'));
+    // Verify that we are redirected according to the original request.
+    $this->assertUrl($help_url);
+
+    // Ensure that the block was created.
+    /** @var \Drupal\block\BlockInterface $block */
+    $block = Block::load($block_id);
+    $this->assertEqual($title, $block->label(), 'Found the block with expected title.');
+  }
+
+  /**
    * Test configuring and moving a module-define block to specific regions.
    */
   function testBlock() {
     // Place page title block to test error messages.
     $this->drupalPlaceBlock('page_title_block');
+
+    // Disable the block.
+    $this->drupalGet('admin/structure/block');
+    $this->clickLink('Disable');
 
     // Select the 'Powered by Drupal' block to be configured and moved.
     $block = array();
@@ -155,13 +203,12 @@ class BlockTest extends BlockTestBase {
       $this->moveBlockToRegion($block, $region);
     }
 
-    // Set the block to the disabled region.
-    $edit = array();
-    $edit['blocks[' . $block['id'] . '][region]'] = -1;
-    $this->drupalPostForm('admin/structure/block', $edit, t('Save blocks'));
+    // Disable the block.
+    $this->drupalGet('admin/structure/block');
+    $this->clickLink('Disable');
 
     // Confirm that the block is now listed as disabled.
-    $this->assertText(t('The block settings have been updated.'), 'Block successfully move to disabled region.');
+    $this->assertText(t('The block settings have been updated.'), 'Block successfully moved to disabled region.');
 
     // Confirm that the block instance title and markup are not displayed.
     $this->drupalGet('node');
@@ -174,7 +221,7 @@ class BlockTest extends BlockTestBase {
     // Test deleting the block from the edit form.
     $this->drupalGet('admin/structure/block/manage/' . $block['id']);
     $this->clickLink(t('Delete'));
-    $this->assertRaw(t('Are you sure you want to delete the block %name?', array('%name' => $block['settings[label]'])));
+    $this->assertRaw(t('Are you sure you want to delete the block @name?', array('@name' => $block['settings[label]'])));
     $this->drupalPostForm(NULL, array(), t('Delete'));
     $this->assertRaw(t('The block %name has been deleted.', array('%name' => $block['settings[label]'])));
 
@@ -182,7 +229,7 @@ class BlockTest extends BlockTestBase {
     $block = $this->drupalPlaceBlock('system_powered_by_block');
     $this->drupalGet('admin/structure/block/manage/' . $block->id(), array('query' => array('destination' => 'admin')));
     $this->clickLink(t('Delete'));
-    $this->assertRaw(t('Are you sure you want to delete the block %name?', array('%name' => $block->label())));
+    $this->assertRaw(t('Are you sure you want to delete the block @name?', array('@name' => $block->label())));
     $this->drupalPostForm(NULL, array(), t('Delete'));
     $this->assertRaw(t('The block %name has been deleted.', array('%name' => $block->label())));
     $this->assertUrl('admin');
@@ -434,12 +481,12 @@ class BlockTest extends BlockTestBase {
     $theme_handler = \Drupal::service('theme_handler');
 
     $theme_handler->install(['seven']);
-    $theme_handler->setDefault('seven');
+    $this->config('system.theme')->set('default', 'seven')->save();
     $block = $this->drupalPlaceBlock('system_powered_by_block', ['theme' => 'seven', 'region' => 'help']);
     $this->drupalGet('<front>');
     $this->assertText('Powered by Drupal');
 
-    $theme_handler->setDefault('classy');
+    $this->config('system.theme')->set('default', 'classy')->save();
     $theme_handler->uninstall(['seven']);
 
     // Ensure that the block configuration does not exist anymore.

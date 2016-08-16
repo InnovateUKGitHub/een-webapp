@@ -9,7 +9,7 @@
         "zendframework/zend-http": "^2.5"
     },
     "replace": {
-        "drupal/core": "~8.1"
+        "drupal/core": "~8.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
