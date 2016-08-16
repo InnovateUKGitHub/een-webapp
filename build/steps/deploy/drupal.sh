@@ -22,8 +22,8 @@ $htdocs/db/setup.sh
 
 cp $drupalRoot/default/default.settings.php $drupalSettings
 cp $drupalRoot/example.settings.local.php $drupalRoot/default/settings.local.php
-chmod 775 $drupalRoot/default/settings.php
-chmod 775 $drupalRoot/default/settings.local.php
+chmod 755 $drupalRoot/default/settings.php
+chmod 755 $drupalRoot/default/settings.local.php
 
 # TODO Generate the hash
 cat $htdocs/build/templates/drupal/settings.$APPLICATION_ENV.php >> $drupalSettings
