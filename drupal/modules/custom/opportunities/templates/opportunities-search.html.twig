@@ -10,7 +10,8 @@
         {% for row in results %}
             <div class="row">
                 <h3>
-                    <a href="{{ url('opportunities.details', {'profileId': row._id}) }}?search={{ search }}">
+                    <a href="{{ url('opportunities.details', {'profileId': row._id}) }}?search={{ search }}"
+                       id="opportunity-link">
                         {{ row._source.title }}
                     </a>
                 </h3>
