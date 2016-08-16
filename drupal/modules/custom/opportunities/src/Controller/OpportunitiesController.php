@@ -42,67 +42,70 @@ class OpportunitiesController extends ControllerBase
     }
 
     /**
+     * @param Request $request
+     *
      * @return array
      */
-    public function search()
+    public function search(Request $request)
     {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
 
-        return [
-            '#theme'     => 'opportunities_form',
-            '#form'      => $form,
-            '#results'   => isset($form['results']) ? $form['results']['results'] : null,
-            '#total'     => isset($form['results']) ? $form['results']['total'] : null,
-            '#page'      => 1,
-            '#pageTotal' => isset($form['results']) ? ceil($form['results']['total'] / 10) : null,
-        ];
-    }
-
-    public function results(Request $request)
-    {
         $page = $request->query->get(self::PAGE_NUMBER, 1);
         $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, 10);
+        $search = $request->query->get(self::SEARCH);
 
-        $this->service
-            ->setUrl('opportunities')
-            ->setBody([
-                'from'   => ($page - 1) * $resultPerPage,
-                'size'   => $resultPerPage,
-                'sort'   => [
-                    ['date' => 'desc'],
-                ],
-                'source' => ['title', 'summary'],
-            ]);
+        if ($search) {
 
-        $results = $this->service->sendRequest();
+            $form['search']['#value'] = $search;
 
-        if (array_key_exists('error', $results)) {
-            if (is_array($results['error'])) {
-                foreach ($results['error'] as $key => $error) {
-                    drupal_set_message($key . ' => ' . array_pop($error), 'error');
+            $this->service
+                ->setUrl('opportunities')
+                ->setBody([
+                    'from'   => ($page - 1) * $resultPerPage,
+                    'size'   => $resultPerPage,
+                    'search' => $search,
+                    'sort'   => [
+                        ['date' => 'desc'],
+                    ],
+                    'source' => ['title', 'summary'],
+                ]);
+
+            $results = $this->service->sendRequest();
+
+            if (array_key_exists('error', $results)) {
+                if (is_array($results['error'])) {
+                    foreach ($results['error'] as $key => $error) {
+                        drupal_set_message($key . ' => ' . array_pop($error), 'error');
+                    }
+                } else {
+                    drupal_set_message($results['error'], 'error');
                 }
-            } else {
-                drupal_set_message($results['error'], 'error');
+                $results = null;
             }
-            $results = null;
         }
 
         return [
-            '#theme'         => 'opportunities_results',
-            '#results'       => $results['results'],
-            '#total'         => $results['total'],
+            '#theme'         => 'opportunities_search',
+            '#form'          => $form,
+            '#search'        => $search,
+            '#results'       => isset($results) ? $results['results'] : null,
+            '#total'         => isset($results) ? $results['total'] : null,
             '#page'          => $page,
             '#resultPerPage' => $resultPerPage,
+            '#route'         => 'opportunities.search',
         ];
     }
 
     /**
-     * @param $profileId
+     * @param string  $profileId
+     * @param Request $request
      *
      * @return array
      */
-    public function details($profileId)
+    public function details($profileId, Request $request)
     {
+        $search = $request->query->get(self::SEARCH);
+
         $this->service
             ->setUrl('opportunities/' . urlencode($profileId))
             ->setMethod(Request::METHOD_GET);
@@ -114,6 +117,7 @@ class OpportunitiesController extends ControllerBase
         return [
             '#theme'       => 'opportunities_details',
             '#opportunity' => $results,
+            '#search'      => $search,
         ];
     }
 
@@ -128,6 +132,7 @@ class OpportunitiesController extends ControllerBase
             ->setUrl('opportunities/' . urlencode($profileId))
             ->setMethod(Request::METHOD_GET);
         $results = $this->service->sendRequest();
+
         return new JsonResponse($results);
     }
 }

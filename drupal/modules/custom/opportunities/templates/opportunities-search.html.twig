@@ -1,0 +1,25 @@
+{{ form }}
+
+{% if results is not null %}
+    <h1 class="heading-xlarge">{{ 'Find an opportunity'|t }}</h1>
+
+    {% if total > 0 %}
+        <div class="row">
+            <h3 class="heading-small">{{ 'Total Results: '|t }}{{ total }}</h3>
+        </div>
+        {% for row in results %}
+            <div class="row">
+                <h3>
+                    <a href="{{ url('opportunities.details', {'profileId': row._id}) }}?search={{ search }}"
+                       id="opportunity-link">
+                        {{ row._source.title }}
+                    </a>
+                </h3>
+                <p>{{ row._source.summary }}</p>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        {{ 'No Results found for: '|t }}{{ search }}
+    {% endif %}
+{% endif %}
