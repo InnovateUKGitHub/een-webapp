@@ -452,7 +452,11 @@ function template_preprocess_form_element(&$variables) {
   $variables['disabled'] = !empty($element['#attributes']['disabled']) ? $element['#attributes']['disabled'] : NULL;
 
   // Suppress error messages.
-  $variables['errors'] = NULL;
+    if (!empty($element['#errors'])) {
+        $variables['errors'] = $element['#errors'];
+    } else {
+        $variables['errors'] = null;
+    }
 
   // If #title is not set, we don't display any label.
   if (!isset($element['#title'])) {

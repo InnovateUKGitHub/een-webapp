@@ -20,14 +20,14 @@ DRUSH := $(CURRENT_DIR)/bin/drush
 build: install
 
 install:
-	@sh -c "echo ';zend_extension=xdebug.so' > /etc/php/5.6/cli/conf.d/20-xdebug.ini"
+	@sh -c "echo ';zend_extension=xdebug.so' | sudo tee /etc/php/5.6/cli/conf.d/20-xdebug.ini"
 	@sh -c "./build/1-compile.sh"
-	@sh -c "./build/2-deploy.sh"
-	@sh -c "echo 'zend_extension=xdebug.so' > /etc/php/5.6/cli/conf.d/20-xdebug.ini"
+	@sh -c "sudo APPLICATION_ENV=development_vagrant ./build/2-deploy.sh"
+	@sh -c "echo 'zend_extension=xdebug.so' | sudo tee /etc/php/5.6/cli/conf.d/20-xdebug.ini"
 	@sh -c "./build/3-test.sh"
 
 gulp:
-	@echo "Updating css"
+	@echo "Updating css & js"
 	@sh -c "./build/steps/compile/gulp.sh"
 
 test:

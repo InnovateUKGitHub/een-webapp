@@ -7,3 +7,16 @@
 body {
   font-family: $font_family;
 }
+
+label.selected {
+  background: #fff;
+  border-color: #0b0c0c;
+}
+
+label.focused {
+  outline: 3px solid #ffbf47;
+}
+
+.focused input:focus {
+  outline: none;
+}

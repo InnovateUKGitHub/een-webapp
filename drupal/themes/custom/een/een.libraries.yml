@@ -3,3 +3,8 @@ global-styling:
   css:
     theme:
       css/een.css: {}
+  js:
+    js/jquery-min.js: {}
+    js/govuk-template-min.js: {}
+    js/selection-buttons-min.js: {}
+    js/een-min.js: {}
