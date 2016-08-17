@@ -6,6 +6,7 @@
 
   var SelectionButtons = function (elmsOrSelector, opts) {
     var $elms;
+
     this.selectedClass = 'selected';
     this.focusedClass = 'focused';
     if (opts !== undefined) {

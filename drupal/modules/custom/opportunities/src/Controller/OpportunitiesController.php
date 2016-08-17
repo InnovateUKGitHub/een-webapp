@@ -51,11 +51,6 @@ class OpportunitiesController extends ControllerBase
     {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
 
-        if ($request->getMethod() === Request::METHOD_POST) {
-            $request->query->set(self::SEARCH, $form[self::SEARCH]['#value']);
-            $request->query->set(self::OPPORTUNITY_TYPE, $form[self::OPPORTUNITY_TYPE]['#value']);
-        }
-
         $page = $request->query->get(self::PAGE_NUMBER, 1);
         $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, 10);
         $search = $request->query->get(self::SEARCH);

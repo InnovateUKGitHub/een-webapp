@@ -105,3 +105,8 @@ $settings['rebuild_access'] = FALSE;
  * directory.
  */
 $settings['skip_permissions_hardening'] = TRUE;
+
+error_reporting(-1);
+$conf['error_level'] = 2;
+ini_set('display_errors', true);
+ini_set('display_startup_errors', true);

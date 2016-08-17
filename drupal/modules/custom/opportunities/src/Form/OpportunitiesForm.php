@@ -5,6 +5,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\elastic_search\Service\ElasticSearchService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class OpportunitiesForm extends FormBase
 {
@@ -79,6 +80,7 @@ class OpportunitiesForm extends FormBase
                     '#button_type' => 'primary',
                 ],
             ],
+            '#method'           => Request::METHOD_GET,
         ];
 
         return $form;
@@ -105,19 +107,20 @@ class OpportunitiesForm extends FormBase
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        // TODO Disable redirect when POST is used and we are making nice and pretty url
-//        $form_state->disableRedirect();
-//        return null;
-        $values = $form_state->getValues();
-        $form_state->setRedirect(
-            'opportunities.search',
-            [],
-            [
-                'query' => [
-                    'search'           => $values['search'],
-                    'opportunity_type' => $values['opportunity_type'],
-                ],
-            ]
-        );
+        $form_state->disableRedirect();
+
+        return null;
+        // TODO Return json when POST is used and we are making nice and pretty url
+//        $values = $form_state->getValues();
+//        $form_state->setRedirect(
+//            'opportunities.search',
+//            [],
+//            [
+//                'query' => [
+//                    'search'           => $values['search'],
+//                    'opportunity_type' => $values['opportunity_type'],
+//                ],
+//            ]
+//        );
     }
 }
