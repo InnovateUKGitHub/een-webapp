@@ -120,6 +120,9 @@
                 </div>
             </div>
         </div>
-        <a class="button" href="{{ url('opportunities.search') }}?search={{ search }}">{{ 'Go back'|t }}</a>
+        <a class="button" href="{{ url(
+        'opportunities.search',
+        {'search': search, 'opportunity_type': opportunity_type}
+        ) }}">{{ 'Go back'|t }}</a>
     </div>
 {% endif %}

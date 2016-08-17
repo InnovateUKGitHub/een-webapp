@@ -27,7 +27,7 @@ install:
 	@sh -c "./build/3-test.sh"
 
 gulp:
-	@echo "Updating css"
+	@echo "Updating css & js"
 	@sh -c "./build/steps/compile/gulp.sh"
 
 test:

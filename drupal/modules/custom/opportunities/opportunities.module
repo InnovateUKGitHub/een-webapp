@@ -2,22 +2,24 @@
 function opportunities_theme()
 {
     return [
-        'opportunities_search' => [
+        'opportunities_search'  => [
             'variables' => [
-                'form'      => null,
-                'search'    => null,
-                'results'   => null,
-                'total'     => 0,
-                'page'      => 1,
-                'pageTotal' => 0,
-                'route'     => 'opportunities.search',
+                'form'             => null,
+                'search'           => null,
+                'opportunity_type' => null,
+                'results'          => null,
+                'total'            => 0,
+                'page'             => 1,
+                'pageTotal'        => 0,
+                'route'            => 'opportunities.search',
             ],
             'template'  => 'opportunities-search',
         ],
         'opportunities_details' => [
             'variables' => [
-                'opportunity' => [],
-                'search'      => '',
+                'opportunity'      => [],
+                'search'           => null,
+                'opportunity_type' => null,
             ],
             'template'  => 'opportunities-details',
         ],

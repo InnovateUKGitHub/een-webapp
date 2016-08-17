@@ -32,15 +32,15 @@
                 {% if status_headings[type] %}
                     <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
                 {% endif %}
-                {% if messages|length > 1 %}
-                    <ul class="error-summary-list">
-                        {% for message in messages %}
+                <ul class="error-summary-list">
+                    {% for message in messages %}
+                        {% if message is iterable %}
+                            <li><a href="#{{ message.key }}">{{ message.text }}</a></li>
+                        {% else %}
                             <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>{{ messages|first }}</p>
-                {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
                 {% if type == 'error' %}
             </div>
             {% endif %}

@@ -13,6 +13,7 @@ class OpportunitiesController extends ControllerBase
     const PAGE_NUMBER = 'page';
     const RESULT_PER_PAGE = 'resultPerPage';
     const SEARCH = 'search';
+    const OPPORTUNITY_TYPE = 'opportunity_type';
 
     /**
      * @var ElasticSearchService
@@ -50,24 +51,44 @@ class OpportunitiesController extends ControllerBase
     {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
 
+        if ($request->getMethod() === Request::METHOD_POST) {
+            $request->query->set(self::SEARCH, $form[self::SEARCH]['#value']);
+            $request->query->set(self::OPPORTUNITY_TYPE, $form[self::OPPORTUNITY_TYPE]['#value']);
+        }
+
         $page = $request->query->get(self::PAGE_NUMBER, 1);
         $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, 10);
         $search = $request->query->get(self::SEARCH);
+        $types = $request->query->get(self::OPPORTUNITY_TYPE);
 
         if ($search) {
 
             $form['search']['#value'] = $search;
+            if ($types) {
+                $types = array_filter($types, function($type) {
+                    if ($type !== '0') {
+                        return $type;
+                    }
+
+                    return false;
+                });
+
+                foreach ($types as $type) {
+                    $form['opportunity_type'][$type]['#attributes']['checked'] = 'checked';
+                }
+            }
 
             $this->service
                 ->setUrl('opportunities')
                 ->setBody([
-                    'from'   => ($page - 1) * $resultPerPage,
-                    'size'   => $resultPerPage,
-                    'search' => $search,
-                    'sort'   => [
+                    'from'             => ($page - 1) * $resultPerPage,
+                    'size'             => $resultPerPage,
+                    'search'           => $search,
+                    'opportunity_type' => $types,
+                    'sort'             => [
                         ['date' => 'desc'],
                     ],
-                    'source' => ['title', 'summary'],
+                    'source'           => ['type', 'title', 'summary'],
                 ]);
 
             $results = $this->service->sendRequest();
@@ -85,14 +106,15 @@ class OpportunitiesController extends ControllerBase
         }
 
         return [
-            '#theme'         => 'opportunities_search',
-            '#form'          => $form,
-            '#search'        => $search,
-            '#results'       => isset($results) ? $results['results'] : null,
-            '#total'         => isset($results) ? $results['total'] : null,
-            '#page'          => $page,
-            '#resultPerPage' => $resultPerPage,
-            '#route'         => 'opportunities.search',
+            '#theme'            => 'opportunities_search',
+            '#form'             => $form,
+            '#search'           => $search,
+            '#opportunity_type' => $types,
+            '#results'          => isset($results) ? $results['results'] : null,
+            '#total'            => isset($results) ? $results['total'] : null,
+            '#page'             => $page,
+            '#resultPerPage'    => $resultPerPage,
+            '#route'            => 'opportunities.search',
         ];
     }
 
@@ -105,6 +127,7 @@ class OpportunitiesController extends ControllerBase
     public function details($profileId, Request $request)
     {
         $search = $request->query->get(self::SEARCH);
+        $types = $request->query->get(self::OPPORTUNITY_TYPE);
 
         $this->service
             ->setUrl('opportunities/' . urlencode($profileId))
@@ -115,9 +138,10 @@ class OpportunitiesController extends ControllerBase
         }
 
         return [
-            '#theme'       => 'opportunities_details',
-            '#opportunity' => $results,
-            '#search'      => $search,
+            '#theme'            => 'opportunities_details',
+            '#opportunity'      => $results,
+            '#search'           => $search,
+            '#opportunity_type' => $types,
         ];
     }
 

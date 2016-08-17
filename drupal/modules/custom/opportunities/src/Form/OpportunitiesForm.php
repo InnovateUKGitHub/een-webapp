@@ -5,7 +5,6 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\elastic_search\Service\ElasticSearchService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class OpportunitiesForm extends FormBase
 {
@@ -49,20 +48,36 @@ class OpportunitiesForm extends FormBase
      */
     public function buildForm(array $form, FormStateInterface $form_state)
     {
+        $types = [
+            'BO' => t('A product or service to buy'),
+            'BR' => t('A partner to sell my products, services'),
+            'TR' => t('A manufacturer to produce my products'),
+            'TO' => t('A technology, expertise'),
+            'RD' => t('A partner to develop a new technology'),
+        ];
+
         $form = [
-            'search'  => [
-                '#type'     => 'textfield',
-                '#title'    => t('Search an opportunity'),
-                '#required' => true,
+            'search'           => [
+                '#type'       => 'textfield',
+                '#title'      => t('Search an opportunity'),
+                '#attributes' => [
+                    'class' => [
+                        'form-control',
+                    ],
+                ],
             ],
-            'submit'  => [
-                '#type'        => 'submit',
-                '#value'       => $this->t('Search'),
-                '#button_type' => 'primary',
+            'opportunity_type' => [
+                '#type'    => 'checkboxes',
+                '#title'   => t('I am looking for'),
+                '#options' => $types,
             ],
-            'actions' => [
-                '#type'   => 'actions',
-                '#method' => Request::METHOD_GET,
+            'actions'          => [
+                '#type'  => 'actions',
+                'submit' => [
+                    '#type'        => 'submit',
+                    '#value'       => $this->t('Search'),
+                    '#button_type' => 'primary',
+                ],
             ],
         ];
 
@@ -74,8 +89,14 @@ class OpportunitiesForm extends FormBase
      */
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
-        if (strlen($form_state->getValue('search')) < 1) {
-            $form_state->setErrorByName('search', t('Please enter at least 1 characters to perform a search.'));
+        if (strlen($form_state->getValue('search')) < 2) {
+            $form_state->setErrorByName(
+                'search',
+                [
+                    'key'  => 'edit-search',
+                    'text' => t('Please enter at least 2 characters to perform a search.'),
+                ]
+            );
         }
     }
 
@@ -84,12 +105,18 @@ class OpportunitiesForm extends FormBase
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
+        // TODO Disable redirect when POST is used and we are making nice and pretty url
+//        $form_state->disableRedirect();
+//        return null;
         $values = $form_state->getValues();
         $form_state->setRedirect(
             'opportunities.search',
             [],
             [
-                'query' => ['search' => $values['search']],
+                'query' => [
+                    'search'           => $values['search'],
+                    'opportunity_type' => $values['opportunity_type'],
+                ],
             ]
         );
     }
