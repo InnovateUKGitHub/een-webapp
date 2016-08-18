@@ -1,0 +1,13 @@
+
+label.selected {
+  background: $label-background_colour;
+  border-color: $label-border_colour;
+}
+
+label.focused {
+  outline: 3px solid $label-outline-color-focus;
+}
+
+.focused input:focus {
+  outline: none;
+}

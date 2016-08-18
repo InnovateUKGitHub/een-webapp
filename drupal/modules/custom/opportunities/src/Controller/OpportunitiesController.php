@@ -107,6 +107,7 @@ class OpportunitiesController extends ControllerBase
             '#opportunity_type' => $types,
             '#results'          => isset($results) ? $results['results'] : null,
             '#total'            => isset($results) ? $results['total'] : null,
+            '#pageTotal'        => isset($results['results']) ? ceil($results['total'] / $resultPerPage) : null,
             '#page'             => $page,
             '#resultPerPage'    => $resultPerPage,
             '#route'            => 'opportunities.search',

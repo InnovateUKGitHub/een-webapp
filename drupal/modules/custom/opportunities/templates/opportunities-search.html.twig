@@ -5,7 +5,7 @@
 
     {% if total > 0 %}
         <div class="row">
-            <h3 class="heading-small">{{ 'Total Results: '|t }}{{ total }}</h3>
+            <h3 class="heading-small">{{ total }} {{ 'results found '|t }}</h3>
         </div>
         {% for row in results %}
             <div class="row">
@@ -24,6 +24,10 @@
             </div>
             <hr>
         {% endfor %}
+
+        {% include 'themes/custom/een/templates/pagination.html.twig'
+        with {'route': route, 'search': search, 'page': page, 'resultPerPage': resultPerPage, 'pageTotal': pageTotal, 'opportunity_type': opportunity_type} only %}
+
     {% else %}
         {{ 'No Results found for: '|t }}{{ search }}
     {% endif %}

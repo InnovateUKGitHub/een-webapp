@@ -1,22 +1,13 @@
 /* direct import of gov_uk elements from the node module */
 @import 'govuk-template';
 @import 'govuk-elements';
+
 @import 'variables';
 @import 'font';
 
+@import 'label';
+@import 'pagination';
+
 body {
   font-family: $font_family;
-}
-
-label.selected {
-  background: #fff;
-  border-color: #0b0c0c;
-}
-
-label.focused {
-  outline: 3px solid #ffbf47;
-}
-
-.focused input:focus {
-  outline: none;
 }

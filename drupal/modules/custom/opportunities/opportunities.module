@@ -11,6 +11,7 @@ function opportunities_theme()
                 'total'            => 0,
                 'page'             => 1,
                 'pageTotal'        => 0,
+                'resultPerPage'    => 10,
                 'route'            => 'opportunities.search',
             ],
             'template'  => 'opportunities-search',

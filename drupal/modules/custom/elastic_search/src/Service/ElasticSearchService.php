@@ -34,6 +34,18 @@ class ElasticSearchService
     }
 
     /**
+     * @param Client $client
+     *
+     * @return $this
+     */
+    public function setClient(Client $client)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
      * @param string $method
      *
      * @return $this
