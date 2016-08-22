@@ -10,33 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 class OpportunitiesForm extends FormBase
 {
     /**
-     * @var ElasticSearchService
-     */
-    private $service;
-
-    /**
-     * OpportunitiesForm constructor.
-     *
-     * @param ElasticSearchService $service
-     */
-    public function __construct(ElasticSearchService $service)
-    {
-        $this->service = $service;
-    }
-
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return OpportunitiesForm
-     */
-    public static function create(ContainerInterface $container)
-    {
-        return new self(
-            \Drupal::service('elastic_search.connection')
-        );
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getFormId()

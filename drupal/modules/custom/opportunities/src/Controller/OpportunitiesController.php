@@ -2,8 +2,8 @@
 namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\elastic_search\Service\ElasticSearchService;
 use Drupal\opportunities\Form\OpportunitiesForm;
+use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,16 +16,16 @@ class OpportunitiesController extends ControllerBase
     const OPPORTUNITY_TYPE = 'opportunity_type';
 
     /**
-     * @var ElasticSearchService
+     * @var OpportunitiesService
      */
     private $service;
 
     /**
      * OpportunitiesController constructor.
      *
-     * @param ElasticSearchService $service
+     * @param OpportunitiesService $service
      */
-    public function __construct(ElasticSearchService $service)
+    public function __construct(OpportunitiesService $service)
     {
         $this->service = $service;
     }
@@ -37,9 +37,7 @@ class OpportunitiesController extends ControllerBase
      */
     public static function create(ContainerInterface $container)
     {
-        return new self(
-            \Drupal::service('elastic_search.connection')
-        );
+        return new self($container->get('opportunities.service'));
     }
 
     /**
@@ -57,47 +55,7 @@ class OpportunitiesController extends ControllerBase
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
 
         if ($search) {
-
-            $form['search']['#value'] = $search;
-            if ($types) {
-                $types = array_filter($types, function($type) {
-                    if ($type !== '0') {
-                        return $type;
-                    }
-
-                    return false;
-                });
-
-                foreach ($types as $type) {
-                    $form['opportunity_type'][$type]['#attributes']['checked'] = 'checked';
-                }
-            }
-
-            $this->service
-                ->setUrl('opportunities')
-                ->setBody([
-                    'from'             => ($page - 1) * $resultPerPage,
-                    'size'             => $resultPerPage,
-                    'search'           => $search,
-                    'opportunity_type' => $types,
-                    'sort'             => [
-                        ['date' => 'desc'],
-                    ],
-                    'source'           => ['type', 'title', 'summary'],
-                ]);
-
-            $results = $this->service->sendRequest();
-
-            if (array_key_exists('error', $results)) {
-                if (is_array($results['error'])) {
-                    foreach ($results['error'] as $key => $error) {
-                        drupal_set_message($key . ' => ' . array_pop($error), 'error');
-                    }
-                } else {
-                    drupal_set_message($results['error'], 'error');
-                }
-                $results = null;
-            }
+            $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
         }
 
         return [
@@ -105,9 +63,9 @@ class OpportunitiesController extends ControllerBase
             '#form'             => $form,
             '#search'           => $search,
             '#opportunity_type' => $types,
-            '#results'          => isset($results) ? $results['results'] : null,
-            '#total'            => isset($results) ? $results['total'] : null,
-            '#pageTotal'        => isset($results['results']) ? ceil($results['total'] / $resultPerPage) : null,
+            '#results'          => isset($results['results']) ? $results['results'] : null,
+            '#total'            => isset($results['total']) ? $results['total'] : null,
+            '#pageTotal'        => isset($results['results']) ? (int)ceil($results['total'] / $resultPerPage) : null,
             '#page'             => $page,
             '#resultPerPage'    => $resultPerPage,
             '#route'            => 'opportunities.search',
@@ -125,13 +83,7 @@ class OpportunitiesController extends ControllerBase
         $search = $request->query->get(self::SEARCH);
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
 
-        $this->service
-            ->setUrl('opportunities/' . urlencode($profileId))
-            ->setMethod(Request::METHOD_GET);
-        $results = $this->service->sendRequest();
-        if (array_key_exists('error', $results)) {
-            drupal_set_message($results['error'], 'error');
-        }
+        $results = $this->service->get($profileId);
 
         return [
             '#theme'            => 'opportunities_details',
@@ -148,10 +100,7 @@ class OpportunitiesController extends ControllerBase
      */
     public function ajax($profileId)
     {
-        $this->service
-            ->setUrl('opportunities/' . urlencode($profileId))
-            ->setMethod(Request::METHOD_GET);
-        $results = $this->service->sendRequest();
+        $results = $this->service->get($profileId);
 
         return new JsonResponse($results);
     }
