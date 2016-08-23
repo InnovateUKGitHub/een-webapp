@@ -2,12 +2,13 @@
 namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\opportunities\Form\OpportunitiesForm;
+use Drupal\opportunities\Form\ExpressionOfInterestForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class OpportunitiesController extends ControllerBase
+class OpportunityController extends ControllerBase
 {
     const PAGE_NUMBER = 'page';
 
@@ -23,7 +24,7 @@ class OpportunitiesController extends ControllerBase
     private $service;
 
     /**
-     * OpportunitiesController constructor.
+     * OpportunityController constructor.
      *
      * @param OpportunitiesService $service
      */
@@ -35,7 +36,7 @@ class OpportunitiesController extends ControllerBase
     /**
      * @param ContainerInterface $container
      *
-     * @return OpportunitiesController
+     * @return OpportunityController
      */
     public static function create(ContainerInterface $container)
     {
@@ -43,34 +44,37 @@ class OpportunitiesController extends ControllerBase
     }
 
     /**
+     * @param string  $profileId
      * @param Request $request
      *
      * @return array
      */
-    public function search(Request $request)
+    public function index($profileId, Request $request)
     {
-        $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
-
-        $page = $request->query->get(self::PAGE_NUMBER, 1);
-        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, 10);
         $search = $request->query->get(self::SEARCH);
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
 
-        if ($search !== null) {
-            $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
-        }
+        $results = $this->service->get($profileId);
+
+        $form = \Drupal::formBuilder()->getForm(ExpressionOfInterestForm::class);
 
         return [
-            '#theme'            => 'opportunities_search',
+            '#theme'            => 'opportunities_details',
             '#form'             => $form,
+            '#opportunity'      => $results,
             '#search'           => $search,
             '#opportunity_type' => $types,
-            '#results'          => isset($results['results']) ? $results['results'] : null,
-            '#total'            => isset($results['total']) ? $results['total'] : null,
-            '#pageTotal'        => isset($results['results']) ? (int)ceil($results['total'] / $resultPerPage) : null,
-            '#page'             => $page,
-            '#resultPerPage'    => $resultPerPage,
-            '#route'            => 'opportunities.search',
         ];
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function form()
+    {
+        $form = \Drupal::formBuilder()->getForm(ExpressionOfInterestForm::class);
+
+
+        return new JsonResponse(['form' => $form]);
     }
 }
