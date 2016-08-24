@@ -1,7 +1,7 @@
 opportunities.search:
  path: '/opportunities'
  defaults:
-   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::search'
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::index'
  requirements:
    _permission: 'access content'
 
@@ -9,12 +9,5 @@ opportunities.details:
  path: '/opportunities/{profileId}'
  defaults:
    _controller: '\Drupal\opportunities\Controller\OpportunityController::index'
- requirements:
-   _permission: 'access content'
-
-opportunities.eoi:
- path: '/opportunities/eoi'
- defaults:
-   _controller: '\Drupal\opportunities\Controller\OpportunityController::form'
  requirements:
    _permission: 'access content'

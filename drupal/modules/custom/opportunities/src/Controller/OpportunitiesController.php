@@ -47,7 +47,7 @@ class OpportunitiesController extends ControllerBase
      *
      * @return array
      */
-    public function search(Request $request)
+    public function index(Request $request)
     {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
 

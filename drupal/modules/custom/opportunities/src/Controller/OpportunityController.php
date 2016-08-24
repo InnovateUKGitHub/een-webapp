@@ -2,10 +2,10 @@
 namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Url;
 use Drupal\opportunities\Form\ExpressionOfInterestForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class OpportunityController extends ControllerBase
@@ -52,29 +52,31 @@ class OpportunityController extends ControllerBase
     public function index($profileId, Request $request)
     {
         $search = $request->query->get(self::SEARCH);
-        $types = $request->query->get(self::OPPORTUNITY_TYPE);
+        $opportunityType = $request->query->get(self::OPPORTUNITY_TYPE);
 
         $results = $this->service->get($profileId);
 
         $form = \Drupal::formBuilder()->getForm(ExpressionOfInterestForm::class);
+        $form['#action'] = Url::fromRoute(
+            'opportunities.details',
+            ['profileId' => $profileId],
+            ['query' => ['search' => $search, 'opportunity_type' => $opportunityType]]
+        )->toString();
 
         return [
+            '#attached'         => [
+                'library' => [
+                    'core/drupal.ajax',
+                    'core/drupal.dialog',
+                    'core/drupal.dialog.ajax',
+                    'een/opportunity',
+                ],
+            ],
             '#theme'            => 'opportunities_details',
             '#form'             => $form,
             '#opportunity'      => $results,
             '#search'           => $search,
-            '#opportunity_type' => $types,
+            '#opportunity_type' => $opportunityType,
         ];
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    public function form()
-    {
-        $form = \Drupal::formBuilder()->getForm(ExpressionOfInterestForm::class);
-
-
-        return new JsonResponse(['form' => $form]);
     }
 }

@@ -4,7 +4,6 @@ var gulp = require('gulp'),
 
 gulp.task('js', function () {
     gulp.src([
-        'node_modules/jquery/dist/jquery.js',
         'node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js',
         'node_modules/govuk_template_mustache/assets/javascripts/govuk-template.js',
         'drupal/themes/custom/een/js/*.js'

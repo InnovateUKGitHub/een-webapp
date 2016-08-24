@@ -91,7 +91,20 @@
             <h3 class="heading-medium">{{ 'Express your interest'|t }}</h3>
         </div>
         <div class="column-two-thirds">
-            {{ form }}
+            <form action="{{ form['#action'] }}" method="POST">
+                {{ form.description }}
+                {{ form.interest }}
+                {{ form.more }}
+                {{ form.email }}
+                {{ form.form_build_id }}
+                {{ form.form_id }}
+                <hr/>
+                <div>
+                    <h4 class="heading-small">{{ 'By sumitting this information, I understand that:'|t }}</h4>
+                    <p>{{ 'An EEN adviser  will review your expression of interest and share with their client if it\'s what they\'re looking for. If we connect you, our involvement will step back at it, but we need you to keep us informed of follow on discussions and negociations'|t }}</p>
+                </div>
+                {{ form.actions }}
+            </form>
         </div>
     </div>
 {% endif %}
