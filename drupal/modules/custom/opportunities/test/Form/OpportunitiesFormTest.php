@@ -7,23 +7,14 @@ use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-include __DIR__ . '/../../../../../core/includes/bootstrap.inc';
-
 /**
  * @covers Drupal\opportunities\Form\OpportunitiesForm
+ * @covers Drupal\opportunities\Form\AbstractForm
  */
 class OpportunitiesFormTest extends UnitTestCase
 {
     /** @var ContainerInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $mockContainer;
-
-    protected function setup()
-    {
-        parent::setUp();
-
-        $this->mockContainer = self::getMock(ContainerInterface::class, [], [], '', false);
-        \Drupal::setContainer($this->mockContainer);
-    }
 
     public function testGetFormId()
     {
@@ -93,5 +84,13 @@ class OpportunitiesFormTest extends UnitTestCase
         $form->submitForm($formArray, $formState);
 
         self::assertInstanceOf(Url::class, $formState->getRedirect());
+    }
+
+    protected function setup()
+    {
+        parent::setUp();
+
+        $this->mockContainer = self::getMock(ContainerInterface::class, [], [], '', false);
+        \Drupal::setContainer($this->mockContainer);
     }
 }

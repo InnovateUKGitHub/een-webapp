@@ -22,22 +22,6 @@ class OpportunitiesControllerTest extends UnitTestCase
     /** @var OpportunitiesController */
     private $controller;
 
-    protected function Setup()
-    {
-        parent::setUp();
-
-        $this->mockService = self::getMock(OpportunitiesService::class, [], [], '', false);
-        $this->mockContainer = self::getMock(ContainerInterface::class, [], [], '', false);
-        \Drupal::setContainer($this->mockContainer);
-
-        $this->mockContainer->expects(self::at(0))
-            ->method('get')
-            ->with('opportunities.service')
-            ->willReturn($this->mockService);
-
-        $this->controller = OpportunitiesController::create($this->mockContainer);
-    }
-
     public function testIndex()
     {
         $mockFormBuilder = self::getMock(FormBuilder::class, [], [], '', false);
@@ -128,5 +112,21 @@ class OpportunitiesControllerTest extends UnitTestCase
             ],
             $this->controller->index($mockRequest)
         );
+    }
+
+    protected function Setup()
+    {
+        parent::setUp();
+
+        $this->mockService = self::getMock(OpportunitiesService::class, [], [], '', false);
+        $this->mockContainer = self::getMock(ContainerInterface::class, [], [], '', false);
+        \Drupal::setContainer($this->mockContainer);
+
+        $this->mockContainer->expects(self::at(0))
+            ->method('get')
+            ->with('opportunities.service')
+            ->willReturn($this->mockService);
+
+        $this->controller = OpportunitiesController::create($this->mockContainer);
     }
 }

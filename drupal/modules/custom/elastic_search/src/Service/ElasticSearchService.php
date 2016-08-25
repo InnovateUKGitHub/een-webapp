@@ -146,6 +146,7 @@ class ElasticSearchService
             case Response::STATUS_CODE_422:
                 return ['error' => $error['validation_messages']];
         }
+
         // Return standard error message if no error type known
         return ['error' => $error['detail']];
     }

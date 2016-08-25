@@ -32,9 +32,25 @@
     <div>
         <div class="column-one-third">
             <h3 class="heading-medium">{{ 'Contents'|t }}</h3>
+            <hr/>
+            <ul>
+                <li><a href="#abstract">{{ 'Abstract'|t }}</a></li>
+                <hr/>
+                <li><a href="#description">{{ 'Description'|t }}</a></li>
+                <hr/>
+                <li><a href="#partner_expertise_sought">{{ 'Partner expertise sought'|t }}</a></li>
+                <hr/>
+                <li><a href="#advantages_and_innovations">{{ 'Advantages and innovations'|t }}</a></li>
+                <hr/>
+                <li><a href="#development_stage">{{ 'Development Stage'|t }}</a></li>
+                <hr/>
+                <li><a href="#ipr">{{ 'IPR'|t }}</a></li>
+                <hr/>
+            </ul>
+            <a class="button" href="#express_your_interest">Express your interest</a>
         </div>
         <div class="column-two-thirds">
-            <h3 class="heading-medium">{{ 'Abstract'|t }}</h3>
+            <h3 class="heading-medium" id="abstract">{{ 'Abstract'|t }}</h3>
             <p>
                 {% if opportunity._source.summary %}
                     {{ opportunity._source.summary }}
@@ -42,7 +58,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium">{{ 'Description'|t }}</h3>
+            <h3 class="heading-medium" id="description">{{ 'Description'|t }}</h3>
             <p>
                 {% if opportunity._source.description %}
                     {{ opportunity._source.description }}
@@ -50,7 +66,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium">{{ 'Partner expertise sought'|t }}</h3>
+            <h3 class="heading-medium" id="partner_expertise_sought">{{ 'Partner expertise sought'|t }}</h3>
             <p>
                 {% if opportunity._source.partner_expertise %}
                     {{ opportunity._source.partner_expertise }}
@@ -58,7 +74,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium">{{ 'Advantages and innovations'|t }}</h3>
+            <h3 class="heading-medium" id="advantages_and_innovations">{{ 'Advantages and innovations'|t }}</h3>
             <p>
                 {% if opportunity._source.advantage %}
                     {{ opportunity._source.advantage }}
@@ -66,7 +82,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium">{{ 'Development Stage'|t }}</h3>
+            <h3 class="heading-medium" id="development_stage">{{ 'Development Stage'|t }}</h3>
             <p>
                 {% if opportunity._source.stage %}
                     {{ opportunity._source.stage }}
@@ -74,7 +90,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium">{{ 'IPR'|t }}</h3>
+            <h3 class="heading-medium" id="ipr">{{ 'IPR'|t }}</h3>
             <p>
                 {% if opportunity._source.ipr or opportunity._source.ipr_comment %}
                     {{ opportunity._source.ipr }}
@@ -88,7 +104,7 @@
     <hr/>
     <div>
         <div class="column-one-third">
-            <h3 class="heading-medium">{{ 'Express your interest'|t }}</h3>
+            <h3 class="heading-medium" id="express_your_interest">{{ 'Express your interest'|t }}</h3>
         </div>
         <div class="column-two-thirds">
             <form action="{{ form['#action'] }}" method="POST">

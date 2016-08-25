@@ -16,14 +16,6 @@ class OpportunitiesServiceTest extends UnitTestCase
     /** @var OpportunitiesService */
     private $service;
 
-    protected function Setup()
-    {
-        $this->mockService = self::getMock(ElasticSearchService::class, [], [], '', false);
-        $this->service = new OpportunitiesService($this->mockService);
-
-        parent::setUp();
-    }
-
     public function testSearch()
     {
         $this->mockService->expects(self::once())
@@ -79,5 +71,13 @@ class OpportunitiesServiceTest extends UnitTestCase
             ->willReturn(['success' => true]);
 
         self::assertEquals(['success' => true], $this->service->get(1));
+    }
+
+    protected function Setup()
+    {
+        $this->mockService = self::getMock(ElasticSearchService::class, [], [], '', false);
+        $this->service = new OpportunitiesService($this->mockService);
+
+        parent::setUp();
     }
 }

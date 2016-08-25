@@ -12,7 +12,7 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public function getFormId()
     {
-        return 'opportunity_search_form';
+        return 'expression_of_interest_form';
     }
 
     /**
@@ -61,7 +61,7 @@ class ExpressionOfInterestForm extends AbstractForm
                 ],
             ],
             'email'       => [
-                '#type'                => 'email',
+                '#type'                => 'textfield',
                 '#title'               => t('Email'),
                 '#description'         => t('You will be asked to create your EEN account if you do not already have one. If you do not have an email address, please enter your phone number instead.'),
                 '#description_display' => 'after',
@@ -95,7 +95,7 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public function submitHandler(array &$form, FormStateInterface $form_state)
     {
-        $response = parent::submitHandler($form, $form_state);
+        $response = parent::generateAjaxError($form, $form_state, ['description', 'interest', 'more', 'email']);
 
         if (!$form_state->getErrors()) {
             $response->addCommand(new OpenModalDialogCommand('Thank you', 'Your expression of interest has been recorded'));
@@ -112,11 +112,7 @@ class ExpressionOfInterestForm extends AbstractForm
         parent::checkRequireField($form_state, 'description');
         parent::checkRequireField($form_state, 'interest');
         parent::checkRequireField($form_state, 'more');
-        if (parent::checkRequireField($form_state, 'email')) {
-            parent::checkEmailField($form_state, 'email');
-        }
-
-        return false;
+        parent::checkEmailAndPhoneField($form_state, 'email');
     }
 
     /**
@@ -125,5 +121,6 @@ class ExpressionOfInterestForm extends AbstractForm
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         // TODO Submit Form to api
+        return false;
     }
 }
