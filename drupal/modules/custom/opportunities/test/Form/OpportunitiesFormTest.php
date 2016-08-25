@@ -1,7 +1,8 @@
 <?php
-namespace Drupal\opportunities\Test\Service;
+namespace Drupal\opportunities\Test\Form;
 
 use Drupal\Core\Form\FormState;
+use Drupal\Core\Url;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -87,9 +88,10 @@ class OpportunitiesFormTest extends UnitTestCase
         $formState = new FormState();
 
         $formState->setValue('search', '');
+        $formState->setValue('opportunity_type', '');
 
         $form->submitForm($formArray, $formState);
 
-        self::assertFalse($formState->getRedirect());
+        self::assertInstanceOf(Url::class, $formState->getRedirect());
     }
 }

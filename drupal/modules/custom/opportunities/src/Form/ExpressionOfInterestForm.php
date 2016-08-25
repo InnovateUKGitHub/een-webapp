@@ -1,15 +1,11 @@
 <?php
 namespace Drupal\opportunities\Form;
 
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\HtmlCommand;
-use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class ExpressionOfInterestForm extends FormBase
+class ExpressionOfInterestForm extends AbstractForm
 {
     /**
      * {@inheritdoc}
@@ -65,7 +61,7 @@ class ExpressionOfInterestForm extends FormBase
                 ],
             ],
             'email'       => [
-                '#type'                => 'textfield',
+                '#type'                => 'email',
                 '#title'               => t('Email'),
                 '#description'         => t('You will be asked to create your EEN account if you do not already have one. If you do not have an email address, please enter your phone number instead.'),
                 '#description_display' => 'after',
@@ -99,19 +95,9 @@ class ExpressionOfInterestForm extends FormBase
      */
     public function submitHandler(array &$form, FormStateInterface $form_state)
     {
-        $response = new AjaxResponse();
-        $response->addCommand(new HtmlCommand('.js-form-item .error-message', ''));
-        $response->addCommand(new InvokeCommand('.js-form-item.error', 'removeClass', ['error']));
-        if ($form_state->getErrors()) {
-            foreach ($form_state->getErrors() as $error) {
-                $response->addCommand(
-                    new HtmlCommand('.js-form-item-' . $error['element'] . ' .error-message', $error['text'])
-                );
-                $response->addCommand(
-                    new InvokeCommand('.js-form-item-' . $error['element'], 'addClass', ['error'])
-                );
-            }
-        } else {
+        $response = parent::submitHandler($form, $form_state);
+
+        if (!$form_state->getErrors()) {
             $response->addCommand(new OpenModalDialogCommand('Thank you', 'Your expression of interest has been recorded'));
         }
 
@@ -123,45 +109,11 @@ class ExpressionOfInterestForm extends FormBase
      */
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
-        if (strlen($form_state->getValue('description')) < 1) {
-            $form_state->setErrorByName(
-                'description',
-                [
-                    'element' => 'description',
-                    'key'     => 'edit-description',
-                    'text'    => t('The description is required.'),
-                ]
-            );
-        }
-        if (strlen($form_state->getValue('interest')) < 1) {
-            $form_state->setErrorByName(
-                'interest',
-                [
-                    'element' => 'interest',
-                    'key'     => 'edit-interest',
-                    'text'    => t('The interest is required.'),
-                ]
-            );
-        }
-        if (strlen($form_state->getValue('more')) < 1) {
-            $form_state->setErrorByName(
-                'more',
-                [
-                    'element' => 'more',
-                    'key'     => 'edit-more',
-                    'text'    => t('The more is required.'),
-                ]
-            );
-        }
-        if (strlen($form_state->getValue('email')) < 1) {
-            $form_state->setErrorByName(
-                'email',
-                [
-                    'element' => 'email',
-                    'key'     => 'edit-email',
-                    'text'    => t('The email/phone number is required.'),
-                ]
-            );
+        parent::checkRequireField($form_state, 'description');
+        parent::checkRequireField($form_state, 'interest');
+        parent::checkRequireField($form_state, 'more');
+        if (parent::checkRequireField($form_state, 'email')) {
+            parent::checkEmailField($form_state, 'email');
         }
 
         return false;
