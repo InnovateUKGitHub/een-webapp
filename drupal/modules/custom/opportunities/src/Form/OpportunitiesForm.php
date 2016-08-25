@@ -23,11 +23,11 @@ class OpportunitiesForm extends FormBase
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $types = [
-            'BO' => t('A product or service to buy'),
-            'BR' => t('A partner to sell my products, services'),
-            'TR' => t('A manufacturer to produce my products'),
-            'TO' => t('A technology, expertise'),
-            'RD' => t('A partner to develop a new technology'),
+            'BO' => t('buy a product or service'),
+            'BR' => t('sell my product or service'),
+            'TR' => t('find a manufacturer or licensee'),
+            'TO' => t('find a specialist'),
+            'RD' => t('develop tech / bid for funding'),
         ];
 
         $form = [
@@ -42,7 +42,7 @@ class OpportunitiesForm extends FormBase
             ],
             'opportunity_type' => [
                 '#type'    => 'checkboxes',
-                '#title'   => t('I am looking for'),
+                '#title'   => t('I want to...'),
                 '#options' => $types,
             ],
             'actions'          => [
