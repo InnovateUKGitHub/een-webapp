@@ -17,10 +17,12 @@
                         {{ opportunity._source.country }}
                     </p>
                 </div>
-                <div>
-                    <label>{{ 'Last updated:'|t }}</label>
-                    <p>{{ opportunity._source.date|date('m/d/Y') }}</p>
-                </div>
+                {% if opportunity._source.date|date('U') > '-3 days'|date('U') %}
+                    <div>
+                        <label>{{ 'Last updated:'|t }}</label>
+                        <p>{{ opportunity._source.date|time_diff }}</p>
+                    </div>
+                {% endif %}
                 <div>
                     <label>{{ 'Opportunity ID:'|t }}</label>
                     <p>{{ opportunity._source.id }}</p>

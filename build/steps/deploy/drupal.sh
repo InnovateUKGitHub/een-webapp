@@ -38,4 +38,4 @@ echo "Clearing drupal cache"
 $htdocs/bin/drush cr
 
 echo "Installing modules"
-$htdocs/bin/drush en opportunities elastic_search -y
+$htdocs/bin/drush en opportunities elastic_search twig_extensions -y
