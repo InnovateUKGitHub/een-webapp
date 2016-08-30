@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
-    minify = require('gulp-minify');
+    minify = require('gulp-minify'),
+    watch = require('gulp-watch');
 
 gulp.task('js', function () {
     gulp.src([
@@ -33,4 +34,9 @@ gulp.task('css', function () {
         .pipe(gulp.dest('drupal/themes/custom/een/css'));
 });
 
+gulp.task('watch', function () {
+    gulp.watch('drupal/themes/custom/een/scss/**/*.scss', ['css'])
+});
+
 gulp.task('default', ['css', 'js']);
+
