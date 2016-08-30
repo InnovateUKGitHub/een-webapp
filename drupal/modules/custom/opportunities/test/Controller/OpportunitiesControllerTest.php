@@ -7,7 +7,6 @@ use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,23 +22,7 @@ class OpportunitiesControllerTest extends UnitTestCase
     /** @var OpportunitiesController */
     private $controller;
 
-    protected function Setup()
-    {
-        parent::setUp();
-
-        $this->mockService = self::getMock(OpportunitiesService::class, [], [], '', false);
-        $this->mockContainer = self::getMock(ContainerInterface::class, [], [], '', false);
-        \Drupal::setContainer($this->mockContainer);
-
-        $this->mockContainer->expects(self::at(0))
-            ->method('get')
-            ->with('opportunities.service')
-            ->willReturn($this->mockService);
-
-        $this->controller = OpportunitiesController::create($this->mockContainer);
-    }
-
-    public function testSearch()
+    public function testIndex()
     {
         $mockFormBuilder = self::getMock(FormBuilder::class, [], [], '', false);
         $mockRequest = self::getMock(Request::class, [], [], '', false);
@@ -70,11 +53,11 @@ class OpportunitiesControllerTest extends UnitTestCase
                 '#resultPerPage'    => null,
                 '#route'            => 'opportunities.search',
             ],
-            $this->controller->search($mockRequest)
+            $this->controller->index($mockRequest)
         );
     }
 
-    public function testSearchWithSearch()
+    public function testIndexWithSearch()
     {
         $mockFormBuilder = self::getMock(FormBuilder::class, [], [], '', false);
         $mockRequest = self::getMock(Request::class, [], [], '', false);
@@ -127,51 +110,23 @@ class OpportunitiesControllerTest extends UnitTestCase
                 '#resultPerPage'    => 10,
                 '#route'            => 'opportunities.search',
             ],
-            $this->controller->search($mockRequest)
+            $this->controller->index($mockRequest)
         );
     }
 
-    public function testDetails()
+    protected function Setup()
     {
-        $mockRequest = self::getMock(Request::class, [], [], '', false);
-        $mockQuery = self::getMock(ParameterBag::class, [], [], '', false);
+        parent::setUp();
 
-        $mockRequest->query = $mockQuery;
+        $this->mockService = self::getMock(OpportunitiesService::class, [], [], '', false);
+        $this->mockContainer = self::getMock(ContainerInterface::class, [], [], '', false);
+        \Drupal::setContainer($this->mockContainer);
 
-        $mockQuery->expects(self::at(0))
+        $this->mockContainer->expects(self::at(0))
             ->method('get')
-            ->with(OpportunitiesController::SEARCH)
-            ->willReturn('H2020');
-        $mockQuery->expects(self::at(1))
-            ->method('get')
-            ->with(OpportunitiesController::OPPORTUNITY_TYPE)
-            ->willReturn(['BO']);
+            ->with('opportunities.service')
+            ->willReturn($this->mockService);
 
-        $this->mockService->expects(self::once())
-            ->method('get')
-            ->with(1)
-            ->willReturn([]);
-
-        self::assertEquals(
-            [
-                '#theme'            => 'opportunities_details',
-                '#opportunity'      => [],
-                '#search'           => 'H2020',
-                '#opportunity_type' => ['BO'],
-            ],
-            $this->controller->details(1, $mockRequest)
-        );
-    }
-
-    public function testAjax()
-    {
-        $this->mockService->expects(self::once())
-            ->method('get')
-            ->with(1)
-            ->willReturn([]);
-
-        $result = $this->controller->ajax(1);
-
-        self::assertInstanceOf(JsonResponse::class, $result);
+        $this->controller = OpportunitiesController::create($this->mockContainer);
     }
 }

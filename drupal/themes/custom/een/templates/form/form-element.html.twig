@@ -64,7 +64,7 @@ description_display == 'invisible' ? 'visually-hidden',
 %}
 
 {#Hack to handle gov checkbox#}
-{%  if type == 'checkbox' or type == 'radio' %}
+{% if type == 'checkbox' or type == 'radio' %}
     <label class="block-label" for="{{ label['#id'] }}">
         {{ children }}
         {{ label['#title'] }}
@@ -85,9 +85,16 @@ description_display == 'invisible' ? 'visually-hidden',
             </div>
         {% endif %}
 
-        {% if errors %}
-            <span class="error-message">{{ errors.text }}</span>
-        {% endif %}
+        <span class="error-message">
+            {% if errors %}
+                {% if errors is iterable %}
+                    {{ errors.text }}
+                {% else %}
+                    {{ errors }}
+                {% endif %}
+
+            {% endif %}
+        </span>
 
         {{ children }}
 

@@ -1,128 +1,126 @@
 {% if opportunity is not empty %}
-    <h1 class="heading-xlarge">{{ opportunity._source.title }}</h1>
     <div>
         <div>
-            <div>
-                <h2>
-                    {{ opportunity._source.country_code }}
-                    {{ opportunity._source.id }}
-                    {% if opportunity._source.eoi == true %}
-                        <span>{{ 'Offers'|t }}</span>
-                    {% else %}
-                        <span>Requests</span>
-                    {% endif %}
-                </h2>
-            </div>
-            <div>
-                <div>
-                    <h3>{{ 'Abstract'|t }}</h3>
-                    {% if opportunity._source.summary %}
-                        <p>{{ opportunity._source.summary }}</p>
-                    {% else %}
-                        <p>{{ 'Not available'|t }}</p>
-                    {% endif %}
-                </div>
-                <div>
-                    <h3>{{ 'Full description'|t }}</h3>
-                    {% if opportunity._source.description %}
-                        <p>{{ opportunity._source.description }}</p>
-                    {% else %}
-                        <p>{{ 'Not available'|t }}</p>
-                    {% endif %}
-                </div>
-                <div>
-                    <h3>{{ 'Partner expertise sought'|t }}</h3>
-                    {% if opportunity._source.partner_expertise %}
-                        <p>{{ opportunity._source.partner_expertise }}</p>
-                    {% else %}
-                        <p>{{ 'Not available'|t }}</p>
-                    {% endif %}
-                </div>
-                <div>
-                    <h3>{{ 'Advantages & innovations'|t }}</h3>
-                    {% if opportunity._source.advantage %}
-                        <p>{{ opportunity._source.advantage }}</p>
-                    {% else %}
-                        <p>{{ 'Not available'|t }}</p>
-                    {% endif %}
-                </div>
-                <div>
-                    <h3>{{ 'Development Stage'|t }}</h3>
-                    <p>{{ opportunity._source.stage }}</p>
-                </div>
-                <div>
-                    <h3>{{ 'IPR'|t }}</h3>
-                    {% if opportunity._source.ipr %}
-                        <p><span>{{ opportunity._source.ipr }}</span>{{ opportunity._source.ipr_comment }}</p>
-                    {% else %}
-                        <p>{{ 'Not available'|t }}</p>
-                    {% endif %}
-                </div>
-            </div>
+            <a class="button"
+               href="{{ url('opportunities.search',{'search': search, 'opportunity_type': opportunity_type}) }}">
+                {{ 'Back to search results'|t }}
+            </a>
         </div>
         <div>
+            <h1>{{ 'Opportunity'|t }}</h1>
+            <h2 class="heading-large">{{ opportunity._source.title }}</h2>
             <div>
-                <h3>{{ 'Key information'|t }}</h3>
                 <div>
-                    <span>{{ 'Country of origin'|t }}</span>
-                    <span>{{ opportunity._source.country }}</span>
+                    <label>{{ 'Country of origin:'|t }}</label>
+                    <p>
+                        <span>{{ opportunity._source.country_code }}</span>
+                        {{ opportunity._source.country }}
+                    </p>
                 </div>
                 <div>
-                    <span>{{ 'Profile date'|t }}</span>
-                    <span>{{ opportunity._source.date|date("m/d/Y") }}</span>
+                    <label>{{ 'Last updated:'|t }}</label>
+                    <p>{{ opportunity._source.date|date('m/d/Y') }}</p>
                 </div>
                 <div>
-                    <span>{{ 'Deadline'|t }}</span>
-                    <span>{{ opportunity._source.deadline|date("m/d/Y") }}</span>
-                </div>
-            </div>
-            <div>
-                <h3>{{ 'Partnership(s) sought'|t }}</h3>
-                {% if opportunity._source.partnership_sought %}
-                    <span>{{ opportunity._source.partnership_sought|join(' / ') }}</span>
-                {% else %}
-                    <span>{{ 'Not available'|t }}</span>
-                {% endif %}
-            </div>
-            <div>
-                <h3>{{ 'Classification'|t }}</h3>
-                <div>
-                    <h4>{{ 'Industry sectors'|t }}</h4>
-                    {% if opportunity._source.industries %}
-                        <p>{{ opportunity._source.industries|join(' / ') }}</p>
-                    {% else %}
-                        <p>{{ 'Not available'|t }}</p>
-                    {% endif %}
-                </div>
-                <div>
-                    <h4>{{ 'Technology keywords'|t }}</h4>
-                    {% if opportunity._source.technologies %}
-                        <p>{{ opportunity._source.technologies|join(' / ') }}</p>
-                    {% else %}
-                        <p>{{ 'Not available'|t }}</p>
-                    {% endif %}
-                </div>
-                <div>
-                    <h4>{{ 'Commercial keywords'|t }}</h4>
-                    {% if opportunity._source.commercials %}
-                        <p>{{ opportunity._source.commercials|join(' / ') }}</p>
-                    {% else %}
-                        <p>{{ 'Not available'|t }}</p>
-                    {% endif %}
-                </div>
-                <div>
-                    <h4>{{ 'Market keywords'|t }}</h4>
-                    {% if opportunity._source.markets %}
-                        <p>{{ opportunity._source.markets|join(' / ') }}</p>
-                    {% else %}
-                        <p>{{ 'Not available'|t }}</p>
-                    {% endif %}
+                    <label>{{ 'Opportunity ID:'|t }}</label>
+                    <p>{{ opportunity._source.id }}</p>
                 </div>
             </div>
         </div>
-        <a class="button" href="{{ url(
-        'opportunities.search',
-        {'search': search, 'opportunity_type': opportunity_type}
-        ) }}">{{ 'Go back'|t }}</a>
+    </div>
+    <hr/>
+    <div>
+        <div class="column-one-third">
+            <h3 class="heading-medium">{{ 'Contents'|t }}</h3>
+            <hr/>
+            <ul>
+                <li><a href="#abstract">{{ 'Abstract'|t }}</a></li>
+                <hr/>
+                <li><a href="#description">{{ 'Description'|t }}</a></li>
+                <hr/>
+                <li><a href="#partner_expertise_sought">{{ 'Partner expertise sought'|t }}</a></li>
+                <hr/>
+                <li><a href="#advantages_and_innovations">{{ 'Advantages and innovations'|t }}</a></li>
+                <hr/>
+                <li><a href="#development_stage">{{ 'Development Stage'|t }}</a></li>
+                <hr/>
+                <li><a href="#ipr">{{ 'IPR'|t }}</a></li>
+                <hr/>
+            </ul>
+            <a class="button" href="#express_your_interest">Express your interest</a>
+        </div>
+        <div class="column-two-thirds">
+            <h3 class="heading-medium" id="abstract">{{ 'Abstract'|t }}</h3>
+            <p>
+                {% if opportunity._source.summary %}
+                    {{ opportunity._source.summary }}
+                {% else %}
+                    {{ 'Not available'|t }}
+                {% endif %}
+            </p>
+            <h3 class="heading-medium" id="description">{{ 'Description'|t }}</h3>
+            <p>
+                {% if opportunity._source.description %}
+                    {{ opportunity._source.description }}
+                {% else %}
+                    {{ 'Not available'|t }}
+                {% endif %}
+            </p>
+            <h3 class="heading-medium" id="partner_expertise_sought">{{ 'Partner expertise sought'|t }}</h3>
+            <p>
+                {% if opportunity._source.partner_expertise %}
+                    {{ opportunity._source.partner_expertise }}
+                {% else %}
+                    {{ 'Not available'|t }}
+                {% endif %}
+            </p>
+            <h3 class="heading-medium" id="advantages_and_innovations">{{ 'Advantages and innovations'|t }}</h3>
+            <p>
+                {% if opportunity._source.advantage %}
+                    {{ opportunity._source.advantage }}
+                {% else %}
+                    {{ 'Not available'|t }}
+                {% endif %}
+            </p>
+            <h3 class="heading-medium" id="development_stage">{{ 'Development Stage'|t }}</h3>
+            <p>
+                {% if opportunity._source.stage %}
+                    {{ opportunity._source.stage }}
+                {% else %}
+                    {{ 'Not available'|t }}
+                {% endif %}
+            </p>
+            <h3 class="heading-medium" id="ipr">{{ 'IPR'|t }}</h3>
+            <p>
+                {% if opportunity._source.ipr or opportunity._source.ipr_comment %}
+                    {{ opportunity._source.ipr }}
+                    {{ opportunity._source.ipr_comment }}
+                {% else %}
+                    {{ 'Not available'|t }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <hr/>
+    <div>
+        <div class="column-one-third">
+            <h3 class="heading-medium" id="express_your_interest">{{ 'Express your interest'|t }}</h3>
+        </div>
+        <div class="column-two-thirds">
+            <form action="{{ form['#action'] }}" method="POST">
+                {{ form.description }}
+                {{ form.interest }}
+                {{ form.more }}
+                {{ form.email }}
+                {{ form.form_build_id }}
+                {{ form.form_id }}
+                <hr/>
+                <div>
+                    <h4 class="heading-small">{{ 'By sumitting this information, I understand that:'|t }}</h4>
+                    <p>{{ 'An EEN adviser  will review your expression of interest and share with their client if it\'s what they\'re looking for. If we connect you, our involvement will step back at it, but we need you to keep us informed of follow on discussions and negociations'|t }}</p>
+                </div>
+                {{ form.actions }}
+            </form>
+        </div>
     </div>
 {% endif %}

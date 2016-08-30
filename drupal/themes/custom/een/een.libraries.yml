@@ -4,7 +4,12 @@ global-styling:
     theme:
       css/een.css: {}
   js:
-    js/jquery-min.js: {}
     js/govuk-template-min.js: {}
     js/selection-buttons-min.js: {}
     js/een-min.js: {}
+  dependencies:
+    - core/jquery
+opportunity:
+  version: 1.0
+  js:
+    js/opportunity-min.js: {}

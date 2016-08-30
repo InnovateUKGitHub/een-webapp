@@ -14,28 +14,6 @@ use Zend\Http\Response;
  */
 class ElasticSearchServiceTest extends UnitTestCase
 {
-    protected function Setup()
-    {
-        parent::setUp();
-
-        $configMock = self::getMock(ImmutableConfig::class, [], [], '', false);
-        $containerMock = self::getMock(ContainerInterface::class, [], [], '', false);
-        $containerMock->expects(self::once())
-            ->method('get')
-            ->with('config.factory')
-            ->willReturn($configMock);
-        $configMock->expects(self::at(0))
-            ->method('get')
-            ->with('elastic_search.settings')
-            ->willReturn($configMock);
-        $configMock->expects(self::at(1))
-            ->method('get')
-            ->with('server')
-            ->willReturn('my_server');
-
-        \Drupal::setContainer($containerMock);
-    }
-
     public function testSuccess()
     {
         $service = new ElasticSearchService();
@@ -159,5 +137,27 @@ class ElasticSearchServiceTest extends UnitTestCase
             ->willReturn('{"detail": "An error as occurred"}');
 
         self::assertEquals(['error' => 'An error as occurred'], $service->sendRequest());
+    }
+
+    protected function Setup()
+    {
+        parent::setUp();
+
+        $configMock = self::getMock(ImmutableConfig::class, [], [], '', false);
+        $containerMock = self::getMock(ContainerInterface::class, [], [], '', false);
+        $containerMock->expects(self::once())
+            ->method('get')
+            ->with('config.factory')
+            ->willReturn($configMock);
+        $configMock->expects(self::at(0))
+            ->method('get')
+            ->with('elastic_search.settings')
+            ->willReturn($configMock);
+        $configMock->expects(self::at(1))
+            ->method('get')
+            ->with('server')
+            ->willReturn('my_server');
+
+        \Drupal::setContainer($containerMock);
     }
 }

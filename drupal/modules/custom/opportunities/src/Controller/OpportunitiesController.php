@@ -5,14 +5,16 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class OpportunitiesController extends ControllerBase
 {
     const PAGE_NUMBER = 'page';
+
     const RESULT_PER_PAGE = 'resultPerPage';
+
     const SEARCH = 'search';
+
     const OPPORTUNITY_TYPE = 'opportunity_type';
 
     /**
@@ -45,7 +47,7 @@ class OpportunitiesController extends ControllerBase
      *
      * @return array
      */
-    public function search(Request $request)
+    public function index(Request $request)
     {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
 
@@ -54,7 +56,7 @@ class OpportunitiesController extends ControllerBase
         $search = $request->query->get(self::SEARCH);
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
 
-        if ($search) {
+        if ($search !== null) {
             $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
         }
 
@@ -70,38 +72,5 @@ class OpportunitiesController extends ControllerBase
             '#resultPerPage'    => $resultPerPage,
             '#route'            => 'opportunities.search',
         ];
-    }
-
-    /**
-     * @param string  $profileId
-     * @param Request $request
-     *
-     * @return array
-     */
-    public function details($profileId, Request $request)
-    {
-        $search = $request->query->get(self::SEARCH);
-        $types = $request->query->get(self::OPPORTUNITY_TYPE);
-
-        $results = $this->service->get($profileId);
-
-        return [
-            '#theme'            => 'opportunities_details',
-            '#opportunity'      => $results,
-            '#search'           => $search,
-            '#opportunity_type' => $types,
-        ];
-    }
-
-    /**
-     * @param $profileId
-     *
-     * @return JsonResponse
-     */
-    public function ajax($profileId)
-    {
-        $results = $this->service->get($profileId);
-
-        return new JsonResponse($results);
     }
 }
