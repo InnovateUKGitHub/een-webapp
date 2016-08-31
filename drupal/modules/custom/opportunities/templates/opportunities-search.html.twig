@@ -1,34 +1,60 @@
-{{ form }}
 
-{% if results is not null %}
-    <h1 class="heading-xlarge">{{ 'Find an opportunity'|t }}</h1>
+<div class="content-heading">
+    <h1>{{ 'Partnering Opportunities'|t }}</h1>
+    <h2 class="heading-large">{{ 'Find international partners'|t }}</h2>
+    <h3>{{ 'Search for partners to manufacture, distribute co-develop and supply your products, ideas and business.'|t }}</h3>
+</div>
 
-    {% if total > 0 %}
-        <div class="row">
-            <h3 class="heading-small">{{ total }} {{ 'results found '|t }}</h3>
-        </div>
-        {% for row in results %}
-            <div class="row">
-                <h3>
-                    {{ row._source.type }} -
-                    <a href="{{ url(
-                    'opportunities.details',
-                    {'profileId': row._id, 'search': search, 'opportunity_type': opportunity_type}
-                    ) }}"
-                       id="opportunity-link">
-                        {{ row._source.title }}
-                    </a>
-                </h3>
+<div class="grid-row">
+    <div class="column-one-third">
+        <p class="font-xsmall">You can use the filters to show only results that match your interests</p>
+        {{ form }}
+    </div>
+    <div class="column-two-thirds">
+        {% if results is not null %}
+            {% if total > 0 %}
+                <div class="row">
+                    <h3 class="heading-xlarge">{{ total }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3> 
+                </div>
+                {% for row in results %}
+                    <div class="row row-bordered">
+                        <h3>
+                            <a href="{{ url(
+                            'opportunities.details',
+                            {'profileId': row._id, 'search': search, 'opportunity_type': opportunity_type}
+                            ) }}"
+                               id="opportunity-link">
+                                {{ row._source.title }}
+                            </a>
+                        </h3>
+                            
+                        <p class="meta-inline font-small">
+                            {# lastupdated #}
+                            {% if row._source.date|date('U') > '-3 days'|date('U') %}
+                                {{ row._source.date|time_diff }} |
+                            {% endif %}
+                            
+                            {# organisation id #}
+                            {{ row._source.id }} |
 
-                <p>{{ row._source.summary }}</p>
-            </div>
-            <hr/>
-        {% endfor %}
+                            {# Country of origin #}
+                            <span>{{ row._source.country_code }}</span>
+                            {{ row._source.country }}
+                        </p>
+                    </div>
+                    
+                {% endfor %}
 
-        {% include 'themes/custom/een/templates/pagination.html.twig'
-        with {'route': route, 'search': search, 'page': page, 'resultPerPage': resultPerPage, 'pageTotal': pageTotal, 'opportunity_type': opportunity_type} only %}
+                {% include 'themes/custom/een/templates/pagination.html.twig'
+                with {'route': route, 'search': search, 'page': page, 'resultPerPage': resultPerPage, 'pageTotal': pageTotal, 'opportunity_type': opportunity_type} only %}
 
-    {% else %}
-        {{ 'No Results found for: '|t }}{{ search }}
-    {% endif %}
-{% endif %}
+            {% else %}
+                {{ 'No Results found for: '|t }}{{ search }}
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+
+
+

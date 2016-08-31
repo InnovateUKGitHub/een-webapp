@@ -34,7 +34,7 @@ hr {
 }
 
 p { @extend .font-small }
-
+a { text-decoration: none;}
 
 %borderGradElement {
     
@@ -131,6 +131,7 @@ a.back-link {
         }
     }
 }
+.meta-inline { margin-bottom: 0; }
 
 .single-header-one-col {
     margin-top: 0;
@@ -171,5 +172,47 @@ a.back-link {
     .form-control {
         width:100%;
         border-color: #9B9B9B;
+    }
+}
+
+form[data-drupal-selector="opportunity-search-form"] {
+    .form-item-search, .fieldgroup  {
+        background: #DEE0E2;
+        
+        margin-bottom: 14px;
+        .form-control {
+            width: 100%;
+        }
+        .fieldset-wrapper {
+            padding: 7px;
+            
+            legend {
+                margin: 10px;
+                display: block;
+                top: 15px;
+                position: relative;
+            }
+            
+            .block-label {
+                background: white;
+                width: initial;
+                margin: 0;
+                font-size: 16px;
+                /* padding-top: 7px; */
+                /* padding-bottom: 7px; */
+                width: 68%;
+                float:none;
+            }
+        }
+    }
+}
+
+.row-bordered {
+    border-bottom: 1px solid #DDDDDD; 
+    padding:7px;
+    
+    h3 {
+       font-weight: bold; 
+       line-height: 1.1em;
     }
 }
