@@ -1,16 +1,16 @@
 {% if opportunity is not empty %}
     <div>
         <div>
-            <a class="button"
+            <a class="back-link"
                href="{{ url('opportunities.search',{'search': search, 'opportunity_type': opportunity_type}) }}">
-                {{ 'Back to search results'|t }}
+                {{ '< Back to search results'|t }}
             </a>
         </div>
-        <div>
+        <div class="content-heading">
             <h1>{{ 'Opportunity'|t }}</h1>
             <h2 class="heading-large">{{ opportunity._source.title }}</h2>
-            <div>
-                <div>
+            <div class="meta">
+                <div class="meta-data">
                     <label>{{ 'Country of origin:'|t }}</label>
                     <p>
                         <span>{{ opportunity._source.country_code }}</span>
@@ -18,20 +18,19 @@
                     </p>
                 </div>
                 {% if opportunity._source.date|date('U') > '-3 days'|date('U') %}
-                    <div>
+                   <div class="meta-data">
                         <label>{{ 'Last updated:'|t }}</label>
                         <p>{{ opportunity._source.date|time_diff }}</p>
                     </div>
                 {% endif %}
-                <div>
+                <div class="meta-data">
                     <label>{{ 'Opportunity ID:'|t }}</label>
                     <p>{{ opportunity._source.id }}</p>
                 </div>
             </div>
         </div>
     </div>
-    <hr/>
-    <div>
+    <div class="grid-row">
         <div class="column-one-third">
             <div class="contents-list">
                 <h3 class="heading-medium">{{ 'Contents'|t }}</h3>
@@ -43,10 +42,11 @@
                     <li><a href="#development_stage">{{ 'Development Stage'|t }}</a></li>
                     <li><a href="#ipr">{{ 'IPR'|t }}</a></li>
                 </ul>
+                
+                 <a class="button-brand" href="#express_your_interest">Express your interest</a>
             </div>
-            <a class="button-brand" href="#express_your_interest">Express your interest</a>
         </div>
-        <div class="column-two-thirds">
+        <div class="column-two-thirds contents-text-block">
             <h3 class="heading-medium" id="abstract">{{ 'Abstract'|t }}</h3>
             <p>
                 {% if opportunity._source.summary %}
@@ -99,15 +99,21 @@
         </div>
     </div>
     <hr/>
-    <div>
+    <div class="grid-row">
         <div class="column-one-third">
-            <h3 class="heading-medium" id="express_your_interest">{{ 'Express your interest'|t }}</h3>
+            <h3 class="heading-medium single-header-one-col" id="express_your_interest">{{ 'Express your interest'|t }}</h3>
         </div>
         <div class="column-two-thirds">
-            <form action="{{ form['#action'] }}" method="POST">
-                {{ form.description }}
-                {{ form.interest }}
-                {{ form.more }}
+            <form action="{{ form['#action'] }}" method="POST" class="form-opportunities">
+                <div class="form-section">
+                    {{ form.description }}
+                </div>
+                <div class="form-section">
+                    {{ form.interest }}
+                </div>
+                <div class="form-section">
+                    {{ form.more }}
+                </div>
                 {{ form.email }}
                 {{ form.form_build_id }}
                 {{ form.form_id }}

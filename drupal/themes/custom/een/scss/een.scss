@@ -10,6 +10,7 @@
 
 body {
   font-family: $font_family;
+  color:#4A4A4A;
 }
 
 hr {
@@ -20,12 +21,19 @@ hr {
     @include button($light-blue);
 }
 
+.button {
+    @include button($light-blue);  
+    padding: 14px 14px;
+}
+
 #global-header, 
 #global-header .header-wrapper,
 #footer,
 #footer .footer-wrapper{
     background: $light-blue;
 }
+
+p { @extend .font-small }
 
 
 %borderGradElement {
@@ -59,16 +67,109 @@ hr {
 
 .contents-list {
     
+    @media (min-width:769px){
+        padding-right:15%; 
+    }
+    
     .heading-medium {
-        margin-bottom:0;
+        margin-bottom:7px;
+    }
+    
+    ul {
+        margin-bottom:32px;
     }
     
     li {
         border-top:1px solid #dddddd;
         padding:7px;
-        font-size: 10px;
+        @extend .font-small;
         a { 
             text-decoration: none;
         }
+    }
+    .button-brand {
+        width: 100%;
+        text-align: center;
+        padding: 14px 0;
+        font-size: 21px;
+    }
+}
+
+.contents-text-block {
+    .heading-medium {
+        margin-bottom: 0px;
+    }
+}
+
+a.back-link {
+    font-weight: bold; 
+    text-decoration: none;
+    color:$light-blue; 
+}
+
+.content-heading {
+    padding: 32px 0;
+    border-bottom: 1px solid #9B9B9B;
+    
+    h1 {
+        margin: 0;
+        color:#9B9B9B;
+        @extend .font-medium;
+    }
+    h2 {
+        margin-top: 0;
+        @extend .font-large;
+        font-weight: bold;
+    }
+}
+
+.meta {
+    .meta-data  {
+        label, p {
+            display: inline;
+            @extend .font-small;
+        }
+    }
+}
+
+.single-header-one-col {
+    margin-top: 0;
+}
+
+.form-opportunities {
+    .form-label {
+        @extend .font-small;
+        font-weight: bold; 
+        color:#4A4A4A;
+    }
+    .field-prefix {
+        color:$light-blue;
+        cursor: pointer;
+        @extend .font-xsmall;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    div[id$="--description"] {
+        border-left:6px solid #DEE0E2;
+        padding-left: 14px;
+        color:#4A4A4A;
+        margin:7px 0;
+        display:none;
+        @extend .font-xsmall;
+        
+        &#edit-email--description {
+            border:none;
+            padding-left:0;
+            display: block;
+            @extend .font-small;
+            margin:14px 0 0 0;
+        }
+    }
+    
+    
+    .form-control {
+        width:100%;
+        border-color: #9B9B9B;
     }
 }
