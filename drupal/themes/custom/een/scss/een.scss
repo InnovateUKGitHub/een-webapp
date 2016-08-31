@@ -15,3 +15,60 @@ body {
 hr {
   clear: both;
 }
+
+.button-brand {
+    @include button($light-blue);
+}
+
+#global-header, 
+#global-header .header-wrapper,
+#footer,
+#footer .footer-wrapper{
+    background: $light-blue;
+}
+
+
+%borderGradElement {
+    
+    content: " ";
+    height: 14px;
+    position: absolute;
+    width: 100%;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#64b4e6+0,00587c+100 */
+    background: rgb(100,180,230); /* Old browsers */
+    background: -moz-linear-gradient(left, rgba(100,180,230,1) 0%, rgba(0,88,124,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(100,180,230,1) 0%,rgba(0,88,124,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(100,180,230,1) 0%,rgba(0,88,124,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#64b4e6', endColorstr='#00587c',GradientType=1 ); /* IE6-9 */
+}
+
+
+#global-header {
+    margin-bottom:14px;
+    &:after {
+        @extend %borderGradElement;
+    }
+}
+
+#footer {
+    border:none; 
+    &:before {
+         @extend %borderGradElement;
+    }
+}
+
+.contents-list {
+    
+    .heading-medium {
+        margin-bottom:0;
+    }
+    
+    li {
+        border-top:1px solid #dddddd;
+        padding:7px;
+        font-size: 10px;
+        a { 
+            text-decoration: none;
+        }
+    }
+}
