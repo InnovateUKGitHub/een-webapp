@@ -27,6 +27,7 @@ hr {
 }
 
 #global-header, 
+.global-header-inner, 
 #global-header .header-wrapper,
 #footer,
 #footer .footer-wrapper{
@@ -35,6 +36,9 @@ hr {
 
 p { @extend .font-small }
 a { text-decoration: none;}
+
+
+
 
 %borderGradElement {
     
@@ -51,12 +55,7 @@ a { text-decoration: none;}
 }
 
 
-#global-header {
-    margin-bottom:14px;
-    &:after {
-        @extend %borderGradElement;
-    }
-}
+
 
 #footer {
     border:none; 
@@ -216,3 +215,136 @@ form[data-drupal-selector="opportunity-search-form"] {
        line-height: 1.1em;
     }
 }
+
+/* menu */
+
+#global-header {
+    background: #fff;
+    &:after {
+        @extend %borderGradElement;
+        display:none;
+    }
+    
+    .header-proposition {
+        
+        #proposition-menu {
+            margin: 0  15px 0 15px;
+            @media (max-width:769px){
+                margin:0;
+            }
+        }
+        
+        #proposition-links {
+            padding:7px 0 0;
+            border-bottom: 1px solid #ccc;
+            
+            
+            @media (max-width:769px){
+                padding:0;
+                border:none;
+            }
+        }
+        
+        #proposition-link li, #proposition-links li {
+            float: none;
+            width: 100%;
+            padding: 4px 0;
+            border-bottom: none;
+            text-transform: uppercase;
+            list-style:none;
+            /* font-size: 26px; */
+            a {
+                text-transform: uppercase;
+                @extend .font-xsmall;
+                color: #4A4A4A;
+                
+                @media (max-width:769px){
+                    font-weight: bold;
+                    color:#fff;
+                    padding: 14px 14px 14px 0;
+                    font-size:18px;
+                } 
+
+            }
+        }
+        .menu {
+            font-size: 36px;
+            position: relative;
+            padding-left: 1.25em;
+        }
+        a.menu { 
+            font-size: 36px;
+            position: absolute;
+            top: 14px;
+            right: 0;
+            
+            &:focus, &:active {
+                background:none;
+                border:none;
+                outline:none;
+            }
+            &:after {
+                visibility: hidden;
+            }
+        }
+        .menu:before {
+            content: "";
+            position: absolute;
+            top: 0.25em;
+            left: 0;
+            width: 1em;
+            height: 0.125em;
+            border-top: 0.375em double #fff;
+            border-bottom: 0.125em solid #ffffff;
+        }
+    }
+    
+    .global-header-inner {
+        margin-bottom:14px;
+        
+        &:after {
+            @extend %borderGradElement;
+        }
+    }
+    .menu-container {
+        max-width: 990px;
+        margin: 0 auto;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .header-proposition #proposition-link,  .header-proposition #proposition-links {
+        display: block;
+        @media (max-width:769px){
+            display:none;
+        }
+    }
+
+    .header-proposition .js-visible#proposition-link,  .header-proposition .js-visible#proposition-links {
+        display:block;
+    }
+    
+    
+    
+    
+}
+
+
+@media (max-width:769px){
+    #global-header {
+        background:$light-blue;
+        margin-bottom:14px;
+        
+        .global-header-inner {
+            &:after {
+                display:none;
+            }
+        }
+        &:after {
+           display:block;
+        }
+    }
+}
+
+
+

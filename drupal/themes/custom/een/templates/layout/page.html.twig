@@ -44,20 +44,20 @@
  */
 #}
 <header role="banner" id="global-header" class="with-proposition">
-
-    <div class="header-wrapper">
-
-        <div class="header-global">
-            {{ page.header }}
+    <div class="global-header-inner">
+        <div class="header-wrapper">
+            <div class="header-global">
+                {{ page.header }}
+            </div>
         </div>
-
+    </div>
+    
+    <div class="menu-container">
         <div class="header-proposition">
             {{ page.primary_menu }}
             {{ page.secondary_menu }}
         </div>
-
     </div>
-
 </header>
 
 {{ page.help }}
