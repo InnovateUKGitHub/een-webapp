@@ -77,6 +77,14 @@ class OpportunityController extends ControllerBase
             '#opportunity'      => $results,
             '#search'           => $search,
             '#opportunity_type' => $opportunityType,
+            '#mail'             => [
+                'subject' => "This opportunity might interest you: $profileId",
+                'body'    => "Hi,
+
+I think this opportunity might be of interest for you: <a href=\"" . $request->getUri() . "\">$profileId</a>.
+
+Many thanks",
+            ],
         ];
     }
 }
