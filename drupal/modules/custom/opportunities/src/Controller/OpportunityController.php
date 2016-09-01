@@ -78,12 +78,14 @@ class OpportunityController extends ControllerBase
             '#search'           => $search,
             '#opportunity_type' => $opportunityType,
             '#mail'             => [
-                'subject' => "This opportunity might interest you: $profileId",
-                'body'    => "Hi,
+                'subject' => $results['_source']['title'],
+                'body'    => "Hello,
 
-I think this opportunity might be of interest for you: <a href=\"" . $request->getUri() . "\">$profileId</a>.
+Here's a partnering opportunity I thought might be of interest:
+" . $request->getSchemeAndHttpHost() . Url::fromRoute('opportunities.details', ['profileId' => $profileId])->toString() . "
 
-Many thanks",
+It's on Enterprise Europe Network's website, the world's largest business support network, led by the European Commission.
+",
             ],
         ];
     }
