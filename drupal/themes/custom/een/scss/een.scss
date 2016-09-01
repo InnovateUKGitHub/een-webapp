@@ -9,8 +9,12 @@
 @import 'pagination';
 
 body {
-  font-family: $font_family;
+  font-family: $font_family!important; /* temp important */
   color:#4A4A4A;
+}
+
+html, body, button, input, table, td, th, p, h1, h2, h3, h4, h5, li, p, label, input, small, a, legend {
+  font-family: $font_family!important; /* temp important */
 }
 
 hr {
@@ -178,7 +182,31 @@ a.back-link {
     }
 }
 
+.filter-container {
+    padding:32px 0;
+}
+
 form[data-drupal-selector="opportunity-search-form"] {
+    
+    .form-item {
+        background: #DEE0E2;
+        padding:7px;
+    }
+    
+    fieldset { 
+        width:auto;
+    }
+    
+    legend {
+        box-sizing: border-box;
+        max-width: 100%;
+        display: block;
+        margin: 0 0 18px 0;
+        display: block;
+        position: relative;
+        top: 19px;
+    }
+    
     .form-item-search, .fieldgroup  {
         background: #DEE0E2;
         
@@ -187,7 +215,6 @@ form[data-drupal-selector="opportunity-search-form"] {
             width: 100%;
         }
         .fieldset-wrapper {
-            padding: 7px;
             
             legend {
                 margin: 10px;
@@ -201,9 +228,6 @@ form[data-drupal-selector="opportunity-search-form"] {
                 width: initial;
                 margin: 0;
                 font-size: 16px;
-                /* padding-top: 7px; */
-                /* padding-bottom: 7px; */
-                width: 68%;
                 float:none;
             }
         }

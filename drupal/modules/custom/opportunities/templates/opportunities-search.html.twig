@@ -7,8 +7,10 @@
 
 <div class="grid-row">
     <div class="column-one-third">
-        <p class="font-xsmall">You can use the filters to show only results that match your interests</p>
-        {{ form }}
+        <div class="filter-container">
+            <p class="font-xsmall">You can use the filters to show only results that match your interests</p>
+            {{ form }}
+        </div>
     </div>
     <div class="column-two-thirds">
         {% if results is not null %}
