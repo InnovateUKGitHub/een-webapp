@@ -35,6 +35,7 @@ gulp.task('css', function () {
 });
 
 gulp.task('watch', function () {
+    gulp.task('default', ['css', 'js']);
     gulp.watch('drupal/themes/custom/een/scss/**/*.scss', ['css'])
 });
 
