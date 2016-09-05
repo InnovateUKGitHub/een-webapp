@@ -23,11 +23,13 @@ hr {
 
 .button-brand {
     @include button($light-blue);
+    font-weight: bold;
 }
 
 .button {
     @include button($light-blue);  
     padding: 14px 14px;
+    font-weight: bold;
 }
 
 #global-header, 
@@ -40,7 +42,9 @@ hr {
 
 p { @extend .font-small }
 a { text-decoration: none;}
-
+.form-label, .form-label-bold {
+    color:inherit;
+}
 
 
 
@@ -357,6 +361,19 @@ form[data-drupal-selector="opportunity-search-form"] {
             height: 0.125em;
             border-top: 0.375em double #fff;
             border-bottom: 0.125em solid #ffffff;
+        }
+        
+        .menu.js-hidden:before {
+            content: "X";
+            border: none;
+            font-family: "Verdana";
+            left: 6px;
+            -webkit-transform:scale(1.3,1.0); /* Safari and Chrome */
+            -moz-transform:scale(1.3,1.0); /* Firefox */
+            -ms-transform:scale(1.3,1.0); /* IE 9 */
+            -o-transform:scale(1.3,1.0); /* Opera */
+            transform: scale(1.3,1.0);
+            top: 2px;
         }
     }
     
