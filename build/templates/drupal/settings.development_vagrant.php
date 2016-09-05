@@ -6,7 +6,8 @@ $settings['hash_salt'] = 'HASH_SALT';
 $settings['trusted_host_patterns'] = [
     '^127.0.0.1$',
     '^localhost$',
-    '^HOSTNAME$'
+    '^HOSTNAME$',
+    '10.0.1.*'
 ];
 
 $databases['default']['default'] = array (
