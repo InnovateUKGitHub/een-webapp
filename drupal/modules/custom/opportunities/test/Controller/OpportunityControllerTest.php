@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Drupal\opportunities\Controller\OpportunityController
+ * @covers \Drupal\opportunities\Controller\OpportunityController
  */
 class OpportunityControllerTest extends UnitTestCase
 {
@@ -30,11 +30,18 @@ class OpportunityControllerTest extends UnitTestCase
         $mockRequest = self::getMock(Request::class, [], [], '', false);
         $mockQuery = self::getMock(ParameterBag::class, [], [], '', false);
 
-        \Drupal::getContainer()->expects(self::at(0))
+        /** @var \PHPUnit_Framework_MockObject_MockObject $container */
+        $container = \Drupal::getContainer();
+
+        $container->expects(self::at(0))
             ->method('get')
             ->with('form_builder')
             ->willReturn($mockFormBuilder);
-        \Drupal::getContainer()->expects(self::at(1))
+        $container->expects(self::at(1))
+            ->method('get')
+            ->with('url_generator')
+            ->willReturn($mockUrlGenerator);
+        $container->expects(self::at(2))
             ->method('get')
             ->with('url_generator')
             ->willReturn($mockUrlGenerator);
@@ -43,12 +50,19 @@ class OpportunityControllerTest extends UnitTestCase
             ->method('getForm')
             ->with(ExpressionOfInterestForm::class)
             ->willReturn([]);
-        $mockUrlGenerator->expects(self::once())
+        $mockUrlGenerator->expects(self::at(0))
             ->method('generateFromRoute')
             ->with(
                 'opportunities.details',
                 ['profileId' => 1],
                 ['query' => ['search' => 'H2020', 'opportunity_type' => ['BO']]]
+            )
+            ->willReturn('my-action');
+        $mockUrlGenerator->expects(self::at(1))
+            ->method('generateFromRoute')
+            ->with(
+                'opportunities.details',
+                ['profileId' => 1]
             )
             ->willReturn('my-action');
 
@@ -66,7 +80,7 @@ class OpportunityControllerTest extends UnitTestCase
         $this->mockService->expects(self::once())
             ->method('get')
             ->with(1)
-            ->willReturn([]);
+            ->willReturn(['_source' => ['title' => 'Opportunity Title']]);
 
         self::assertEquals(
             [
@@ -82,9 +96,21 @@ class OpportunityControllerTest extends UnitTestCase
                 '#form'             => [
                     '#action' => 'my-action',
                 ],
-                '#opportunity'      => [],
+                '#opportunity'      => [
+                    '_source' => ['title' => 'Opportunity Title'],
+                ],
                 '#search'           => 'H2020',
                 '#opportunity_type' => ['BO'],
+                '#mail'             => [
+                    'subject' => 'Opportunity Title',
+                    'body'    => 'Hello,
+
+Here\'s a partnering opportunity I thought might be of interest:
+my-action
+
+It\'s on Enterprise Europe Network\'s website, the world\'s largest business support network, led by the European Commission.
+',
+                ],
             ],
             $this->controller->index(1, $mockRequest)
         );

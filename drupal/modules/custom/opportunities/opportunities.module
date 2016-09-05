@@ -22,6 +22,7 @@ function opportunities_theme()
                 'opportunity'      => [],
                 'search'           => null,
                 'opportunity_type' => null,
+                'mail'             => null,
             ],
             'template'  => 'opportunities-details',
         ],

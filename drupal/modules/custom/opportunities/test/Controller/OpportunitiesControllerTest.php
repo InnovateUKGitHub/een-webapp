@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Drupal\opportunities\Controller\OpportunitiesController
+ * @covers \Drupal\opportunities\Controller\OpportunitiesController
  */
 class OpportunitiesControllerTest extends UnitTestCase
 {
@@ -28,7 +28,10 @@ class OpportunitiesControllerTest extends UnitTestCase
         $mockRequest = self::getMock(Request::class, [], [], '', false);
         $mockQuery = self::getMock(ParameterBag::class, [], [], '', false);
 
-        \Drupal::getContainer()->expects(self::at(0))
+        /** @var \PHPUnit_Framework_MockObject_MockObject $container */
+        $container = \Drupal::getContainer();
+
+        $container->expects(self::at(0))
             ->method('get')
             ->with('form_builder')
             ->willReturn($mockFormBuilder);
@@ -63,7 +66,10 @@ class OpportunitiesControllerTest extends UnitTestCase
         $mockRequest = self::getMock(Request::class, [], [], '', false);
         $mockQuery = self::getMock(ParameterBag::class, [], [], '', false);
 
-        \Drupal::getContainer()->expects(self::at(0))
+        /** @var \PHPUnit_Framework_MockObject_MockObject $container */
+        $container = \Drupal::getContainer();
+
+        $container->expects(self::at(0))
             ->method('get')
             ->with('form_builder')
             ->willReturn($mockFormBuilder);

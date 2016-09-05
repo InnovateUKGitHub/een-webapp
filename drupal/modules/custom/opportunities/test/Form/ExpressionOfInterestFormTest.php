@@ -9,8 +9,8 @@ use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * @covers Drupal\opportunities\Form\ExpressionOfInterestForm
- * @covers Drupal\opportunities\Form\AbstractForm
+ * @covers \Drupal\opportunities\Form\ExpressionOfInterestForm
+ * @covers \Drupal\opportunities\Form\AbstractForm
  */
 class ExpressionOfInterestFormTest extends UnitTestCase
 {
@@ -70,7 +70,7 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         $formState->setValue('email', 'invalid');
 
         $formArray = $form->buildForm($formArray, $formState);
-        self::assertNull($form->validateForm($formArray, $formState));
+        $form->validateForm($formArray, $formState);
 
         $formArray['description']['#parents'] = ['description'];
         $formArray['interest']['#parents'] = ['interest'];
@@ -78,8 +78,11 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         $formArray['email']['#parents'] = ['email'];
 
         $rendererMock = self::getMock(Renderer::class, [], [], '', false);
-        \Drupal::getContainer()
-            ->expects(self::once())
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject $container */
+        $container = \Drupal::getContainer();
+
+        $container->expects(self::once())
             ->method('get')
             ->with('renderer')
             ->willReturn($rendererMock);
@@ -130,7 +133,7 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         $formState->setValue('email', 'email@email.email');
 
         $formArray = $form->buildForm($formArray, $formState);
-        self::assertNull($form->validateForm($formArray, $formState));
+        $form->validateForm($formArray, $formState);
 
         $formArray['description']['#parents'] = ['description'];
         $formArray['interest']['#parents'] = ['interest'];
@@ -163,7 +166,7 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         $formState->setValue('email', '01234567891');
 
         $formArray = $form->buildForm($formArray, $formState);
-        self::assertNull($form->validateForm($formArray, $formState));
+        $form->validateForm($formArray, $formState);
 
         $formArray['description']['#parents'] = ['description'];
         $formArray['interest']['#parents'] = ['interest'];
@@ -193,7 +196,9 @@ class ExpressionOfInterestFormTest extends UnitTestCase
 
         $formArray = $form->buildForm($formArray, $formState);
 
-        self::assertNull($form->validateForm($formArray, $formState));
+        $form->validateForm($formArray, $formState);
+
+        self::assertCount(4, $formState->getErrors());
     }
 
     public function testSubmitForm()

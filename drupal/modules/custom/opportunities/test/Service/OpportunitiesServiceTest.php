@@ -7,7 +7,7 @@ use Drupal\Tests\UnitTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Drupal\opportunities\Service\OpportunitiesService
+ * @covers \Drupal\opportunities\Service\OpportunitiesService
  */
 class OpportunitiesServiceTest extends UnitTestCase
 {

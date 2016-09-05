@@ -8,8 +8,8 @@ use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * @covers Drupal\opportunities\Form\OpportunitiesForm
- * @covers Drupal\opportunities\Form\AbstractForm
+ * @covers \Drupal\opportunities\Form\OpportunitiesForm
+ * @covers \Drupal\opportunities\Form\AbstractForm
  */
 class OpportunitiesFormTest extends UnitTestCase
 {
