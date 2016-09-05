@@ -49,7 +49,7 @@ class OpportunitiesService
                 'sort'             => [
                     ['date' => 'desc'],
                 ],
-                'source'           => ['type', 'title', 'summary'],
+                'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
             ]);
 
         $results = $this->service->sendRequest();

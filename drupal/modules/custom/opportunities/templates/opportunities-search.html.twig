@@ -32,7 +32,7 @@
                             
                         <p class="meta-inline font-small">
                             {# lastupdated #}
-                            {% if row._source.date|date('U') > '-3 days'|date('U') %}
+                            {% if row._source.date|date('U') > '-5 days'|date('U') %}
                                 {{ row._source.date|time_diff }} |
                             {% endif %}
                             

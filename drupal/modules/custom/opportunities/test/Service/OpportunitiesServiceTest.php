@@ -32,7 +32,7 @@ class OpportunitiesServiceTest extends UnitTestCase
                 'sort'             => [
                     ['date' => 'desc'],
                 ],
-                'source'           => ['type', 'title', 'summary'],
+                'source'           => ['type', 'title', 'summary',  'date', 'country', 'country_code'],
             ])
             ->willReturn($this->mockService);
         $this->mockService->expects(self::once())

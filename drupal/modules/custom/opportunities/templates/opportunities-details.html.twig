@@ -17,7 +17,7 @@
                         {{ opportunity._source.country }}
                     </p>
                 </div>
-                {% if opportunity._source.date|date('U') > '-3 days'|date('U') %}
+                {% if opportunity._source.date|date('U') > '-5 days'|date('U') %}
                    <div class="meta-data">
                         <label>{{ 'Last updated:'|t }}</label>
                         <p>{{ opportunity._source.date|time_diff }}</p>
