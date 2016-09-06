@@ -76,6 +76,8 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         $formArray['interest']['#parents'] = ['interest'];
         $formArray['more']['#parents'] = ['more'];
         $formArray['email']['#parents'] = ['email'];
+        $formArray['phone']['#parents'] = ['phone'];
+        $formArray['phoneStatus']['#parents'] = ['phoneStatus'];
 
         $rendererMock = self::getMock(Renderer::class, [], [], '', false);
 
@@ -139,6 +141,8 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         $formArray['interest']['#parents'] = ['interest'];
         $formArray['more']['#parents'] = ['more'];
         $formArray['email']['#parents'] = ['email'];
+        $formArray['phone']['#parents'] = ['phone'];
+        $formArray['phoneStatus']['#parents'] = ['phoneStatus'];
 
         $response = $form->submitHandler($formArray, $formState);
         self::assertInstanceOf(AjaxResponse::class, $response);
@@ -163,7 +167,8 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         $formState->setValue('description', 'description');
         $formState->setValue('interest', 'interest');
         $formState->setValue('more', 'more');
-        $formState->setValue('email', '01234567891');
+        $formState->setValue('phone', '01234567891');
+        $formState->setValue('phoneStatus', '1');
 
         $formArray = $form->buildForm($formArray, $formState);
         $form->validateForm($formArray, $formState);
@@ -172,6 +177,8 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         $formArray['interest']['#parents'] = ['interest'];
         $formArray['more']['#parents'] = ['more'];
         $formArray['email']['#parents'] = ['email'];
+        $formArray['phone']['#parents'] = ['phone'];
+        $formArray['phoneStatus']['#parents'] = ['phoneStatus'];
 
         $response = $form->submitHandler($formArray, $formState);
         self::assertInstanceOf(AjaxResponse::class, $response);

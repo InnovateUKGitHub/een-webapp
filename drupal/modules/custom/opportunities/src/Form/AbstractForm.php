@@ -62,22 +62,46 @@ abstract class AbstractForm extends FormBase
      *
      * @return bool
      */
-    protected function checkEmailAndPhoneField(FormStateInterface $form_state, $field)
+    protected function checkEmailField(FormStateInterface $form_state, $field)
     {
-        if ($this->checkRequireField($form_state, 'email')) {
+        if ($this->checkRequireField($form_state, $field)) {
             $value = $form_state->getValue($field);
             if (!preg_match(self::EMAIL_REGEX, $value)) {
-                if (!preg_match(self::PHONE_REGEX, $value)) {
-                    $form_state->setErrorByName(
-                        $field,
-                        [
-                            'key'  => 'edit-' . $field,
-                            'text' => t("This is not a valid email or phone number."),
-                        ]
-                    );
+                $form_state->setErrorByName(
+                    $field,
+                    [
+                        'key'  => 'edit-' . $field,
+                        'text' => t('This is not a valid email.'),
+                    ]
+                );
 
-                    return false;
-                }
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param FormStateInterface $form_state
+     * @param string             $field
+     *
+     * @return bool
+     */
+    protected function checkPhoneField(FormStateInterface $form_state, $field)
+    {
+        if ($this->checkRequireField($form_state, $field)) {
+            $value = $form_state->getValue($field);
+            if (!preg_match(self::PHONE_REGEX, $value)) {
+                $form_state->setErrorByName(
+                    $field,
+                    [
+                        'key'  => 'edit-' . $field,
+                        'text' => t('This is not a valid phone number.'),
+                    ]
+                );
+
+                return false;
             }
         }
 

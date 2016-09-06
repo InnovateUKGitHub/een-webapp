@@ -4,12 +4,12 @@ global-styling:
     theme:
       css/een.css: {}
   js:
-    js/govuk-template-min.js: {}
-    js/selection-buttons-min.js: {}
-    js/een-min.js: {}
+    js/min/govuk-template-min.js: {}
+    js/min/selection-buttons-min.js: {}
+    js/min/een-min.js: {}
   dependencies:
     - core/jquery
 opportunity:
   version: 1.0
   js:
-    js/opportunity-min.js: {}
+    js/min/opportunity-min.js: {}

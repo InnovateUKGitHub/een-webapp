@@ -9,14 +9,8 @@ gulp.task('js', function () {
         'node_modules/govuk_template_mustache/assets/javascripts/govuk-template.js',
         'drupal/themes/custom/een/js/*.js'
     ])
-        .pipe(minify({
-            ext: {
-                src: '.js',
-                min: '-min.js'
-            },
-            ignoreFiles: ['*-min.js']
-        }))
-        .pipe(gulp.dest('drupal/themes/custom/een/js'))
+        .pipe(minify())
+        .pipe(gulp.dest('drupal/themes/custom/een/js/min'))
 });
 
 gulp.task('css', function () {
@@ -35,8 +29,8 @@ gulp.task('css', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.task('default', ['css', 'js']);
-    gulp.watch('drupal/themes/custom/een/scss/**/*.scss', ['css'])
+    gulp.watch('drupal/themes/custom/een/scss/**/*.scss', ['css']);
+    gulp.watch(['drupal/themes/custom/een/js/*.js'], ['js']);
 });
 
 gulp.task('default', ['css', 'js']);

@@ -117,6 +117,15 @@
                     {{ form.more }}
                 </div>
                 {{ form.email }}
+                <div id="edit-email--description" class="description">
+                    {{ 'You will be asked to create your EEN account if you do not already have one. If you do not have an email address, '|t }}
+                    <a class="edit-email--phone-number" href="#edit-phone" >{{ 'please enter your phone number instead.'|t }}</a>
+                </div>
+                <div class="eoi-phone-number">
+                    {#<input type="hidden" id="eoi-phone-number-open" name="eoi-phone-number-open" value="0"/>#}
+                    {{ form.phoneStatus }}
+                    {{ form.phone }}
+                </div>
                 {{ form.form_build_id }}
                 {{ form.form_id }}
                 <hr/>
