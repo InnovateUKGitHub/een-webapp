@@ -8,7 +8,8 @@
     "govuk-elements-sass": "~1.2.0",
     "govuk_frontend_toolkit": "~4.14.1",
     "govuk_template_mustache": "~0.18.0",
-    "gulp-minify": "0.0.14"
+    "gulp-minify": "0.0.14",
+    "flag-icon-css": "~2.4.0"
   },
   "devDependencies": {
     "gulp-watch": "~4.3.9"

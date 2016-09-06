@@ -40,7 +40,7 @@
                             {{ row._id }} |
 
                             {# Country of origin #}
-                            <span>{{ row._source.country_code }}</span>
+                            <span class="flag-icon flag-icon-{{ row._source.country_code|lower }}"></span>
                             {{ row._source.country }}
                         </p>
                     </div>

@@ -13,7 +13,7 @@
                 <div class="meta-data">
                     <label>{{ 'Country of origin:'|t }}</label>
                     <p>
-                        <span>{{ opportunity._source.country_code }}</span>
+                        <span class="flag-icon flag-icon-{{ opportunity._source.country_code|lower }}"></span>
                         {{ opportunity._source.country }}
                     </p>
                 </div>

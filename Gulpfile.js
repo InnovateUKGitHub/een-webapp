@@ -22,7 +22,8 @@ gulp.task('css', function () {
                 'drupal/themes/custom/een/scss/',
                 'node_modules/govuk_frontend_toolkit/stylesheets',
                 'node_modules/govuk_template_mustache/assets/stylesheets',
-                'node_modules/govuk-elements-sass/public/sass'
+                'node_modules/govuk-elements-sass/public/sass',
+                'node_modules/flag-icon-css/sass'
             ]
         }))
         .pipe(gulp.dest('drupal/themes/custom/een/css'));
