@@ -55,22 +55,6 @@ class OpportunitiesFormTest extends UnitTestCase
         );
     }
 
-    public function testValidFormInvalid()
-    {
-        $form = new OpportunitiesForm();
-
-        $formArray = [];
-        $formState = new FormState();
-
-        $formState->setValue('search', '');
-
-        $form->validateForm($formArray, $formState);
-
-        self::assertArrayHasKey('search', $formState->getErrors());
-        self::assertArrayHasKey('key', $formState->getErrors()['search']);
-        self::assertEquals('edit-search', $formState->getErrors()['search']['key']);
-    }
-
     public function testSubmitForm()
     {
         $form = new OpportunitiesForm();

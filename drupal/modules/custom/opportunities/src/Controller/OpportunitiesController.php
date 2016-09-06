@@ -12,6 +12,7 @@ class OpportunitiesController extends ControllerBase
     const PAGE_NUMBER = 'page';
 
     const RESULT_PER_PAGE = 'resultPerPage';
+    const DEFAULT_RESULT_PER_PAGE = 20;
 
     const SEARCH = 'search';
 
@@ -52,13 +53,11 @@ class OpportunitiesController extends ControllerBase
         $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
 
         $page = $request->query->get(self::PAGE_NUMBER, 1);
-        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, 10);
+        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
         $search = $request->query->get(self::SEARCH);
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
 
-        if ($search !== null) {
-            $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
-        }
+        $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
 
         return [
             '#theme'            => 'opportunities_search',

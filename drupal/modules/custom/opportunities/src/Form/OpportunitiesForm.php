@@ -60,22 +60,6 @@ class OpportunitiesForm extends FormBase
     /**
      * {@inheritdoc}
      */
-    public function validateForm(array &$form, FormStateInterface $form_state)
-    {
-        if (strlen($form_state->getValue('search')) < 2) {
-            $form_state->setErrorByName(
-                'search',
-                [
-                    'key'  => 'edit-search',
-                    'text' => t('Please enter at least 2 characters to perform a search.'),
-                ]
-            );
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         // TODO Return json when POST is used and we are making nice and pretty url

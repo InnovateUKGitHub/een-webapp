@@ -39,18 +39,22 @@ class OpportunitiesService
             }
         }
 
+        $params = [
+            'from'             => ($page - 1) * $resultPerPage,
+            'size'             => $resultPerPage,
+            'search'           => $search,
+            'opportunity_type' => $types,
+            'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
+        ];
+        if (empty($search)) {
+            $params['sort'] = [
+                'date' => ['order' => 'desc'],
+            ];
+        }
+
         $this->service
             ->setUrl('opportunities')
-            ->setBody([
-                'from'             => ($page - 1) * $resultPerPage,
-                'size'             => $resultPerPage,
-                'search'           => $search,
-                'opportunity_type' => $types,
-                'sort'             => [
-                    ['date' => 'desc'],
-                ],
-                'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
-            ]);
+            ->setBody($params);
 
         $results = $this->service->sendRequest();
 
