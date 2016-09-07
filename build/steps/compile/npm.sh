@@ -22,6 +22,10 @@ if [ ! -z "$npmChanges" ] || [ ! -z "$forceCompile" ];then
     cp -r node_modules/govuk_frontend_toolkit/images/* drupal/themes/custom/een/css/images
     cp -r node_modules/govuk_template_mustache/assets/images/* drupal/themes/custom/een/css/images
     cp -r node_modules/govuk_template_mustache/assets/stylesheets/images/* drupal/themes/custom/een/css/images
+
+    echo "copy flags images to theme folder"
+    cp -r node_modules/flag-icon-css/flags drupal/themes/custom/een/
+
 else
     echo "package.json has not changed, not running npm"
 fi

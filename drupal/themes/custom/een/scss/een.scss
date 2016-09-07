@@ -2,6 +2,9 @@
 @import 'govuk-template';
 @import 'govuk-elements';
 
+/* direct import of flags elements from the node module */
+@import 'flag-icon';
+
 @import 'variables';
 @import 'font';
 
