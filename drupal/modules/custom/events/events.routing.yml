@@ -1,0 +1,6 @@
+opportunities.search:
+ path: '/events'
+ defaults:
+   _controller: '\Drupal\events\Controller\EventsController::index'
+ requirements:
+   _permission: 'access content'

@@ -1,0 +1,19 @@
+<?php
+function events_theme()
+{
+    return [
+        'events_search' => [
+            'variables' => [
+                'form'          => null,
+                'search'        => null,
+                'results'       => null,
+                'total'         => 0,
+                'page'          => 1,
+                'pageTotal'     => 0,
+                'resultPerPage' => 10,
+                'route'         => 'events.search',
+            ],
+            'template'  => 'events-search',
+        ],
+    ];
+}

@@ -1,0 +1,53 @@
+
+<div class="content-heading">
+    <h1>{{ 'Events'|t }}</h1>
+    <h2 class="heading-large">{{ 'List of the upcomming events'|t }}</h2>
+    <h3>{{ 'Search for events.'|t }}</h3>
+</div>
+
+<div class="grid-row">
+    <div class="column-one-third">
+        <div class="filter-container">
+            <p class="font-xsmall">You can use the filters to show only results that match your interests</p>
+        </div>
+    </div>
+    <div class="column-two-thirds">
+        {% if results is not null %}
+            {% if total > 0 %}
+                <div class="row">
+                    <h3 class="heading-xlarge">{{ total }} <span class="font-xsmall">{{ 'events '|t }}</span></h3>
+                </div>
+                {% for row in results %}
+                    <div class="row row-bordered">
+                        <h3>
+                            <a href="{{ url(
+                            'events.details',
+                            {'eventId': row._id, 'search': search}
+                            ) }}"
+                               id="opportunity-link">
+                                {{ row._source.title }}
+                            </a>
+                        </h3>
+                            
+                        <p class="meta-inline font-small">
+                            {# Country of origin #}
+                            <span class="flag-icon flag-icon-{{ row._source.country_code|lower }}"></span>
+                            {{ row._source.country }}
+                        </p>
+                    </div>
+                    
+                {% endfor %}
+
+                {% include 'themes/custom/een/templates/pagination.html.twig'
+                with {'route': route, 'search': search, 'page': page, 'resultPerPage': resultPerPage, 'pageTotal': pageTotal } only %}
+
+            {% else %}
+                {{ 'No Results found for: '|t }}{{ search }}
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+
+
+

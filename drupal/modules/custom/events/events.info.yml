@@ -1,0 +1,5 @@
+name: Search Engine For Events
+description: This is the Search Engine to realise searches on Events.
+core: 8.x
+package: Searches
+type: module
