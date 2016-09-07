@@ -45,7 +45,16 @@ hr {
 }
 
 p { @extend .font-small }
-a { text-decoration: none;}
+a { 
+    text-decoration: none;
+    &:link {
+        color:$light-blue;  
+    }
+    &:visited {
+        color:$light-blue;
+    }
+}
+
 .form-label, .form-label-bold {
     color:inherit;
 }
