@@ -58,72 +58,64 @@ abstract class AbstractForm extends FormBase
 
     /**
      * @param FormStateInterface $form_state
+     */
+    protected function checkEmailAndPhoneField(FormStateInterface $form_state)
+    {
+        if (!$this->checkRegexField($form_state, self::EMAIL_REGEX, 'email')) {
+            if (!$this->checkRegexField($form_state, self::PHONE_REGEX, 'phone')) {
+                $form_state->setErrorByName(
+                    'phone',
+                    [
+                        'key'  => 'edit-phone',
+                        'text' => t('A contact telephone number is required.'),
+                    ]
+                );
+                $form_state->setErrorByName(
+                    'email',
+                    [
+                        'key'  => 'edit-email',
+                        'text' => t('An email address is required.'),
+                    ]
+                );
+            }
+        }
+    }
+
+    /**
+     * @param FormStateInterface $form_state
+     * @param string             $regex
      * @param string             $field
      *
      * @return bool
      */
-    protected function checkEmailField(FormStateInterface $form_state, $field)
+    protected function checkRegexField(FormStateInterface $form_state, $regex, $field)
     {
-        if ($this->checkRequireField($form_state, $field)) {
-            $value = $form_state->getValue($field);
-            if (!preg_match(self::EMAIL_REGEX, $value)) {
-                $form_state->setErrorByName(
-                    $field,
-                    [
-                        'key'  => 'edit-' . $field,
-                        'text' => t('This is not a valid email.'),
-                    ]
-                );
-
-                return false;
-            }
+        if ($this->checkRequireField($form_state, $field, false)) {
+            return preg_match($regex, $form_state->getValue($field));
         }
 
-        return true;
+        return false;
     }
 
     /**
      * @param FormStateInterface $form_state
      * @param string             $field
+     * @param bool               $recordError
      *
      * @return bool
      */
-    protected function checkPhoneField(FormStateInterface $form_state, $field)
-    {
-        if ($this->checkRequireField($form_state, $field)) {
-            $value = $form_state->getValue($field);
-            if (!preg_match(self::PHONE_REGEX, $value)) {
-                $form_state->setErrorByName(
-                    $field,
-                    [
-                        'key'  => 'edit-' . $field,
-                        'text' => t('This is not a valid phone number.'),
-                    ]
-                );
-
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * @param FormStateInterface $form_state
-     * @param string             $field
-     *
-     * @return bool
-     */
-    protected function checkRequireField(FormStateInterface $form_state, $field)
+    protected function checkRequireField(FormStateInterface $form_state, $field, $recordError = true)
     {
         if (strlen($form_state->getValue($field)) < 1) {
-            $form_state->setErrorByName(
-                $field,
-                [
-                    'key'  => 'edit-' . $field,
-                    'text' => t("The $field is required."),
-                ]
-            );
+            if ($recordError === true) {
+                $form_state->setErrorByName(
+                    $field,
+                    [
+                        'key'  => 'edit-' . $field,
+                        'text' => t('This is required to complete your application.'),
+                    ]
+                );
+            }
 
             return false;
         }
