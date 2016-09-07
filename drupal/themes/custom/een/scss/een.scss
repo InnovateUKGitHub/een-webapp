@@ -30,6 +30,7 @@ hr {
     @include button($light-blue);  
     padding: 14px 14px;
     font-weight: bold;
+    white-space:inherit;
 }
 
 #global-header, 
