@@ -40,7 +40,11 @@
                             {{ row._id }} |
 
                             {# Country of origin #}
-                            <span class="flag-icon flag-icon-{{ row._source.country_code|lower }}"></span>
+                            {% set flag = row._source.country_code|lower %}
+                            {% if flag == 'uk' %}
+                                {% set flag = 'gb' %}
+                            {% endif %}
+                            <span class="flag-icon flag-icon-{{ flag }}"></span>
                             {{ row._source.country }}
                         </p>
                     </div>
