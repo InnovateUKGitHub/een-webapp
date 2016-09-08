@@ -210,6 +210,10 @@ form[data-drupal-selector="opportunity-search-form"] {
         padding:7px;
     }
     
+    .form-text {
+        border:1px solid #9B9B9B;
+    }
+    
     fieldset { 
         width:auto;
     }
@@ -248,6 +252,69 @@ form[data-drupal-selector="opportunity-search-form"] {
                 float:none;
             }
         }
+    }
+    
+    .block-label {
+        padding: 14px 14px 7px 48px;
+        input[type=checkbox] {
+           margin-top:-3px;
+        }
+    }
+    .block-label input:before {
+        content: '';
+        width: 9px;
+        height: 5px;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        border: 3px solid #fcfff4;
+        border-top: none;
+        border-right: none;
+        background: transparent;
+        opacity: 0;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+    
+    /* main checkbox*/
+    
+    .block-label:after {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        background: #fcfff4;
+        border: 1px solid #9B9B9B;
+        content: " ";
+        display: block;
+        float: left;
+        left: 13px;
+        top: 11px;
+        border-radius: 1px;
+    }
+    .block-label,
+    .block-label.selected, 
+    .block-label:hover,
+    .block-label:active {
+        border-color:#9B9B9B;
+        border-top-width: 0;
+    }
+    .block-label:first-of-type{
+        border-top-width:1px;
+    }
+    
+    
+    .block-label.selected:after {
+        background: #006BA6 url('../img/tick-checkbox.png') no-repeat center 50%;
+        border-color: #00587C;
+        
+    }
+    .block-label.focused:after {
+         outline: 3px solid #ffbf47; 
+    }
+    
+    .block-label.focused {
+        z-index: 1;
+        outline:none;
     }
 }
 
@@ -421,6 +488,16 @@ form[data-drupal-selector="opportunity-search-form"] {
     
     
     
+}
+
+
+/* ***** */
+
+.flag-icon {
+    position: relative;
+    top: -1px;
+    border:1px solid #4A4A4A;
+    background-size: cover;
 }
 
 
