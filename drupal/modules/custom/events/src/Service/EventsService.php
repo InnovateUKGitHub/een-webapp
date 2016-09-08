@@ -3,6 +3,7 @@
 namespace Drupal\events\Service;
 
 use Drupal\elastic_search\Service\ElasticSearchService;
+use Zend\Http\Request;
 
 class EventsService
 {
@@ -21,17 +22,16 @@ class EventsService
         $this->service = $service;
     }
 
-    public function search($search, $page, $resultPerPage)
+    public function search($page, $resultPerPage)
     {
         $params = [
-            'from'             => ($page - 1) * $resultPerPage,
-            'size'             => $resultPerPage,
-            'search'           => $search,
-            'source'           => ['title', 'type', 'description', 'start_date', 'end_date', 'closing_date', 'deadline'],
+            'from'   => ($page - 1) * $resultPerPage,
+            'size'   => $resultPerPage,
+            'source' => ['title', 'description', 'start_date', 'end_date', 'country', 'country_code'],
         ];
         if (empty($search)) {
             $params['sort'] = [
-                'date' => ['order' => 'desc'],
+                'start_date' => ['order' => 'desc'],
             ];
         }
 
@@ -49,6 +49,22 @@ class EventsService
             } else {
                 drupal_set_message($results['error'], 'error');
             }
+            $results = null;
+        }
+
+        return $results;
+    }
+
+    public function get($eventId)
+    {
+        $this->service
+            ->setUrl('events/' . urlencode($eventId))
+            ->setMethod(Request::METHOD_GET);
+
+        $results = $this->service->sendRequest();
+
+        if (array_key_exists('error', $results)) {
+            drupal_set_message($results['error'], 'error');
             $results = null;
         }
 

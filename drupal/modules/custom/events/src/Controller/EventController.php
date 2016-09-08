@@ -6,12 +6,12 @@ use Drupal\events\Service\EventsService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class EventsController extends ControllerBase
+class EventController extends ControllerBase
 {
     const PAGE_NUMBER = 'page';
 
     const RESULT_PER_PAGE = 'resultPerPage';
-    const DEFAULT_RESULT_PER_PAGE = 10;
+    const DEFAULT_RESULT_PER_PAGE = 20;
 
     const SEARCH = 'search';
 
@@ -33,7 +33,7 @@ class EventsController extends ControllerBase
     /**
      * @param ContainerInterface $container
      *
-     * @return EventsController
+     * @return EventController
      */
     public static function create(ContainerInterface $container)
     {
@@ -41,26 +41,21 @@ class EventsController extends ControllerBase
     }
 
     /**
+     * @param string  $eventId
      * @param Request $request
      *
      * @return array
      */
-    public function index(Request $request)
+    public function index($eventId, Request $request)
     {
-
         $page = $request->query->get(self::PAGE_NUMBER, 1);
-        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
-
-        $results = $this->service->search($page, $resultPerPage);
+        $results = $this->service->get($eventId);
 
         return [
-            '#theme'         => 'events_search',
-            '#results'       => isset($results['results']) ? $results['results'] : null,
-            '#total'         => isset($results['total']) ? $results['total'] : null,
-            '#pageTotal'     => isset($results['results']) ? (int)ceil($results['total'] / $resultPerPage) : null,
-            '#page'          => $page,
-            '#resultPerPage' => $resultPerPage,
-            '#route'         => 'events.search',
+            '#theme' => 'events_details',
+            '#event' => $results,
+            '#page'  => $page,
+            '#route' => 'events.search',
         ];
     }
 }

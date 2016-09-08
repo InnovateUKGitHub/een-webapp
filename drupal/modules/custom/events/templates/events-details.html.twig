@@ -1,0 +1,41 @@
+{% if event is not empty %}
+    <div>
+        <div>
+            <a class="back-link"
+               href="{{ url('events.search',{'page': page}) }}">
+                {{ '< Back to list'|t }}
+            </a>
+        </div>
+        <div class="content-heading">
+            <h1>{{ 'Event'|t }}</h1>
+            <h2 class="heading-large">{{ event._source.title }}</h2>
+            <div class="meta">
+                <div class="meta-data">
+                    <label>{{ 'Country of origin:'|t }}</label>
+                    <p>
+                        <span class="flag-icon flag-icon-{{ event._source.country_code|lower }}"></span>
+                        {{ event._source.country }}
+                    </p>
+                </div>
+                <div class="meta-data">
+                    <label>{{ 'Starting Date:'|t }}</label>
+                    <p>{{ event._source.start_date|date('d-m-Y') }}</p>
+                    <label>{{ 'Ending Date:'|t }}</label>
+                    <p>{{ event._source.end_date|date('d-m-Y') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h3 class="heading-medium" id="description">{{ 'Description'|t }}</h3>
+        <p>
+            {% if event._source.description %}
+                {{ event._source.description }}
+            {% else %}
+                {{ 'Not available'|t }}
+            {% endif %}
+        </p>
+    </div>
+{% endif %}
+
+

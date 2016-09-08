@@ -4,8 +4,6 @@ function events_theme()
     return [
         'events_search' => [
             'variables' => [
-                'form'          => null,
-                'search'        => null,
                 'results'       => null,
                 'total'         => 0,
                 'page'          => 1,
@@ -14,6 +12,13 @@ function events_theme()
                 'route'         => 'events.search',
             ],
             'template'  => 'events-search',
+        ],
+        'events_details' => [
+            'variables' => [
+                'event'       => null,
+                'page'          => 1,
+            ],
+            'template'  => 'events-details',
         ],
     ];
 }
