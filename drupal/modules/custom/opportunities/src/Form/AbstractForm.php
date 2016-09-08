@@ -11,7 +11,7 @@ use Drupal\Core\Render\Renderer;
 abstract class AbstractForm extends FormBase
 {
     const EMAIL_REGEX = '/^.+\@\S+\.\S+$/';
-    const PHONE_REGEX = '/(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?/';
+    const PHONE_REGEX = '/(((\+(\d\d)\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+(\d\d)\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+(\d\d)\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?/';
 
     /**
      * @param array              $form
@@ -64,19 +64,21 @@ abstract class AbstractForm extends FormBase
         if (!$this->checkRegexField($form_state, self::EMAIL_REGEX, 'email')) {
             if (!$this->checkRegexField($form_state, self::PHONE_REGEX, 'phone')) {
                 $form_state->setErrorByName(
-                    'phone',
-                    [
-                        'key'  => 'edit-phone',
-                        'text' => t('A contact telephone number is required.'),
-                    ]
-                );
-                $form_state->setErrorByName(
                     'email',
                     [
                         'key'  => 'edit-email',
                         'text' => t('An email address is required.'),
                     ]
                 );
+                if ($form_state->getValue('phoneStatus') == true) {
+                    $form_state->setErrorByName(
+                        'phone',
+                        [
+                            'key'  => 'edit-phone',
+                            'text' => t('A contact telephone number is required.'),
+                        ]
+                    );
+                }
             }
         }
     }
