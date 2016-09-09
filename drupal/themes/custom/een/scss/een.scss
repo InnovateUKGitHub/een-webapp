@@ -194,6 +194,17 @@ a.back-link {
         border-color: #9B9B9B;
         border-width: 1px;
     }
+    .error .form-control {
+        border: 4px solid #b10e1e;
+    }
+    .form-item {
+        clear:both;
+    }
+    
+    .form-item.error + .form-item {
+       padding-left:15px; 
+    }
+    
     #edit-email {
         width:70%;
     }
