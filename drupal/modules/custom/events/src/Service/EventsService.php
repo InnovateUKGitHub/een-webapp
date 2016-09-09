@@ -27,11 +27,15 @@ class EventsService
         $params = [
             'from'   => ($page - 1) * $resultPerPage,
             'size'   => $resultPerPage,
-            'source' => ['title', 'description', 'start_date', 'end_date', 'country', 'country_code'],
+            'source' => [
+                'title', 'description', 'start_date', 'end_date',
+                'country', 'country_code', 'location_website', 'contact_attributes'
+            ],
         ];
         if (empty($search)) {
             $params['sort'] = [
-                'start_date' => ['order' => 'desc'],
+                'start_date' => ['order' => 'asc'],
+                'end_date' => ['order' => 'asc'],
             ];
         }
 

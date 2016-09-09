@@ -23,6 +23,7 @@ install:
 	@sh -c "echo ';zend_extension=xdebug.so' | sudo tee /etc/php/5.6/cli/conf.d/20-xdebug.ini"
 	@sh -c "./build/1-compile.sh"
 	@sh -c "sudo APPLICATION_ENV=development_vagrant ./build/2-deploy.sh"
+	@sh -c "sudo chown -R vagrant:vagrant /home/vagrant/.drush"
 	@sh -c "echo 'zend_extension=xdebug.so' | sudo tee /etc/php/5.6/cli/conf.d/20-xdebug.ini"
 	@sh -c "./build/3-test.sh"
 

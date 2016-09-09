@@ -12,13 +12,23 @@
             {% for row in results %}
                 <div class="row row-bordered">
                     <h3>
-                        <a href="{{ url(
-                        'events.details',
-                        {'eventId': row._id, 'search': search}
-                        ) }}"
-                           id="opportunity-link">
-                            {{ row._source.title }}
-                        </a>
+                        {% if row._source.contact_attributes and row._source.contact_attributes matches '/^http*/' %}
+                            <a href="{{ row._source.contact_attributes }}" target="_blank">
+                                {{ row._source.title }}
+                            </a>
+                        {% elseif row._source.location_website and row._source.location_website matches '/^http*/' %}
+                            <a href="{{ row._source.location_website }}" target="_blank">
+                                {{ row._source.title }}
+                            </a>
+                        {% else %}
+                            <a href="{{ url(
+                            'events.details',
+                            {'eventId': row._id}
+                            ) }}"
+                               id="opportunity-link">
+                                {{ row._source.title }}
+                            </a>
+                        {% endif %}
                     </h3>
                     <p class="meta-inline font-small">
                         {# Start and End date #}
