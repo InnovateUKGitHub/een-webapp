@@ -268,7 +268,14 @@ form[data-drupal-selector="opportunity-search-form"] {
     .block-label {
         padding: 14px 14px 7px 48px;
         input[type=checkbox] {
-           margin-top:-3px;
+          //  position: absolute !important;
+           // top: -9999px !important;
+           // left: -9999px !important
+           //z-index: -1!important;
+           //outline:none;
+           height: 1px;
+           width: 1px;
+           overflow: hidden;
         }
     }
     .block-label input:before {
@@ -605,6 +612,61 @@ form[data-drupal-selector="opportunity-search-form"] {
         background: #00587c;
     }
       
+}
+
+
+.save-actions {
+    h3 { 
+        font-weight: bold;
+        margin-bottom: 0.5em;
+    }
+    
+    .save-action {
+        clear:both;
+        margin:0 0 0.3em 0;
+        overflow:auto;
+        
+        &::before {
+            width:35px;
+            height: 35px;
+            background: black;
+            display: inline-block;
+            content: "";
+            float:left;
+            margin:0 0.5em 0 0;
+            position: absolute;
+        }
+        a {
+            display: block;
+            overflow: auto;
+            font-weight: 600;
+            padding-left: 42px;
+            display:flex;
+            align-items:center;
+            min-height: 35px;
+            
+            @media (min-width: 640px) and (max-width:900px){
+                line-height: 1em;
+            }
+        }
+        
+        &.sa-pin {
+            &:before {
+                background: #ed475c;
+            }
+            a {
+                color:#ed475c;
+            }
+        }
+        &.sa-share {
+            &:before {
+                background: #64b4e6;
+            }
+            a {
+                color:#64b4e6;
+            }
+        }
+    }
 }
   
 

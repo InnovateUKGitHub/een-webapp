@@ -49,7 +49,15 @@
 
                 <a class="button-brand" href="#express_your_interest">Apply for this project</a>
                 <hr/>
-                <a href="mailto:?subject={{ mail.subject }}&body={{ mail.body|url_encode }}" target="_top">Share</a>
+                <div class="save-actions">
+                    <h3>Save for later</h3>
+                    <div class="save-action sa-pin">
+                       <a href="#">Pin to favourites</a>
+                    </div>
+                    <div class="save-action sa-share">
+                        <a href="mailto:?subject={{ mail.subject }}&body={{ mail.body|url_encode }}" target="_top">Share opportunity</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="column-two-thirds contents-text-block">
@@ -93,7 +101,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium" id="ipr">{{ 'IPR'|t }}</h3>
+            <h3 class="heading-medium" id="ipr">{{ 'Intellectual Property Rights (IPR)'|t }}</h3>
             <p>
                 {% if opportunity._source.ipr or opportunity._source.ipr_comment %}
                     {{ opportunity._source.ipr }}
