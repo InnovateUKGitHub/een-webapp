@@ -1,0 +1,13 @@
+events.search:
+ path: '/events'
+ defaults:
+   _controller: '\Drupal\events\Controller\EventsController::index'
+ requirements:
+   _permission: 'access content'
+
+events.details:
+ path: '/events/{eventId}'
+ defaults:
+   _controller: '\Drupal\events\Controller\EventController::index'
+ requirements:
+   _permission: 'access content'
