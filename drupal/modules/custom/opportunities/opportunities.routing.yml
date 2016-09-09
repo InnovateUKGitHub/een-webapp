@@ -5,6 +5,13 @@ opportunities.search:
  requirements:
    _permission: 'access content'
 
+opportunities.search.ajax:
+ path: '/opportunities/_ajax'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::ajax'
+ requirements:
+   _permission: 'access content'
+
 opportunities.details:
  path: '/opportunities/{profileId}'
  defaults:
