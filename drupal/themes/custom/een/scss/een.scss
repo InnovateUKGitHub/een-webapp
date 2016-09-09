@@ -512,7 +512,104 @@ form[data-drupal-selector="opportunity-search-form"] {
 }
 
 
-@media (max-width:769px){
+
+
+.progressor {
+    border-bottom: 6px solid #006ba6;
+    margin:0 0 2em 0;
+    overflow:auto;
+    padding:0 0 1em;
+    
+    h3 {
+        font-weight: 600;
+        margin: 0.33em 0 1em;
+    }
+}
+ .step-container {
+    margin: 0 auto 1em;
+    position: relative;
+    padding: 5px 0 0 0;
+    
+    
+    &:before {
+        width: 74%;
+        height: 9px;
+        content: '';
+        position: absolute;
+        top: 25px;
+        left: 10;
+        z-index: 0;
+        display: block;
+        margin: auto;
+        
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#64b4e6+0,00587c+100 */
+        background: rgb(100,180,230); /* Old browsers */
+        background: -moz-linear-gradient(left, rgba(100,180,230,1) 0%, rgba(0,88,124,1) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, rgba(100,180,230,1) 0%,rgba(0,88,124,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, rgba(100,180,230,1) 0%,rgba(0,88,124,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#64b4e6', endColorstr='#00587c',GradientType=1 ); /* IE6-9 */
+    }
+      
+    .progressbar {
+        counter-reset: step;
+    }
+    .progressbar li {
+        list-style-type: none;
+        width: 33.3%;
+        float: left;
+        position: relative;
+        font-weight: 600;
+        
+        span {
+            padding:0 10% 0 0;
+            display:block;
+        }
+        
+    }
+    .progressbar li:before {
+        width: 49px;
+        height: 49px;
+        content: counter(step);
+        counter-increment: step;
+        line-height: 53px;
+        display: block;
+        text-align: center;
+        margin: 0 0 20px 0;
+        border-radius: 50%;
+        color: white;
+        font-size: 30px;
+    }
+    
+    .progressbar li:first-child:after {
+        content: none;
+    }
+   
+    
+    .progressbar li.active + li:after {
+        background-color: #55b776;
+    }
+    
+    .progressbar .active:before {
+        border:5px solid #65b4e6;
+        top: -5px;
+        position: relative;
+        margin: 0 0 10px 0;
+    }
+    .progressbar .step1:before {
+        background: #006ca6;
+    }
+    .progressbar .step2:before {
+        background: #3c8fbc;
+    }
+    .progressbar .step3:before {
+        background: #00587c;
+    }
+      
+}
+  
+
+
+@media (max-width:640px){
     #global-header {
         background:$light-blue;
         margin-bottom:14px;
@@ -526,7 +623,10 @@ form[data-drupal-selector="opportunity-search-form"] {
            display:block;
         }
     }
+    
+    .step-container {
+        &:before {
+            
+        }
+    }
 }
-
-
-
