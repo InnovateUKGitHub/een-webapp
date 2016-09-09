@@ -1,16 +1,29 @@
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     minify = require('gulp-minify'),
-    watch = require('gulp-watch');
+    watch = require('gulp-watch'),
+    gulp = require('gulp'),
+    sourcemaps = require('gulp-sourcemaps'),
+    babel = require('gulp-babel'),
+    concat = require('gulp-concat');
 
-gulp.task('js', function () {
+gulp.task('6to5', function () {
     gulp.src([
         'node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js',
         'node_modules/govuk_template_mustache/assets/javascripts/govuk-template.js',
-        'drupal/themes/custom/een/js/*.js'
+        'drupal/themes/custom/een/js/src/*.js'
     ])
-        .pipe(minify())
-        .pipe(gulp.dest('drupal/themes/custom/een/js/min'))
+    .pipe(sourcemaps.init())
+    .pipe(babel({
+        ignore: [
+          'node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js',
+          'node_modules/govuk_template_mustache/assets/javascripts/govuk-template.js'
+        ],
+        presets: ['es2015']
+    }))
+    .pipe(concat('bundle.js'))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('drupal/themes/custom/een/js/dist'))
 });
 
 gulp.task('css', function () {
@@ -31,8 +44,7 @@ gulp.task('css', function () {
 
 gulp.task('watch', function () {
     gulp.watch('drupal/themes/custom/een/scss/**/*.scss', ['css']);
-    gulp.watch(['drupal/themes/custom/een/js/*.js'], ['js']);
+    gulp.watch(['drupal/themes/custom/een/js/*.js'], ['6to5']);
 });
 
-gulp.task('default', ['css', 'js']);
-
+gulp.task('default', ['css', '6to5']);

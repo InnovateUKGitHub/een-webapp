@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="menu-container">
         <div class="header-proposition">
             {{ page.primary_menu }}
@@ -62,7 +62,7 @@
 
 {{ page.help }}
 
-<main role="main" id="content">
+<main role="main" id="content" ng-app="een">
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
 
     <div class="phase-banner-alpha">
@@ -99,7 +99,7 @@
 <footer role="contentinfo" class="group js-footer" id="footer">
     <div class="footer-wrapper">
         <div class="footer-meta">
-            
+
             {% if page.footer_first or page.footer_second or page.footer_third or page.footer_fourth %}
                 <div class="footer-meta-inner">
                     {{ page.footer_first }}

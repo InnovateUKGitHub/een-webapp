@@ -29,7 +29,6 @@ cache/
 /drupal/vendor
 drupal/modules/custom/elastic_search/config/install/elastic_search.settings.yml
 drupal/themes/custom/een/css/
-drupal/themes/custom/een/js/*-min.js
 html-coverage/
-drupal/themes/custom/een/js/min/
+drupal/themes/custom/een/js/dist
 drupal/themes/custom/een/flags/
