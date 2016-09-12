@@ -32,6 +32,9 @@ class ExpressionOfInterestForm extends AbstractForm
                     'class' => [
                         'form-control',
                     ],
+                    'placeholder' => [
+                        'This is your pitch: remember to include your unique selling points (USP) and why someone would want to do business with you',
+                    ],
                 ],
             ],
             'interest'    => [
@@ -45,6 +48,9 @@ class ExpressionOfInterestForm extends AbstractForm
                     'class' => [
                         'form-control',
                     ],
+                    'placeholder' => [
+                        'Tell us why you are a good fit for this opportunity, and why you think you\'re the right people for this partnership',
+                    ],
                 ],
             ],
             'more'        => [
@@ -57,6 +63,9 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#attributes'          => [
                     'class' => [
                         'form-control',
+                    ],
+                    'placeholder' => [
+                        'If there\'s anything additonal, or commercially sensitive you\'d like to know about this opportunity, please let us know',
                     ],
                 ],
             ],
