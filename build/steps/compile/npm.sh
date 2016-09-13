@@ -18,10 +18,10 @@ if [ ! -z "$npmChanges" ] || [ ! -z "$forceCompile" ];then
     npm install --verbose
 
     echo "copy gov images to theme folder"
-    test -e drupal/themes/custom/een/images || mkdir -p drupal/themes/custom/een/css/images
-    cp -r node_modules/govuk_frontend_toolkit/images/* drupal/themes/custom/een/css/images
-    cp -r node_modules/govuk_template_mustache/assets/images/* drupal/themes/custom/een/css/images
-    cp -r node_modules/govuk_template_mustache/assets/stylesheets/images/* drupal/themes/custom/een/css/images
+    test -e drupal/themes/custom/een/images || mkdir -p drupal/themes/custom/een/img
+    cp -r node_modules/govuk_frontend_toolkit/images/* drupal/themes/custom/een/img
+    cp -r node_modules/govuk_template_mustache/assets/images/* drupal/themes/custom/een/img
+    cp -r node_modules/govuk_template_mustache/assets/stylesheets/images/* drupal/themes/custom/een/img
 
     echo "copy flags images to theme folder"
     cp -r node_modules/flag-icon-css/flags drupal/themes/custom/een/

@@ -11,6 +11,8 @@
 @import 'label';
 @import 'pagination';
 
+@import 'angular';
+
 body {
   font-family: $font_family!important; /* temp important */
   color:#4A4A4A;
@@ -30,14 +32,14 @@ hr {
 }
 
 .button {
-    @include button($light-blue);  
+    @include button($light-blue);
     padding: 14px 14px;
     font-weight: bold;
     white-space:inherit;
 }
 
-#global-header, 
-.global-header-inner, 
+#global-header,
+.global-header-inner,
 #global-header .header-wrapper,
 #footer,
 #footer .footer-wrapper{
@@ -45,10 +47,10 @@ hr {
 }
 
 p { @extend .font-small }
-a { 
+a {
     text-decoration: none;
     &:link {
-        color:$light-blue;  
+        color:$light-blue;
     }
     &:visited {
         color:$light-blue;
@@ -62,7 +64,7 @@ a {
 
 
 %borderGradElement {
-    
+
     content: " ";
     height: 14px;
     position: absolute;
@@ -79,31 +81,31 @@ a {
 
 
 #footer {
-    border:none; 
+    border:none;
     &:before {
          @extend %borderGradElement;
     }
 }
 
 .contents-list {
-    
+
     @media (min-width:769px){
-        padding-right:15%; 
+        padding-right:15%;
     }
-    
+
     .heading-medium {
         margin-bottom:7px;
     }
-    
+
     ul {
         margin-bottom:32px;
     }
-    
+
     li {
         border-top:1px solid #dddddd;
         padding:7px;
         @extend .font-small;
-        a { 
+        a {
             text-decoration: none;
         }
     }
@@ -122,15 +124,15 @@ a {
 }
 
 a.back-link {
-    font-weight: bold; 
+    font-weight: bold;
     text-decoration: none;
-    color:$light-blue; 
+    color:$light-blue;
 }
 
 .content-heading {
     padding: 32px 0;
     border-bottom: 1px solid #9B9B9B;
-    
+
     h1 {
         margin: 0;
         color:#9B9B9B;
@@ -160,7 +162,7 @@ a.back-link {
 .form-opportunities {
     .form-label {
         @extend .font-small;
-        font-weight: bold; 
+        font-weight: bold;
         color:#4A4A4A;
     }
     .field-prefix {
@@ -178,7 +180,7 @@ a.back-link {
         margin:7px 0;
         display:none;
         @extend .font-xsmall;
-        
+
         &#edit-email--description {
             border:none;
             padding-left:0;
@@ -187,8 +189,8 @@ a.back-link {
             margin:14px 0 0 0;
         }
     }
-    
-    
+
+
     .form-control {
         width:100%;
         border-color: #9B9B9B;
@@ -204,16 +206,16 @@ a.back-link {
 }
 
 form[data-drupal-selector="opportunity-search-form"] {
-    
+
     .form-item {
         background: #DEE0E2;
         padding:7px;
     }
-    
-    fieldset { 
+
+    fieldset {
         width:auto;
     }
-    
+
     legend {
         box-sizing: border-box;
         max-width: 100%;
@@ -223,23 +225,23 @@ form[data-drupal-selector="opportunity-search-form"] {
         position: relative;
         top: 19px;
     }
-    
+
     .form-item-search, .fieldgroup  {
         background: #DEE0E2;
-        
+
         margin-bottom: 14px;
         .form-control {
             width: 100%;
         }
         .fieldset-wrapper {
-            
+
             legend {
                 margin: 10px;
                 display: block;
                 top: 15px;
                 position: relative;
             }
-            
+
             .block-label {
                 background: white;
                 width: initial;
@@ -252,11 +254,11 @@ form[data-drupal-selector="opportunity-search-form"] {
 }
 
 .row-bordered {
-    border-bottom: 1px solid #DDDDDD; 
+    border-bottom: 1px solid #DDDDDD;
     padding:7px;
-    
+
     h3 {
-       font-weight: bold; 
+       font-weight: bold;
        line-height: 1.1em;
     }
 }
@@ -268,7 +270,7 @@ form[data-drupal-selector="opportunity-search-form"] {
 #global-header.with-proposition {
     .header-wrapper .header-global {
         width: 100%;
-        
+
         .header-logo {
             width:auto;
         }
@@ -280,9 +282,9 @@ form[data-drupal-selector="opportunity-search-form"] {
         @extend %borderGradElement;
         display:none;
     }
-    
-    
-    .header-wrapper .header-global .header-logo { 
+
+
+    .header-wrapper .header-global .header-logo {
         margin: 21px 0 21px 14px;
         float: left;
         width: auto;
@@ -300,27 +302,27 @@ form[data-drupal-selector="opportunity-search-form"] {
             display:none;
         }
     }
-    
+
     .header-proposition {
-        
+
         #proposition-menu {
             margin: 0  15px 0 15px;
             @media (max-width:769px){
                 margin:0;
             }
         }
-        
+
         #proposition-links {
             padding:7px 0 0;
             border-bottom: 1px solid #ccc;
-            
-            
+
+
             @media (max-width:769px){
                 padding:0;
                 border:none;
             }
         }
-        
+
         #proposition-link li, #proposition-links li {
             float: none;
             width: 100%;
@@ -335,13 +337,13 @@ form[data-drupal-selector="opportunity-search-form"] {
                 color: #4A4A4A;
                 padding:7px 0;
                 display: inline-block;
-                
+
                 @media (max-width:769px){
                     font-weight: bold;
                     color:#fff;
                     padding: 14px 14px 14px 0;
                     font-size:18px;
-                } 
+                }
 
             }
         }
@@ -350,12 +352,12 @@ form[data-drupal-selector="opportunity-search-form"] {
             position: relative;
             padding-left: 1.25em;
         }
-        a.menu { 
+        a.menu {
             font-size: 36px;
             position: absolute;
             top: 14px;
             right: 0;
-            
+
             &:focus, &:active {
                 background:none;
                 border:none;
@@ -375,7 +377,7 @@ form[data-drupal-selector="opportunity-search-form"] {
             border-top: 0.375em double #fff;
             border-bottom: 0.125em solid #ffffff;
         }
-        
+
         .menu.js-hidden:before {
             content: "X";
             border: none;
@@ -389,10 +391,10 @@ form[data-drupal-selector="opportunity-search-form"] {
             top: 2px;
         }
     }
-    
+
     .global-header-inner {
         margin-bottom:14px;
-        
+
         &:after {
             @extend %borderGradElement;
         }
@@ -406,7 +408,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         padding-left: 15px;
         padding-right: 15px;
     }
-    
+
     .header-proposition #proposition-link,  .header-proposition #proposition-links {
         display: block;
         @media (max-width:769px){
@@ -417,10 +419,10 @@ form[data-drupal-selector="opportunity-search-form"] {
     .header-proposition .js-visible#proposition-link,  .header-proposition .js-visible#proposition-links {
         display:block;
     }
-    
-    
-    
-    
+
+
+
+
 }
 
 
@@ -428,7 +430,7 @@ form[data-drupal-selector="opportunity-search-form"] {
     #global-header {
         background:$light-blue;
         margin-bottom:14px;
-        
+
         .global-header-inner {
             &:after {
                 display:none;
@@ -439,6 +441,3 @@ form[data-drupal-selector="opportunity-search-form"] {
         }
     }
 }
-
-
-
