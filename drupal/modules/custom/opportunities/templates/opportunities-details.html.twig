@@ -1,9 +1,9 @@
 {% set params = {} %}
 {% if search %}
-    {% set params = prams|merge({'search': search}) %}
+    {% set params = params|merge({'search': search}) %}
 {% endif %}
 {% if opportunity_type %}
-    {% set params = prams|merge({'opportunity_type': opportunity_type}) %}
+    {% set params = params|merge({'opportunity_type': opportunity_type}) %}
 {% endif %}
 
 {% if opportunity is not empty %}
