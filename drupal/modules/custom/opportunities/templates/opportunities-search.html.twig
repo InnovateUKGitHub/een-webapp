@@ -13,6 +13,32 @@
         </div>
     </div>
     <div class="column-two-thirds">
+
+        <div class="row" ng-show="heading.loaded" ng-cloak>
+            <h3 class="heading-xlarge">{[{ heading.total }]} <span class="font-xsmall">opportunity</span></h3>
+        </div>
+
+        <div class="row row-bordered" ng-show="heading.loaded" ng-repeat="row in results" ng-cloak>
+            <h3>
+                <a href="" id="opportunity-link">
+                    {[{ row.title }]}
+                </a>
+            </h3>
+
+            <p class="meta-inline font-small">
+                {# lastupdated #}
+                {[{ row.date }]}
+
+                {# organisation id #}
+                {[{ row.id }]} |
+
+                {# Country of origin #}
+                {[{ row.flag }]}
+                <span class="flag-icon"></span>
+                {[{ row.country }]}
+            </p>
+        </div>
+
         {% if results is not null %}
             {% if total > 0 %}
                 <div class="row">
