@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\opportunities\Service;
+namespace Drupal\events\Service;
 
 use Drupal\elastic_search\Service\ElasticSearchService;
-use Symfony\Component\HttpFoundation\Request;
+use Zend\Http\Request;
 
-class OpportunitiesService
+class EventsService
 {
     /**
      * @var ElasticSearchService
@@ -13,7 +13,7 @@ class OpportunitiesService
     private $service;
 
     /**
-     * OpportunitiesController constructor.
+     * EventsService constructor.
      *
      * @param ElasticSearchService $service
      */
@@ -22,38 +22,25 @@ class OpportunitiesService
         $this->service = $service;
     }
 
-    public function search(&$form, $search, $types, $page, $resultPerPage)
+    public function search($page, $resultPerPage)
     {
-        $form['search']['#value'] = $search;
-        if (empty($types) === false) {
-            $types = array_filter($types, function($type) {
-                if ($type !== '0') {
-                    return $type;
-                }
-
-                return false;
-            });
-
-            foreach ($types as $type) {
-                $form['opportunity_type'][$type]['#attributes']['checked'] = 'checked';
-            }
-        }
-
         $params = [
-            'from'             => ($page - 1) * $resultPerPage,
-            'size'             => $resultPerPage,
-            'search'           => $search,
-            'opportunity_type' => $types,
-            'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
+            'from'   => ($page - 1) * $resultPerPage,
+            'size'   => $resultPerPage,
+            'source' => [
+                'title', 'description', 'start_date', 'end_date',
+                'country', 'country_code', 'location_website', 'contact_attributes'
+            ],
         ];
         if (empty($search)) {
             $params['sort'] = [
-                'date' => ['order' => 'desc'],
+                'start_date' => ['order' => 'asc'],
+                'end_date' => ['order' => 'asc'],
             ];
         }
 
         $this->service
-            ->setUrl('opportunities')
+            ->setUrl('events')
             ->setBody($params);
 
         $results = $this->service->sendRequest();
@@ -72,10 +59,10 @@ class OpportunitiesService
         return $results;
     }
 
-    public function get($profileId)
+    public function get($eventId)
     {
         $this->service
-            ->setUrl('opportunities/' . urlencode($profileId))
+            ->setUrl('events/' . urlencode($eventId))
             ->setMethod(Request::METHOD_GET);
 
         $results = $this->service->sendRequest();

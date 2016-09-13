@@ -5,6 +5,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class OpportunitiesController extends ControllerBase
@@ -50,6 +51,24 @@ class OpportunitiesController extends ControllerBase
      */
     public function index(Request $request)
     {
+        $data = $this->getOpportunities($request);
+
+        return [
+            '#theme'            => 'opportunities_search',
+            '#form'             => $data['form'],
+            '#search'           => $data['search'],
+            '#opportunity_type' => $data['types'],
+            '#results'          => isset($data['results']['results']) ? $data['results']['results'] : null,
+            '#total'            => isset($data['results']['total']) ? $data['results']['total'] : null,
+            '#pageTotal'        => isset($data['results']['results']) ? (int)ceil($data['results']['total'] / $data['resultPerPage']) : null,
+            '#page'             => $data['page'],
+            '#resultPerPage'    => $data['resultPerPage'],
+            '#route'            => 'opportunities.search',
+        ];
+    }
+
+    private function getOpportunities(Request $request)
+    {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
 
         $page = $request->query->get(self::PAGE_NUMBER, 1);
@@ -60,16 +79,31 @@ class OpportunitiesController extends ControllerBase
         $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
 
         return [
-            '#theme'            => 'opportunities_search',
-            '#form'             => $form,
-            '#search'           => $search,
-            '#opportunity_type' => $types,
-            '#results'          => isset($results['results']) ? $results['results'] : null,
-            '#total'            => isset($results['total']) ? $results['total'] : null,
-            '#pageTotal'        => isset($results['results']) ? (int)ceil($results['total'] / $resultPerPage) : null,
-            '#page'             => $page,
-            '#resultPerPage'    => $resultPerPage,
-            '#route'            => 'opportunities.search',
+            'form'          => $form,
+            'results'       => $results,
+            'page'          => $page,
+            'resultPerPage' => $resultPerPage,
+            'search'        => $search,
+            'types'         => $types,
         ];
+    }
+
+    public function ajax(Request $request)
+    {
+
+        $data = $this->getOpportunities($request);
+
+        return new JsonResponse(
+            [
+                'search'           => $data['search'],
+                'opportunity_type' => $data['types'],
+                'results'          => isset($data['results']['results']) ? $data['results']['results'] : null,
+                'total'            => isset($data['results']['total']) ? $data['results']['total'] : null,
+                'pageTotal'        => isset($data['results']['results']) ? (int)ceil($data['results']['total'] / $data['resultPerPage']) : null,
+                'page'             => $data['page'],
+                'resultPerPage'    => $data['resultPerPage'],
+                'route'            => 'opportunities.search',
+            ]
+        );
     }
 }

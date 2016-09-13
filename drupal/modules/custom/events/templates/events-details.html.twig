@@ -1,0 +1,96 @@
+{% if event is not empty %}
+    <div>
+        <div>
+            <a class="back-link"
+               href="{{ url('events.search',{'page': page}) }}">
+                {{ '< Back to list'|t }}
+            </a>
+        </div>
+        <div class="content-heading">
+            <h1>{{ 'Event'|t }}</h1>
+            <h2 class="heading-large">{{ event._source.title }}</h2>
+            <div class="meta">
+                <div class="meta-data">
+                    <label>{{ 'Country of origin:'|t }}</label>
+                    <p>
+                        {% set flag = event._source.country_code|lower %}
+                        {% if flag == 'uk' %}
+                            {% set flag = 'gb' %}
+                        {% endif %}
+                        <span class="flag-icon flag-icon-{{ flag }}"></span>
+                        {{ event._source.country }}
+                    </p>
+                </div>
+                <div class="meta-data">
+                    <label>{{ 'Starting Date:'|t }}</label>
+                    <p>{{ event._source.start_date|date('d-m-Y') }}</p>
+                </div>
+                <div class="meta-data">
+                    <label>{{ 'Ending Date:'|t }}</label>
+                    <p>{{ event._source.end_date|date('d-m-Y') }}</p>
+                </div>
+                <div class="meta-data">
+                    <label>{{ 'Status:'|t }}</label>
+                    <p>{{ event._source.status }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h3 class="heading-medium">{{ 'Description'|t }}</h3>
+        <p>
+            {% if event._source.description %}
+                {{ event._source.description }}
+            {% else %}
+                {{ 'Not available'|t }}
+            {% endif %}
+        </p>
+        <h3 class="heading-medium">{{ 'Location'|t }}</h3>
+        <p>
+            {% if event._source.location_name %}
+                {{ event._source.location_name }}<br/>
+            {% endif %}
+            {% if event._source.location_address %}
+                {{ event._source.location_address }}<br/>
+            {% endif %}
+            {% if event._source.location_city %}
+                {{ event._source.location_city }}<br/>
+            {% endif %}
+            {% if event._source.location_country %}
+                {{ event._source.location_country }}<br/>
+            {% endif %}
+            {% if event._source.location_phone %}
+                {{ event._source.location_phone }}<br/>
+            {% endif %}
+            {% if event._source.location_website %}
+                <a href="{{ event._source.location_website }}" target="_blank">
+                    {{ 'Website'|t }}
+                </a><br/>
+            {% endif %}
+            {% if event._source.location_contact_email %}
+                {{ event._source.location_contact_email }}<br/>
+            {% endif %}
+        </p>
+        <h3 class="heading-medium">{{ 'Contact'|t }}</h3>
+        <p>
+            {% if event._source.contact_name %}
+                {{ event._source.contact_name }}<br/>
+            {% endif %}
+            {% if event._source.contact_phone %}
+                {{ event._source.contact_phone }}<br/>
+            {% endif %}
+            {% if event._source.contact_fax %}
+                {{ event._source.contact_fax }}<br/>
+            {% endif %}
+            {% if event._source.contact_email %}
+                {{ event._source.contact_email }}<br/>
+            {% endif %}
+        </p>
+        {% if event._source.een_partner %}
+            <h3 class="heading-medium">{{ 'EEN Partner'|t }}</h3>
+            <p>{{ event._source.een_partner }}</p>
+        {% endif %}
+    </div>
+{% endif %}
+
+

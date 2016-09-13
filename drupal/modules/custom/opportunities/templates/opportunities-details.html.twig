@@ -1,8 +1,16 @@
+{% set params = {} %}
+{% if search %}
+    {% set params = params|merge({'search': search}) %}
+{% endif %}
+{% if opportunity_type %}
+    {% set params = params|merge({'opportunity_type': opportunity_type}) %}
+{% endif %}
+
 {% if opportunity is not empty %}
     <div>
         <div>
             <a class="back-link"
-               href="{{ url('opportunities.search',{'search': search, 'opportunity_type': opportunity_type}) }}">
+               href="{{ url('opportunities.search', params) }}">
                 {{ '< Back to search results'|t }}
             </a>
         </div>
@@ -34,22 +42,31 @@
             </div>
         </div>
     </div>
-    <div class="grid-row">
-        <div class="column-one-third">
-            <div class="contents-list">
-                <h3 class="heading-medium">{{ 'Contents'|t }}</h3>
-                <ul>
+    <div class="grid-row grid-row-1">
+        <div class="column-one-third sticky-nav-container">            
+            
+            <div class="contents-list sticky-sidebar">
+                <h3 class="heading-medium sticky-sidebar-header">{{ 'Contents'|t }}</h3>
+                <ul class="sticky-sidebar-content">
                     <li><a href="#abstract">{{ 'Abstract'|t }}</a></li>
                     <li><a href="#description">{{ 'Description'|t }}</a></li>
                     <li><a href="#partner_expertise_sought">{{ 'Partner expertise sought'|t }}</a></li>
                     <li><a href="#advantages_and_innovations">{{ 'Advantages and innovations'|t }}</a></li>
                     <li><a href="#development_stage">{{ 'Development Stage'|t }}</a></li>
-                    <li><a href="#ipr">{{ 'IPR'|t }}</a></li>
+                    <li><a href="#ipr">{{ 'Intellectual Property Rights (IPR)'|t }}</a></li>
                 </ul>
 
-                <a class="button-brand" href="#express_your_interest">Express your interest</a>
+                <a class="button-brand" href="#express_your_interest">Apply for this project</a>
                 <hr/>
-                <a href="mailto:?subject={{ mail.subject }}&body={{ mail.body|url_encode }}" target="_top">Share</a>
+                <div class="save-actions">
+                    <h3>Save for later</h3>
+                    <div class="save-action sa-pin">
+                       <a href="#">Pin to favourites</a>
+                    </div>
+                    <div class="save-action sa-share">
+                        <a href="mailto:?subject={{ mail.subject }}&body={{ mail.body|url_encode }}" target="_top">Share opportunity</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="column-two-thirds contents-text-block">
@@ -93,7 +110,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium" id="ipr">{{ 'IPR'|t }}</h3>
+            <h3 class="heading-medium" id="ipr">{{ 'Intellectual Property Rights (IPR)'|t }}</h3>
             <p>
                 {% if opportunity._source.ipr or opportunity._source.ipr_comment %}
                     {{ opportunity._source.ipr }}
@@ -107,9 +124,23 @@
     <hr/>
     <div class="grid-row">
         <div class="column-one-third">
-            <h3 class="heading-medium single-header-one-col" id="express_your_interest">{{ 'Express your interest'|t }}</h3>
+            <h3 class="heading-medium single-header-one-col" id="express_your_interest">{{ 'Apply for this project'|t }}</h3>
         </div>
         <div class="column-two-thirds">
+            
+            <div class="progressor">
+                <h3>How it works</h3>
+                <div class="step-container">
+                    <ul class="progressbar">
+                        <li class="active step1"><span>Submit your application to EEN</span></li>
+                        <li class="step2"><span>Later, EEN advisors will present applications</span></li>
+                        <li class="step3"><span>Then, client selects winning application(s)</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            
+            
             <form action="{{ form['#action'] }}" method="POST" class="form-opportunities">
                 <div class="form-section">
                     {{ form.description }}
@@ -134,7 +165,7 @@
                 {{ form.form_id }}
                 <hr/>
                 <div>
-                    <h4 class="heading-small">{{ 'By sumitting this information, I understand that:'|t }}</h4>
+                    <h4 class="heading-small">{{ 'By submitting this information, I understand that:'|t }}</h4>
                     <p>{{ 'An EEN adviser  will review your expression of interest and share with their client if it\'s what they\'re looking for. If we connect you, our involvement will step back at it, but we need you to keep us informed of follow on discussions and negociations'|t }}</p>
                 </div>
                 {{ form.actions }}

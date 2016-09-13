@@ -1,0 +1,72 @@
+<div class="content-heading">
+    <h1>{{ 'Events'|t }}</h1>
+    <h2 class="heading-large">{{ 'List of the upcomming events'|t }}</h2>
+</div>
+
+<div class="row">
+    {% if results is not null %}
+        {% if total > 0 %}
+            <div class="row">
+                <h3 class="heading-xlarge">{{ total }} <span class="font-xsmall">{{ 'events '|t }}</span></h3>
+            </div>
+            {% for row in results %}
+                <div class="row row-bordered">
+                    <h3>
+                        {% if row._source.contact_attributes and row._source.contact_attributes matches '/^http*/' %}
+                            <a href="{{ row._source.contact_attributes }}" target="_blank">
+                                {{ row._source.title }}
+                            </a>
+                        {% elseif row._source.location_website and row._source.location_website matches '/^http*/' %}
+                            <a href="{{ row._source.location_website }}" target="_blank">
+                                {{ row._source.title }}
+                            </a>
+                        {% else %}
+                            <a href="{{ url(
+                            'events.details',
+                            {'eventId': row._id}
+                            ) }}"
+                               id="opportunity-link">
+                                {{ row._source.title }}
+                            </a>
+                        {% endif %}
+                    </h3>
+                    <p class="meta-inline font-small">
+                        {# Start and End date #}
+                        {% if row._source.start_date != row._source.end_date %}
+                            {{ row._source.start_date|date("d-m-Y") }} |
+                            {{ row._source.end_date|date("d-m-Y") }} |
+                        {% else %}
+                            {{ row._source.start_date|date("d-m-Y") }} |
+                        {% endif %}
+                        {# Country of origin #}
+                        {% set flag = row._source.country_code|lower %}
+                        {% if flag == 'uk' %}
+                            {% set flag = 'gb' %}
+                        {% endif %}
+                        <span class="flag-icon flag-icon-{{ flag }}"></span>
+                        {{ row._source.country }}
+                    </p>
+                    <p>
+                        {{ row._source.description }}
+                    </p>
+                </div>
+
+            {% endfor %}
+
+            {% include 'themes/custom/een/templates/pagination.html.twig'
+            with {
+            'route': route,
+            'page': page,
+            'resultPerPage': resultPerPage,
+            'pageTotal': pageTotal
+            } only %}
+
+        {% else %}
+            {{ 'No Results found'|t }}
+        {% endif %}
+    {% endif %}
+</div>
+
+
+
+
