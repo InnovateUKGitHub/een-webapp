@@ -85,11 +85,13 @@ a {
     }
 }
 
+.sticky-nav-container {
+    min-height: 20px;
+}
 .contents-list {
+    min-height: 20px; 
     
-    @media (min-width:769px){
-        padding-right:15%; 
-    }
+    
     
     .heading-medium {
         margin-bottom:7px;
@@ -114,6 +116,13 @@ a {
         font-size: 21px;
     }
 }
+@media (min-width:640px){
+        //padding-right:15%; 
+        .contents-list.fixed {
+           
+        }
+    }
+
 
 .contents-text-block {
     .heading-medium {
