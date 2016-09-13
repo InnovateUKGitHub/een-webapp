@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var een = window.angular.module('een', []);
 
   een.config(function ($interpolateProvider) {
