@@ -19,25 +19,25 @@ var entry = [
 
 gulp.task('js', function () {
     gulp.src(entry)
-    .pipe(babel({
-        ignore: ['node_modules'],
-        presets: ['es2015']
-    }))
-    .pipe(concat('bundle.js'))
-    .pipe(minify())
-    .pipe(gulp.dest(themeDir + '/dist'))
+        .pipe(babel({
+            ignore: ['node_modules'],
+            presets: ['es2015']
+        }))
+        .pipe(concat('bundle.js'))
+        .pipe(minify())
+        .pipe(gulp.dest(themeDir + '/dist'))
 });
 
 gulp.task('js-dev', function () {
     gulp.src(entry)
-    .pipe(sourcemaps.init())
-    .pipe(babel({
-        ignore: ['node_modules'],
-        presets: ['es2015']
-    }))
-    .pipe(concat('bundle.js'))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(themeDir + '/dist'))
+        .pipe(sourcemaps.init())
+        .pipe(babel({
+            ignore: ['node_modules'],
+            presets: ['es2015']
+        }))
+        .pipe(concat('bundle.js'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(themeDir + '/dist'))
 });
 
 gulp.task('img', function () {
