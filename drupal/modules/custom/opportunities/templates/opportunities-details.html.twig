@@ -1,8 +1,16 @@
+{% set params = {} %}
+{% if search %}
+    {% set params = prams|merge({'search': search}) %}
+{% endif %}
+{% if opportunity_type %}
+    {% set params = prams|merge({'opportunity_type': opportunity_type}) %}
+{% endif %}
+
 {% if opportunity is not empty %}
     <div>
         <div>
             <a class="back-link"
-               href="{{ url('opportunities.search',{'search': search, 'opportunity_type': opportunity_type}) }}">
+               href="{{ url('opportunities.search', params) }}">
                 {{ '< Back to search results'|t }}
             </a>
         </div>

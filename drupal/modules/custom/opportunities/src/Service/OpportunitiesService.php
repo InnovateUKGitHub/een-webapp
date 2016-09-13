@@ -25,7 +25,7 @@ class OpportunitiesService
     public function search(&$form, $search, $types, $page, $resultPerPage)
     {
         $form['search']['#value'] = $search;
-        if ($types) {
+        if (empty($types) === false) {
             $types = array_filter($types, function($type) {
                 if ($type !== '0') {
                     return $type;
