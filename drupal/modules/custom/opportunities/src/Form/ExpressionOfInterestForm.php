@@ -65,7 +65,7 @@ class ExpressionOfInterestForm extends AbstractForm
                         'form-control',
                     ],
                     'placeholder' => [
-                        'If there\'s anything additonal, or commercially sensitive you\'d like to know about this opportunity, please let us know',
+                        'If there\'s anything additional, or commercially sensitive you\'d like to know about this opportunity, please let us know',
                     ],
                 ],
             ],

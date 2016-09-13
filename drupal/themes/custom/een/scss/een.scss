@@ -196,7 +196,10 @@ a.back-link {
             margin:14px 0 0 0;
         }
     }
-    
+    ::-webkit-input-placeholder {   font-size:0.9em; font-style: italic;   }
+    :-moz-placeholder { /* Firefox 18- */   font-size:0.9em; font-style: italic; }
+    ::-moz-placeholder {  /* Firefox 19+ */   font-size:0.9em; font-style: italic; }
+    :-ms-input-placeholder {   font-size:0.9em; font-style: italic;  }
     
     .form-control {
         width:100%;
@@ -648,18 +651,26 @@ form[data-drupal-selector="opportunity-search-form"] {
             overflow: auto;
             font-weight: 600;
             padding-left: 42px;
-            display:flex;
-            align-items:center;
             min-height: 35px;
             
             @media (min-width: 640px) and (max-width:900px){
                 line-height: 1em;
             }
+            
+            @media (min-width: 641px) {
+                display:flex;
+                align-items:center;
+            }
+            
+            @media (max-width: 640px) {
+                top: 8px;
+                position: relative;
+            }
         }
         
         &.sa-pin {
             &:before {
-                background: #ed475c;
+                background: #ed475c url('../img/pin-icon.svg') no-repeat center center;
             }
             a {
                 color:#ed475c;
@@ -667,7 +678,8 @@ form[data-drupal-selector="opportunity-search-form"] {
         }
         &.sa-share {
             &:before {
-                background: #64b4e6;
+                background: #64b4e6 url('../img/envelope-icon.svg') no-repeat center center;
+                
             }
             a {
                 color:#64b4e6;
