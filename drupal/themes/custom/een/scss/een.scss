@@ -636,7 +636,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         margin:0 0 0.3em 0;
         overflow:auto;
         
-        &::before {
+        &:before {
             width:35px;
             height: 35px;
             background: black;
@@ -670,7 +670,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         
         &.sa-pin {
             &:before {
-                background: #ed475c url('../img/pin-icon.svg') no-repeat center center;
+                background: #ed475c url('../img/pin-icon.png') no-repeat center center;
             }
             a {
                 color:#ed475c;
@@ -678,7 +678,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         }
         &.sa-share {
             &:before {
-                background: #64b4e6 url('../img/envelope-icon.svg') no-repeat center center;
+                background: #64b4e6 url('../img/envelope-icon.png') no-repeat center center;
                 
             }
             a {

@@ -3,6 +3,8 @@ global-styling:
   css:
     theme:
       css/een.css: {}
+      css/ie8.css: { browsers: { IE: 'lte IE 8', '!IE': false } }
+ 
   js:
     js/min/govuk-template-min.js: {}
     js/min/selection-buttons-min.js: {}
@@ -13,3 +15,4 @@ opportunity:
   version: 1.0
   js:
     js/min/opportunity-min.js: {}
+
