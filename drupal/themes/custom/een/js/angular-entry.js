@@ -7,9 +7,38 @@
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
   });
 
-  een.controller('MainCtrl', function ($scope) {
+  een.factory('oppsFactory', function () {
+    var search = function (opts) {
+      return window.$.ajax({
+        url: 'opportunities/_ajax',
+        data: {
+          page: opts.page,
+          resultPerPage: 19,
+          search: opts.q,
+          opportunity_type: opts.type
+        }
+      });
+    };
+    return {
+      search: search
+    };
+  });
+
+  een.controller('MainCtrl', function ($scope, oppsFactory) {
+
+    $scope.submit = function (form) {
+      oppsFactory.search({
+        page: 1,
+        q: 'test'
+      }).then(function (data) {
+        $scope.results = data;
+      }).fail(function(test) {
+        $scope.results = [];
+      });
+    };
+
     $scope.heading = {
-      loaded: false,
+      loaded: true,
       total: 500
     };
 

@@ -52,6 +52,9 @@ class OpportunitiesForm extends FormBase
                 ],
             ],
             '#method'          => Request::METHOD_POST,
+            '#attributes'      => [
+                'ng-submit' => "submit()",
+            ],
         ];
 
         return $form;
