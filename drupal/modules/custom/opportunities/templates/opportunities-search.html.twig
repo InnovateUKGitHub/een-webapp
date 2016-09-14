@@ -12,14 +12,14 @@
     <h3>{{ 'Search for partners to manufacture, distribute co-develop and supply your products, ideas and business.'|t }}</h3>
 </div>
 
+<div class="row">
+    <div class="filter-container">
+        <p class="font-xsmall">You can use the filters to show only results that match your interests</p>
+        {{ form }}
+    </div>
+</div>
 <div class="grid-row">
     <div class="column-one-third">
-        <div class="filter-container">
-            <p class="font-xsmall">You can use the filters to show only results that match your interests</p>
-            {{ form }}
-        </div>
-    </div>
-    <div class="column-two-thirds">
         {% if results is not null %}
             {% if total > 0 %}
                 <div class="row">
@@ -50,6 +50,106 @@
                             {% endif %}
                             <span class="flag-icon flag-icon-{{ flag }}"></span>
                             {{ row.country }}
+                        </p>
+                    </div>
+
+                {% endfor %}
+
+                {% include 'themes/custom/een/templates/pagination.html.twig'
+                with {
+                'route': route,
+                'params': params,
+                'page': page,
+                'resultPerPage': resultPerPage,
+                'pageTotal': pageTotal
+                } only %}
+
+            {% else %}
+                {{ 'No Results found for: '|t }}{{ search }}
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="column-one-third">
+        {% if results2 is not null %}
+            {% if total > 0 %}
+                <div class="row">
+                    <h3 class="heading-xlarge">{{ total }} <span class="font-xsmall">{{ 'opportunities '|t }}</span>
+                    </h3>
+                </div>
+                {% for row in results2 %}
+                    <div class="row row-bordered">
+                        <h3>
+                            <a href="{{ url('opportunities.details', params|merge({'profileId': row._id})) }}" id="opportunity-link">
+                                {{ row._source.title }}
+                            </a>
+                        </h3>
+
+                        <p class="meta-inline font-small">
+                            {# lastupdated #}
+                            {% if row._source.date|date('U') > '-5 days'|date('U') %}
+                                {{ row._source.date|time_diff }} |
+                            {% endif %}
+
+                            {# organisation id #}
+                            {{ row._id }} |
+
+                            {# Country of origin #}
+                            {% set flag = row._source.country_code|lower %}
+                            {% if flag == 'uk' %}
+                                {% set flag = 'gb' %}
+                            {% endif %}
+                            <span class="flag-icon flag-icon-{{ flag }}"></span>
+                            {{ row._source.country }}
+                        </p>
+                    </div>
+
+                {% endfor %}
+
+                {% include 'themes/custom/een/templates/pagination.html.twig'
+                with {
+                'route': route,
+                'params': params,
+                'page': page,
+                'resultPerPage': resultPerPage,
+                'pageTotal': pageTotal
+                } only %}
+
+            {% else %}
+                {{ 'No Results found for: '|t }}{{ search }}
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="column-one-third">
+        {% if results3 is not null %}
+            {% if total > 0 %}
+                <div class="row">
+                    <h3 class="heading-xlarge">{{ total }} <span class="font-xsmall">{{ 'opportunities '|t }}</span>
+                    </h3>
+                </div>
+                {% for row in results3 %}
+                    <div class="row row-bordered">
+                        <h3>
+                            <a href="{{ url('opportunities.details', params|merge({'profileId': row._id})) }}" id="opportunity-link">
+                                {{ row._source.title }}
+                            </a>
+                        </h3>
+
+                        <p class="meta-inline font-small">
+                            {# lastupdated #}
+                            {% if row._source.date|date('U') > '-5 days'|date('U') %}
+                                {{ row._source.date|time_diff }} |
+                            {% endif %}
+
+                            {# organisation id #}
+                            {{ row._id }} |
+
+                            {# Country of origin #}
+                            {% set flag = row._source.country_code|lower %}
+                            {% if flag == 'uk' %}
+                                {% set flag = 'gb' %}
+                            {% endif %}
+                            <span class="flag-icon flag-icon-{{ flag }}"></span>
+                            {{ row._source.country }}
                         </p>
                     </div>
 

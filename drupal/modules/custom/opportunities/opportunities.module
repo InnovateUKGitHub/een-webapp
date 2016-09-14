@@ -8,6 +8,8 @@ function opportunities_theme()
                 'search'           => null,
                 'opportunity_type' => null,
                 'results'          => null,
+                'results2'         => null,
+                'results3'         => null,
                 'total'            => 0,
                 'page'             => 1,
                 'pageTotal'        => 0,

@@ -83,6 +83,8 @@ class OpportunitiesController extends ControllerBase
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
 
         $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
+        $results2 = $this->service->search($form, $search, $types, $page, $resultPerPage, 2);
+        $results3 = $this->service->search($form, $search, $types, $page, $resultPerPage, 3);
 
         $results = $this->reformatResults($results);
 

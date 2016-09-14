@@ -22,7 +22,7 @@ class OpportunitiesService
         $this->service = $service;
     }
 
-    public function search(&$form, $search, $types, $page, $resultPerPage)
+    public function search(&$form, $search, $types, $page, $resultPerPage, $type = 1)
     {
         $form['search']['#value'] = $search;
         if (empty($types) === false) {
@@ -40,6 +40,7 @@ class OpportunitiesService
         }
 
         $params = [
+            'type'             => $type,
             'from'             => ($page - 1) * $resultPerPage,
             'size'             => $resultPerPage,
             'search'           => $search,
