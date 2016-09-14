@@ -3,7 +3,7 @@
 {% endif %}
 <ul class="previous-next-navigation">
     <!-- Previous page link -->
-    {% if page != 1 %}
+    {% if page > 1 %}
         <li class="previous">
             <a id="pagination-previous" href="{{ url(route, {'page': page - 1}|merge(params)) }}">
                 {{ 'Previous'|t }} <span class="visuallyhidden">{{ 'page'|t }}</span>
@@ -12,7 +12,7 @@
         </li>
     {% endif %}
 
-    {% if page != pageTotal %}
+    {% if page < pageTotal %}
         <li class="next">
             <a id="pagination-next" href="{{ url(route, {'page': page + 1}|merge(params)) }}">
                 {{ 'Next'|t }} <span class="visuallyhidden">{{ 'page'|t }}</span>

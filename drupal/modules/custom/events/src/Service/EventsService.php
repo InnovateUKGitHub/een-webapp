@@ -29,13 +29,13 @@ class EventsService
             'size'   => $resultPerPage,
             'source' => [
                 'title', 'description', 'start_date', 'end_date',
-                'country', 'country_code', 'location_website', 'contact_attributes'
+                'country', 'country_code', 'url',
             ],
         ];
         if (empty($search)) {
             $params['sort'] = [
                 'start_date' => ['order' => 'asc'],
-                'end_date' => ['order' => 'asc'],
+                'end_date'   => ['order' => 'asc'],
             ];
         }
 
