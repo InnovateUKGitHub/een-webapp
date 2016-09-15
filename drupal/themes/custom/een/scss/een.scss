@@ -417,13 +417,24 @@ form[data-drupal-selector="opportunity-search-form"] {
         }
         
         #proposition-link li, #proposition-links li {
-            float: none;
-            width: 100%;
+           
+            
+            float: left;
+            width: auto;
+            margin-right: 14px;
+            
             padding: 4px 0;
             border-bottom: none;
             text-transform: uppercase;
             list-style:none;
-            /* font-size: 26px; */
+            
+            @media (max-width:769px){
+                float: none;
+                width: 100%;
+                margin-right: 0;
+            }
+            
+            
             a {
                 text-transform: uppercase;
                 @extend .font-xsmall;
@@ -466,9 +477,9 @@ form[data-drupal-selector="opportunity-search-form"] {
             top: 0.25em;
             left: 0;
             width: 1em;
-            height: 0.125em;
-            border-top: 0.375em double #fff;
-            border-bottom: 0.125em solid #ffffff;
+            height: 22px;
+            background: url('../img/burger-icon.png');
+            outline: none;
         }
         
         .menu.js-hidden:before {
@@ -482,6 +493,8 @@ form[data-drupal-selector="opportunity-search-form"] {
             -o-transform:scale(1.3,1.0); /* Opera */
             transform: scale(1.3,1.0);
             top: 2px;
+            background: none;
+            
         }
     }
     
