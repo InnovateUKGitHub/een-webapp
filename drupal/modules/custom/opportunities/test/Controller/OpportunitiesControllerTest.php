@@ -43,44 +43,6 @@ class OpportunitiesControllerTest extends UnitTestCase
 
         $mockRequest->query = $mockQuery;
 
-        self::assertEquals(
-            [
-                '#theme'            => 'opportunities_search',
-                '#form'             => [],
-                '#search'           => null,
-                '#opportunity_type' => null,
-                '#results'          => null,
-                '#total'            => null,
-                '#pageTotal'        => null,
-                '#page'             => null,
-                '#resultPerPage'    => null,
-                '#route'            => 'opportunities.search',
-            ],
-            $this->controller->index($mockRequest)
-        );
-    }
-
-    public function testIndexWithSearch()
-    {
-        $mockFormBuilder = self::getMock(FormBuilder::class, [], [], '', false);
-        $mockRequest = self::getMock(Request::class, [], [], '', false);
-        $mockQuery = self::getMock(ParameterBag::class, [], [], '', false);
-
-        /** @var \PHPUnit_Framework_MockObject_MockObject $container */
-        $container = \Drupal::getContainer();
-
-        $container->expects(self::at(0))
-            ->method('get')
-            ->with('form_builder')
-            ->willReturn($mockFormBuilder);
-
-        $mockFormBuilder->expects(self::once())
-            ->method('getForm')
-            ->with(OpportunitiesForm::class)
-            ->willReturn([]);
-
-        $mockRequest->query = $mockQuery;
-
         $mockQuery->expects(self::at(0))
             ->method('get')
             ->with(OpportunitiesController::PAGE_NUMBER)
