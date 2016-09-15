@@ -13,6 +13,7 @@ class OpportunitiesController extends ControllerBase
     const PAGE_NUMBER = 'page';
 
     const RESULT_PER_PAGE = 'resultPerPage';
+
     const DEFAULT_RESULT_PER_PAGE = 20;
 
     const SEARCH = 'search';
@@ -58,15 +59,20 @@ class OpportunitiesController extends ControllerBase
             '#form'             => $data['form'],
             '#search'           => $data['search'],
             '#opportunity_type' => $data['types'],
-            '#results'          => isset($data['results']['results']) ? $data['results']['results'] : null,
-            '#total'            => isset($data['results']['total']) ? $data['results']['total'] : null,
-            '#pageTotal'        => isset($data['results']['results']) ? (int)ceil($data['results']['total'] / $data['resultPerPage']) : null,
+            '#results'          => $data['results'],
+            '#total'            => $data['total'],
+            '#pageTotal'        => $data['pageTotal'],
             '#page'             => $data['page'],
             '#resultPerPage'    => $data['resultPerPage'],
             '#route'            => 'opportunities.search',
         ];
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
     private function getOpportunities(Request $request)
     {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
@@ -78,9 +84,13 @@ class OpportunitiesController extends ControllerBase
 
         $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
 
+        $results = $this->reformatResults($results);
+
         return [
             'form'          => $form,
-            'results'       => $results,
+            'results'       => isset($results['results']) ? $results['results'] : null,
+            'total'         => $results['total'],
+            'pageTotal'     => (int)ceil($results['total'] / $resultPerPage),
             'page'          => $page,
             'resultPerPage' => $resultPerPage,
             'search'        => $search,
@@ -88,6 +98,42 @@ class OpportunitiesController extends ControllerBase
         ];
     }
 
+    /**
+     * @param array $results
+     *
+     * @return array
+     */
+    private function reformatResults($results)
+    {
+        $response = [
+            'total' => $results['total'],
+            'results' => [],
+        ];
+
+        if (isset($results['results']) === false) {
+            return $response;
+        }
+
+        foreach ($results['results'] as $result) {
+            $response['results'][] = [
+                'id'           => $result['_id'],
+                'title'        => $result['_source']['title'],
+                'type'         => $result['_source']['type'],
+                'summary'      => $result['_source']['summary'],
+                'date'         => $result['_source']['date'],
+                'country_code' => $result['_source']['country_code'],
+                'country'      => $result['_source']['country'],
+            ];
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
     public function ajax(Request $request)
     {
 
@@ -95,14 +141,14 @@ class OpportunitiesController extends ControllerBase
 
         return new JsonResponse(
             [
+                'route'            => 'opportunities.search',
                 'search'           => $data['search'],
                 'opportunity_type' => $data['types'],
-                'results'          => isset($data['results']['results']) ? $data['results']['results'] : null,
-                'total'            => isset($data['results']['total']) ? $data['results']['total'] : null,
-                'pageTotal'        => isset($data['results']['results']) ? (int)ceil($data['results']['total'] / $data['resultPerPage']) : null,
                 'page'             => $data['page'],
                 'resultPerPage'    => $data['resultPerPage'],
-                'route'            => 'opportunities.search',
+                'pageTotal'        => $data['pageTotal'],
+                'total'            => $data['total'],
+                'results'          => $data['results'],
             ]
         );
     }
