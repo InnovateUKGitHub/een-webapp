@@ -60,7 +60,11 @@ class OpportunitiesController extends ControllerBase
             '#search'           => $data['search'],
             '#opportunity_type' => $data['types'],
             '#results'          => $data['results'],
+            '#results2'         => $data['results2'],
+            '#results3'         => $data['results3'],
             '#total'            => $data['total'],
+            '#total2'           => $data['total2'],
+            '#total3'           => $data['total3'],
             '#pageTotal'        => $data['pageTotal'],
             '#page'             => $data['page'],
             '#resultPerPage'    => $data['resultPerPage'],
@@ -83,15 +87,20 @@ class OpportunitiesController extends ControllerBase
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
 
         $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
-        $results2 = $this->service->search($form, $search, $types, $page, $resultPerPage, 2);
-        $results3 = $this->service->search($form, $search, $types, $page, $resultPerPage, 3);
-
         $results = $this->reformatResults($results);
+        $results2 = $this->service->search($form, $search, $types, $page, $resultPerPage, 2);
+        $results2 = $this->reformatResults($results2);
+        $results3 = $this->service->search($form, $search, $types, $page, $resultPerPage, 3);
+        $results3 = $this->reformatResults($results3);
 
         return [
             'form'          => $form,
-            'results'       => isset($results['results']) ? $results['results'] : null,
+            'results'       => $results['results'],
+            'results2'      => $results2['results'],
+            'results3'      => $results3['results'],
             'total'         => $results['total'],
+            'total2'        => $results2['total'],
+            'total3'        => $results3['total'],
             'pageTotal'     => (int)ceil($results['total'] / $resultPerPage),
             'page'          => $page,
             'resultPerPage' => $resultPerPage,
@@ -108,7 +117,7 @@ class OpportunitiesController extends ControllerBase
     private function reformatResults($results)
     {
         $response = [
-            'total' => $results['total'],
+            'total'   => $results['total'],
             'results' => [],
         ];
 

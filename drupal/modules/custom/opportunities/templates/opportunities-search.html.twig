@@ -41,7 +41,7 @@
                             {% endif %}
 
                             {# organisation id #}
-                            {{ row._id }} |
+                            {{ row.id }} |
 
                             {# Country of origin #}
                             {% set flag = row.country_code|lower %}
@@ -79,27 +79,27 @@
                 {% for row in results2 %}
                     <div class="row row-bordered">
                         <h3>
-                            <a href="{{ url('opportunities.details', params|merge({'profileId': row._id})) }}" id="opportunity-link">
-                                {{ row._source.title }}
+                            <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
+                                {{ row.title }}
                             </a>
                         </h3>
 
                         <p class="meta-inline font-small">
                             {# lastupdated #}
-                            {% if row._source.date|date('U') > '-5 days'|date('U') %}
-                                {{ row._source.date|time_diff }} |
+                            {% if row.date|date('U') > '-5 days'|date('U') %}
+                                {{ row.date|time_diff }} |
                             {% endif %}
 
                             {# organisation id #}
-                            {{ row._id }} |
+                            {{ row.id }} |
 
                             {# Country of origin #}
-                            {% set flag = row._source.country_code|lower %}
+                            {% set flag = row.country_code|lower %}
                             {% if flag == 'uk' %}
                                 {% set flag = 'gb' %}
                             {% endif %}
                             <span class="flag-icon flag-icon-{{ flag }}"></span>
-                            {{ row._source.country }}
+                            {{ row.country }}
                         </p>
                     </div>
 
@@ -129,27 +129,27 @@
                 {% for row in results3 %}
                     <div class="row row-bordered">
                         <h3>
-                            <a href="{{ url('opportunities.details', params|merge({'profileId': row._id})) }}" id="opportunity-link">
-                                {{ row._source.title }}
+                            <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
+                                {{ row.title }}
                             </a>
                         </h3>
 
                         <p class="meta-inline font-small">
                             {# lastupdated #}
-                            {% if row._source.date|date('U') > '-5 days'|date('U') %}
-                                {{ row._source.date|time_diff }} |
+                            {% if row.date|date('U') > '-5 days'|date('U') %}
+                                {{ row.date|time_diff }} |
                             {% endif %}
 
                             {# organisation id #}
-                            {{ row._id }} |
+                            {{ row.id }} |
 
                             {# Country of origin #}
-                            {% set flag = row._source.country_code|lower %}
+                            {% set flag = row.country_code|lower %}
                             {% if flag == 'uk' %}
                                 {% set flag = 'gb' %}
                             {% endif %}
                             <span class="flag-icon flag-icon-{{ flag }}"></span>
-                            {{ row._source.country }}
+                            {{ row.country }}
                         </p>
                     </div>
 
