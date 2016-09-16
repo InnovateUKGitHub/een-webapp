@@ -68,6 +68,7 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         $formArray = [];
         $formState = new FormState();
         $formState->setValue('email', 'invalid');
+        $formState->setValue('phoneStatus', true);
 
         $formArray = $form->buildForm($formArray, $formState);
         $form->validateForm($formArray, $formState);
@@ -205,7 +206,7 @@ class ExpressionOfInterestFormTest extends UnitTestCase
 
         $form->validateForm($formArray, $formState);
 
-        self::assertCount(4, $formState->getErrors());
+        self::assertCount(3, $formState->getErrors());
     }
 
     public function testSubmitForm()

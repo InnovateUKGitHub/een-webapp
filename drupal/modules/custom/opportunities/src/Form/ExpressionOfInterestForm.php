@@ -136,12 +136,7 @@ class ExpressionOfInterestForm extends AbstractForm
     {
         parent::checkRequireField($form_state, 'description');
         parent::checkRequireField($form_state, 'interest');
-        parent::checkRequireField($form_state, 'more');
-        if ($form_state->getValue('phoneStatus') == '1') {
-            parent::checkPhoneField($form_state, 'phone');
-        } else {
-            parent::checkEmailField($form_state, 'email');
-        }
+        parent::checkEmailAndPhoneField($form_state);
     }
 
     /**

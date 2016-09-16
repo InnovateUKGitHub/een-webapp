@@ -2,9 +2,14 @@ global-styling:
   version: 1.0
   css:
     theme:
-      dist/een.css: {}
+      css/een.css: {}
+      css/ie8.css: { browsers: { IE: 'lte IE 8', '!IE': false } }
   js:
     dist/bundle.js: {}
     # js/dist/bundle.js.map: {}
   dependencies:
     - core/jquery
+opportunity:
+  version: 1.0
+  js:
+    js/min/opportunity-min.js: {}

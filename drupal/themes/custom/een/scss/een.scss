@@ -118,13 +118,6 @@ a {
         font-size: 21px;
     }
 }
-@media (min-width:640px){
-        //padding-right:15%;
-        .contents-list.fixed {
-
-        }
-    }
-
 
 .contents-text-block {
     .heading-medium {
@@ -393,7 +386,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         font-size: 20px;
         font-weight: bold;
 
-        @media (max-width:769px){
+        @media (max-width:640px){
             display:none;
         }
     }
@@ -402,7 +395,7 @@ form[data-drupal-selector="opportunity-search-form"] {
 
         #proposition-menu {
             margin: 0  15px 0 15px;
-            @media (max-width:769px){
+            @media (max-width:640px){
                 margin:0;
             }
         }
@@ -419,13 +412,24 @@ form[data-drupal-selector="opportunity-search-form"] {
         }
 
         #proposition-link li, #proposition-links li {
-            float: none;
-            width: 100%;
+
+
+            float: left;
+            width: auto;
+            margin-right: 14px;
+
             padding: 4px 0;
             border-bottom: none;
             text-transform: uppercase;
             list-style:none;
-            /* font-size: 26px; */
+
+            @media (max-width:769px){
+                float: none;
+                width: 100%;
+                margin-right: 0;
+            }
+
+
             a {
                 text-transform: uppercase;
                 @extend .font-xsmall;
@@ -451,8 +455,14 @@ form[data-drupal-selector="opportunity-search-form"] {
             font-size: 36px;
             position: absolute;
             top: 14px;
+<<<<<<< HEAD
             right: 0;
 
+=======
+            padding: 0 12px;
+            right: 20px;
+
+>>>>>>> develop
             &:focus, &:active {
                 background:none;
                 border:none;
@@ -468,9 +478,9 @@ form[data-drupal-selector="opportunity-search-form"] {
             top: 0.25em;
             left: 0;
             width: 1em;
-            height: 0.125em;
-            border-top: 0.375em double #fff;
-            border-bottom: 0.125em solid #ffffff;
+            height: 22px;
+            background: url('../img/burger-icon.png');
+            outline: none;
         }
 
         .menu.js-hidden:before {
@@ -484,6 +494,8 @@ form[data-drupal-selector="opportunity-search-form"] {
             -o-transform:scale(1.3,1.0); /* Opera */
             transform: scale(1.3,1.0);
             top: 2px;
+            background: none;
+
         }
     }
 
@@ -637,8 +649,13 @@ form[data-drupal-selector="opportunity-search-form"] {
         clear:both;
         margin:0 0 0.3em 0;
         overflow:auto;
+<<<<<<< HEAD
 
         &::before {
+=======
+
+        &:before {
+>>>>>>> develop
             width:35px;
             height: 35px;
             background: black;
@@ -672,7 +689,7 @@ form[data-drupal-selector="opportunity-search-form"] {
 
         &.sa-pin {
             &:before {
-                background: #ed475c url('../img/pin-icon.svg') no-repeat center center;
+                background: #ed475c url('../img/pin-icon.png') no-repeat center center;
             }
             a {
                 color:#ed475c;
@@ -680,8 +697,13 @@ form[data-drupal-selector="opportunity-search-form"] {
         }
         &.sa-share {
             &:before {
+<<<<<<< HEAD
                 background: #64b4e6 url('../img/envelope-icon.svg') no-repeat center center;
 
+=======
+                background: #64b4e6 url('../img/envelope-icon.png') no-repeat center center;
+
+>>>>>>> develop
             }
             a {
                 color:#64b4e6;
@@ -690,9 +712,28 @@ form[data-drupal-selector="opportunity-search-form"] {
     }
 }
 
+<<<<<<< HEAD
+=======
+#footer .footer-meta {
+    padding-top:30px;
+    padding-bottom: 30px;
+}
+>>>>>>> develop
 
 
+@media (min-width: 641px) {
+    #footer .footer-wrapper {
+        padding-top:0;
+    }
+}
 @media (max-width:640px){
+    #footer .footer-meta {
+        text-align: center;
+    }
+}
+
+
+@media (max-width:769px){
     #global-header {
         background:$light-blue;
         margin-bottom:14px;

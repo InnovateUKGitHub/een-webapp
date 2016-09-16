@@ -59,7 +59,15 @@ gulp.task('css', function () {
                 'node_modules/flag-icon-css/sass'
             ]
         }))
-        .pipe(gulp.dest(themeDir + '/dist'));
+        .pipe(gulp.dest('drupal/themes/custom/een/css'));
+
+     gulp.src('drupal/themes/custom/een/scss/ie8.scss')
+        .pipe(sass({
+            outputStyle: 'compressed',
+            sourceComments: 'map',
+            includePaths: []
+        }))
+        .pipe(gulp.dest('drupal/themes/custom/een/css'));
 });
 
 gulp.task('watch', function () {
