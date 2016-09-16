@@ -34,6 +34,7 @@ class OpportunitiesForm extends FormBase
                 '#title'      => t('Search an opportunity'),
                 '#attributes' => [
                     'ng-model' => 'query',
+                    'ng-change' => 'queryKeyUp()',
                     'class' => [
                         'form-control',
                     ],

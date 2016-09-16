@@ -29,9 +29,24 @@
     };
   });
 
-  een.controller('MainCtrl', function ($scope, oppsFactory) {
+  var debounce = function (func, wait, immediate) {
+    var timeout;
+    return function () {
+      var context = this;
+      var args = arguments;
+      var later = function () {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  };
 
-    $scope.submit = function (form) {
+  een.controller('MainCtrl', function ($scope, oppsFactory) {
+    var queryAPI = debounce(function () {
       oppsFactory.search({
         page: 1,
         type: $scope.heading.opportunity_type,
@@ -51,8 +66,15 @@
       }).fail(function () {
         $scope.results = [];
       });
+    }, 200);
 
+    $scope.submit = function () {
+      queryAPI();
       return true;
+    };
+
+    $scope.queryKeyUp = function () {
+      queryAPI();
     };
 
     $scope.getFlagClass = function (code) {
