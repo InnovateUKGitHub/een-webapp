@@ -28,21 +28,21 @@
         <div class="row row-bordered" ng-show="heading.loaded" ng-repeat="row in results" ng-cloak>
             <h3>
                 <a href="" id="opportunity-link">
-                    {[{ row.title }]}
+                    {[{ row.source.title }]}
                 </a>
             </h3>
 
             <p class="meta-inline font-small">
                 {# lastupdated #}
-                {[{ row.date }]}
+                {[{ row.source.date }]}
 
                 {# organisation id #}
-                {[{ row.id }]} |
+                {[{ row.source.id }]} |
 
                 {# Country of origin #}
                 {[{ row.flag }]}
                 <span class="flag-icon"></span>
-                {[{ row.country }]}
+                {[{ row.source.country }]}
             </p>
         </div>
 
