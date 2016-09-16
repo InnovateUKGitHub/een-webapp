@@ -4,7 +4,7 @@
 <ul class="previous-next-navigation">
     <!-- Previous page link -->
     {% if page > 1 %}
-        <li class="previous">
+        <li class="previous" ng-show="!heading.searched">
             <a id="pagination-previous" href="{{ url(route, {'page': page - 1}|merge(params)) }}">
                 {{ 'Previous'|t }} <span class="visuallyhidden">{{ 'page'|t }}</span>
                 <span class="page-numbers">{{ page - 1 }} {{ 'of'|t }} {{ pageTotal }}</span>
@@ -13,7 +13,7 @@
     {% endif %}
 
     {% if page < pageTotal %}
-        <li class="next">
+        <li class="next" ng-show="!heading.searched">
             <a id="pagination-next" href="{{ url(route, {'page': page + 1}|merge(params)) }}">
                 {{ 'Next'|t }} <span class="visuallyhidden">{{ 'page'|t }}</span>
                 <span class="page-numbers">{{ page + 1 }} {{ 'of'|t }} {{ pageTotal }}</span>

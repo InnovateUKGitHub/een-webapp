@@ -23,6 +23,7 @@
         }
       });
     };
+
     return {
       search: search
     };
@@ -33,44 +34,65 @@
     $scope.submit = function (form) {
       oppsFactory.search({
         page: 1,
+        type: $scope.heading.opportunity_type,
         q: $scope.query
       }).then(function (data) {
         $scope.heading = {
-          opportunity_type: data.opportunity_type,
+          opportunity_type: data.opportunity_type || [],
           page: data.page,
-          loaded: true,
-          searched: true,
           pageTotal: data.pageTotal,
-          total: data.total
+          total: data.total,
+          loaded: true,
+          searched: true
         };
 
         $scope.results = data.results;
         $scope.$apply();
-      }).fail(function(test) {
+      }).fail(function () {
         $scope.results = [];
       });
+
       return true;
     };
 
+    $scope.getFlagClass = function (code) {
+      return 'flag-icon flag-icon-' + code.toLowerCase();
+    };
+
+    var indexOf = function (array, comparer) {
+      for (var i = 0; i < array.length; i++) {
+        if (array[i] === comparer) {
+          return i;
+        }
+      }
+      return -1;
+    };
+
+    $scope.selectCheckbox = function ($event) {
+      var tar = $event.target;
+      if (tar.type === 'checkbox') {
+        if (tar.value && tar.checked) {
+          if (indexOf($scope.heading.opportunity_type, tar.value) === -1) {
+            $scope.heading.opportunity_type.push(tar.value);
+          }
+        } else {
+          var index = indexOf($scope.heading.opportunity_type, tar.value);
+          if (index > -1) {
+            $scope.heading.opportunity_type.splice(index, 1);
+          }
+        }
+      }
+    };
+
     $scope.heading = {
-      opportunity_type: null,
+      opportunity_type: [],
       page: 1,
       loaded: true,
       searched: false,
       total: 500
     };
 
-    $scope.results = [
-      {
-        id: "BOKR20150806001",
-        title: "South Korean manufacturer of frozen yogurt powder is looking for distributors in Europe",
-        type: "BO",
-        summary: "South Korean manufacturer of frozen yogurt powder is looking for distributors in Europe. Their products contain live probiotics which are good for the health and have passed strict control and certification tests. They are looking for a distributor in retail/food industry with well-established distribution channel. ",
-        date: "2016-08-02T00:00:00",
-        country_code: "KR",
-        country: "South Korea"
-      }
-    ];
+    $scope.results = [];
   });
 
 })(jQuery);

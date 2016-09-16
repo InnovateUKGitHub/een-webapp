@@ -33,6 +33,7 @@ class OpportunitiesForm extends FormBase
                 '#type'       => 'textfield',
                 '#title'      => t('Search an opportunity'),
                 '#attributes' => [
+                    'ng-model' => 'query',
                     'class' => [
                         'form-control',
                     ],
@@ -42,6 +43,9 @@ class OpportunitiesForm extends FormBase
                 '#type'    => 'checkboxes',
                 '#title'   => t('I want to...'),
                 '#options' => $types,
+                '#attributes' => [
+                    'ng-click' => 'selectCheckbox($event)'
+                ]
             ],
             'actions'          => [
                 '#type'  => 'actions',

@@ -44,7 +44,7 @@
 
                 {# Country of origin #}
                 {[{ row.country_code }]}
-                <span class="flag-icon"></span>
+                <span ng-class="getFlagClass(row.country_code)"></span>
                 {[{ row.country }]}
             </p>
         </div>
