@@ -644,6 +644,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         clear:both;
         margin:0 0 0.3em 0;
         overflow:auto;
+        display:table;
         
         &:before {
             width:35px;
@@ -661,19 +662,20 @@ form[data-drupal-selector="opportunity-search-form"] {
             font-weight: 600;
             padding-left: 42px;
             min-height: 35px;
+            display: table-cell;
+            vertical-align: middle;
             
             @media (min-width: 640px) and (max-width:900px){
                 line-height: 1em;
             }
             
             @media (min-width: 641px) {
-                display:flex;
-                align-items:center;
+                overflow:hidden;
             }
             
-            @media (max-width: 640px) {
-                top: 8px;
-                position: relative;
+            @supports (display: flex) {
+                display:flex;
+                align-items:center;
             }
         }
         
