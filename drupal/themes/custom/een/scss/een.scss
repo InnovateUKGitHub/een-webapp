@@ -455,7 +455,8 @@ form[data-drupal-selector="opportunity-search-form"] {
             font-size: 36px;
             position: absolute;
             top: 14px;
-            right: 0;
+            padding: 0 12px;
+            right: 20px;
             
             &:focus, &:active {
                 background:none;
@@ -695,7 +696,23 @@ form[data-drupal-selector="opportunity-search-form"] {
         }
     }
 }
-  
+
+#footer .footer-meta {
+    padding-top:30px;
+    padding-bottom: 30px;
+}
+
+
+@media (min-width: 641px) {
+    #footer .footer-wrapper {
+        padding-top:0;
+    }
+}
+@media (max-width:640px){
+    #footer .footer-meta {
+        text-align: center;
+    }
+}
 
 
 @media (max-width:769px){
