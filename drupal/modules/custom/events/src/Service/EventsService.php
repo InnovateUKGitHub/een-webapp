@@ -29,7 +29,7 @@ class EventsService
             'size'   => $resultPerPage,
             'source' => [
                 'title', 'description', 'start_date', 'end_date',
-                'country', 'country_code', 'url', 'type',
+                'country', 'country_code', 'url',
             ],
         ];
         if (empty($search)) {
