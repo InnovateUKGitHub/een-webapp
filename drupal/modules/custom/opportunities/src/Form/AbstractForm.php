@@ -63,23 +63,13 @@ abstract class AbstractForm extends FormBase
     {
         if (!$this->checkRegexField($form_state, self::EMAIL_REGEX, 'email')) {
             if (!$this->checkRegexField($form_state, self::PHONE_REGEX, 'phone')) {
-                if ($form_state->getValue('phoneStatus') == true) {
-                    $form_state->setErrorByName(
-                        'email',
-                        [
-                            'key'  => 'edit-email',
-                            'text' => t('An email address or phone number is required to complete your application.'),
-                        ]
-                    );
-                } else {
-                    $form_state->setErrorByName(
-                        'email',
-                        [
-                            'key'  => 'edit-email',
-                            'text' => t('An email address is required.'),
-                        ]
-                    );
-                }
+                $form_state->setErrorByName(
+                    'email',
+                    [
+                        'key'  => 'edit-email',
+                        'text' => t('An email address or phone number is required to complete your application.'),
+                    ]
+                );
             }
         }
     }
