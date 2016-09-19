@@ -2,7 +2,6 @@
 namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Url;
 use Drupal\opportunities\Form\MultiOpportunitiesForm;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\opportunities\Service\OpportunitiesService;
