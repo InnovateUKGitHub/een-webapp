@@ -98,7 +98,7 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         self::assertInstanceOf(AjaxResponse::class, $response);
 
         $commands = $response->getCommands();
-        self::assertCount(11, $commands);
+        self::assertCount(9, $commands);
         self::assertEquals('insert', $commands[0]['command']);
         self::assertEquals('html', $commands[0]['method']);
         self::assertEquals('invoke', $commands[1]['command']);
@@ -118,10 +118,6 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         self::assertEquals('addClass', $commands[7]['method']);
         self::assertEquals('insert', $commands[8]['command']);
         self::assertEquals('html', $commands[8]['method']);
-        self::assertEquals('invoke', $commands[9]['command']);
-        self::assertEquals('addClass', $commands[9]['method']);
-        self::assertEquals('insert', $commands[10]['command']);
-        self::assertEquals('html', $commands[10]['method']);
     }
 
     public function testSubmitHandlerWithoutErrorsAndEmail()
