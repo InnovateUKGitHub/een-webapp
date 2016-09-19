@@ -60,7 +60,7 @@ class OpportunitiesControllerTest extends UnitTestCase
             ->with(OpportunitiesController::OPPORTUNITY_TYPE)
             ->willReturn(['BO']);
 
-        $this->mockService->expects(self::once())
+        $this->mockService->expects(self::exactly(3))
             ->method('search')
             ->with([], 'H2020', ['BO'], 1, 10)
             ->willReturn(['results' => [], 'total' => 10]);
@@ -72,7 +72,11 @@ class OpportunitiesControllerTest extends UnitTestCase
                 '#search'           => 'H2020',
                 '#opportunity_type' => ['BO'],
                 '#results'          => [],
+                '#results2'         => [],
+                '#results3'         => [],
                 '#total'            => 10,
+                '#total2'           => 10,
+                '#total3'           => 10,
                 '#pageTotal'        => 1,
                 '#page'             => 1,
                 '#resultPerPage'    => 10,
