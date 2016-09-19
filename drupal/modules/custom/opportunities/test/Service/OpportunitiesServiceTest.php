@@ -29,7 +29,8 @@ class OpportunitiesServiceTest extends UnitTestCase
                 'size'             => 10,
                 'search'           => 'H2020',
                 'opportunity_type' => ['BO' => 'BO'],
-                'source'           => ['type', 'title', 'summary',  'date', 'country', 'country_code'],
+                'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
+                'type'             => 1,
             ])
             ->willReturn($this->mockService);
         $this->mockService->expects(self::once())
