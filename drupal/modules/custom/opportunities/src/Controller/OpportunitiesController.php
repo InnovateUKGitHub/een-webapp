@@ -2,6 +2,8 @@
 namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Url;
+use Drupal\opportunities\Form\MultiOpportunitiesForm;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -46,6 +48,47 @@ class OpportunitiesController extends ControllerBase
     }
 
     /**
+     * This is a temporary action to test the different searches
+     *
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function test(Request $request)
+    {
+        $form = \Drupal::formBuilder()->getForm(MultiOpportunitiesForm::class);
+
+        $page = $request->query->get(self::PAGE_NUMBER, 1);
+        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
+        $search = $request->query->get(self::SEARCH);
+        $types = $request->query->get(self::OPPORTUNITY_TYPE);
+
+        $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
+        $results = $this->reformatResults($results);
+        $results2 = $this->service->search($form, $search, $types, $page, $resultPerPage, 2);
+        $results2 = $this->reformatResults($results2);
+        $results3 = $this->service->search($form, $search, $types, $page, $resultPerPage, 3);
+        $results3 = $this->reformatResults($results3);
+
+        return [
+            '#theme'            => 'opportunities_search_test',
+            '#form'             => $form,
+            '#search'           => $search,
+            '#opportunity_type' => $types,
+            '#results'          => $results['results'],
+            '#results2'         => $results2['results'],
+            '#results3'         => $results3['results'],
+            '#total'            => $results['total'],
+            '#total2'           => $results2['total'],
+            '#total3'           => $results3['total'],
+            '#pageTotal'        => (int)ceil($results['total'] / $resultPerPage),
+            '#page'             => $page,
+            '#resultPerPage'    => $resultPerPage,
+            '#route'            => 'opportunities.search.test',
+        ];
+    }
+
+    /**
      * @param Request $request
      *
      * @return array
@@ -60,11 +103,7 @@ class OpportunitiesController extends ControllerBase
             '#search'           => $data['search'],
             '#opportunity_type' => $data['types'],
             '#results'          => $data['results'],
-            '#results2'         => $data['results2'],
-            '#results3'         => $data['results3'],
             '#total'            => $data['total'],
-            '#total2'           => $data['total2'],
-            '#total3'           => $data['total3'],
             '#pageTotal'        => $data['pageTotal'],
             '#page'             => $data['page'],
             '#resultPerPage'    => $data['resultPerPage'],
@@ -88,19 +127,11 @@ class OpportunitiesController extends ControllerBase
 
         $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
         $results = $this->reformatResults($results);
-        $results2 = $this->service->search($form, $search, $types, $page, $resultPerPage, 2);
-        $results2 = $this->reformatResults($results2);
-        $results3 = $this->service->search($form, $search, $types, $page, $resultPerPage, 3);
-        $results3 = $this->reformatResults($results3);
 
         return [
             'form'          => $form,
             'results'       => $results['results'],
-            'results2'      => $results2['results'],
-            'results3'      => $results3['results'],
             'total'         => $results['total'],
-            'total2'        => $results2['total'],
-            'total3'        => $results3['total'],
             'pageTotal'     => (int)ceil($results['total'] / $resultPerPage),
             'page'          => $page,
             'resultPerPage' => $resultPerPage,

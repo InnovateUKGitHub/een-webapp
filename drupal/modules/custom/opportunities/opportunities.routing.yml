@@ -5,6 +5,13 @@ opportunities.search:
  requirements:
    _permission: 'access content'
 
+opportunities.search.test:
+ path: '/opportunities-test'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::test'
+ requirements:
+   _permission: 'access content'
+
 opportunities.search.ajax:
  path: '/opportunities/_ajax'
  defaults:
