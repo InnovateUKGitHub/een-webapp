@@ -75,6 +75,7 @@ AddEncoding gzip svgz
 
   # Rewrite all govuk image url to the good location
   RewriteRule ^public/images/(.*)$ themes/custom/een/css/images/$1 [L]
+  RewriteRule ^themes/custom/een/css/external-links/(.*)$ themes/custom/een/css/images/external-links/$1 [L]
 #  RewriteRule ^(.+)\.png $1\.svg [L]
 
   # Set "protossl" to "s" if we were accessed via https://.  This is used later

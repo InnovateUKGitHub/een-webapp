@@ -13,9 +13,15 @@
                 <div class="row row-bordered">
                     <h3>
                         {% if row._source.url and row._source.url matches '/^http*/' %}
-                            <a href="{{ row._source.url }}" target="_blank">
-                                {{ row._source.title }}
-                            </a>
+                            {% if row._source.type == 'eventbrite' %}
+                                <a rel="external" href="{{ row._source.url }}" target="_blank">
+                                    {{ row._source.title }}
+                                </a>
+                            {% else %}
+                                <a href="{{ row._source.url }}" target="_blank">
+                                    {{ row._source.title }}
+                                </a>
+                            {% endif %}
                         {% else %}
                             <a href="{{ url(
                             'events.details',
