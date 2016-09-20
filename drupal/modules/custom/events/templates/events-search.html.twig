@@ -17,11 +17,7 @@
                                 {{ row._source.title }}
                             </a>
                         {% else %}
-                            <a href="{{ url(
-                            'events.details',
-                            {'eventId': row._id}
-                            ) }}"
-                               id="opportunity-link">
+                            <a href="{{ url('events.details', {'eventId': row._id}) }}">
                                 {{ row._source.title }}
                             </a>
                         {% endif %}
