@@ -10,6 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+use Drupal\opportunities\Form\CompaniesHouseForm;
+
 class OpportunitiesController extends ControllerBase
 {
     const PAGE_NUMBER = 'page';
@@ -220,4 +222,22 @@ class OpportunitiesController extends ControllerBase
             ]
         );
     }
+    
+    
+    
+    
+    
+    
+    public function temp()
+    {
+        $form = \Drupal::formBuilder()->getForm(CompaniesHouseForm::class);
+        
+        return [
+            '#form'             => $form,
+            '#theme'            => 'opportunities_search_temp',
+            '#route'            => 'opportunities.search.temp',
+        ];
+    }
+    
+    
 }

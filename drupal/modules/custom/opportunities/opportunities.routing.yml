@@ -25,3 +25,10 @@ opportunities.details:
    _controller: '\Drupal\opportunities\Controller\OpportunityController::index'
  requirements:
    _permission: 'access content'
+   
+opportunities.search.temp:
+ path: '/opportunities-temp'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::temp'
+ requirements:
+   _permission: 'access content'
