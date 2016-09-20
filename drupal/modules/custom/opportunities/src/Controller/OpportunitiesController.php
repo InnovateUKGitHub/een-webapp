@@ -2,6 +2,7 @@
 namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Url;
 use Drupal\opportunities\Form\MultiOpportunitiesForm;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\opportunities\Service\OpportunitiesService;
@@ -88,58 +89,6 @@ class OpportunitiesController extends ControllerBase
     }
 
     /**
-     * @param Request $request
-     *
-     * @return array
-     */
-    public function index(Request $request)
-    {
-        $data = $this->getOpportunities($request);
-
-        return [
-            '#theme'            => 'opportunities_search',
-            '#form'             => $data['form'],
-            '#search'           => $data['search'],
-            '#opportunity_type' => $data['types'],
-            '#results'          => $data['results'],
-            '#total'            => $data['total'],
-            '#pageTotal'        => $data['pageTotal'],
-            '#page'             => $data['page'],
-            '#resultPerPage'    => $data['resultPerPage'],
-            '#route'            => 'opportunities.search',
-        ];
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return array
-     */
-    private function getOpportunities(Request $request)
-    {
-        $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
-
-        $page = $request->query->get(self::PAGE_NUMBER, 1);
-        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
-        $search = $request->query->get(self::SEARCH);
-        $types = $request->query->get(self::OPPORTUNITY_TYPE);
-
-        $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
-        $results = $this->reformatResults($results);
-
-        return [
-            'form'          => $form,
-            'results'       => $results['results'],
-            'total'         => $results['total'],
-            'pageTotal'     => (int)ceil($results['total'] / $resultPerPage),
-            'page'          => $page,
-            'resultPerPage' => $resultPerPage,
-            'search'        => $search,
-            'types'         => $types,
-        ];
-    }
-
-    /**
      * @param array $results
      *
      * @return array
@@ -173,12 +122,90 @@ class OpportunitiesController extends ControllerBase
     /**
      * @param Request $request
      *
+     * @return array
+     */
+    public function index(Request $request)
+    {
+        $data = $this->getOpportunities($request);
+
+        if (isset($data['redirect']) && $data['redirect'] === true) {
+            return $this->redirect(
+                'opportunities.details',
+                ['profileId' => $data['id']]
+            );
+        }
+
+        return [
+            '#theme'            => 'opportunities_search',
+            '#form'             => $data['form'],
+            '#search'           => $data['search'],
+            '#opportunity_type' => $data['types'],
+            '#results'          => $data['results'],
+            '#total'            => $data['total'],
+            '#pageTotal'        => $data['pageTotal'],
+            '#page'             => $data['page'],
+            '#resultPerPage'    => $data['resultPerPage'],
+            '#route'            => 'opportunities.search',
+        ];
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
+    private function getOpportunities(Request $request)
+    {
+        $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
+
+        $page = $request->query->get(self::PAGE_NUMBER, 1);
+        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
+        $search = $request->query->get(self::SEARCH);
+        $types = $request->query->get(self::OPPORTUNITY_TYPE);
+
+        $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
+
+        // Test if single match
+        if (isset($results['_id'])) {
+            return [
+                'redirect' => true,
+                'id'       => $results['_id'],
+            ];
+        }
+        $results = $this->reformatResults($results);
+
+        return [
+            'form'          => $form,
+            'results'       => $results['results'],
+            'total'         => $results['total'],
+            'pageTotal'     => (int)ceil($results['total'] / $resultPerPage),
+            'page'          => $page,
+            'resultPerPage' => $resultPerPage,
+            'search'        => $search,
+            'types'         => $types,
+        ];
+    }
+
+    /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function ajax(Request $request)
     {
-
         $data = $this->getOpportunities($request);
+
+        if (isset($data['redirect']) && $data['redirect'] === true) {
+            return new JsonResponse(
+                [
+                    'redirect' => true,
+                    'url'      => Url::fromRoute(
+                        'opportunities.details',
+                        ['profileId' => $data['id']]
+                    ),
+                ]
+            );
+        }
 
         return new JsonResponse(
             [
