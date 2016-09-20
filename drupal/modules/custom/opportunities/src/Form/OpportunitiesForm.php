@@ -36,6 +36,9 @@ class OpportunitiesForm extends FormBase
                     'class' => [
                         'form-control',
                     ],
+                    'placeholder' => [
+                        'E.g. medical component distribution',
+                    ],
                 ],
             ],
             'opportunity_type' => [
