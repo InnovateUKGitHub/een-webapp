@@ -31,7 +31,7 @@
 
                     {% for row in results %}
                         <div class="row row-bordered">
-                            <h3>
+                            <h3 class="results-list-heading-item">
                                 <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
                                     {{ row.title|raw }}
                                 </a>

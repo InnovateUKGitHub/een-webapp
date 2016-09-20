@@ -367,11 +367,6 @@ form[data-drupal-selector="opportunity-search-form"] {
        font-weight: 600; 
        line-height: 1.1em;
     }
-    span {
-        background: #e1f0fa;
-        padding: 1px 3px;
-        margin: 0 -2px;
-    }
 }
 
 .results-list-heading {
@@ -382,6 +377,13 @@ form[data-drupal-selector="opportunity-search-form"] {
     border-bottom:2px solid #DDDDDD;
     margin:0;
     padding:14px 0;
+    
+    .results-list-heading-item {
+       span { 
+            background: #e1f0fa;
+            padding: 1px 3px;
+       }  
+    }
     
     p {
          @extend .font-xsmall;
@@ -401,8 +403,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         margin-bottom:0.5em;
         span {
             background: #f7e53b;
-            padding: 1px 3px;
-            margin: 0 -2px;
+            padding: 1px 6px;
         }
         
         a {
