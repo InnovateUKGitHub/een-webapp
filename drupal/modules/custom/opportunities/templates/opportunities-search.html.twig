@@ -23,22 +23,22 @@
         {% if results is not null %}
             {% if total > 0 %}
                 <div class="row">
-                    <h3 class="heading-xlarge results-list-heading">{{ total|number_format(0, '.', ',') }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>                    
+                    <h3 class="heading-xlarge results-list-heading">{{ total|number_format(0, '.', ',') }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
                 </div>
-                    
-                <div class="results-list">    
+
+                <div class="results-list">
                     <p class="list-subtext">Get updates to this list  <a href="#" class="follow-list"><i class="fa fa-envelope" aria-hidden="true"></i> Email</a> <a href="#" class="follow-list"><i class="fa fa-rss" aria-hidden="true"></i> RSS</a></p>
-                    
+
                     {% for row in results %}
                         <div class="row row-bordered">
                             <h3>
                                 <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
-                                    {{ row.title }}
+                                    {{ row.title|raw }}
                                 </a>
                             </h3>
-                                
-                            <p class="description">{{ row.summary| truncate(240, true) }} <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">more</a></p>
-                            
+
+                            <p class="description">{{ row.summary| truncate(240, true) | raw }} <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">more</a></p>
+
                             <p class="meta-inline font-small">
                                 {# lastupdated #}
                                 {% if row.date|date('U') > '-5 days'|date('U') %}
@@ -55,7 +55,7 @@
                                 {{ row.country }}
                             </p>
                         </div>
-                       
+
 
                     {% endfor %}
                 </div>

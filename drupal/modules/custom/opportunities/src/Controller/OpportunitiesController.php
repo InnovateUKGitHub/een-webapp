@@ -107,9 +107,9 @@ class OpportunitiesController extends ControllerBase
         foreach ($results['results'] as $result) {
             $response['results'][] = [
                 'id'           => $result['_id'],
-                'title'        => $result['_source']['title'],
+                'title'        => isset($result['highlight']['title']) ? implode('', $result['highlight']['title']) : $result['_source']['title'],
+                'summary'      => isset($result['highlight']['summary']) ? implode('', $result['highlight']['summary']) : $result['_source']['summary'],
                 'type'         => $result['_source']['type'],
-                'summary'      => $result['_source']['summary'],
                 'date'         => $result['_source']['date'],
                 'country_code' => $result['_source']['country_code'],
                 'country'      => $result['_source']['country'],
