@@ -367,6 +367,11 @@ form[data-drupal-selector="opportunity-search-form"] {
        font-weight: 600; 
        line-height: 1.1em;
     }
+    span {
+        background: #e1f0fa;
+        padding: 1px 3px;
+        margin: 0 -2px;
+    }
 }
 
 .results-list-heading {
@@ -391,11 +396,15 @@ form[data-drupal-selector="opportunity-search-form"] {
             }
         }
     }
+    
     p.description {        
         margin-bottom:0.5em;
-        em {
-            background:yellow;
+        span {
+            background: #f7e53b;
+            padding: 1px 3px;
+            margin: 0 -2px;
         }
+        
         a {
             font-weight: 600;
         }
