@@ -26,6 +26,9 @@ if [ ! -z "$npmChanges" ] || [ ! -z "$forceCompile" ];then
     echo "copy flags images to theme folder"
     cp -r node_modules/flag-icon-css/flags drupal/themes/custom/een/
 
+    echo "copy fontawesome fonts into theme folder"
+    cp -r node_modules/font-awesome/fonts drupal/themes/custom/een/
+
 else
     echo "package.json has not changed, not running npm"
 fi
