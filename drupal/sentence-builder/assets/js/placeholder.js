@@ -12,8 +12,8 @@
 
     // Plugin Settings
     var settings = $.extend({
-      delay: 50,
-      pause: 3000,
+      delay: 30,
+      pause: 1000,
       text: []
     }, options);
 
