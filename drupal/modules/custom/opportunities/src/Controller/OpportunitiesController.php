@@ -105,10 +105,14 @@ class OpportunitiesController extends ControllerBase
         }
 
         foreach ($results['results'] as $result) {
+
+            $title = isset($result['highlight']['title']) ? implode('', $result['highlight']['title']) : $result['_source']['title'];
+            $summary = isset($result['highlight']['summary']) ? implode('', $result['highlight']['summary']) : $result['_source']['summary'];
+
             $response['results'][] = [
                 'id'           => $result['_id'],
-                'title'        => isset($result['highlight']['title']) ? implode('', $result['highlight']['title']) : $result['_source']['title'],
-                'summary'      => isset($result['highlight']['summary']) ? implode('', $result['highlight']['summary']) : $result['_source']['summary'],
+                'title'        => str_replace('</span> <span>', ' ', $title),
+                'summary'      => str_replace('</span> <span>', ' ', $summary),
                 'type'         => $result['_source']['type'],
                 'date'         => $result['_source']['date'],
                 'country_code' => $result['_source']['country_code'],

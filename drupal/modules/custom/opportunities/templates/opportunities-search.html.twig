@@ -30,6 +30,7 @@
                     <p class="list-subtext">Get updates to this list  <a href="#" class="follow-list"><i class="fa fa-envelope" aria-hidden="true"></i> Email</a> <a href="#" class="follow-list"><i class="fa fa-rss" aria-hidden="true"></i> RSS</a></p>
 
                     {% for row in results %}
+
                         <div class="row row-bordered">
                             <h3 class="results-list-heading-item">
                                 <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
@@ -55,7 +56,6 @@
                                 {{ row.country }}
                             </p>
                         </div>
-
 
                     {% endfor %}
                 </div>

@@ -23,38 +23,44 @@
         {% if results is not null %}
             {% if total > 0 %}
                 <div class="row">
-                    <h3 class="heading-xlarge">{{ total }} <span class="font-xsmall">{{ 'opportunities '|t }}</span>
-                    </h3>
+                    <h3 class="heading-xlarge results-list-heading">{{ total|number_format(0, '.', ',') }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
                 </div>
-                {% for row in results %}
-                    <div class="row row-bordered">
-                        <h3>
-                            <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
-                                {{ row.title }}
-                            </a>
-                        </h3>
 
-                        <p class="meta-inline font-small">
-                            {# lastupdated #}
-                            {% if row.date|date('U') > '-5 days'|date('U') %}
-                                {{ row.date|time_diff }} |
-                            {% endif %}
+                <div class="results-list">
+                    <p class="list-subtext">Get updates to this list  <a href="#" class="follow-list"><i class="fa fa-envelope" aria-hidden="true"></i> Email</a> <a href="#" class="follow-list"><i class="fa fa-rss" aria-hidden="true"></i> RSS</a></p>
 
-                            {# organisation id #}
-                            {{ row.id }} |
+                    {% for row in results %}
 
-                            {# Country of origin #}
-                            {% set flag = row.country_code|lower %}
-                            {% if flag == 'uk' %}
-                                {% set flag = 'gb' %}
-                            {% endif %}
-                            <span class="flag-icon flag-icon-{{ flag }}"></span>
-                            {{ row.country }}
-                        </p>
-                        <p style="font-size: 12px">{{ row.summary }}</p>
-                    </div>
+                        <div class="row row-bordered">
+                            <h3 class="results-list-heading-item">
+                                <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">
+                                    {{ row.title|raw }}
+                                </a>
+                            </h3>
 
-                {% endfor %}
+                            <p class="description">{{ row.summary| truncate(240, true) | raw }} <a
+                                        href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">more</a>
+                            </p>
+
+                            <p class="meta-inline font-small">
+                                {# lastupdated #}
+                                {% if row.date|date('U') > '-5 days'|date('U') %}
+                                    {{ row.date|time_diff }} |
+                                {% endif %}
+
+
+                                {# Country of origin #}
+                                {% set flag = row.country_code|lower %}
+                                {% if flag == 'uk' %}
+                                    {% set flag = 'gb' %}
+                                {% endif %}
+                                <span class="flag-icon flag-icon-{{ flag }}"></span>
+                                {{ row.country }}
+                            </p>
+                        </div>
+
+                    {% endfor %}
+                </div>
 
                 {% include 'themes/custom/een/templates/pagination.html.twig'
                 with {
@@ -74,38 +80,44 @@
         {% if results2 is not null %}
             {% if total2 > 0 %}
                 <div class="row">
-                    <h3 class="heading-xlarge">{{ total2 }} <span class="font-xsmall">{{ 'opportunities '|t }}</span>
-                    </h3>
+                    <h3 class="heading-xlarge results-list-heading">{{ total|number_format(0, '.', ',') }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
                 </div>
-                {% for row in results2 %}
-                    <div class="row row-bordered">
-                        <h3>
-                            <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
-                                {{ row.title }}
-                            </a>
-                        </h3>
 
-                        <p class="meta-inline font-small">
-                            {# lastupdated #}
-                            {% if row.date|date('U') > '-5 days'|date('U') %}
-                                {{ row.date|time_diff }} |
-                            {% endif %}
+                <div class="results-list">
+                    <p class="list-subtext">Get updates to this list  <a href="#" class="follow-list"><i class="fa fa-envelope" aria-hidden="true"></i> Email</a> <a href="#" class="follow-list"><i class="fa fa-rss" aria-hidden="true"></i> RSS</a></p>
 
-                            {# organisation id #}
-                            {{ row.id }} |
+                    {% for row in results2 %}
 
-                            {# Country of origin #}
-                            {% set flag = row.country_code|lower %}
-                            {% if flag == 'uk' %}
-                                {% set flag = 'gb' %}
-                            {% endif %}
-                            <span class="flag-icon flag-icon-{{ flag }}"></span>
-                            {{ row.country }}
-                        </p>
-                        <p style="font-size: 12px">{{ row.summary }}</p>
-                    </div>
+                        <div class="row row-bordered">
+                            <h3 class="results-list-heading-item">
+                                <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">
+                                    {{ row.title|raw }}
+                                </a>
+                            </h3>
 
-                {% endfor %}
+                            <p class="description">{{ row.summary| truncate(240, true) | raw }} <a
+                                        href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">more</a>
+                            </p>
+
+                            <p class="meta-inline font-small">
+                                {# lastupdated #}
+                                {% if row.date|date('U') > '-5 days'|date('U') %}
+                                    {{ row.date|time_diff }} |
+                                {% endif %}
+
+
+                                {# Country of origin #}
+                                {% set flag = row.country_code|lower %}
+                                {% if flag == 'uk' %}
+                                    {% set flag = 'gb' %}
+                                {% endif %}
+                                <span class="flag-icon flag-icon-{{ flag }}"></span>
+                                {{ row.country }}
+                            </p>
+                        </div>
+
+                    {% endfor %}
+                </div>
 
                 {% include 'themes/custom/een/templates/pagination.html.twig'
                 with {
@@ -125,38 +137,44 @@
         {% if results3 is not null %}
             {% if total3 > 0 %}
                 <div class="row">
-                    <h3 class="heading-xlarge">{{ total3 }} <span class="font-xsmall">{{ 'opportunities '|t }}</span>
-                    </h3>
+                    <h3 class="heading-xlarge results-list-heading">{{ total|number_format(0, '.', ',') }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
                 </div>
-                {% for row in results3 %}
-                    <div class="row row-bordered">
-                        <h3>
-                            <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
-                                {{ row.title }}
-                            </a>
-                        </h3>
 
-                        <p class="meta-inline font-small">
-                            {# lastupdated #}
-                            {% if row.date|date('U') > '-5 days'|date('U') %}
-                                {{ row.date|time_diff }} |
-                            {% endif %}
+                <div class="results-list">
+                    <p class="list-subtext">Get updates to this list  <a href="#" class="follow-list"><i class="fa fa-envelope" aria-hidden="true"></i> Email</a> <a href="#" class="follow-list"><i class="fa fa-rss" aria-hidden="true"></i> RSS</a></p>
 
-                            {# organisation id #}
-                            {{ row.id }} |
+                    {% for row in results3 %}
 
-                            {# Country of origin #}
-                            {% set flag = row.country_code|lower %}
-                            {% if flag == 'uk' %}
-                                {% set flag = 'gb' %}
-                            {% endif %}
-                            <span class="flag-icon flag-icon-{{ flag }}"></span>
-                            {{ row.country }}
-                        </p>
-                        <p style="font-size: 12px">{{ row.summary }}</p>
-                    </div>
+                        <div class="row row-bordered">
+                            <h3 class="results-list-heading-item">
+                                <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">
+                                    {{ row.title|raw }}
+                                </a>
+                            </h3>
 
-                {% endfor %}
+                            <p class="description">{{ row.summary| truncate(240, true) | raw }} <a
+                                        href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">more</a>
+                            </p>
+
+                            <p class="meta-inline font-small">
+                                {# lastupdated #}
+                                {% if row.date|date('U') > '-5 days'|date('U') %}
+                                    {{ row.date|time_diff }} |
+                                {% endif %}
+
+
+                                {# Country of origin #}
+                                {% set flag = row.country_code|lower %}
+                                {% if flag == 'uk' %}
+                                    {% set flag = 'gb' %}
+                                {% endif %}
+                                <span class="flag-icon flag-icon-{{ flag }}"></span>
+                                {{ row.country }}
+                            </p>
+                        </div>
+
+                    {% endfor %}
+                </div>
 
                 {% include 'themes/custom/een/templates/pagination.html.twig'
                 with {
