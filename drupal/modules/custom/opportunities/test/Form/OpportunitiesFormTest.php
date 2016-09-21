@@ -4,6 +4,7 @@ namespace Drupal\opportunities\Test\Form;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Url;
 use Drupal\opportunities\Form\OpportunitiesForm;
+use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -15,17 +16,19 @@ class OpportunitiesFormTest extends UnitTestCase
 {
     /** @var ContainerInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $mockContainer;
+    /** @var OpportunitiesService|\PHPUnit_Framework_MockObject_MockObject */
+    private $mockService;
 
     public function testGetFormId()
     {
-        $form = new OpportunitiesForm();
+        $form = new OpportunitiesForm($this->mockService);
 
         self::assertEquals('opportunity_search_form', $form->getFormId());
     }
 
     public function testBuildForm()
     {
-        $form = new OpportunitiesForm();
+        $form = new OpportunitiesForm($this->mockService);
 
         $formArray = [];
         $formState = new FormState();
@@ -40,7 +43,7 @@ class OpportunitiesFormTest extends UnitTestCase
 
     public function testValidForm()
     {
-        $form = new OpportunitiesForm();
+        $form = new OpportunitiesForm($this->mockService);
 
         $formArray = [];
         $formState = new FormState();
@@ -57,13 +60,14 @@ class OpportunitiesFormTest extends UnitTestCase
 
     public function testSubmitForm()
     {
-        $form = new OpportunitiesForm();
+        $form = new OpportunitiesForm($this->mockService);
 
         $formArray = [];
         $formState = new FormState();
 
         $formState->setValue('search', '');
         $formState->setValue('opportunity_type', '');
+        $formState->setValue('country', '');
 
         $form->submitForm($formArray, $formState);
 
@@ -75,6 +79,8 @@ class OpportunitiesFormTest extends UnitTestCase
         parent::setUp();
 
         $this->mockContainer = self::getMock(ContainerInterface::class, [], [], '', false);
+        $this->mockService = self::getMock(OpportunitiesService::class, [], [], '', false);
+
         \Drupal::setContainer($this->mockContainer);
     }
 }
