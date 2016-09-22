@@ -71,6 +71,11 @@ class OpportunitiesControllerTest extends UnitTestCase
 
         self::assertEquals(
             [
+                '#attached'         => [
+                    'library' => [
+                        'een/opportunity-list',
+                    ],
+                ],
                 '#theme'            => 'opportunities_search',
                 '#form'             => [],
                 '#search'           => 'H2020',
