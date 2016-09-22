@@ -59,14 +59,23 @@ class OpportunitiesControllerTest extends UnitTestCase
             ->method('get')
             ->with(OpportunitiesController::OPPORTUNITY_TYPE)
             ->willReturn(['BO']);
+        $mockQuery->expects(self::at(4))
+            ->method('get')
+            ->with(OpportunitiesController::COUNTRY)
+            ->willReturn(['FR']);
 
         $this->mockService->expects(self::once())
             ->method('search')
-            ->with([], 'H2020', ['BO'], 1, 10)
+            ->with([], 'H2020', ['BO'], ['FR'], 1, 10)
             ->willReturn(['results' => [], 'total' => 10]);
 
         self::assertEquals(
             [
+                '#attached'         => [
+                    'library' => [
+                        'een/opportunity-list',
+                    ],
+                ],
                 '#theme'            => 'opportunities_search',
                 '#form'             => [],
                 '#search'           => 'H2020',

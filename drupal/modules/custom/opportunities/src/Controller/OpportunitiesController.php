@@ -22,6 +22,8 @@ class OpportunitiesController extends ControllerBase
 
     const OPPORTUNITY_TYPE = 'opportunity_type';
 
+    const COUNTRY = 'country';
+
     /**
      * @var OpportunitiesService
      */
@@ -62,12 +64,13 @@ class OpportunitiesController extends ControllerBase
         $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
         $search = $request->query->get(self::SEARCH);
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
+        $country = $request->query->get(self::COUNTRY);
 
-        $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
+        $results = $this->service->search($form, $search, $types, $country, $page, $resultPerPage);
         $results = $this->reformatResults($results);
-        $results2 = $this->service->search($form, $search, $types, $page, $resultPerPage, 2);
+        $results2 = $this->service->search($form, $search, $types, $country, $page, $resultPerPage, 2);
         $results2 = $this->reformatResults($results2);
-        $results3 = $this->service->search($form, $search, $types, $page, $resultPerPage, 3);
+        $results3 = $this->service->search($form, $search, $types, $country, $page, $resultPerPage, 3);
         $results3 = $this->reformatResults($results3);
 
         return [
@@ -140,6 +143,11 @@ class OpportunitiesController extends ControllerBase
         }
 
         return [
+            '#attached'         => [
+                'library' => [
+                    'een/opportunity-list',
+                ],
+            ],
             '#theme'            => 'opportunities_search',
             '#form'             => $data['form'],
             '#search'           => $data['search'],
@@ -166,8 +174,9 @@ class OpportunitiesController extends ControllerBase
         $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
         $search = $request->query->get(self::SEARCH);
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
+        $countries = $request->query->get(self::COUNTRY);
 
-        $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
+        $results = $this->service->search($form, $search, $types, $countries, $page, $resultPerPage);
 
         // Test if single match
         if (isset($results['_id'])) {
@@ -187,6 +196,7 @@ class OpportunitiesController extends ControllerBase
             'resultPerPage' => $resultPerPage,
             'search'        => $search,
             'types'         => $types,
+            'countries'     => $countries,
         ];
     }
 

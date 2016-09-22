@@ -15,4 +15,7 @@ opportunity:
   version: 1.0
   js:
     js/min/opportunity-min.js: {}
-
+opportunity-list:
+  version: 1.0
+  js:
+    js/min/opportunity-list-min.js: {}
