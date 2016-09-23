@@ -353,6 +353,23 @@ form[data-drupal-selector="opportunity-search-form"] {
         z-index: 1;
         outline:none;
     }
+    
+    #edit-country.form-checkboxes {
+        height: 235px;
+        overflow-y: scroll;
+        width: 100%;
+    }
+    .selected-countries {
+        font-weight: normal;
+        color: #4A4A4A;
+        @extend .font-xsmall;
+        font-family: $font_family;
+    }
+    #clear-countries {
+        font-weight: normal;
+        @extend .font-xsmall;
+        color:$light-blue;
+    }
 }
 
 .row-bordered {
