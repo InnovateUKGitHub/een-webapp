@@ -14,12 +14,14 @@
 @import 'pagination';
 
 body {
-  font-family: $font_family!important; /* temp important */
+  font-family: $font_family;
   color:#4A4A4A;
 }
 
-html, body, button, input, table, td, th, p, h1, h2, h3, h4, h5, li, p, label, input, small, a, legend {
-  font-family: $font_family!important; /* temp important */
+html, body, button, input, table, td, th, p, h1, h2, h3, h4, h5, li, p, label, input, small, a, legend, 
+.form-label,
+.font-xsmall, .font-small, .font-medium, .font-large {
+  font-family: $font_family; 
 }
 
 hr {
@@ -356,8 +358,11 @@ form[data-drupal-selector="opportunity-search-form"] {
     
     #edit-country.form-checkboxes {
         height: 235px;
+        overflow: scroll;
         overflow-y: scroll;
+        overflow-x: hidden;
         width: 100%;
+        margin: 0 3px 0 0;
     }
     .selected-countries {
         font-weight: normal;
@@ -369,6 +374,25 @@ form[data-drupal-selector="opportunity-search-form"] {
         font-weight: normal;
         @extend .font-xsmall;
         color:$light-blue;
+        cursor: pointer;
+    }
+    
+    .accordion-toggle {
+        font-family: 'FontAwesome';
+        background: none;
+        border: none;
+        font-size:16px;
+        color:#4A4A4A;
+        float:right;
+        
+        &:before {
+           content: "\f078";
+        }
+    }
+    .accordion-toggle.visible {
+        &:before {
+            content: "\f077";
+        }
     }
 }
 
@@ -427,6 +451,10 @@ form[data-drupal-selector="opportunity-search-form"] {
             font-weight: 600;
         }
     }
+}
+
+.no-results {
+    margin-top: 1.75em;
 }
 
 /* menu */

@@ -70,7 +70,12 @@
                 } only %}
 
             {% else %}
-                {{ 'No Results found for: '|t }}{{ search }}
+                
+                <div class="row no-results">
+                    <p>{{ 'No Results found for: '|t }}{{ search }}</p>
+                </div>
+                
+                
             {% endif %}
         {% endif %}
     </div>

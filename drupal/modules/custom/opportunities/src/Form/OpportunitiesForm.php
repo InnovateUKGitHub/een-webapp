@@ -78,6 +78,11 @@ class OpportunitiesForm extends FormBase
                 '#type'    => 'checkboxes',
                 '#title'   => t('Country of origin'),
                 '#options' => $countries,
+                '#attributes' => [
+                    'class'       => [
+                        'accordion-container',
+                    ],
+                ],
             ],
             'actions'          => [
                 '#type'  => 'actions',
