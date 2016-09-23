@@ -92,10 +92,17 @@ a {
 .sticky-nav-container {
     min-height: 20px;
 }
+.sticky-sidebar {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+
 .contents-list {
     min-height: 20px; 
-    
-    
     
     .heading-medium {
         margin-bottom:7px;
