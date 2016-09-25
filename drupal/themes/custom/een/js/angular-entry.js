@@ -7,8 +7,18 @@
 
   var een = window.angular.module('een', []);
 
+  // changed to stop conflicting with Drupal templating engine
   een.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+  });
+
+  // added to preventDefault on hrefs
+  een.directive('paginationLink', function () {
+    return function (scope, element, attrs) {
+      $(element).click(function (event) {
+        event.preventDefault();
+      });
+    };
   });
 
   een.factory('oppsFactory', function () {
@@ -36,28 +46,36 @@
       var args = arguments;
       var later = function () {
         timeout = null;
-        if (!immediate) func.apply(context, args);
+        if (!immediate) {
+          func.apply(context, args);
+        }
       };
       var callNow = immediate && !timeout;
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
+      if (callNow) {
+        func.apply(context, args);
+      }
     };
   };
 
   een.controller('MainCtrl', function ($scope, oppsFactory) {
     var queryAPI = debounce(function () {
+      $scope.heading.searching = true;
+      $scope.$apply();
+
       oppsFactory.search({
-        page: 1,
+        page: $scope.heading.page,
         type: $scope.heading.opportunity_type,
         q: $scope.query
       }).then(function (data) {
         $scope.heading = {
           opportunity_type: data.opportunity_type || [],
-          page: data.page,
-          pageTotal: data.pageTotal,
-          total: data.total,
+          page: parseInt(data.page),
+          pageTotal: parseInt(data.pageTotal),
+          total: parseInt(data.total),
           loaded: true,
+          searching: false,
           searched: true
         };
 
@@ -66,7 +84,7 @@
       }).fail(function () {
         $scope.results = [];
       });
-    }, 200);
+    }, 100);
 
     $scope.submit = function () {
       queryAPI();
@@ -77,7 +95,22 @@
       queryAPI();
     };
 
+    $scope.next = function () {
+      $scope.heading.page++;
+      queryAPI();
+      return false;
+    };
+
+    $scope.prev = function () {
+      $scope.heading.page--;
+      queryAPI();
+      return false;
+    };
+
     $scope.getFlagClass = function (code) {
+      if (code === 'UK') {
+        code = 'gb';
+      }
       return 'flag-icon flag-icon-' + code.toLowerCase();
     };
 
@@ -111,6 +144,7 @@
       page: 1,
       loaded: true,
       searched: false,
+      searching: false,
       total: 500
     };
 

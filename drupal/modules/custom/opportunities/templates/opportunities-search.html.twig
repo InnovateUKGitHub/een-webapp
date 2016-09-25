@@ -21,14 +21,14 @@
     </div>
     <div class="column-two-thirds">
 
-        <div class="row" ng-show="heading.searched" ng-cloak>
+        <div class="row" ng-show="heading.searched" ng-cloak ng-class="{ transp: heading.searching }">
             <h3 class="heading-xlarge">{[{ heading.total }]} <span class="font-xsmall"> <ng-pluralize count="heading.total"
                 when="{'0': 'opportunities',
                        'one': 'opportunity',
                        'other': 'opportunities'}"></span></h3>
         </div>
 
-        <div class="row row-bordered" ng-show="heading.searched" ng-repeat="row in results" ng-cloak>
+        <div class="row row-bordered" ng-show="heading.searched" ng-repeat="row in results" ng-cloak ng-class="{ transp: heading.searching }">
             <h3>
                 <a href="" id="opportunity-link">
                     {[{ row.title }]}

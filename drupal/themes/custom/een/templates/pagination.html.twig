@@ -5,7 +5,7 @@
     <!-- Previous page link -->
     {% if page > 1 %}
         <li class="previous" ng-show="!heading.searched">
-            <a id="pagination-previous" href="{{ url(route, {'page': page - 1}|merge(params)) }}">
+            <a id="pagination-previous" href="{{ url(route, {'page': page - 1}|merge(params)) }}" ng-click="prev()" pagination-link>
                 {{ 'Previous'|t }} <span class="visuallyhidden">{{ 'page'|t }}</span>
                 <span class="page-numbers">{{ page - 1 }} {{ 'of'|t }} {{ pageTotal }}</span>
             </a>
@@ -14,10 +14,25 @@
 
     {% if page < pageTotal %}
         <li class="next" ng-show="!heading.searched">
-            <a id="pagination-next" href="{{ url(route, {'page': page + 1}|merge(params)) }}">
+            <a id="pagination-next" href="{{ url(route, {'page': page + 1}|merge(params)) }}" ng-click="next()" pagination-link>
                 {{ 'Next'|t }} <span class="visuallyhidden">{{ 'page'|t }}</span>
                 <span class="page-numbers">{{ page + 1 }} {{ 'of'|t }} {{ pageTotal }}</span>
             </a>
         </li>
     {% endif %}
+
+    <li class="previous" ng-show="heading.searched && heading.page > 1">
+        <a id="pagination-previous" href="" ng-click="prev()" pagination-link>
+            Previous <span class="visuallyhidden">page</span>
+            <span class="page-numbers">{[{ heading.page - 1 }]} of {[{ heading.pageTotal }]}</span>
+        </a>
+    </li>
+
+    <li class="next" ng-show="heading.searched && heading.page < heading.pageTotal">
+        <a id="pagination-next" href="" ng-click="next()" pagination-link>
+            Next <span class="visuallyhidden">page</span>
+            <span class="page-numbers">{[{ heading.page + 1 }]} of {[{ heading.pageTotal }]}</span>
+        </a>
+    </li>
+
 </ul>

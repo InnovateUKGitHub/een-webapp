@@ -455,14 +455,8 @@ form[data-drupal-selector="opportunity-search-form"] {
             font-size: 36px;
             position: absolute;
             top: 14px;
-<<<<<<< HEAD
-            right: 0;
-
-=======
             padding: 0 12px;
             right: 20px;
-
->>>>>>> develop
             &:focus, &:active {
                 background:none;
                 border:none;
@@ -649,13 +643,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         clear:both;
         margin:0 0 0.3em 0;
         overflow:auto;
-<<<<<<< HEAD
-
-        &::before {
-=======
-
         &:before {
->>>>>>> develop
             width:35px;
             height: 35px;
             background: black;
@@ -697,13 +685,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         }
         &.sa-share {
             &:before {
-<<<<<<< HEAD
-                background: #64b4e6 url('../img/envelope-icon.svg') no-repeat center center;
-
-=======
                 background: #64b4e6 url('../img/envelope-icon.png') no-repeat center center;
-
->>>>>>> develop
             }
             a {
                 color:#64b4e6;
@@ -712,13 +694,10 @@ form[data-drupal-selector="opportunity-search-form"] {
     }
 }
 
-<<<<<<< HEAD
-=======
 #footer .footer-meta {
     padding-top:30px;
     padding-bottom: 30px;
 }
->>>>>>> develop
 
 
 @media (min-width: 641px) {
