@@ -13,15 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 class OpportunitiesController extends ControllerBase
 {
     const PAGE_NUMBER = 'page';
-
     const RESULT_PER_PAGE = 'resultPerPage';
-
     const DEFAULT_RESULT_PER_PAGE = 20;
-
     const SEARCH = 'search';
-
     const OPPORTUNITY_TYPE = 'opportunity_type';
-
     const COUNTRY = 'country';
 
     /**
@@ -151,7 +146,8 @@ class OpportunitiesController extends ControllerBase
             '#theme'            => 'opportunities_search',
             '#form'             => $data['form'],
             '#search'           => $data['search'],
-            '#opportunity_type' => $data['types'],
+            '#opportunity_type' => $data['opportunity_type'],
+            '#country'          => $data['country'],
             '#results'          => $data['results'],
             '#total'            => $data['total'],
             '#pageTotal'        => $data['pageTotal'],
@@ -188,15 +184,15 @@ class OpportunitiesController extends ControllerBase
         $results = $this->reformatResults($results);
 
         return [
-            'form'          => $form,
-            'results'       => $results['results'],
-            'total'         => $results['total'],
-            'pageTotal'     => (int)ceil($results['total'] / $resultPerPage),
-            'page'          => $page,
-            'resultPerPage' => $resultPerPage,
-            'search'        => $search,
-            'types'         => $types,
-            'countries'     => $countries,
+            'form'             => $form,
+            'results'          => $results['results'],
+            'total'            => $results['total'],
+            'pageTotal'        => (int)ceil($results['total'] / $resultPerPage),
+            'page'             => $page,
+            'resultPerPage'    => $resultPerPage,
+            'search'           => $search,
+            'opportunity_type' => $types,
+            'country'          => $countries,
         ];
     }
 
@@ -225,7 +221,8 @@ class OpportunitiesController extends ControllerBase
             [
                 'route'            => 'opportunities.search',
                 'search'           => $data['search'],
-                'opportunity_type' => $data['types'],
+                'opportunity_type' => $data['opportunity_type'],
+                'country'          => $data['country'],
                 'page'             => $data['page'],
                 'resultPerPage'    => $data['resultPerPage'],
                 'pageTotal'        => $data['pageTotal'],

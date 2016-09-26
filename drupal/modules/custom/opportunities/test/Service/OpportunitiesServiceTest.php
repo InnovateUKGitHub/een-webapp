@@ -32,7 +32,7 @@ class OpportunitiesServiceTest extends UnitTestCase
                 'from'             => 0,
                 'size'             => 10,
                 'search'           => 'H2020',
-                'opportunity_type' => ['BO' => 'BO'],
+                'opportunity_type' => ['BO'],
                 'country'          => ['FR'],
                 'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
                 'type'             => 1,
@@ -43,7 +43,7 @@ class OpportunitiesServiceTest extends UnitTestCase
             ->willReturn(['success' => true]);
 
         $form = [];
-        self::assertEquals(['success' => true], $this->service->search($form, 'H2020', ['BO' => 'BO', 'RD' => '0'], ['FR'], 1, 10));
+        self::assertEquals(['success' => true], $this->service->search($form, 'H2020', ['BO'], ['FR'], 1, 10));
 
         self::assertEquals([
             'search'           => [
