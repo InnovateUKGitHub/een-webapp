@@ -5,6 +5,8 @@
 /* direct import of flags elements from the node module */
 @import 'flag-icon';
 
+@import 'font-awesome';
+
 @import 'variables';
 @import 'font';
 
@@ -14,12 +16,14 @@
 @import 'pagination';
 
 body {
-  font-family: $font_family!important; /* temp important */
+  font-family: $font_family;
   color:#4A4A4A;
 }
 
-html, body, button, input, table, td, th, p, h1, h2, h3, h4, h5, li, p, label, input, small, a, legend {
-  font-family: $font_family!important; /* temp important */
+html, body, button, input, table, td, th, p, h1, h2, h3, h4, h5, li, p, label, input, small, a, legend,
+.form-label,
+.font-xsmall, .font-small, .font-medium, .font-large {
+  font-family: $font_family;
 }
 
 hr {
@@ -90,10 +94,17 @@ a {
 .sticky-nav-container {
     min-height: 20px;
 }
+.sticky-sidebar {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+
 .contents-list {
     min-height: 20px;
-
-
 
     .heading-medium {
         margin-bottom:7px;
@@ -141,9 +152,13 @@ a.back-link {
         @extend .font-medium;
     }
     h2 {
-        margin-top: 0;
+        margin: 0;
         @extend .font-large;
         font-weight: bold;
+    }
+    h3 {
+         @extend .font-medium;
+         width:80%;
     }
 }
 
@@ -159,6 +174,14 @@ a.back-link {
 
 .single-header-one-col {
     margin-top: 0;
+}
+
+
+form {
+    ::-webkit-input-placeholder {   font-size:0.9em; font-style: italic;   }
+    :-moz-placeholder { /* Firefox 18- */   font-size:0.9em; font-style: italic; }
+    ::-moz-placeholder {  /* Firefox 19+ */   font-size:0.9em; font-style: italic; }
+    :-ms-input-placeholder {   font-size:0.9em; font-style: italic;  }
 }
 
 .form-opportunities {
@@ -191,10 +214,6 @@ a.back-link {
             margin:14px 0 0 0;
         }
     }
-    ::-webkit-input-placeholder {   font-size:0.9em; font-style: italic;   }
-    :-moz-placeholder { /* Firefox 18- */   font-size:0.9em; font-style: italic; }
-    ::-moz-placeholder {  /* Firefox 19+ */   font-size:0.9em; font-style: italic; }
-    :-ms-input-placeholder {   font-size:0.9em; font-style: italic;  }
 
     .form-control {
         width:100%;
@@ -232,6 +251,11 @@ form[data-drupal-selector="opportunity-search-form"] {
         border:1px solid #9B9B9B;
     }
 
+    .form-label {
+        color:#0B0C0C;
+        font-weight: 600;
+    }
+
     fieldset {
         width:auto;
     }
@@ -242,6 +266,8 @@ form[data-drupal-selector="opportunity-search-form"] {
         display: block;
         float:left;
         margin: 0.2em 0 0.4em 0;
+        color:#0B0C0C;
+        font-weight: 600;
     }
 
     .form-item-search, .fieldgroup  {
@@ -272,12 +298,8 @@ form[data-drupal-selector="opportunity-search-form"] {
 
     .block-label {
         padding: 14px 14px 7px 48px;
+
         input[type=checkbox] {
-          //  position: absolute !important;
-           // top: -9999px !important;
-           // left: -9999px !important
-           //z-index: -1!important;
-           //outline:none;
            height: 1px;
            width: 1px;
            overflow: hidden;
@@ -339,16 +361,106 @@ form[data-drupal-selector="opportunity-search-form"] {
         z-index: 1;
         outline:none;
     }
+
+    #edit-country.form-checkboxes {
+        height: 235px;
+        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        width: 100%;
+        margin: 0 3px 0 0;
+    }
+    .selected-countries {
+        font-weight: normal;
+        color: #4A4A4A;
+        @extend .font-xsmall;
+        font-family: $font_family;
+    }
+    #clear-countries {
+        font-weight: normal;
+        @extend .font-xsmall;
+        color:$light-blue;
+        cursor: pointer;
+    }
+
+    .accordion-toggle {
+        font-family: 'FontAwesome';
+        background: none;
+        border: none;
+        font-size:16px;
+        color:#4A4A4A;
+        float:right;
+
+        &:before {
+           content: "\f078";
+        }
+    }
+    .accordion-toggle.visible {
+        &:before {
+            content: "\f077";
+        }
+    }
 }
 
 .row-bordered {
-    border-bottom: 1px solid #DDDDDD;
-    padding:7px;
+    border-top: 2px solid #DDDDDD;
+    padding:14px 0;
+
+    &:first-of-type {
+        border-top:none;
+    }
 
     h3 {
-       font-weight: bold;
+       font-weight: 600;
        line-height: 1.1em;
     }
+}
+
+.results-list-heading {
+    margin-bottom: 14px;
+}
+.results-list {
+    border-top:2px solid #DDDDDD;
+    border-bottom:2px solid #DDDDDD;
+    margin:0;
+    padding:14px 0;
+
+    .results-list-heading-item {
+       span {
+            background: #e1f0fa;
+            padding: 1px 3px;
+       }
+    }
+
+    p {
+         @extend .font-xsmall;
+    }
+    .list-subtext {
+        .follow-list {
+            margin: 0 0 0 10px;
+            font-weight:bold;
+            .fa {
+                color:black;
+
+            }
+        }
+    }
+
+    p.description {
+        margin-bottom:0.5em;
+        span {
+            background: #f7e53b;
+            padding: 1px 6px;
+        }
+
+        a {
+            font-weight: 600;
+        }
+    }
+}
+
+.no-results {
+    margin-top: 1.75em;
 }
 
 /* menu */
@@ -643,6 +755,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         clear:both;
         margin:0 0 0.3em 0;
         overflow:auto;
+        display:table;
         &:before {
             width:35px;
             height: 35px;
@@ -659,19 +772,21 @@ form[data-drupal-selector="opportunity-search-form"] {
             font-weight: 600;
             padding-left: 42px;
             min-height: 35px;
+            display: table-cell;
+            vertical-align: middle;
+            height: 35px;
 
             @media (min-width: 640px) and (max-width:900px){
                 line-height: 1em;
             }
 
             @media (min-width: 641px) {
-                display:flex;
-                align-items:center;
+                overflow:hidden;
             }
 
-            @media (max-width: 640px) {
-                top: 8px;
-                position: relative;
+            @supports (display: flex) {
+                display:flex;
+                align-items:center;
             }
         }
 
@@ -732,4 +847,9 @@ form[data-drupal-selector="opportunity-search-form"] {
 
         }
     }
+
+    .content-heading h3 {
+        width: auto;
+    }
+
 }

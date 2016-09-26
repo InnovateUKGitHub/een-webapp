@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>EEN - Sentence Builder</title>
+      <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+      <link href="assets/css/selectize.css" rel="stylesheet" />
+      <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav id="nav" class="navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Enterprise Europe Network</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="row">
+          <div class="col-sm-12">
+              <ul id="proposition-links">
+                  <li><a href="#" title="What we do">What we do</a></li>
+                  <li><a href="#" title="Partnering Opportunities">Find an opportunity</a></li>
+                  <li><a href="#" title="Events">Events</a></li>
+                  <li><a href="#" title="Innovate UK Connect">Innovate UK Connect</a></li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="content-heading">
+                  <div class="row">
+                      <div class="col-sm-8">
+                          <h1>Opportunity</h1>
+                          <h2 class="heading-large">Find international partners</h2>
+                          <p>With <strong>over 3,000 opportunities</strong> to help yor business grow and succeed throughout Europe, let's start by tailoring the results for you...</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-9">
+          <form>
+          I'm looking for
+          <input type="text" value="" title="Please state a type of product or service you want your partner to offer" placeholder="Medical Kits" onfocus="this.placeholder = ''" id="partner" /> partners
+          <label for="action" class="sr-only">Please state what you want the partner to do for you.</label>
+          <label for="action" class="sr-only">Options include - To buy from. To sell to. That need my technology or expertise. With technology or expertise that I need. To collaborate with.</label>
+          <select id="action" name="action" class="demo-default" multiple placeholder="to do what?">
+            <option value="2" title="to buy from">to buy from </option>
+            <option value="3" title="to sell to">to sell to </option>
+            <option value="4" title="that need my technology or expertise">that need my technology or expertise </option>
+            <option value="5" title="with technology or expertise that I need">with technology or expertise that I need </option>
+            <option value="6" title="to collaborate with">to collaborate with </option>
+          </select>
+          <span class="located disabled">located</span>
+          <label for="countries" class="sr-only">Please type or select the countries your search applies to</label>
+          <select id="countries" name="countries" multiple class="demo-default" placeholder="anywhere in the world">
+                <option value="WORLD" title="anywhere in the world">anywhere in the world </option>
+                <option value="EU" title="in Europe">in Europe </option>
+                <optgroup label="Specific Countries">
+                  <option value="AF">in Afghanistan </option>
+                  <option value="AX">in Åland Islands </option>
+                  <option value="AL">in Albania </option>
+                  <option value="DZ">in Algeria </option>
+                  <option value="AS">in American Samoa </option>
+                  <option value="AD">in Andorra </option>
+                  <option value="AO">in Angola </option>
+                  <option value="AI">in Anguilla </option>
+                  <option value="AQ">in Antarctica </option>
+                  <option value="AG">in Antigua and Barbuda </option>
+                  <option value="AR">in Argentina </option>
+                  <option value="AM">in Armenia </option>
+                  <option value="AW">in Aruba </option>
+                  <option value="AU">in Australia </option>
+                  <option value="AT">in Austria </option>
+                  <option value="AZ">in Azerbaijan </option>
+                  <option value="BS">in Bahamas </option>
+                  <option value="BH">in Bahrain </option>
+                  <option value="BD">in Bangladesh </option>
+                  <option value="BB">in Barbados </option>
+                  <option value="BY">in Belarus </option>
+                  <option value="BE">in Belgium </option>
+                  <option value="BZ">in Belize </option>
+                  <option value="BJ">in Benin </option>
+                  <option value="BM">in Bermuda </option>
+                  <option value="BT">in Bhutan </option>
+                  <option value="BO">in Bolivia, Plurinational State of </option>
+                  <option value="BQ">in Bonaire, Sint Eustatius and Saba </option>
+                  <option value="BA">in Bosnia and Herzegovina </option>
+                  <option value="BW">in Botswana </option>
+                  <option value="BV">in Bouvet Island </option>
+                  <option value="BR">in Brazil </option>
+                  <option value="IO">in British Indian Ocean Territory </option>
+                  <option value="BN">in Brunei Darussalam </option>
+                  <option value="BG">in Bulgaria </option>
+                  <option value="BF">in Burkina Faso </option>
+                  <option value="BI">in Burundi </option>
+                  <option value="KH">in Cambodia </option>
+                  <option value="CM">in Cameroon </option>
+                  <option value="CA">in Canada </option>
+                  <option value="CV">in Cape Verde </option>
+                  <option value="KY">in Cayman Islands </option>
+                  <option value="CF">in Central African Republic </option>
+                  <option value="TD">in Chad </option>
+                  <option value="CL">in Chile </option>
+                  <option value="CN">in China </option>
+                  <option value="CX">in Christmas Island </option>
+                  <option value="CC">in Cocos (Keeling) Islands </option>
+                  <option value="CO">in Colombia </option>
+                  <option value="KM">in Comoros </option>
+                  <option value="CG">in Congo </option>
+                  <option value="CD">in Congo, the Democratic Republic of the </option>
+                  <option value="CK">in Cook Islands </option>
+                  <option value="CR">in Costa Rica </option>
+                  <option value="CI">in Côte d'Ivoire </option>
+                  <option value="HR">in Croatia </option>
+                  <option value="CU">in Cuba </option>
+                  <option value="CW">in Curaçao </option>
+                  <option value="CY">in Cyprus </option>
+                  <option value="CZ">in Czech Republic </option>
+                  <option value="DK">in Denmark </option>
+                  <option value="DJ">in Djibouti </option>
+                  <option value="DM">in Dominica </option>
+                  <option value="DO">in Dominican Republic </option>
+                  <option value="EC">in Ecuador </option>
+                  <option value="EG">in Egypt </option>
+                  <option value="SV">in El Salvador </option>
+                  <option value="GQ">in Equatorial Guinea </option>
+                  <option value="ER">in Eritrea </option>
+                  <option value="EE">in Estonia </option>
+                  <option value="ET">in Ethiopia </option>
+                  <option value="FK">in Falkland Islands (Malvinas) </option>
+                  <option value="FO">in Faroe Islands </option>
+                  <option value="FJ">in Fiji </option>
+                  <option value="FI">in Finland </option>
+                  <option value="FR">in France </option>
+                  <option value="GF">in French Guiana </option>
+                  <option value="PF">in French Polynesia </option>
+                  <option value="TF">in French Southern Territories </option>
+                  <option value="GA">in Gabon </option>
+                  <option value="GM">in Gambia </option>
+                  <option value="GE">in Georgia </option>
+                  <option value="DE">in Germany </option>
+                  <option value="GH">in Ghana </option>
+                  <option value="GI">in Gibraltar </option>
+                  <option value="GR">in Greece </option>
+                  <option value="GL">in Greenland </option>
+                  <option value="GD">in Grenada </option>
+                  <option value="GP">in Guadeloupe </option>
+                  <option value="GU">in Guam </option>
+                  <option value="GT">in Guatemala </option>
+                  <option value="GG">in Guernsey </option>
+                  <option value="GN">in Guinea </option>
+                  <option value="GW">in Guinea-Bissau </option>
+                  <option value="GY">in Guyana </option>
+                  <option value="HT">in Haiti </option>
+                  <option value="HM">in Heard Island and McDonald Islands </option>
+                  <option value="VA">in Holy See (Vatican City State) </option>
+                  <option value="HN">in Honduras </option>
+                  <option value="HK">in Hong Kong </option>
+                  <option value="HU">in Hungary </option>
+                  <option value="IS">in Iceland </option>
+                  <option value="IN">in India </option>
+                  <option value="ID">in Indonesia </option>
+                  <option value="IR">in Iran, Islamic Republic of </option>
+                  <option value="IQ">in Iraq </option>
+                  <option value="IE">in Ireland </option>
+                  <option value="IM">in Isle of Man </option>
+                  <option value="IL">in Israel </option>
+                  <option value="IT">in Italy </option>
+                  <option value="JM">in Jamaica </option>
+                  <option value="JP">in Japan </option>
+                  <option value="JE">in Jersey </option>
+                  <option value="JO">in Jordan </option>
+                  <option value="KZ">in Kazakhstan </option>
+                  <option value="KE">in Kenya </option>
+                  <option value="KI">in Kiribati </option>
+                  <option value="KP">in Korea, Democratic People's Republic of </option>
+                  <option value="KR">in Korea, Republic of </option>
+                  <option value="KW">in Kuwait </option>
+                  <option value="KG">in Kyrgyzstan </option>
+                  <option value="LA">in Lao People's Democratic Republic </option>
+                  <option value="LV">in Latvia </option>
+                  <option value="LB">in Lebanon </option>
+                  <option value="LS">in Lesotho </option>
+                  <option value="LR">in Liberia </option>
+                  <option value="LY">in Libya </option>
+                  <option value="LI">in Liechtenstein </option>
+                  <option value="LT">in Lithuania </option>
+                  <option value="LU">in Luxembourg </option>
+                  <option value="MO">in Macao </option>
+                  <option value="MK">in Macedonia, the former Yugoslav Republic of </option>
+                  <option value="MG">in Madagascar </option>
+                  <option value="MW">in Malawi </option>
+                  <option value="MY">in Malaysia </option>
+                  <option value="MV">in Maldives </option>
+                  <option value="ML">in Mali </option>
+                  <option value="MT">in Malta </option>
+                  <option value="MH">in Marshall Islands </option>
+                  <option value="MQ">in Martinique </option>
+                  <option value="MR">in Mauritania </option>
+                  <option value="MU">in Mauritius </option>
+                  <option value="YT">in Mayotte </option>
+                  <option value="MX">in Mexico </option>
+                  <option value="FM">in Micronesia, Federated States of </option>
+                  <option value="MD">in Moldova, Republic of </option>
+                  <option value="MC">in Monaco </option>
+                  <option value="MN">in Mongolia </option>
+                  <option value="ME">in Montenegro </option>
+                  <option value="MS">in Montserrat </option>
+                  <option value="MA">in Morocco </option>
+                  <option value="MZ">in Mozambique </option>
+                  <option value="MM">in Myanmar </option>
+                  <option value="NA">in Namibia </option>
+                  <option value="NR">in Nauru </option>
+                  <option value="NP">in Nepal </option>
+                  <option value="NL">in Netherlands </option>
+                  <option value="NC">in New Caledonia </option>
+                  <option value="NZ">in New Zealand </option>
+                  <option value="NI">in Nicaragua </option>
+                  <option value="NE">in Niger </option>
+                  <option value="NG">in Nigeria </option>
+                  <option value="NU">in Niue </option>
+                  <option value="NF">in Norfolk Island </option>
+                  <option value="MP">in Northern Mariana Islands </option>
+                  <option value="NO">in Norway </option>
+                  <option value="OM">in Oman </option>
+                  <option value="PK">in Pakistan </option>
+                  <option value="PW">in Palau </option>
+                  <option value="PS">in Palestinian Territory, Occupied </option>
+                  <option value="PA">in Panama </option>
+                  <option value="PG">in Papua New Guinea </option>
+                  <option value="PY">in Paraguay </option>
+                  <option value="PE">in Peru </option>
+                  <option value="PH">in Philippines </option>
+                  <option value="PN">in Pitcairn </option>
+                  <option value="PL">in Poland </option>
+                  <option value="PT">in Portugal </option>
+                  <option value="PR">in Puerto Rico </option>
+                  <option value="QA">in Qatar </option>
+                  <option value="RE">in Réunion </option>
+                  <option value="RO">in Romania </option>
+                  <option value="RU">in Russian Federation </option>
+                  <option value="RW">in Rwanda </option>
+                  <option value="BL">in Saint Barthélemy </option>
+                  <option value="SH">in Saint Helena, Ascension and Tristan da Cunha </option>
+                  <option value="KN">in Saint Kitts and Nevis </option>
+                  <option value="LC">in Saint Lucia </option>
+                  <option value="MF">in Saint Martin (French part) </option>
+                  <option value="PM">in Saint Pierre and Miquelon </option>
+                  <option value="VC">in Saint Vincent and the Grenadines </option>
+                  <option value="WS">in Samoa </option>
+                  <option value="SM">in San Marino </option>
+                  <option value="ST">in Sao Tome and Principe </option>
+                  <option value="SA">in Saudi Arabia </option>
+                  <option value="SN">in Senegal </option>
+                  <option value="RS">in Serbia </option>
+                  <option value="SC">in Seychelles </option>
+                  <option value="SL">in Sierra Leone </option>
+                  <option value="SG">in Singapore </option>
+                  <option value="SX">in Sint Maarten (Dutch part) </option>
+                  <option value="SK">in Slovakia </option>
+                  <option value="SI">in Slovenia </option>
+                  <option value="SB">in Solomon Islands </option>
+                  <option value="SO">in Somalia </option>
+                  <option value="ZA">in South Africa </option>
+                  <option value="GS">in South Georgia and the South Sandwich Islands </option>
+                  <option value="SS">in South Sudan </option>
+                  <option value="ES">in Spain </option>
+                  <option value="LK">in Sri Lanka </option>
+                  <option value="SD">in Sudan </option>
+                  <option value="SR">in Suriname </option>
+                  <option value="SJ">in Svalbard and Jan Mayen </option>
+                  <option value="SZ">in Swaziland </option>
+                  <option value="SE">in Sweden </option>
+                  <option value="CH">in Switzerland </option>
+                  <option value="SY">in Syrian Arab Republic </option>
+                  <option value="TW">in Taiwan, Province of China </option>
+                  <option value="TJ">in Tajikistan </option>
+                  <option value="TZ">in Tanzania, United Republic of </option>
+                  <option value="TH">in Thailand </option>
+                  <option value="TL">in Timor-Leste </option>
+                  <option value="TG">in Togo </option>
+                  <option value="TK">in Tokelau </option>
+                  <option value="TO">in Tonga </option>
+                  <option value="TT">in Trinidad and Tobago </option>
+                  <option value="TN">in Tunisia </option>
+                  <option value="TR">in Turkey </option>
+                  <option value="TM">in Turkmenistan </option>
+                  <option value="TC">in Turks and Caicos Islands </option>
+                  <option value="TV">in Tuvalu </option>
+                  <option value="UG">in Uganda </option>
+                  <option value="UA">in Ukraine </option>
+                  <option value="AE">in United Arab Emirates </option>
+                  <option value="GB">in United Kingdom </option>
+                  <option value="US">in United States </option>
+                  <option value="UM">in United States Minor Outlying Islands </option>
+                  <option value="UY">in Uruguay </option>
+                  <option value="UZ">in Uzbekistan </option>
+                  <option value="VU">in Vanuatu </option>
+                  <option value="VE">in Venezuela, Bolivarian Republic of </option>
+                  <option value="VN">in Viet Nam </option>
+                  <option value="VG">in Virgin Islands, British </option>
+                  <option value="VI">in Virgin Islands, U.S. </option>
+                  <option value="WF">in Wallis and Futuna </option>
+                  <option value="EH">in Western Sahara </option>
+                  <option value="YE">in Yemen </option>
+                  <option value="ZM">in Zambia </option>
+                  <option value="ZW">in Zimbabwe  </option>
+                </optgroup>
+            </select>
+            <button class="btn btn-primary" id="submit" type="submit"><span class="sr-only query"></span>View Results</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/autogrow.js"></script>
+    <script src="assets/js/placeholder.js"></script>
+    <script type="text/javascript" src="assets/js/selectize.js"></script>
+    <script>
+      
+      $(document).ready(function(){
+
+        setTimeout(
+        function() 
+        {
+          $("#partner").removeClass("demo");
+              setTimeout(function() {
+                  $("#partner").addClass("demo");
+              }, 4);
+        }, 3000);
+
+
+        $('#partner').autoGrowInput({ minWidth: 100, maxWidth: 9999, comfortZone: 0 });
+        $('#partner').placeholderTypewriter({text: ["medical kits", "automotive", "shipping", "marketing", "healthcare"]});
+
+        $('#partner').change(function(){
+          $('.single').removeClass('disabled');
+          $('.located').removeClass('disabled');
+        });
+
+        $(function() {
+
+          $('#action').selectize({
+            maxItems: 1,
+            onChange: function () {
+              $('.multi').removeClass('disabled');
+            }
+          });
+          $('#countries').selectize({
+            delimiter: ',',
+            persist: true,
+            highlight: false,
+            create: function(input) {
+                return {
+                    value: input,
+                    text: input
+                }
+            }
+          });
+
+          $('.single, .multi').addClass('disabled');
+
+        });
+
+      });
+
+    </script>
+  </body>
+</html>

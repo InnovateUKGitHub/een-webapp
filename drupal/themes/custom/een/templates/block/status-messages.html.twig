@@ -32,7 +32,15 @@
             <ul class="error-summary-list">
                 {% for message in messages %}
                     {% if message is iterable %}
-                        <li><a href="#{{ message.key }}">{{ message.text }}</a></li>
+                        <li>
+                            <a href="#{{ message.key }}">
+                                {% if message.general_text %}
+                                    {{ message.general_text }}
+                                {% else %}
+                                    {{ message.text }}
+                                {% endif %}
+                            </a>
+                        </li>
                     {% else %}
                         <li>{{ message }}</li>
                     {% endif %}

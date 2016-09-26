@@ -13,15 +13,11 @@
                 <div class="row row-bordered">
                     <h3>
                         {% if row._source.url and row._source.url matches '/^http*/' %}
-                            <a href="{{ row._source.url }}" target="_blank">
+                            <a rel="external" href="{{ row._source.url }}" target="_blank">
                                 {{ row._source.title }}
                             </a>
                         {% else %}
-                            <a href="{{ url(
-                            'events.details',
-                            {'eventId': row._id}
-                            ) }}"
-                               id="opportunity-link">
+                            <a href="{{ url('events.details', {'eventId': row._id}) }}">
                                 {{ row._source.title }}
                             </a>
                         {% endif %}

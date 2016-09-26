@@ -67,18 +67,9 @@ abstract class AbstractForm extends FormBase
                     'email',
                     [
                         'key'  => 'edit-email',
-                        'text' => t('An email address is required.'),
+                        'text' => t('An email address or phone number is required to complete your application.'),
                     ]
                 );
-                if ($form_state->getValue('phoneStatus') == true) {
-                    $form_state->setErrorByName(
-                        'phone',
-                        [
-                            'key'  => 'edit-phone',
-                            'text' => t('A contact telephone number is required.'),
-                        ]
-                    );
-                }
             }
         }
     }
@@ -92,7 +83,7 @@ abstract class AbstractForm extends FormBase
      */
     protected function checkRegexField(FormStateInterface $form_state, $regex, $field)
     {
-        if ($this->checkRequireField($form_state, $field, false)) {
+        if ($this->checkRequireField($form_state, $field, '', false)) {
             return preg_match($regex, $form_state->getValue($field));
         }
 
@@ -102,19 +93,21 @@ abstract class AbstractForm extends FormBase
     /**
      * @param FormStateInterface $form_state
      * @param string             $field
+     * @param string             $message
      * @param bool               $recordError
      *
      * @return bool
      */
-    protected function checkRequireField(FormStateInterface $form_state, $field, $recordError = true)
+    protected function checkRequireField(FormStateInterface $form_state, $field, $message = '', $recordError = true)
     {
         if (strlen($form_state->getValue($field)) < 1) {
             if ($recordError === true) {
                 $form_state->setErrorByName(
                     $field,
                     [
-                        'key'  => 'edit-' . $field,
-                        'text' => t('This is required to complete your application.'),
+                        'key'          => 'edit-' . $field,
+                        'text'         => t('This is required to complete your application.'),
+                        'general_text' => ($message !== '' ? $message : t('This is required to complete your application.')),
                     ]
                 );
             }

@@ -11,12 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 class OpportunityController extends ControllerBase
 {
     const PAGE_NUMBER = 'page';
-
     const RESULT_PER_PAGE = 'resultPerPage';
-
     const SEARCH = 'search';
-
     const OPPORTUNITY_TYPE = 'opportunity_type';
+    const COUNTRY = 'country';
 
     /**
      * @var OpportunitiesService
@@ -53,6 +51,7 @@ class OpportunityController extends ControllerBase
     {
         $search = $request->query->get(self::SEARCH);
         $opportunityType = $request->query->get(self::OPPORTUNITY_TYPE);
+        $country = $request->query->get(self::COUNTRY);
 
         $results = $this->service->get($profileId);
 
@@ -77,6 +76,7 @@ class OpportunityController extends ControllerBase
             '#opportunity'      => $results,
             '#search'           => $search,
             '#opportunity_type' => $opportunityType,
+            '#country'          => $country,
             '#mail'             => [
                 'subject' => $results['_source']['title'],
                 'body'    => "Hello,

@@ -5,6 +5,9 @@
 {% if opportunity_type %}
     {% set params = params|merge({'opportunity_type': opportunity_type}) %}
 {% endif %}
+{% if country %}
+    {% set params = params|merge({'country': country}) %}
+{% endif %}
 
 <div class="content-heading">
     <h1>{{ 'Partnering Opportunities'|t }}</h1>
@@ -46,34 +49,44 @@
 
         {% if results is not null %}
             {% if total > 0 %}
+
                 <div class="row" ng-show="!heading.searched">
-                    <h3 class="heading-xlarge">{{ total }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
+                    <h3 class="heading-xlarge results-list-heading">{{ total|number_format(0, '.', ',') }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
                 </div>
-                {% for row in results %}
-                    <div class="row row-bordered" ng-show="!heading.searched">
-                        <h3>
-                            <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
-                                {{ row.title }}
-                            </a>
-                        </h3>
 
-                        <p class="meta-inline font-small">
-                            {# lastupdated #}
-                            {% if row.date|date('U') > '-5 days'|date('U') %}
-                                {{ row.date|time_diff }}
-                            {% endif %}
+                <div class="results-list">
+                    <p class="list-subtext">Get updates to this list  <a href="#" class="follow-list"><i class="fa fa-envelope" aria-hidden="true"></i> Email</a> <a href="#" class="follow-list"><i class="fa fa-rss" aria-hidden="true"></i> RSS</a></p>
 
-                            {# Country of origin #}
-                            {% set flag = row.country_code|lower %}
-                            {% if flag == 'uk' %}
-                                {% set flag = 'gb' %}
-                            {% endif %}
-                            <span class="flag-icon flag-icon-{{ flag }}"></span>
-                            {{ row.country }}
-                        </p>
-                    </div>
+                    {% for row in results %}
 
-                {% endfor %}
+                        <div class="row row-bordered" ng-show="!heading.searched">
+                            <h3 class="results-list-heading-item">
+                                <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
+                                    {{ row.title|raw }}
+                                </a>
+                            </h3>
+
+                            <p class="description">{{ row.summary| truncate(240, true) | raw }} <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">more</a></p>
+
+                            <p class="meta-inline font-small">
+                                {# lastupdated #}
+                                {% if row.date|date('U') > '-5 days'|date('U') %}
+                                    {{ row.date|time_diff }} |
+                                {% endif %}
+
+
+                                {# Country of origin #}
+                                {% set flag = row.country_code|lower %}
+                                {% if flag == 'uk' %}
+                                    {% set flag = 'gb' %}
+                                {% endif %}
+                                <span class="flag-icon flag-icon-{{ flag }}"></span>
+                                {{ row.country }}
+                            </p>
+                        </div>
+
+                    {% endfor %}
+                </div>
 
                 {% include 'themes/custom/een/templates/pagination.html.twig'
                 with {
@@ -85,7 +98,12 @@
                 } only %}
 
             {% else %}
-                {{ 'No Results found for: '|t }}{{ search }}
+
+                <div class="row no-results">
+                    <p>{{ 'No Results found for: '|t }}{{ search }}</p>
+                </div>
+
+
             {% endif %}
         {% endif %}
     </div>

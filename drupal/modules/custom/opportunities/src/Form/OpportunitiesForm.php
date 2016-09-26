@@ -3,10 +3,37 @@ namespace Drupal\opportunities\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\opportunities\Service\OpportunitiesService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class OpportunitiesForm extends FormBase
 {
+    /**
+     * @var OpportunitiesService
+     */
+    private $service;
+
+    /**
+     * OpportunitiesController constructor.
+     *
+     * @param OpportunitiesService $service
+     */
+    public function __construct(OpportunitiesService $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     *
+     * @return OpportunitiesForm
+     */
+    public static function create(ContainerInterface $container)
+    {
+        return new self($container->get('opportunities.service'));
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -27,6 +54,7 @@ class OpportunitiesForm extends FormBase
             'TO' => t('find a specialist'),
             'RD' => t('develop tech / bid for funding'),
         ];
+        $countries = $this->service->getCountryList();
 
         $form = [
             'search'           => [
@@ -38,6 +66,9 @@ class OpportunitiesForm extends FormBase
                     'class' => [
                         'form-control',
                     ],
+                    'placeholder' => [
+                        'E.g. medical component distribution',
+                    ],
                 ],
             ],
             'opportunity_type' => [
@@ -47,6 +78,16 @@ class OpportunitiesForm extends FormBase
                 '#attributes' => [
                     'ng-click' => 'selectCheckbox($event)'
                 ]
+            ],
+            'country'          => [
+                '#type'       => 'checkboxes',
+                '#title'      => t('Country of origin'),
+                '#options'    => $countries,
+                '#attributes' => [
+                    'class' => [
+                        'accordion-container',
+                    ],
+                ],
             ],
             'actions'          => [
                 '#type'  => 'actions',
@@ -73,15 +114,50 @@ class OpportunitiesForm extends FormBase
         // TODO Return json when POST is used and we are making nice and pretty url
         // $form_state->disableRedirect();
         $values = $form_state->getValues();
+
+        $search = $values['search'];
+        $opportunity_type = $this->filterValues($values, 'opportunity_type');
+        $country = $this->filterValues($values, 'country');
+
+        $params = [];
+        if (empty($search) === false) {
+            $params['search'] = $values['search'];
+        }
+        if (empty($opportunity_type) === false) {
+            $params['opportunity_type'] = $opportunity_type;
+        }
+        if (empty($country) === false) {
+            $params['country'] = $country;
+        }
+
         $form_state->setRedirect(
             'opportunities.search',
             [],
             [
-                'query' => [
-                    'search'           => $values['search'],
-                    'opportunity_type' => $values['opportunity_type'],
-                ],
+                'query' => $params,
             ]
         );
+    }
+
+    /**
+     *
+     * @param array  $values
+     * @param string $name
+     *
+     * @return array
+     */
+    private function filterValues($values, $name)
+    {
+        if (empty($values[$name]) === false) {
+            return array_filter($values[$name], function($value) {
+                if ($value !== '0') {
+                    return $value;
+                }
+
+                return false;
+            });
+        }
+
+        return [];
     }
 }

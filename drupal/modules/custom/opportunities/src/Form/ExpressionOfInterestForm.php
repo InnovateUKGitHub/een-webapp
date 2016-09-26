@@ -134,8 +134,8 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
-        parent::checkRequireField($form_state, 'description');
-        parent::checkRequireField($form_state, 'interest');
+        parent::checkRequireField($form_state, 'description', t('A short description of your organisation is required to complete your application.'));
+        parent::checkRequireField($form_state, 'interest', t('Details of your interest in this opportunity are required to complete your application.'));
         parent::checkEmailAndPhoneField($form_state);
     }
 
