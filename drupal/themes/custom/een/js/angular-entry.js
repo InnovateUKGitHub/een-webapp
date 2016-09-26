@@ -144,6 +144,15 @@
     };
   };
 
+  var getPageNum = function (url) {
+    var num = window.location.hash.split('/')[1];
+    return num;
+  };
+
+  var setPageNum = function (num) {
+    window.location.hash = 'page/' + num;
+  };
+
   een.controller('MainCtrl', function ($scope, oppsFactory, timeFactory) {
 
     var parseResults = function (results) {
@@ -183,6 +192,8 @@
 
         $scope.results = parseResults(data.results);
         $scope.$apply();
+
+        setPageNum($scope.heading.page);
       }).fail(function () {
         $scope.results = [];
       });
@@ -243,16 +254,25 @@
       }
     };
 
+    var pageNum = getPageNum();
+
     $scope.heading = {
       opportunity_type: [],
       page: 1,
       loaded: true,
       searched: false,
       searching: false,
+      paging: false,
       total: 500
     };
 
     $scope.results = [];
+
+    if (pageNum) {
+      $scope.heading.page = pageNum;
+      $scope.heading.paging = true;
+      queryAPI();
+    }
   });
 
 })(jQuery);
