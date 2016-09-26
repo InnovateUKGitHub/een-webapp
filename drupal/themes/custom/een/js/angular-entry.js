@@ -21,6 +21,91 @@
     };
   });
 
+  een.factory('timeFactory', function () {
+    var opts = {
+      refreshMillis: 60000,
+      allowPast: true,
+      allowFuture: false,
+      localeTitle: false,
+      cutoff: 0,
+      autoDispose: true,
+      strings: {
+        prefixAgo: null,
+        prefixFromNow: null,
+        suffixAgo: 'ago',
+        suffixFromNow: 'from now',
+        inPast: 'any moment now',
+        seconds: 'less than a minute',
+        minute: 'about a minute',
+        minutes: '%d minutes',
+        hour: 'about an hour',
+        hours: 'about %d hours',
+        day: 'a day',
+        days: '%d days',
+        month: 'about a month',
+        months: '%d months',
+        year: 'about a year',
+        years: '%d years',
+        wordSeparator: ' ',
+        numbers: []
+      }
+    };
+
+    var inWords = function (distanceMillis) {
+      if (!opts.allowPast && !opts.allowFuture) {
+        throw 'timeago allowPast and allowFuture opts can not both be set to false.';
+      }
+
+      var $l = opts.strings;
+      var prefix = $l.prefixAgo;
+      var suffix = $l.suffixAgo;
+      if (opts.allowFuture) {
+        if (distanceMillis < 0) {
+          prefix = $l.prefixFromNow;
+          suffix = $l.suffixFromNow;
+        }
+      }
+
+      if (!opts.allowPast && distanceMillis >= 0) {
+        return opts.strings.inPast;
+      }
+
+      var seconds = Math.abs(distanceMillis) / 1000;
+      var minutes = seconds / 60;
+      var hours = minutes / 60;
+      var days = hours / 24;
+      var years = days / 365;
+
+      function substitute(stringOrFunction, number) {
+        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
+        var value = ($l.numbers && $l.numbers[number]) || number;
+        return string.replace(/%d/i, value);
+      }
+
+      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
+        seconds < 90 && substitute($l.minute, 1) ||
+        minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
+        minutes < 90 && substitute($l.hour, 1) ||
+        hours < 24 && substitute($l.hours, Math.round(hours)) ||
+        hours < 42 && substitute($l.day, 1) ||
+        days < 30 && substitute($l.days, Math.round(days)) ||
+        days < 45 && substitute($l.month, 1) ||
+        days < 365 && substitute($l.months, Math.round(days / 30)) ||
+        years < 1.5 && substitute($l.year, 1) ||
+        substitute($l.years, Math.round(years));
+
+      var separator = $l.wordSeparator || '';
+      if (typeof $l.wordSeparator === 'undefined') {
+        separator = ' ';
+      }
+      return $.trim([prefix, words, suffix].join(separator));
+    };
+
+    return {
+      inWords: inWords
+    };
+  });
+
   een.factory('oppsFactory', function () {
     var search = function (opts) {
       return $.ajax({
@@ -59,7 +144,24 @@
     };
   };
 
-  een.controller('MainCtrl', function ($scope, oppsFactory) {
+  een.controller('MainCtrl', function ($scope, oppsFactory, timeFactory) {
+
+    var parseResults = function (results) {
+      return $.map(results, function (result) {
+        var today = new Date();
+        var date = new Date(result.date);
+        var fiveDaysAgo = today.setDate(today.getDate() - 5);
+
+        if (date.getTime() < fiveDaysAgo) {
+          result.date = null;
+        } else {
+          result.date = timeFactory.inWords(date) + ' |';
+        }
+
+        return result;
+      });
+    };
+
     var queryAPI = debounce(function () {
       $scope.heading.searching = true;
       $scope.$apply();
@@ -79,7 +181,7 @@
           searched: true
         };
 
-        $scope.results = data.results;
+        $scope.results = parseResults(data.results);
         $scope.$apply();
       }).fail(function () {
         $scope.results = [];
@@ -98,12 +200,14 @@
     $scope.next = function () {
       $scope.heading.page++;
       queryAPI();
+
       return false;
     };
 
     $scope.prev = function () {
       $scope.heading.page--;
       queryAPI();
+
       return false;
     };
 

@@ -39,11 +39,6 @@
                 {# lastupdated #}
                 {[{ row.date }]}
 
-                {# organisation id #}
-                {[{ row.id }]} |
-
-                {# Country of origin #}
-                {[{ row.country_code }]}
                 <span ng-class="getFlagClass(row.country_code)"></span>
                 {[{ row.country }]}
             </p>
@@ -65,11 +60,8 @@
                         <p class="meta-inline font-small">
                             {# lastupdated #}
                             {% if row.date|date('U') > '-5 days'|date('U') %}
-                                {{ row.date|time_diff }} |
+                                {{ row.date|time_diff }}
                             {% endif %}
-
-                            {# organisation id #}
-                            {{ row._id }} |
 
                             {# Country of origin #}
                             {% set flag = row.country_code|lower %}
