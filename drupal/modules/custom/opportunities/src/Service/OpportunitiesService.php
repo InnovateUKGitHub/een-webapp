@@ -36,9 +36,8 @@ class OpportunitiesService
     public function search(&$form, $search, $types, $countries, $page, $resultPerPage, $searchType = 1)
     {
         $form['search']['#value'] = $search;
-
-        $this->checkboxAttributes($form, $types, 'opportunity_type');
-        $this->checkboxAttributes($form, $countries, 'country');
+        $this->addCheckboxAttributes($form, $types, 'opportunity_type');
+        $this->addCheckboxAttributes($form, $countries, 'country');
 
         $params = [
             'type'             => $searchType,
@@ -49,6 +48,7 @@ class OpportunitiesService
             'country'          => $countries,
             'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
         ];
+
         if (empty($search)) {
             $params['sort'] = [
                 'date' => ['order' => 'desc'],
@@ -81,17 +81,9 @@ class OpportunitiesService
      * @param array  $fields
      * @param string $name
      */
-    private function checkboxAttributes(&$form, &$fields, $name)
+    private function addCheckboxAttributes(&$form, $fields, $name)
     {
         if (empty($fields) === false) {
-            $fields = array_filter($fields, function($field) {
-                if ($field !== '0') {
-                    return $field;
-                }
-
-                return false;
-            });
-
             foreach ($fields as $field) {
                 $form[$name][$field]['#attributes']['checked'] = 'checked';
             }

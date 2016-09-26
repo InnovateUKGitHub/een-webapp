@@ -5,6 +5,9 @@
 {% if opportunity_type %}
     {% set params = params|merge({'opportunity_type': opportunity_type}) %}
 {% endif %}
+{% if country %}
+    {% set params = params|merge({'country': country}) %}
+{% endif %}
 
 <div class="content-heading">
     <h1>{{ 'Partnering Opportunities'|t }}</h1>

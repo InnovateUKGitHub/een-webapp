@@ -75,11 +75,11 @@ class OpportunitiesForm extends FormBase
                 '#options' => $types,
             ],
             'country'          => [
-                '#type'    => 'checkboxes',
-                '#title'   => t('Country of origin'),
-                '#options' => $countries,
+                '#type'       => 'checkboxes',
+                '#title'      => t('Country of origin'),
+                '#options'    => $countries,
                 '#attributes' => [
-                    'class'       => [
+                    'class' => [
                         'accordion-container',
                     ],
                 ],
@@ -106,16 +106,50 @@ class OpportunitiesForm extends FormBase
         // TODO Return json when POST is used and we are making nice and pretty url
         // $form_state->disableRedirect();
         $values = $form_state->getValues();
+
+        $search = $values['search'];
+        $opportunity_type = $this->filterValues($values, 'opportunity_type');
+        $country = $this->filterValues($values, 'country');
+
+        $params = [];
+        if (empty($search) === false) {
+            $params['search'] = $values['search'];
+        }
+        if (empty($opportunity_type) === false) {
+            $params['opportunity_type'] = $opportunity_type;
+        }
+        if (empty($country) === false) {
+            $params['country'] = $country;
+        }
+
         $form_state->setRedirect(
             'opportunities.search',
             [],
             [
-                'query' => [
-                    'search'           => $values['search'],
-                    'opportunity_type' => $values['opportunity_type'],
-                    'country'          => $values['country'],
-                ],
+                'query' => $params,
             ]
         );
+    }
+
+    /**
+     *
+     * @param array  $values
+     * @param string $name
+     *
+     * @return array
+     */
+    private function filterValues($values, $name)
+    {
+        if (empty($values[$name]) === false) {
+            return array_filter($values[$name], function($value) {
+                if ($value !== '0') {
+                    return $value;
+                }
+
+                return false;
+            });
+        }
+
+        return [];
     }
 }
