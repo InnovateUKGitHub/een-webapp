@@ -80,6 +80,7 @@ class OpportunitiesControllerTest extends UnitTestCase
                 '#form'             => [],
                 '#search'           => 'H2020',
                 '#opportunity_type' => ['BO'],
+                '#country'          => ['FR'],
                 '#results'          => [],
                 '#total'            => 10,
                 '#pageTotal'        => 1,

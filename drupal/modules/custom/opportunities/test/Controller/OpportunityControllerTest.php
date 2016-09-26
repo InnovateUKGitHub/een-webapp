@@ -76,6 +76,10 @@ class OpportunityControllerTest extends UnitTestCase
             ->method('get')
             ->with(OpportunityController::OPPORTUNITY_TYPE)
             ->willReturn(['BO']);
+        $mockQuery->expects(self::at(2))
+            ->method('get')
+            ->with(OpportunityController::COUNTRY)
+            ->willReturn(['FR']);
 
         $this->mockService->expects(self::once())
             ->method('get')
@@ -101,6 +105,7 @@ class OpportunityControllerTest extends UnitTestCase
                 ],
                 '#search'           => 'H2020',
                 '#opportunity_type' => ['BO'],
+                '#country'          => ['FR'],
                 '#mail'             => [
                     'subject' => 'Opportunity Title',
                     'body'    => 'Hello,
