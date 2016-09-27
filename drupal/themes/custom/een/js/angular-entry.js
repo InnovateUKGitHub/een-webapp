@@ -12,19 +12,6 @@
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
   });
 
-  // een.directive('a', function() {
-  //     return {
-  //         restrict: 'E',
-  //         link: function(scope, elem, attrs) {
-  //             if(attrs.ngClick || attrs.href === '' || attrs.href === '#') {
-  //                 elem.on('click', function(e) {
-  //                     e.preventDefault();
-  //                 });
-  //             }
-  //         }
-  //    };
-  // });
-
   een.filter('cut', function () {
     return function (value, wordwise, max, tail) {
       if (!value) return '';
@@ -37,7 +24,7 @@
       if (wordwise) {
           var lastspace = value.lastIndexOf(' ');
           if (lastspace != -1) {
-            //Also remove . and , so its gives a cleaner result.
+            // Also remove . and , so its gives a cleaner result.
             if (value.charAt(lastspace-1) == '.' || value.charAt(lastspace-1) == ',') {
               lastspace = lastspace - 1;
             }
@@ -201,8 +188,6 @@
           result.date = timeFactory.inWords(distance(date)) + ' |';
         }
 
-        // result.title = $sce.trustAsHtml(result.title);
-        // result.summary = $sce.trustAsHtml(result.summary);
         return result;
       });
     };
