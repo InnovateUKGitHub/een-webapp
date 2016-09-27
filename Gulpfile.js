@@ -17,6 +17,15 @@ var jsDirs = [
   (themeDir + '/js/**/*.js')
 ];
 
+var sassDirs = [
+  (themeDir + '/scss/'),
+  'node_modules/govuk_frontend_toolkit/stylesheets',
+  'node_modules/govuk_template_mustache/assets/stylesheets',
+  'node_modules/govuk-elements-sass/public/sass',
+  'node_modules/flag-icon-css/sass',
+  'node_modules/font-awesome/scss'
+];
+
 var imgDirs = [
   'node_modules/govuk_frontend_toolkit/images/**/*',
   'node_modules/govuk_template_mustache/assets/images/**/*',
@@ -77,14 +86,7 @@ gulp.task('css', function () {
         .pipe(sass({
             outputStyle: 'compressed',
             sourceComments: 'map',
-            includePaths: [
-                (themeDir + '/scss/'),
-                'node_modules/govuk_frontend_toolkit/stylesheets',
-                'node_modules/govuk_template_mustache/assets/stylesheets',
-                'node_modules/govuk-elements-sass/public/sass',
-                'node_modules/flag-icon-css/sass',
-                'node_modules/font-awesome/scss'
-            ]
+            includePaths: sassDirs
         }))
         .pipe(gulp.dest(themeDir + '/dist/css'));
 

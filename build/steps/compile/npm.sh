@@ -16,6 +16,7 @@ npmChanges=`diff package.json compiled/package.json || true`
 if [ ! -z "$npmChanges" ] || [ ! -z "$forceCompile" ];then
     echo "package.json has changed:"
     npm install --verbose
+
 else
     echo "package.json has not changed, not running npm"
 fi
