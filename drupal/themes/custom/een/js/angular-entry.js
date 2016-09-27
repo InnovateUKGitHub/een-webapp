@@ -49,6 +49,8 @@
     };
   });
 
+  een.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
+
   een.factory('timeFactory', function () {
     var opts = {
       refreshMillis: 60000,
@@ -185,7 +187,7 @@
     return (new Date().getTime() - date.getTime());
   }
 
-  een.controller('MainCtrl', function ($scope, oppsFactory, timeFactory) {
+  een.controller('MainCtrl', function ($scope, oppsFactory, timeFactory, $sce) {
 
     var parseResults = function (results) {
       return $.map(results, function (result) {
@@ -199,6 +201,8 @@
           result.date = timeFactory.inWords(distance(date)) + ' |';
         }
 
+        // result.title = $sce.trustAsHtml(result.title);
+        // result.summary = $sce.trustAsHtml(result.summary);
         return result;
       });
     };
