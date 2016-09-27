@@ -10,6 +10,8 @@
 @import 'variables';
 @import 'font';
 
+@import 'angular';
+
 @import 'label';
 @import 'pagination';
 
@@ -18,10 +20,10 @@ body {
   color:#4A4A4A;
 }
 
-html, body, button, input, table, td, th, p, h1, h2, h3, h4, h5, li, p, label, input, small, a, legend, 
+html, body, button, input, table, td, th, p, h1, h2, h3, h4, h5, li, p, label, input, small, a, legend,
 .form-label,
 .font-xsmall, .font-small, .font-medium, .font-large {
-  font-family: $font_family; 
+  font-family: $font_family;
 }
 
 hr {
@@ -34,14 +36,14 @@ hr {
 }
 
 .button {
-    @include button($light-blue);  
+    @include button($light-blue);
     padding: 14px 14px;
     font-weight: bold;
     white-space:inherit;
 }
 
-#global-header, 
-.global-header-inner, 
+#global-header,
+.global-header-inner,
 #global-header .header-wrapper,
 #footer,
 #footer .footer-wrapper{
@@ -49,10 +51,10 @@ hr {
 }
 
 p { @extend .font-small }
-a { 
+a {
     text-decoration: none;
     &:link {
-        color:$light-blue;  
+        color:$light-blue;
     }
     &:visited {
         color:$light-blue;
@@ -66,7 +68,7 @@ a {
 
 
 %borderGradElement {
-    
+
     content: " ";
     height: 14px;
     position: absolute;
@@ -83,7 +85,7 @@ a {
 
 
 #footer {
-    border:none; 
+    border:none;
     &:before {
          @extend %borderGradElement;
     }
@@ -102,21 +104,22 @@ a {
 
 
 .contents-list {
-    min-height: 20px; 
-    
+
+    min-height: 20px;
+
     .heading-medium {
         margin-bottom:7px;
     }
-    
+
     ul {
         margin-bottom:32px;
     }
-    
+
     li {
         border-top:1px solid #dddddd;
         padding:7px;
         @extend .font-small;
-        a { 
+        a {
             text-decoration: none;
         }
     }
@@ -128,8 +131,6 @@ a {
     }
 }
 
-
-
 .contents-text-block {
     .heading-medium {
         margin-bottom: 0px;
@@ -137,15 +138,15 @@ a {
 }
 
 a.back-link {
-    font-weight: bold; 
+    font-weight: bold;
     text-decoration: none;
-    color:$light-blue; 
+    color:$light-blue;
 }
 
 .content-heading {
     padding: 32px 0;
     border-bottom: 1px solid #9B9B9B;
-    
+
     h1 {
         margin: 0;
         color:#9B9B9B;
@@ -187,7 +188,7 @@ form {
 .form-opportunities {
     .form-label {
         @extend .font-small;
-        font-weight: bold; 
+        font-weight: bold;
         color:#4A4A4A;
     }
     .field-prefix {
@@ -205,7 +206,7 @@ form {
         margin:7px 0;
         display:none;
         @extend .font-xsmall;
-        
+
         &#edit-email--description {
             border:none;
             padding-left:0;
@@ -214,8 +215,7 @@ form {
             margin:14px 0 0 0;
         }
     }
-    
-    
+
     .form-control {
         width:100%;
         border-color: #9B9B9B;
@@ -227,11 +227,11 @@ form {
     .form-item {
         clear:both;
     }
-    
+
     .form-item.error + .form-item {
-       padding-left:15px; 
+       padding-left:15px;
     }
-    
+
     #edit-email {
         width:70%;
     }
@@ -242,25 +242,25 @@ form {
 }
 
 form[data-drupal-selector="opportunity-search-form"] {
-    
+
     .form-item {
         background: #DEE0E2;
         padding:7px;
     }
-    
+
     .form-text {
         border:1px solid #9B9B9B;
     }
-    
+
     .form-label {
         color:#0B0C0C;
         font-weight: 600;
     }
-    
-    fieldset { 
+
+    fieldset {
         width:auto;
     }
-    
+
     legend {
         box-sizing: border-box;
         max-width: 100%;
@@ -270,23 +270,23 @@ form[data-drupal-selector="opportunity-search-form"] {
         color:#0B0C0C;
         font-weight: 600;
     }
-    
+
     .form-item-search, .fieldgroup  {
         background: #DEE0E2;
-        
+
         margin-bottom: 14px;
         .form-control {
             width: 100%;
         }
         .fieldset-wrapper {
-            
+
             legend {
                 margin: 10px;
                 display: block;
                 top: 15px;
                 position: relative;
             }
-            
+
             .block-label {
                 background: white;
                 width: initial;
@@ -296,10 +296,10 @@ form[data-drupal-selector="opportunity-search-form"] {
             }
         }
     }
-    
+
     .block-label {
         padding: 14px 14px 7px 48px;
-        
+
         input[type=checkbox] {
            height: 1px;
            width: 1px;
@@ -321,9 +321,9 @@ form[data-drupal-selector="opportunity-search-form"] {
         -webkit-transform: rotate(-45deg);
         transform: rotate(-45deg);
     }
-    
+
     /* main checkbox*/
-    
+
     .block-label:after {
         width: 20px;
         height: 20px;
@@ -338,7 +338,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         border-radius: 1px;
     }
     .block-label,
-    .block-label.selected, 
+    .block-label.selected,
     .block-label:hover,
     .block-label:active {
         border-color:#9B9B9B;
@@ -347,22 +347,22 @@ form[data-drupal-selector="opportunity-search-form"] {
     .block-label:first-of-type{
         border-top-width:1px;
     }
-    
-    
+
+
     .block-label.selected:after {
         background: #006BA6 url('../img/tick-checkbox.png') no-repeat center 50%;
         border-color: #00587C;
-        
+
     }
     .block-label.focused:after {
-         outline: 3px solid #ffbf47; 
+         outline: 3px solid #ffbf47;
     }
-    
+
     .block-label.focused {
         z-index: 1;
         outline:none;
     }
-    
+
     #edit-country.form-checkboxes {
         height: 235px;
         overflow: scroll;
@@ -383,7 +383,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         color:$light-blue;
         cursor: pointer;
     }
-    
+
     .accordion-toggle {
         font-family: 'FontAwesome';
         background: none;
@@ -391,7 +391,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         font-size:16px;
         color:#4A4A4A;
         float:right;
-        
+
         &:before {
            content: "\f078";
         }
@@ -404,15 +404,15 @@ form[data-drupal-selector="opportunity-search-form"] {
 }
 
 .row-bordered {
-    border-top: 2px solid #DDDDDD; 
+    border-top: 2px solid #DDDDDD;
     padding:14px 0;
-    
+
     &:first-of-type {
         border-top:none;
     }
-    
+
     h3 {
-       font-weight: 600; 
+       font-weight: 600;
        line-height: 1.1em;
     }
 }
@@ -425,14 +425,14 @@ form[data-drupal-selector="opportunity-search-form"] {
     border-bottom:2px solid #DDDDDD;
     margin:0;
     padding:14px 0;
-    
+
     .results-list-heading-item {
-       span { 
+       span {
             background: #e1f0fa;
             padding: 1px 3px;
-       }  
+       }
     }
-    
+
     p {
          @extend .font-xsmall;
     }
@@ -442,18 +442,18 @@ form[data-drupal-selector="opportunity-search-form"] {
             font-weight:bold;
             .fa {
                 color:black;
-              
+
             }
         }
     }
-    
-    p.description {        
+
+    p.description {
         margin-bottom:0.5em;
         span {
             background: #f7e53b;
             padding: 1px 6px;
         }
-        
+
         a {
             font-weight: 600;
         }
@@ -471,7 +471,7 @@ form[data-drupal-selector="opportunity-search-form"] {
 #global-header.with-proposition {
     .header-wrapper .header-global {
         width: 100%;
-        
+
         .header-logo {
             width:auto;
         }
@@ -483,9 +483,9 @@ form[data-drupal-selector="opportunity-search-form"] {
         @extend %borderGradElement;
         display:none;
     }
-    
-    
-    .header-wrapper .header-global .header-logo { 
+
+
+    .header-wrapper .header-global .header-logo {
         margin: 21px 0 21px 14px;
         float: left;
         width: auto;
@@ -503,59 +503,59 @@ form[data-drupal-selector="opportunity-search-form"] {
             display:none;
         }
     }
-    
+
     .header-proposition {
-        
+
         #proposition-menu {
             margin: 0  15px 0 15px;
             @media (max-width:640px){
                 margin:0;
             }
         }
-        
+
         #proposition-links {
             padding:7px 0 0;
             border-bottom: 1px solid #ccc;
-            
-            
+
+
             @media (max-width:769px){
                 padding:0;
                 border:none;
             }
         }
-        
+
         #proposition-link li, #proposition-links li {
-           
-            
+
+
             float: left;
             width: auto;
             margin-right: 14px;
-            
+
             padding: 4px 0;
             border-bottom: none;
             text-transform: uppercase;
             list-style:none;
-            
+
             @media (max-width:769px){
                 float: none;
                 width: 100%;
                 margin-right: 0;
             }
-            
-            
+
+
             a {
                 text-transform: uppercase;
                 @extend .font-xsmall;
                 color: #4A4A4A;
                 padding:7px 0;
                 display: inline-block;
-                
+
                 @media (max-width:769px){
                     font-weight: bold;
                     color:#fff;
                     padding: 14px 14px 14px 0;
                     font-size:18px;
-                } 
+                }
 
             }
         }
@@ -564,13 +564,13 @@ form[data-drupal-selector="opportunity-search-form"] {
             position: relative;
             padding-left: 1.25em;
         }
-        a.menu { 
+        a.menu {
             font-size: 36px;
             position: absolute;
             top: 14px;
             padding: 0 12px;
             right: 20px;
-            
+
             &:focus, &:active {
                 background:none;
                 border:none;
@@ -590,7 +590,7 @@ form[data-drupal-selector="opportunity-search-form"] {
             background: url('../img/burger-icon.png');
             outline: none;
         }
-        
+
         .menu.js-hidden:before {
             content: "X";
             border: none;
@@ -603,13 +603,13 @@ form[data-drupal-selector="opportunity-search-form"] {
             transform: scale(1.3,1.0);
             top: 2px;
             background: none;
-            
+
         }
     }
-    
+
     .global-header-inner {
         margin-bottom:14px;
-        
+
         &:after {
             @extend %borderGradElement;
         }
@@ -623,7 +623,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         padding-left: 15px;
         padding-right: 15px;
     }
-    
+
     .header-proposition #proposition-link,  .header-proposition #proposition-links {
         display: block;
         @media (max-width:769px){
@@ -634,10 +634,10 @@ form[data-drupal-selector="opportunity-search-form"] {
     .header-proposition .js-visible#proposition-link,  .header-proposition .js-visible#proposition-links {
         display:block;
     }
-    
-    
-    
-    
+
+
+
+
 }
 
 
@@ -658,7 +658,7 @@ form[data-drupal-selector="opportunity-search-form"] {
     margin:0 0 2em 0;
     overflow:auto;
     padding:0 0 1em;
-    
+
     h3 {
         font-weight: 600;
         margin: 0.33em 0 1em;
@@ -668,8 +668,8 @@ form[data-drupal-selector="opportunity-search-form"] {
     margin: 0 auto 1em;
     position: relative;
     padding: 5px 0 0 0;
-    
-    
+
+
     &:before {
         width: 74%;
         height: 9px;
@@ -680,7 +680,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         z-index: 0;
         display: block;
         margin: auto;
-        
+
         /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#64b4e6+0,00587c+100 */
         background: rgb(100,180,230); /* Old browsers */
         background: -moz-linear-gradient(left, rgba(100,180,230,1) 0%, rgba(0,88,124,1) 100%); /* FF3.6-15 */
@@ -688,7 +688,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         background: linear-gradient(to right, rgba(100,180,230,1) 0%,rgba(0,88,124,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#64b4e6', endColorstr='#00587c',GradientType=1 ); /* IE6-9 */
     }
-      
+
     .progressbar {
         counter-reset: step;
     }
@@ -698,12 +698,12 @@ form[data-drupal-selector="opportunity-search-form"] {
         float: left;
         position: relative;
         font-weight: 600;
-        
+
         span {
             padding:0 10% 0 0;
             display:block;
         }
-        
+
     }
     .progressbar li:before {
         width: 49px;
@@ -718,16 +718,16 @@ form[data-drupal-selector="opportunity-search-form"] {
         color: white;
         font-size: 30px;
     }
-    
+
     .progressbar li:first-child:after {
         content: none;
     }
-   
-    
+
+
     .progressbar li.active + li:after {
         background-color: #55b776;
     }
-    
+
     .progressbar .active:before {
         border:5px solid #65b4e6;
         top: -5px;
@@ -743,22 +743,22 @@ form[data-drupal-selector="opportunity-search-form"] {
     .progressbar .step3:before {
         background: #00587c;
     }
-      
+
 }
 
 
 .save-actions {
-    h3 { 
+    h3 {
         font-weight: bold;
         margin-bottom: 0.5em;
     }
-    
+
     .save-action {
         clear:both;
         margin:0 0 0.3em 0;
         overflow:auto;
         display:table;
-        
+
         &:before {
             width:35px;
             height: 35px;
@@ -775,24 +775,25 @@ form[data-drupal-selector="opportunity-search-form"] {
             font-weight: 600;
             padding-left: 42px;
             min-height: 35px;
+
             display: table-cell;
             vertical-align: middle;
             height: 35px;
-            
+
             @media (min-width: 640px) and (max-width:900px){
                 line-height: 1em;
             }
-            
+
             @media (min-width: 641px) {
                 overflow:hidden;
             }
-            
+
             @supports (display: flex) {
                 display:flex;
                 align-items:center;
             }
         }
-        
+
         &.sa-pin {
             &:before {
                 background: #ed475c url('../img/pin-icon.png') no-repeat center center;
@@ -804,7 +805,6 @@ form[data-drupal-selector="opportunity-search-form"] {
         &.sa-share {
             &:before {
                 background: #64b4e6 url('../img/envelope-icon.png') no-repeat center center;
-                
             }
             a {
                 color:#64b4e6;
@@ -813,11 +813,11 @@ form[data-drupal-selector="opportunity-search-form"] {
     }
 }
 
+
 #footer .footer-meta {
     padding-top:30px;
     padding-bottom: 30px;
 }
-
 
 @media (min-width: 641px) {
     #footer .footer-wrapper {
@@ -835,7 +835,7 @@ form[data-drupal-selector="opportunity-search-form"] {
     #global-header {
         background:$light-blue;
         margin-bottom:14px;
-        
+
         .global-header-inner {
             &:after {
                 display:none;
@@ -845,15 +845,15 @@ form[data-drupal-selector="opportunity-search-form"] {
            display:block;
         }
     }
-    
+
     .step-container {
         &:before {
-            
+
         }
     }
-    
+
     .content-heading h3 {
-        width: auto; 
+        width: auto;
     }
-    
+
 }

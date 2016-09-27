@@ -1,25 +1,58 @@
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     minify = require('gulp-minify'),
-    watch = require('gulp-watch');
+    watch = require('gulp-watch'),
+    copy = require('gulp-contrib-copy'),
+    gulp = require('gulp'),
+    sourcemaps = require('gulp-sourcemaps'),
+    babel = require('gulp-babel'),
+    concat = require('gulp-concat');
+
+var themeDir = 'drupal/themes/custom/een';
+
+var entry = [
+  'node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js',
+  'node_modules/govuk_template_mustache/assets/javascripts/govuk-template.js',
+  'node_modules/angular/lib/angular.min.js',
+  (themeDir + '/js/**/*.js')
+];
 
 gulp.task('js', function () {
-    gulp.src([
-        'node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js',
-        'node_modules/govuk_template_mustache/assets/javascripts/govuk-template.js',
-        'drupal/themes/custom/een/js/*.js'
-    ])
+    gulp.src(entry)
+        .pipe(babel({
+            ignore: ['node_modules'],
+            presets: ['es2015']
+        }))
+        .pipe(concat('bundle.js'))
         .pipe(minify())
-        .pipe(gulp.dest('drupal/themes/custom/een/js/min'))
+        .pipe(gulp.dest(themeDir + '/dist'))
+});
+
+gulp.task('js-dev', function () {
+    gulp.src(entry)
+        .pipe(sourcemaps.init())
+        .pipe(babel({
+            ignore: ['node_modules'],
+            presets: ['es2015']
+        }))
+        .pipe(concat('bundle.js'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(themeDir + '/dist'))
+});
+
+gulp.task('img', function () {
+    gulp.src(themeDir + '/img/**')
+        .pipe(copy())
+        .pipe(gulp.dest(themeDir + '/dist'));
 });
 
 gulp.task('css', function () {
-    gulp.src('drupal/themes/custom/een/scss/een.scss')
+    gulp.src(themeDir + '/scss/een.scss')
         .pipe(sass({
             outputStyle: 'compressed',
             sourceComments: 'map',
             includePaths: [
-                'drupal/themes/custom/een/scss/',
+                (themeDir + '/scss/'),
                 'node_modules/govuk_frontend_toolkit/stylesheets',
                 'node_modules/govuk_template_mustache/assets/stylesheets',
                 'node_modules/govuk-elements-sass/public/sass',
@@ -27,7 +60,7 @@ gulp.task('css', function () {
                 'node_modules/font-awesome/scss'
             ]
         }))
-        .pipe(gulp.dest('drupal/themes/custom/een/css'));
+        .pipe(gulp.dest(themeDir + '/dist'));
 
      gulp.src('drupal/themes/custom/een/scss/ie8.scss')
         .pipe(sass({
@@ -35,13 +68,12 @@ gulp.task('css', function () {
             sourceComments: 'map',
             includePaths: []
         }))
-        .pipe(gulp.dest('drupal/themes/custom/een/css'));
+        .pipe(gulp.dest(themeDir + '/dist'));
 });
 
 gulp.task('watch', function () {
-    gulp.watch('drupal/themes/custom/een/scss/**/*.scss', ['css']);
-    gulp.watch(['drupal/themes/custom/een/js/*.js'], ['js']);
+    gulp.watch(themeDir + '/scss/**/*.scss', ['css']);
+    gulp.watch([themeDir + '/js/**/*.js'], ['js-dev']);
 });
 
-gulp.task('default', ['css', 'js']);
-
+gulp.task('default', ['css', 'js', 'img']);
