@@ -12,12 +12,40 @@
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
   });
 
-  // added to preventDefault on hrefs
-  een.directive('paginationLink', function () {
-    return function (scope, element, attrs) {
-      $(element).click(function (event) {
-        event.preventDefault();
-      });
+  // een.directive('a', function() {
+  //     return {
+  //         restrict: 'E',
+  //         link: function(scope, elem, attrs) {
+  //             if(attrs.ngClick || attrs.href === '' || attrs.href === '#') {
+  //                 elem.on('click', function(e) {
+  //                     e.preventDefault();
+  //                 });
+  //             }
+  //         }
+  //    };
+  // });
+
+  een.filter('cut', function () {
+    return function (value, wordwise, max, tail) {
+      if (!value) return '';
+
+      max = parseInt(max, 10);
+      if (!max) return value;
+      if (value.length <= max) return value;
+
+      value = value.substr(0, max);
+      if (wordwise) {
+          var lastspace = value.lastIndexOf(' ');
+          if (lastspace != -1) {
+            //Also remove . and , so its gives a cleaner result.
+            if (value.charAt(lastspace-1) == '.' || value.charAt(lastspace-1) == ',') {
+              lastspace = lastspace - 1;
+            }
+            value = value.substr(0, lastspace);
+          }
+      }
+
+      return value + (tail || ' …');
     };
   });
 
@@ -40,7 +68,7 @@
         minutes: '%d minutes',
         hour: 'about an hour',
         hours: 'about %d hours',
-        day: 'a day',
+        day: '1 day',
         days: '%d days',
         month: 'about a month',
         months: '%d months',
@@ -153,6 +181,10 @@
     window.location.hash = 'page/' + num;
   };
 
+  function distance(date) {
+    return (new Date().getTime() - date.getTime());
+  }
+
   een.controller('MainCtrl', function ($scope, oppsFactory, timeFactory) {
 
     var parseResults = function (results) {
@@ -164,7 +196,7 @@
         if (date.getTime() < fiveDaysAgo) {
           result.date = null;
         } else {
-          result.date = timeFactory.inWords(date) + ' |';
+          result.date = timeFactory.inWords(distance(date)) + ' |';
         }
 
         return result;
@@ -194,6 +226,7 @@
         $scope.$apply();
 
         setPageNum($scope.heading.page);
+
       }).fail(function () {
         $scope.results = [];
       });
@@ -212,12 +245,20 @@
       $scope.heading.page++;
       queryAPI();
 
+      $('body').animate({
+        scrollTop: 340
+      }, 1000);
+
       return false;
     };
 
     $scope.prev = function () {
       $scope.heading.page--;
       queryAPI();
+
+      $('body').animate({
+        scrollTop: 340
+      }, 1000);
 
       return false;
     };

@@ -43,10 +43,12 @@
 
                     <div class="row row-bordered" ng-show="heading.searched" ng-repeat="row in results" ng-cloak ng-class="{ transp: heading.searching }">
                         <h3 class="results-list-heading-item">
-                            <a href="" id="opportunity-link">
+                            <a ng-href="/opportunities/{[{row.id}]}" id="opportunity-link">
                                 {[{ row.title }]}
                             </a>
                         </h3>
+
+                        <p class="description">{[{ row.summary | cut:true:240:' ...' }]} <a ng-href="/opportunities/{[{row.id}]}">more</a></p>
 
                         <p class="meta-inline font-small">
                             {# lastupdated #}
