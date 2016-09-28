@@ -5,6 +5,56 @@
   // only prevents default form submit when action is removed
   $('#opportunity-search-form').removeAttr('action');
 
+  var debounce = function (func, wait, immediate) {
+    var timeout;
+    return function () {
+      var context = this;
+      var args = arguments;
+      var later = function () {
+        timeout = null;
+        if (!immediate) {
+          func.apply(context, args);
+        }
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) {
+        func.apply(context, args);
+      }
+    };
+  };
+
+  var getParams = function () {
+    var hash = window.location.hash;
+    var data;
+
+    if (hash) {
+      var arr = window.location.hash.split('!/page/');
+      var arr2 = arr[1].split('?');
+      data = $.deparam(arr2[1]);
+      data.page = parseInt(arr2[0]);
+    }
+    return data;
+  };
+
+  var setParams = function (page, q) {
+    window.location.hash = '!/page/' + page + '?' + q;
+  };
+
+  var distance = function (date) {
+    return (new Date().getTime() - date.getTime());
+  };
+
+  var indexOf = function (array, comparer) {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i] === comparer) {
+        return i;
+      }
+    }
+    return -1;
+  };
+
   var een = window.angular.module('een', []);
 
   // changed to stop conflicting with Drupal templating engine
@@ -36,7 +86,7 @@
     };
   });
 
-  een.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
+  een.filter('unsafe', function ($sce) { return $sce.trustAsHtml; });
 
   een.factory('timeFactory', function () {
     var opts = {
@@ -142,48 +192,36 @@
     };
   });
 
-  var debounce = function (func, wait, immediate) {
-    var timeout;
-    return function () {
-      var context = this;
-      var args = arguments;
-      var later = function () {
-        timeout = null;
-        if (!immediate) {
-          func.apply(context, args);
+  een.factory('checkboxFactory', function () {
+    var setOpps = function (opps) {
+      var inputs = $('#edit-opportunity-type--wrapper').find('input');
+      for (var i = 0; i < inputs.length; i++) {
+        var index = indexOf(opps, inputs[i].value);
+
+        if (index > -1) {
+          $(inputs[i]).prop('checked', true);
         }
-      };
-      var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) {
-        func.apply(context, args);
       }
     };
-  };
 
-  var getParams = function () {
-    var hash = window.location.hash;
-    var data;
+    var setCountry = function (opps) {
+      var inputs = $('#edit-country--wrapper').find('input');
+      for (var i = 0; i < inputs.length; i++) {
+        var index = indexOf(opps, inputs[i].value);
 
-    if (hash) {
-      var arr = window.location.hash.split('!/page/');
-      var arr2 = arr[1].split('?');
-      data = $.deparam(arr2[1]);
-      data.page = parseInt(arr2[0]);
-    }
-    return data;
-  };
+        if (index > -1) {
+          $(inputs[i]).prop('checked', true);
+        }
+      }
+    };
 
-  var setParams = function (page, q) {
-    window.location.hash = '!/page/' + page + '?' + q;
-  };
+    return {
+      setOpps: setOpps,
+      setCountry: setCountry
+    };
+  });
 
-  function distance(date) {
-    return (new Date().getTime() - date.getTime());
-  }
-
-  een.controller('MainCtrl', function ($scope, oppsFactory, timeFactory, $sce) {
+  een.controller('MainCtrl', function ($scope, oppsFactory, timeFactory, $sce, checkboxFactory) {
 
     var parseResults = function (results) {
       return $.map(results, function (result) {
@@ -218,7 +256,7 @@
         $scope.data = {
           page: parseInt(data.page),
           opportunity_type: data.opportunity_type || [],
-          country: [],
+          country: data.country || [],
           pageTotal: parseInt(data.pageTotal),
           total: parseInt(data.total),
           search: data.search
@@ -250,10 +288,10 @@
       $scope.$apply();
 
       queryAPI();
-    }, 500);
+    }, 300);
 
     $scope.submit = function () {
-      liveQueryAPI();
+      queryAPI(true);
       return true;
     };
 
@@ -288,15 +326,6 @@
         code = 'gb';
       }
       return 'flag-icon flag-icon-' + code.toLowerCase();
-    };
-
-    var indexOf = function (array, comparer) {
-      for (var i = 0; i < array.length; i++) {
-        if (array[i] === comparer) {
-          return i;
-        }
-      }
-      return -1;
     };
 
     $scope.selectOppCheckbox = function ($event) {
@@ -346,13 +375,15 @@
 
     if (data) {
       $scope.data = {
-        opportunity_type: data.opportunity_type,
-        country: data.country,
+        opportunity_type: data.opportunity_type || [],
+        country: data.country || [],
         search: data.search,
         page: data.page
       };
 
       queryAPI(true);
+      checkboxFactory.setOpps($scope.data.opportunity_type);
+      checkboxFactory.setCountry($scope.data.country);
     } else {
       $scope.data = {
         opportunity_type: [],
