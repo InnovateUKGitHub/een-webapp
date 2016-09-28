@@ -23,7 +23,7 @@
       value = value.substr(0, max);
       if (wordwise) {
           var lastspace = value.lastIndexOf(' ');
-          if (lastspace != -1) {
+          if (lastspace != - 1) {
             // Also remove . and , so its gives a cleaner result.
             if (value.charAt(lastspace - 1) == '.' || value.charAt(lastspace - 1) == ',') {
               lastspace = lastspace - 1;
@@ -130,8 +130,8 @@
         data: {
           page: opts.page,
           resultPerPage: 19,
-          search: opts.q,
-          opportunity_type: opts.type,
+          search: opts.search,
+          opportunity_type: opts.opportunity_type,
           country: opts.country
         }
       });
@@ -162,13 +162,21 @@
     };
   };
 
-  var getPageNum = function (url) {
-    var num = window.location.hash.split('/')[2];
-    return num;
+  var getParams = function () {
+    var hash = window.location.hash;
+    var data;
+
+    if (hash) {
+      var arr = window.location.hash.split('!/page/');
+      var arr2 = arr[1].split('?');
+      data = $.deparam(arr2[1]);
+      data.page = parseInt(arr2[0]);
+    }
+    return data;
   };
 
-  var setPageNum = function (num) {
-    window.location.hash = '!/page/' + num;
+  var setParams = function (page, q) {
+    window.location.hash = '!/page/' + page + '?' + q;
   };
 
   function distance(date) {
@@ -194,35 +202,44 @@
     };
 
     var queryAPI = debounce(function () {
-      $scope.heading.searching = true;
+      $scope.meta.searching = true;
       $scope.$apply();
 
       oppsFactory.search({
-        page: $scope.heading.page,
-        type: $scope.heading.opportunity_type,
-        country: $scope.heading.country,
-        q: $scope.query
+        page: $scope.data.page,
+        opportunity_type: $scope.data.opportunity_type,
+        country: $scope.data.country,
+        search: $scope.data.search
       }).then(function (data) {
-        $scope.heading = {
+        $scope.data = {
+          page: parseInt(data.page),
           opportunity_type: data.opportunity_type || [],
           country: [],
-          page: parseInt(data.page),
           pageTotal: parseInt(data.pageTotal),
           total: parseInt(data.total),
+          search: data.search
+        };
+
+        $scope.meta = {
           loaded: true,
           searching: false,
+          paging: false,
           searched: true
         };
 
         $scope.results = parseResults(data.results);
         $scope.$apply();
 
-        setPageNum($scope.heading.page);
+        setParams($scope.data.page, $.param({
+          search: $scope.data.search,
+          opportunity_type: $scope.data.opportunity_type,
+          country: $scope.data.country
+        }));
 
       }).fail(function () {
         $scope.results = [];
       });
-    }, 100);
+    }, 500);
 
     $scope.submit = function () {
       queryAPI();
@@ -234,7 +251,7 @@
     };
 
     $scope.next = function () {
-      $scope.heading.page++;
+      $scope.data.page++;
       queryAPI();
 
       $('body').animate({
@@ -245,7 +262,7 @@
     };
 
     $scope.prev = function () {
-      $scope.heading.page--;
+      $scope.data.page--;
       queryAPI();
 
       $('body').animate({
@@ -275,53 +292,63 @@
       var tar = $event.target;
       if (tar.type === 'checkbox') {
         if (tar.value && tar.checked) {
-          if (indexOf($scope.heading.opportunity_type, tar.value) === -1) {
-            $scope.heading.opportunity_type.push(tar.value);
+          if (indexOf($scope.data.opportunity_type, tar.value) === -1) {
+            $scope.data.opportunity_type.push(tar.value);
           }
         } else {
-          var index = indexOf($scope.heading.opportunity_type, tar.value);
+          var index = indexOf($scope.data.opportunity_type, tar.value);
           if (index > -1) {
-            $scope.heading.opportunity_type.splice(index, 1);
+            $scope.data.opportunity_type.splice(index, 1);
           }
         }
       }
+      queryAPI();
     };
 
     $scope.selectCountryCheckbox = function ($event) {
       var tar = $event.target;
       if (tar.type === 'checkbox') {
         if (tar.value && tar.checked) {
-          if (indexOf($scope.heading.country, tar.value) === -1) {
-            $scope.heading.country.push(tar.value);
+          if (indexOf($scope.data.country, tar.value) === -1) {
+            $scope.data.country.push(tar.value);
           }
         } else {
-          var index = indexOf($scope.heading.country, tar.value);
+          var index = indexOf($scope.data.country, tar.value);
           if (index > -1) {
-            $scope.heading.country.splice(index, 1);
+            $scope.data.country.splice(index, 1);
           }
         }
       }
+      queryAPI();
     };
 
-    var pageNum = getPageNum();
+    var data = getParams();
 
-    $scope.heading = {
-      opportunity_type: [],
-      country: [],
-      page: 1,
+    $scope.meta = {
       loaded: true,
-      searched: false,
-      searching: false,
       paging: false,
-      total: 500
+      searched: false,
+      searching: false
     };
 
     $scope.results = [];
 
-    if (pageNum) {
-      $scope.heading.page = pageNum;
-      $scope.heading.paging = true;
+    if (data) {
+      $scope.data = {
+        opportunity_type: data.opportunity_type,
+        country: data.country,
+        search: data.search,
+        page: data.page
+      };
+
       queryAPI();
+    } else {
+      $scope.data = {
+        opportunity_type: [],
+        country: [],
+        search: '',
+        page: 1
+      };
     }
   });
 

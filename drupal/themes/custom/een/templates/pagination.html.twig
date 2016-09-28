@@ -4,7 +4,7 @@
 <ul class="previous-next-navigation">
     <!-- Previous page link -->
     {% if page > 1 %}
-        <li class="previous" ng-show="!heading.searched">
+        <li class="previous" ng-show="!meta.searched">
             <a id="pagination-previous" href="{{ url(route, {'page': page - 1}|merge(params)) }}" ng-click="prev()">
                 {{ 'Previous'|t }} <span class="visuallyhidden">{{ 'page'|t }}</span>
                 <span class="page-numbers">{{ page - 1 }} {{ 'of'|t }} {{ pageTotal }}</span>
@@ -13,7 +13,7 @@
     {% endif %}
 
     {% if page < pageTotal %}
-        <li class="next" ng-show="!heading.searched">
+        <li class="next" ng-show="!meta.searched">
             <a id="pagination-next" href="{{ url(route, {'page': page + 1}|merge(params)) }}" ng-click="next()">
                 {{ 'Next'|t }} <span class="visuallyhidden">{{ 'page'|t }}</span>
                 <span class="page-numbers">{{ page + 1 }} {{ 'of'|t }} {{ pageTotal }}</span>
@@ -21,17 +21,17 @@
         </li>
     {% endif %}
 
-    <li class="previous" ng-show="heading.searched && heading.page > 1" ng-cloak>
+    <li class="previous" ng-show="meta.searched && data.page > 1" ng-cloak>
         <a id="pagination-previous" ng-click="prev()">
             Previous <span class="visuallyhidden">page</span>
-            <span class="page-numbers">{[{ heading.page - 1 }]} of {[{ heading.pageTotal }]}</span>
+            <span class="page-numbers">{[{ data.page - 1 }]} of {[{ data.pageTotal }]}</span>
         </a>
     </li>
 
-    <li class="next" ng-show="heading.searched && heading.page < heading.pageTotal" ng-cloak>
+    <li class="next" ng-show="meta.searched && data.page < data.pageTotal" ng-cloak>
         <a id="pagination-next" ng-click="next()">
             Next <span class="visuallyhidden">page</span>
-            <span class="page-numbers">{[{ heading.page + 1 }]} of {[{ heading.pageTotal }]}</span>
+            <span class="page-numbers">{[{ data.page + 1 }]} of {[{ data.pageTotal }]}</span>
         </a>
     </li>
 
