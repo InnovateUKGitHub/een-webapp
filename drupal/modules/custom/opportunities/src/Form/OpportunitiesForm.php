@@ -61,7 +61,9 @@ class OpportunitiesForm extends AbstractForm
                 '#type'       => 'textfield',
                 '#title'      => t('Search an opportunity'),
                 '#attributes' => [
-                    'class'       => [
+                    'ng-model' => 'data.search',
+                    'ng-change' => 'queryKeyUp()',
+                    'class' => [
                         'form-control',
                     ],
                     'placeholder' => [
@@ -73,12 +75,16 @@ class OpportunitiesForm extends AbstractForm
                 '#type'    => 'checkboxes',
                 '#title'   => t('I want to...'),
                 '#options' => $types,
+                '#attributes' => [
+                    'ng-click' => 'selectOppCheckbox($event)'
+                ]
             ],
             'country'          => [
                 '#type'       => 'checkboxes',
                 '#title'      => t('Country of origin'),
                 '#options'    => $countries,
                 '#attributes' => [
+                    'ng-click' => 'selectCountryCheckbox($event)',
                     'class' => [
                         'accordion-container',
                     ],
@@ -93,6 +99,9 @@ class OpportunitiesForm extends AbstractForm
                 ],
             ],
             '#method'          => Request::METHOD_POST,
+            '#attributes'      => [
+                'ng-submit' => "submit()",
+            ],
         ];
 
         return $form;
@@ -127,5 +136,28 @@ class OpportunitiesForm extends AbstractForm
                 'query' => $params,
             ]
         );
+    }
+}
+
+    /**
+     *
+     * @param array  $values
+     * @param string $name
+     *
+     * @return array
+     */
+    private function filterValues($values, $name)
+    {
+        if (empty($values[$name]) === false) {
+            return array_filter($values[$name], function($value) {
+                if ($value !== '0') {
+                    return $value;
+                }
+
+                return false;
+            });
+        }
+
+        return [];
     }
 }
