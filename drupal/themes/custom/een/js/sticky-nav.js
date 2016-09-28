@@ -40,6 +40,11 @@ jQuery(function () {
 		window.addEventListener("scroll", stickySidebar, false);
 		window.addEventListener("resize", sidebarResize, false);
 		sidebarHeader.addEventListener("click", displayNavbarMenu, false);
+                
+                 $(window).bind('orientationchange', function(event) {
+                    sidebarResize();
+                });
+                
 	} else{
 		// IE8
 		window.attachEvent("onscroll", stickySidebar);
