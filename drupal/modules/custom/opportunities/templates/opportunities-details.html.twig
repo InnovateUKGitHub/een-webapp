@@ -5,13 +5,16 @@
 {% if opportunity_type %}
     {% set params = params|merge({'opportunity_type': opportunity_type}) %}
 {% endif %}
+{% if country %}
+    {% set params = params|merge({'country': country}) %}
+{% endif %}
 
 {% if opportunity is not empty %}
     <div>
         <div>
             <a class="back-link"
                href="{{ url('opportunities.search', params) }}">
-                {{ '< Back to search results'|t }}
+                {{ '&lt; Back to search results'|t }}
             </a>
         </div>
         <div class="content-heading">
@@ -64,7 +67,7 @@
                        <a href="#">Pin to favourites</a>
                     </div>
                     <div class="save-action sa-share">
-                        <a href="mailto:?subject={{ mail.subject }}&body={{ mail.body|url_encode }}" target="_top">Share opportunity</a>
+                        <a href="mailto:?subject={{ mail.subject|url_encode }}&body={{ mail.body|url_encode }}" target="_top">Share opportunity</a>
                     </div>
                 </div>
             </div>
@@ -119,6 +122,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
+            <div id="navstop"></div>
         </div>
     </div>
     <hr/>
@@ -141,7 +145,7 @@
             
             
             
-            <form action="{{ form['#action'] }}" method="POST" class="form-opportunities">
+            <form action="{{ form['#action']|url_encode }}" method="POST" class="form-opportunities">
                 <div class="form-section">
                     {{ form.description }}
                 </div>

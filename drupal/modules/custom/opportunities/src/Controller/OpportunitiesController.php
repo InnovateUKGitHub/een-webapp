@@ -15,14 +15,11 @@ use Drupal\opportunities\Form\CompaniesHouseForm;
 class OpportunitiesController extends ControllerBase
 {
     const PAGE_NUMBER = 'page';
-
     const RESULT_PER_PAGE = 'resultPerPage';
-
     const DEFAULT_RESULT_PER_PAGE = 20;
-
     const SEARCH = 'search';
-
     const OPPORTUNITY_TYPE = 'opportunity_type';
+    const COUNTRY = 'country';
 
     /**
      * @var OpportunitiesService
@@ -64,12 +61,13 @@ class OpportunitiesController extends ControllerBase
         $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
         $search = $request->query->get(self::SEARCH);
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
+        $country = $request->query->get(self::COUNTRY);
 
-        $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
+        $results = $this->service->search($form, $search, $types, $country, $page, $resultPerPage);
         $results = $this->reformatResults($results);
-        $results2 = $this->service->search($form, $search, $types, $page, $resultPerPage, 2);
+        $results2 = $this->service->search($form, $search, $types, $country, $page, $resultPerPage, 2);
         $results2 = $this->reformatResults($results2);
-        $results3 = $this->service->search($form, $search, $types, $page, $resultPerPage, 3);
+        $results3 = $this->service->search($form, $search, $types, $country, $page, $resultPerPage, 3);
         $results3 = $this->reformatResults($results3);
 
         return [
@@ -107,11 +105,15 @@ class OpportunitiesController extends ControllerBase
         }
 
         foreach ($results['results'] as $result) {
+
+            $title = isset($result['highlight']['title']) ? implode('', $result['highlight']['title']) : $result['_source']['title'];
+            $summary = isset($result['highlight']['summary']) ? implode('', $result['highlight']['summary']) : $result['_source']['summary'];
+
             $response['results'][] = [
                 'id'           => $result['_id'],
-                'title'        => $result['_source']['title'],
+                'title'        => str_replace('</span> <span>', ' ', $title),
+                'summary'      => str_replace('</span> <span>', ' ', $summary),
                 'type'         => $result['_source']['type'],
-                'summary'      => $result['_source']['summary'],
                 'date'         => $result['_source']['date'],
                 'country_code' => $result['_source']['country_code'],
                 'country'      => $result['_source']['country'],
@@ -138,10 +140,16 @@ class OpportunitiesController extends ControllerBase
         }
 
         return [
+            '#attached'         => [
+                'library' => [
+                    'een/opportunity-list',
+                ],
+            ],
             '#theme'            => 'opportunities_search',
             '#form'             => $data['form'],
             '#search'           => $data['search'],
-            '#opportunity_type' => $data['types'],
+            '#opportunity_type' => $data['opportunity_type'],
+            '#country'          => $data['country'],
             '#results'          => $data['results'],
             '#total'            => $data['total'],
             '#pageTotal'        => $data['pageTotal'],
@@ -164,8 +172,9 @@ class OpportunitiesController extends ControllerBase
         $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
         $search = $request->query->get(self::SEARCH);
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
+        $countries = $request->query->get(self::COUNTRY);
 
-        $results = $this->service->search($form, $search, $types, $page, $resultPerPage);
+        $results = $this->service->search($form, $search, $types, $countries, $page, $resultPerPage);
 
         // Test if single match
         if (isset($results['_id'])) {
@@ -177,14 +186,15 @@ class OpportunitiesController extends ControllerBase
         $results = $this->reformatResults($results);
 
         return [
-            'form'          => $form,
-            'results'       => $results['results'],
-            'total'         => $results['total'],
-            'pageTotal'     => (int)ceil($results['total'] / $resultPerPage),
-            'page'          => $page,
-            'resultPerPage' => $resultPerPage,
-            'search'        => $search,
-            'types'         => $types,
+            'form'             => $form,
+            'results'          => $results['results'],
+            'total'            => $results['total'],
+            'pageTotal'        => (int)ceil($results['total'] / $resultPerPage),
+            'page'             => $page,
+            'resultPerPage'    => $resultPerPage,
+            'search'           => $search,
+            'opportunity_type' => $types,
+            'country'          => $countries,
         ];
     }
 
@@ -213,7 +223,8 @@ class OpportunitiesController extends ControllerBase
             [
                 'route'            => 'opportunities.search',
                 'search'           => $data['search'],
-                'opportunity_type' => $data['types'],
+                'opportunity_type' => $data['opportunity_type'],
+                'country'          => $data['country'],
                 'page'             => $data['page'],
                 'resultPerPage'    => $data['resultPerPage'],
                 'pageTotal'        => $data['pageTotal'],

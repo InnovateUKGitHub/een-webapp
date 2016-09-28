@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="menu-container">
         <div class="header-proposition">
             {{ page.primary_menu }}
@@ -62,46 +62,46 @@
 
 {{ page.help }}
 
-<main role="main" id="content">
-    <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+<div ng-app="een">
+    <main role="main" id="content" ng-controller="MainCtrl">
+        <a id="main-content" title="Main content"  tabindex="-1"></a>{# link is in html.html.twig #}
 
-    <div class="phase-banner-alpha">
-        <p>
-            <strong class="phase-tag">ALPHA</strong>
-            <span>This is a new service
-                {#– your <a href="{{ url('entity.contact_form.canonical', {contact_form: 'feedback'}) }}">feedback</a> will help us to improve it.#}
-            </span>
-        </p>
-    </div>
+        <div class="phase-banner-alpha">
+            <p>
+                <strong class="phase-tag">ALPHA</strong>
+                <span>This is a new service
+                    {#– your <a href="{{ url('entity.contact_form.canonical', {contact_form: 'feedback'}) }}">feedback</a> will help us to improve it.#}
+                </span>
+            </p>
+        </div>
 
-    {{ page.breadcrumb }}
+        {{ page.breadcrumb }}
 
-    {{ page.highlighted }}
+        {{ page.highlighted }}
 
-    <div class="layout-content">
-        {{ page.content }}
-    </div>{# /.layout-content #}
+        <div class="layout-content">
+            {{ page.content }}
+        </div>{# /.layout-content #}
 
-    {% if page.sidebar_first %}
-        <aside class="layout-sidebar-first" role="complementary">
-            {{ page.sidebar_first }}
-        </aside>
-    {% endif %}
+        {% if page.sidebar_first %}
+            <aside class="layout-sidebar-first" role="complementary">
+                {{ page.sidebar_first }}
+            </aside>
+        {% endif %}
 
-    {% if page.sidebar_second %}
-        <aside class="layout-sidebar-second" role="complementary">
-            {{ page.sidebar_second }}
-        </aside>
-    {% endif %}
+        {% if page.sidebar_second %}
+            <aside class="layout-sidebar-second" role="complementary">
+                {{ page.sidebar_second }}
+            </aside>
+        {% endif %}
 
-</main>
+    </main>
+</div>
 
 <footer role="contentinfo" class="group js-footer" id="footer">
     <div class="footer-wrapper">
         <div class="footer-meta">
-            
-            <img src="/themes/custom/een/img/EEN-Logo-Main.png"/>
-            
+            <img src="/themes/custom/een/img/EEN-Logo-Main.png" alt="EEN Logo Footer"/>
             {% if page.footer_first or page.footer_second or page.footer_third or page.footer_fourth %}
                 <div class="footer-meta-inner">
                     {{ page.footer_first }}

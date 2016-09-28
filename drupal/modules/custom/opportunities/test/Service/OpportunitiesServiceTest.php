@@ -23,12 +23,17 @@ class OpportunitiesServiceTest extends UnitTestCase
             ->with('opportunities')
             ->willReturn($this->mockService);
         $this->mockService->expects(self::once())
+            ->method('setMethod')
+            ->with('POST')
+            ->willReturn($this->mockService);
+        $this->mockService->expects(self::once())
             ->method('setBody')
             ->with([
                 'from'             => 0,
                 'size'             => 10,
                 'search'           => 'H2020',
-                'opportunity_type' => ['BO' => 'BO'],
+                'opportunity_type' => ['BO'],
+                'country'          => ['FR'],
                 'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
                 'type'             => 1,
             ])
@@ -38,7 +43,7 @@ class OpportunitiesServiceTest extends UnitTestCase
             ->willReturn(['success' => true]);
 
         $form = [];
-        self::assertEquals(['success' => true], $this->service->search($form, 'H2020', ['BO' => 'BO', 'RD' => '0'], 1, 10));
+        self::assertEquals(['success' => true], $this->service->search($form, 'H2020', ['BO'], ['FR'], 1, 10));
 
         self::assertEquals([
             'search'           => [
@@ -46,6 +51,13 @@ class OpportunitiesServiceTest extends UnitTestCase
             ],
             'opportunity_type' => [
                 'BO' => [
+                    '#attributes' => [
+                        'checked' => 'checked',
+                    ],
+                ],
+            ],
+            'country' => [
+                'FR' => [
                     '#attributes' => [
                         'checked' => 'checked',
                     ],

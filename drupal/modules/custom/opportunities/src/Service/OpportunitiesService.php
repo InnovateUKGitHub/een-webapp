@@ -22,22 +22,22 @@ class OpportunitiesService
         $this->service = $service;
     }
 
-    public function search(&$form, $search, $types, $page, $resultPerPage, $searchType = 1)
+    /**
+     * @param array  $form
+     * @param string $search
+     * @param array  $types
+     * @param array  $countries
+     * @param int    $page
+     * @param int    $resultPerPage
+     * @param int    $searchType
+     *
+     * @return array|null
+     */
+    public function search(&$form, $search, $types, $countries, $page, $resultPerPage, $searchType = 1)
     {
         $form['search']['#value'] = $search;
-        if (empty($types) === false) {
-            $types = array_filter($types, function($type) {
-                if ($type !== '0') {
-                    return $type;
-                }
-
-                return false;
-            });
-
-            foreach ($types as $type) {
-                $form['opportunity_type'][$type]['#attributes']['checked'] = 'checked';
-            }
-        }
+        $this->addCheckboxAttributes($form, $types, 'opportunity_type');
+        $this->addCheckboxAttributes($form, $countries, 'country');
 
         $params = [
             'type'             => $searchType,
@@ -45,8 +45,10 @@ class OpportunitiesService
             'size'             => $resultPerPage,
             'search'           => $search,
             'opportunity_type' => $types,
+            'country'          => $countries,
             'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
         ];
+
         if (empty($search)) {
             $params['sort'] = [
                 'date' => ['order' => 'desc'],
@@ -55,6 +57,7 @@ class OpportunitiesService
 
         $this->service
             ->setUrl('opportunities')
+            ->setMethod(Request::METHOD_POST)
             ->setBody($params);
 
         $results = $this->service->sendRequest();
@@ -73,6 +76,25 @@ class OpportunitiesService
         return $results;
     }
 
+    /**
+     * @param array  $form
+     * @param array  $fields
+     * @param string $name
+     */
+    private function addCheckboxAttributes(&$form, $fields, $name)
+    {
+        if (empty($fields) === false) {
+            foreach ($fields as $field) {
+                $form[$name][$field]['#attributes']['checked'] = 'checked';
+            }
+        }
+    }
+
+    /**
+     * @param string $profileId
+     *
+     * @return array|null
+     */
     public function get($profileId)
     {
         $this->service
@@ -87,5 +109,17 @@ class OpportunitiesService
         }
 
         return $results;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCountryList()
+    {
+        $this->service
+            ->setUrl('countries')
+            ->setMethod(Request::METHOD_GET);
+
+        return $this->service->sendRequest();
     }
 }
