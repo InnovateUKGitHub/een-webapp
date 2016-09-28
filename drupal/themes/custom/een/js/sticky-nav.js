@@ -27,7 +27,7 @@ jQuery(function () {
         
         
         var stopPoint = stopSelector.getBoundingClientRect();
-        var stopPointY = stopPoint.top + scroll - 45;
+        var stopPointY = stopPoint.top + scroll - 100;
         
 
 	/*User settings for the sidebar*/
@@ -66,14 +66,19 @@ jQuery(function () {
 			stickyNavbar();
 			return false;
 		}
-
-		/* if srcoll postion is below the sidebar top value, make its position fixed.
-		When user scrolls back top remove all the inline attributes*/
-		var scroll = getScroll();
-		var sidebarStyle = sidebar.style;
-                
+		
+           
+            
+                //reset values 
+                var scroll = getScroll();
+                var sidebarStyle = sidebar.style;
+                var stopPoint = stopSelector.getBoundingClientRect();
+                var stopPointY = stopPoint.top + scroll - 100;
                 sidebarStyle.width = sidebar.offsetWidth+"px";
-                
+            
+                /* if srcoll postion is below the sidebar top value, make its position fixed.
+		When user scrolls back top remove all the inline attributes*/
+		
 		if(scroll >= sidebarY) {
                     $el = $('.grid-row-1');
                     if(sidebarStyle.position !== "fixed") {
@@ -88,7 +93,7 @@ jQuery(function () {
                         if (sidebarStyle.position) {
                             sidebarStyle.position = "relative";
                             
-                            var bottom = $el.outerHeight(true) - $(sidebar).position().top;      
+                            var bottom = $el.outerHeight(true) - $(sidebar).position().top - 60;      
                             
                             sidebarStyle.top = bottom+"px";
                             sidebarStyle.left = "0px";
