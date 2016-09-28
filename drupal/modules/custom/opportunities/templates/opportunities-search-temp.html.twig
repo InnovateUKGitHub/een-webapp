@@ -10,8 +10,17 @@
             <div class="form-section">
                 {{ form.company_number }}
             </div>
+            
+            <div class="form-section">
+                {{ form.company_postcode }}
+            </div>
 
             {{ form.actions }}
+            
+            
+            <div class="form-group" id="ch_search-results">
+                <ul class="companies-house-list"></ul>
+            </div>
         </form>
         
     </div>

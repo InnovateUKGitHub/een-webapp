@@ -63,7 +63,7 @@ function opportunities_theme()
                 'route'            => 'opportunities.search',
             ],
             'template'  => 'opportunities-search-temp',
-        ],
+        ]
         
     ];
 }

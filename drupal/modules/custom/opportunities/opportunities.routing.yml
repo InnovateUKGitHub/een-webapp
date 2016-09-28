@@ -32,3 +32,10 @@ opportunities.search.temp:
    _controller: '\Drupal\opportunities\Controller\OpportunitiesController::temp'
  requirements:
    _permission: 'access content'
+   
+opportunities.search.tempajax:
+ path: '/opportunities-tempajax'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::tempajax'
+ requirements:
+   _permission: 'access content'

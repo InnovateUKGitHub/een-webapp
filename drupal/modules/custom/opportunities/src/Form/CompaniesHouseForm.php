@@ -54,14 +54,34 @@ class CompaniesHouseForm extends AbstractForm
                 ],
             ],
             
+            'company_postcode'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Postcode'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ],
+                ],
+            ],
+            
             'actions'     => [
                 '#type'  => 'actions',
+                '#attributes'    => [
+                    'id' => [
+                        'ch_search_pp',
+                    ],
+                ],
+                
+                
                 'submit' => [
-                    '#type'        => 'submit',
+                    '#type'        => 'button',
                     '#value'       => $this->t('Search Companies House'),
                     '#button_type' => 'primary',
+                    '#method' => 'append',
+                    '#url' => '/opportunities-tempajax',
                     '#ajax'        => [
-                        'callback' => [$this, 'submitHandler'],
+                        'callback' => 'Drupal\opportunities\Controller\OpportunitiesController::tempajax',
                     ],
                 ],
             ],
