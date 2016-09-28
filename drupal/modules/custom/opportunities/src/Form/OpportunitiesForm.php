@@ -137,26 +137,4 @@ class OpportunitiesForm extends AbstractForm
             ]
         );
     }
-
-    /**
-     *
-     * @param array  $values
-     * @param string $name
-     *
-     * @return array
-     */
-    private function filterValues($values, $name)
-    {
-        if (empty($values[$name]) === false) {
-            return array_filter($values[$name], function($value) {
-                if ($value !== '0') {
-                    return $value;
-                }
-
-                return false;
-            });
-        }
-
-        return [];
-    }
 }
