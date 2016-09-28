@@ -7,6 +7,10 @@ a[ng-click] {
     color: #2b8cc4;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 .transp {
   opacity: 0.4 !important;
   filter: alpha(opacity=40);

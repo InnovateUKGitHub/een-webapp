@@ -26,7 +26,6 @@
 
         {% if results is not null %}
             {% if total > 0 %}
-
                 <div class="row" ng-show="heading.searched" ng-cloak ng-class="{ transp: heading.searching }">
                     <h3 class="heading-xlarge results-list-heading">{[{ heading.total }]} <span class="font-xsmall"> <ng-pluralize count="heading.total"
                         when="{'0': 'opportunities',

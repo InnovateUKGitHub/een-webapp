@@ -104,6 +104,7 @@ a {
 
 
 .contents-list {
+
     min-height: 20px;
 
     .heading-medium {
@@ -569,6 +570,7 @@ form[data-drupal-selector="opportunity-search-form"] {
             top: 14px;
             padding: 0 12px;
             right: 20px;
+
             &:focus, &:active {
                 background:none;
                 border:none;
@@ -756,6 +758,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         margin:0 0 0.3em 0;
         overflow:auto;
         display:table;
+
         &:before {
             width:35px;
             height: 35px;
@@ -772,6 +775,7 @@ form[data-drupal-selector="opportunity-search-form"] {
             font-weight: 600;
             padding-left: 42px;
             min-height: 35px;
+
             display: table-cell;
             vertical-align: middle;
             height: 35px;
@@ -813,7 +817,6 @@ form[data-drupal-selector="opportunity-search-form"] {
     padding-top:30px;
     padding-bottom: 30px;
 }
-
 
 @media (min-width: 641px) {
     #footer .footer-wrapper {

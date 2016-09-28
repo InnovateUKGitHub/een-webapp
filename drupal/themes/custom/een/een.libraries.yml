@@ -2,10 +2,10 @@ global-styling:
   version: 1.0
   css:
     theme:
-      dist/een.css: {}
-      dist/ie8.css: { browsers: { IE: 'lte IE 8', '!IE': false } }
+      dist/css/ie8.css: { browsers: { IE: 'lte IE 8', '!IE': false } }
+      dist/css/een.css: {}
   js:
-    dist/bundle.js: {}
+    dist/js/bundle.js: {}
     # js/dist/bundle.js.map: {}
   dependencies:
     - core/jquery
