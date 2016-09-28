@@ -33,7 +33,7 @@
                                'other': 'opportunities'}"></span></h3>
                 </div>
 
-                <div class="row" ng-show="!meta.searched">
+                <div class="row" ng-show="!meta.searched" ng-class="{ transp: meta.searching }">
                     <h3 class="heading-xlarge results-list-heading">{{ total|number_format(0, '.', ',') }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
                 </div>
 

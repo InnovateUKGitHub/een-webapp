@@ -201,9 +201,13 @@
       });
     };
 
-    var queryAPI = debounce(function () {
+    var queryAPI = function (paging) {
       $scope.meta.searching = true;
       $scope.$apply();
+
+      if (!paging) {
+        $scope.data.page = 1;
+      }
 
       oppsFactory.search({
         page: $scope.data.page,
@@ -239,20 +243,27 @@
       }).fail(function () {
         $scope.results = [];
       });
+    };
+
+    var liveQueryAPI = debounce(function () {
+      $scope.meta.searching = true;
+      $scope.$apply();
+
+      queryAPI();
     }, 500);
 
     $scope.submit = function () {
-      queryAPI();
+      liveQueryAPI();
       return true;
     };
 
     $scope.queryKeyUp = function () {
-      queryAPI();
+      liveQueryAPI();
     };
 
     $scope.next = function () {
       $scope.data.page++;
-      queryAPI();
+      queryAPI(true);
 
       $('body').animate({
         scrollTop: 340
@@ -263,7 +274,7 @@
 
     $scope.prev = function () {
       $scope.data.page--;
-      queryAPI();
+      queryAPI(true);
 
       $('body').animate({
         scrollTop: 340
@@ -302,7 +313,7 @@
           }
         }
       }
-      queryAPI();
+      liveQueryAPI();
     };
 
     $scope.selectCountryCheckbox = function ($event) {
@@ -319,7 +330,7 @@
           }
         }
       }
-      queryAPI();
+      liveQueryAPI();
     };
 
     var data = getParams();
@@ -341,7 +352,7 @@
         page: data.page
       };
 
-      queryAPI();
+      queryAPI(true);
     } else {
       $scope.data = {
         opportunity_type: [],
