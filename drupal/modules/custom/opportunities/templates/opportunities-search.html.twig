@@ -60,7 +60,7 @@
 
                     {% for row in results %}
 
-                        <div class="row row-bordered" ng-show="!heading.searched" ng-class="{ transp: heading.paging }">
+                        <div class="row row-bordered" ng-show="!heading.searched" ng-class="{ transp: heading.paging || heading.searching }">
                             <h3 class="results-list-heading-item">
                                 <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
                                     {{ row.title|raw }}

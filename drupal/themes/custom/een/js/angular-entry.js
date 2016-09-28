@@ -163,12 +163,12 @@
   };
 
   var getPageNum = function (url) {
-    var num = window.location.hash.split('/')[1];
+    var num = window.location.hash.split('/')[2];
     return num;
   };
 
   var setPageNum = function (num) {
-    window.location.hash = 'page/' + num;
+    window.location.hash = '!/page/' + num;
   };
 
   function distance(date) {
