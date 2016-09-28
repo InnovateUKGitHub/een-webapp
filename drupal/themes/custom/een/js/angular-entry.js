@@ -25,7 +25,7 @@
           var lastspace = value.lastIndexOf(' ');
           if (lastspace != -1) {
             // Also remove . and , so its gives a cleaner result.
-            if (value.charAt(lastspace-1) == '.' || value.charAt(lastspace-1) == ',') {
+            if (value.charAt(lastspace - 1) == '.' || value.charAt(lastspace - 1) == ',') {
               lastspace = lastspace - 1;
             }
             value = value.substr(0, lastspace);
@@ -131,7 +131,8 @@
           page: opts.page,
           resultPerPage: 19,
           search: opts.q,
-          opportunity_type: opts.type
+          opportunity_type: opts.type,
+          country: opts.country
         }
       });
     };
@@ -199,10 +200,12 @@
       oppsFactory.search({
         page: $scope.heading.page,
         type: $scope.heading.opportunity_type,
+        country: $scope.heading.country,
         q: $scope.query
       }).then(function (data) {
         $scope.heading = {
           opportunity_type: data.opportunity_type || [],
+          country: [],
           page: parseInt(data.page),
           pageTotal: parseInt(data.pageTotal),
           total: parseInt(data.total),
@@ -268,7 +271,7 @@
       return -1;
     };
 
-    $scope.selectCheckbox = function ($event) {
+    $scope.selectOppCheckbox = function ($event) {
       var tar = $event.target;
       if (tar.type === 'checkbox') {
         if (tar.value && tar.checked) {
@@ -284,10 +287,27 @@
       }
     };
 
+    $scope.selectCountryCheckbox = function ($event) {
+      var tar = $event.target;
+      if (tar.type === 'checkbox') {
+        if (tar.value && tar.checked) {
+          if (indexOf($scope.heading.country, tar.value) === -1) {
+            $scope.heading.country.push(tar.value);
+          }
+        } else {
+          var index = indexOf($scope.heading.country, tar.value);
+          if (index > -1) {
+            $scope.heading.country.splice(index, 1);
+          }
+        }
+      }
+    };
+
     var pageNum = getPageNum();
 
     $scope.heading = {
       opportunity_type: [],
+      country: [],
       page: 1,
       loaded: true,
       searched: false,

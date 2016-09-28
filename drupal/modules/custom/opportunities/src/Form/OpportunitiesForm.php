@@ -76,7 +76,7 @@ class OpportunitiesForm extends FormBase
                 '#title'   => t('I want to...'),
                 '#options' => $types,
                 '#attributes' => [
-                    'ng-click' => 'selectCheckbox($event)'
+                    'ng-click' => 'selectOppCheckbox($event)'
                 ]
             ],
             'country'          => [
@@ -84,6 +84,7 @@ class OpportunitiesForm extends FormBase
                 '#title'      => t('Country of origin'),
                 '#options'    => $countries,
                 '#attributes' => [
+                    'ng-click' => 'selectCountryCheckbox($event)',
                     'class' => [
                         'accordion-container',
                     ],
