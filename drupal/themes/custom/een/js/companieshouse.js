@@ -1,33 +1,53 @@
 jQuery(function () {
-    var $ = jQuery;
+    var $ = jQuery,
+        url = '/opportunities-tempajax',
+        $searchResultsContainer = $('.companies-house-list'),
+        $searchTrigger = $("#ch-search-trigger"),
+        $searchField = $('#ch_search');
     
-    $(".form-opportunities #edit-submit").click(function(e) {
+    $searchTrigger.click(function(e) {
         
-        var searchTerm = $('#ch_search').val();
+        var searchTerm = $searchField.val();
         
-        $.get( "/opportunities-tempajax", {q: searchTerm}, function( data ) {
-            var results = $.parseJSON(data.results);
-            
-            $container = $('.companies-house-list');
-            $container.empty();
-            $.each(results.items, function() {
-                $container.append($('<li>')
-                        .append($('<a>', {class: 'company-result', href: '#', text: this.title, 'data-number': this.company_number, 'data-postcode': this.address.postal_code}))
-                        .append(' ')
-                        .append($('<a>', {href: 'https://beta.companieshouse.gov.uk'+this.links.self, text: 'View on companies house website' })));
+        if(searchTerm.length > 0){
+
+            $.get(url, {q: searchTerm}, function( data ) {
+                var results = $.parseJSON(data.results);
+                
+                if(results && results.total_results > 0){
+
+                    $searchResultsContainer.empty();
+
+                    $.each(results.items, function() {
+                        $searchResultsContainer.append($('<li>')
+                                .append($('<a>', {class: 'company-result', href: '#', text: this.title, 'data-number': this.company_number, 'data-postcode': this.address.postal_code}))
+                                .append(' '));
+                    });
+                    $searchResultsContainer.show();
+                } else {
+                    $searchResultsContainer.show();
+                    $searchResultsContainer.html('<li>No results</li>');
+                }
+                
             });
-        });
+        } else {
+            $searchResultsContainer.show();
+            $searchResultsContainer.html('<li>Please enter a company name</li>');
+        }
         e.preventDefault();
     });
-    
     
     $(document).on('click', '.company-result', function(e){
         e.preventDefault();
-        $('#edit-company-number').val($(this).attr('data-number'));
-        $('#edit-company-postcode').val($(this).attr('data-postcode'));
-        $('.companies-house-list').remove();
+        $('.form-companies-house-search #edit-company-number').val($(this).attr('data-number'));
+        $('.form-companies-house-search .js-form-item-company-number').show();
+        $searchResultsContainer.hide();
     });
-  
+    
+    if(!$('.form-companies-house-search #edit-company-number').val()){
+        $('.form-companies-house-search .js-form-item-company-number').hide();
+    }
+    
     
     
 });

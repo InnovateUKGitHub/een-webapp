@@ -27,13 +27,13 @@ class CompaniesHouseForm extends AbstractForm
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $form = [
-            'description' => [
+            'company_name' => [
                 '#type'                => 'textfield',
                 '#title'               => t('Company Name'),
                 '#label_display'       => 'before',
                 '#attributes'          => [
                     'class' => [
-                        'form-control',
+                        'form-control ch_search',
                     ],
                     'placeholder' => [
                         'Your company\'s name',
@@ -43,6 +43,25 @@ class CompaniesHouseForm extends AbstractForm
                     ]
                 ],
             ],
+            
+            'search'       => [
+                '#type'          => 'html_tag',
+                '#title'         => t('Search Companies House'),
+                '#label_display' => 'before',
+                '#executes_submit_callback' => false,
+                '#value' => 'Search Companies House',
+                '#tag' => 'button',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ],
+                    'id' => [
+                        'ch-search-trigger',
+                    ]
+                ],
+            ],
+            
+            
             'company_number'       => [
                 '#type'          => 'textfield',
                 '#title'         => t('Company number'),
@@ -54,9 +73,9 @@ class CompaniesHouseForm extends AbstractForm
                 ],
             ],
             
-            'company_postcode'       => [
-                '#type'          => 'textfield',
-                '#title'         => t('Postcode'),
+            'no_company_number'       => [
+                '#type'          => 'checkbox',
+                '#title'         => t('I do not have a Companies House number'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [
