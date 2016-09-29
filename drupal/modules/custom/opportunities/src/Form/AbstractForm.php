@@ -117,4 +117,26 @@ abstract class AbstractForm extends FormBase
 
         return true;
     }
+
+    /**
+     *
+     * @param array  $values
+     * @param string $name
+     *
+     * @return array
+     */
+    protected function filterValues($values, $name)
+    {
+        if (empty($values[$name]) === false) {
+            return array_filter($values[$name], function($value) {
+                if ($value !== '0') {
+                    return $value;
+                }
+
+                return false;
+            });
+        }
+
+        return [];
+    }
 }

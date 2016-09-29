@@ -1,3 +1,17 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+a[ng-click] {
+    cursor: pointer;
+    color: #2b8cc4;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.transp {
+  opacity: 0.4 !important;
+  filter: alpha(opacity=40);
+}

@@ -7,7 +7,7 @@ use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class OpportunitiesForm extends FormBase
+class OpportunitiesForm extends AbstractForm
 {
     /**
      * @var OpportunitiesService
@@ -61,7 +61,9 @@ class OpportunitiesForm extends FormBase
                 '#type'       => 'textfield',
                 '#title'      => t('Search an opportunity'),
                 '#attributes' => [
-                    'class'       => [
+                    'ng-model' => 'data.search',
+                    'ng-change' => 'queryKeyUp()',
+                    'class' => [
                         'form-control',
                     ],
                     'placeholder' => [
@@ -73,12 +75,16 @@ class OpportunitiesForm extends FormBase
                 '#type'    => 'checkboxes',
                 '#title'   => t('I want to...'),
                 '#options' => $types,
+                '#attributes' => [
+                    'ng-click' => 'selectOppCheckbox($event)'
+                ]
             ],
             'country'          => [
                 '#type'       => 'checkboxes',
                 '#title'      => t('Country of origin'),
                 '#options'    => $countries,
                 '#attributes' => [
+                    'ng-click' => 'selectCountryCheckbox($event)',
                     'class' => [
                         'accordion-container',
                     ],
@@ -93,6 +99,9 @@ class OpportunitiesForm extends FormBase
                 ],
             ],
             '#method'          => Request::METHOD_POST,
+            '#attributes'      => [
+                'ng-submit' => "submit()",
+            ],
         ];
 
         return $form;
@@ -103,8 +112,6 @@ class OpportunitiesForm extends FormBase
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        // TODO Return json when POST is used and we are making nice and pretty url
-        // $form_state->disableRedirect();
         $values = $form_state->getValues();
 
         $search = $values['search'];
@@ -129,27 +136,5 @@ class OpportunitiesForm extends FormBase
                 'query' => $params,
             ]
         );
-    }
-
-    /**
-     *
-     * @param array  $values
-     * @param string $name
-     *
-     * @return array
-     */
-    private function filterValues($values, $name)
-    {
-        if (empty($values[$name]) === false) {
-            return array_filter($values[$name], function($value) {
-                if ($value !== '0') {
-                    return $value;
-                }
-
-                return false;
-            });
-        }
-
-        return [];
     }
 }

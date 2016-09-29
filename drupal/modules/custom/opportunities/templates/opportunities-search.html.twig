@@ -24,43 +24,43 @@
     </div>
     <div class="column-two-thirds">
 
-        <div class="row" ng-show="heading.loaded" ng-cloak>
-            <h3 class="heading-xlarge">{[{ heading.total }]} <span class="font-xsmall">opportunity</span></h3>
-        </div>
-
-        <div class="row row-bordered" ng-show="heading.loaded" ng-repeat="row in results" ng-cloak>
-            <h3>
-                <a href="" id="opportunity-link">
-                    {[{ row.title }]}
-                </a>
-            </h3>
-
-            <p class="meta-inline font-small">
-                {# lastupdated #}
-                {[{ row.date }]}
-
-                {# organisation id #}
-                {[{ row.id }]} |
-
-                {# Country of origin #}
-                {[{ row.flag }]}
-                <span class="flag-icon"></span>
-                {[{ row.country }]}
-            </p>
-        </div>
-
         {% if results is not null %}
             {% if total > 0 %}
-                <div class="row">
+                <div class="row" ng-show="meta.searched" ng-cloak ng-class="{ transp: meta.searching }">
+                    <h3 class="heading-xlarge results-list-heading">{[{ data.total | number }]} <span class="font-xsmall"> <ng-pluralize count="data.total"
+                        when="{'0': 'opportunities',
+                               'one': 'opportunity',
+                               'other': 'opportunities'}"></span></h3>
+                </div>
+
+                <div class="row" ng-show="!meta.searched" ng-class="{ transp: meta.searching }">
                     <h3 class="heading-xlarge results-list-heading">{{ total|number_format(0, '.', ',') }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
                 </div>
 
                 <div class="results-list">
                     <p class="list-subtext">Get updates to this list  <a href="#" class="follow-list"><i class="fa fa-envelope" aria-hidden="true"></i> Email</a> <a href="#" class="follow-list"><i class="fa fa-rss" aria-hidden="true"></i> RSS</a></p>
 
+                    <div class="row row-bordered" ng-show="meta.searched" ng-repeat="row in results" ng-cloak ng-class="{ transp: meta.searching }">
+                        <h3 class="results-list-heading-item">
+                            <a ng-href="/opportunities/{[{row.id}]}" id="opportunity-link" ng-bind-html="row.title | unsafe">
+                                {[{ row.title }]}
+                            </a>
+                        </h3>
+
+                        <p class="description" ng-bind-html="row.summary | unsafe">{[{ row.summary | cut:true:240:' ...' }]} <a ng-href="/opportunities/{[{row.id}]}">more</a></p>
+
+                        <p class="meta-inline font-small">
+                            {# lastupdated #}
+                            {[{ row.date }]}
+
+                            <span ng-class="getFlagClass(row.country_code)"></span>
+                            {[{ row.country }]}
+                        </p>
+                    </div>
+
                     {% for row in results %}
 
-                        <div class="row row-bordered">
+                        <div class="row row-bordered" ng-show="!meta.searched" ng-class="{ transp: meta.paging || meta.searching }">
                             <h3 class="results-list-heading-item">
                                 <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" id="opportunity-link">
                                     {{ row.title|raw }}

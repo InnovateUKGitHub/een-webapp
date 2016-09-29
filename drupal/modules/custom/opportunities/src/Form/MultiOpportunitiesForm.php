@@ -5,7 +5,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class MultiOpportunitiesForm extends FormBase
+class MultiOpportunitiesForm extends AbstractForm
 {
     /**
      * {@inheritdoc}
@@ -63,14 +63,27 @@ class MultiOpportunitiesForm extends FormBase
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $values = $form_state->getValues();
+
+        $search = $values['search'];
+        $opportunity_type = $this->filterValues($values, 'opportunity_type');
+        $country = $this->filterValues($values, 'country');
+
+        $params = [];
+        if (empty($search) === false) {
+            $params['search'] = $values['search'];
+        }
+        if (empty($opportunity_type) === false) {
+            $params['opportunity_type'] = $opportunity_type;
+        }
+        if (empty($country) === false) {
+            $params['country'] = $country;
+        }
+
         $form_state->setRedirect(
             'opportunities.search.test',
             [],
             [
-                'query' => [
-                    'search'           => $values['search'],
-                    'opportunity_type' => $values['opportunity_type'],
-                ],
+                'query' => $params,
             ]
         );
     }
