@@ -240,8 +240,10 @@
     };
 
     var queryAPI = function (paging) {
-      $scope.meta.searching = true;
-      $scope.$apply();
+      if (!$scope.meta.searching) {
+        $scope.meta.searching = true;
+        $scope.$apply();
+      }
 
       if (!paging) {
         $scope.data.page = 1;
