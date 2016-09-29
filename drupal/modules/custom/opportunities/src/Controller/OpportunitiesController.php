@@ -172,7 +172,7 @@ class OpportunitiesController extends ControllerBase
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
         $countries = $request->query->get(self::COUNTRY);
 
-        $results = $this->service->search($form, $search, $types, $countries, $page, $resultPerPage);
+        $results = $this->service->search($form, $search, $types, $countries, $page, $resultPerPage, 3);
 
         // Test if single match
         if (isset($results['_id'])) {
