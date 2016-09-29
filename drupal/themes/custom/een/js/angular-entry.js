@@ -296,7 +296,9 @@
     };
 
     $scope.queryKeyUp = function () {
-      liveQueryAPI();
+      if ($scope.data.search.length > 3) {
+        liveQueryAPI();
+      }
     };
 
     $scope.next = function () {
