@@ -4,6 +4,10 @@ jQuery(function () {
     
     /*** sticky nav ****/
     var sidebar = document.querySelector(".sticky-sidebar");
+    if(!sidebar){
+        return null;
+    }
+    
     var sidebarHeader = document.querySelector(".sticky-sidebar-header");
     var sidebarContent = document.querySelector(".sticky-sidebar-content");
     var pageContent = document.querySelector(".contents-text-block");
