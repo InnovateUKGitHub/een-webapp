@@ -23,6 +23,30 @@ class OpportunitiesService
     }
 
     /**
+     * @param string $search
+     * @param array  $types
+     * @param array  $countries
+     *
+     * @return array
+     */
+    public function count($search, $types, $countries)
+    {
+        $params = [
+            'search'           => $search,
+            'opportunity_type' => $types,
+            'country'          => $countries,
+            'count'            => true,
+        ];
+
+        $this->service
+            ->setUrl('opportunities')
+            ->setMethod(Request::METHOD_POST)
+            ->setBody($params);
+
+        return $this->service->sendRequest();
+    }
+
+    /**
      * @param array  $form
      * @param string $search
      * @param array  $types
