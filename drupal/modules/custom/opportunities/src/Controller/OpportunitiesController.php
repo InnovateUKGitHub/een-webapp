@@ -5,6 +5,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Drupal\opportunities\Form\MultiOpportunitiesForm;
 use Drupal\opportunities\Form\OpportunitiesForm;
+use Drupal\opportunities\Form\OpportunitiesExploreForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -270,16 +271,26 @@ class OpportunitiesController extends ControllerBase
     
     public function exploreOpportunities(Request $request)
     {
-        $data = $this->getOpportunities($request);
         
+        $data = $this->getOpportunities($request);
+
+        if (isset($data['redirect']) && $data['redirect'] === true) {
+            return $this->redirect(
+                'opportunities.details',
+                ['profileId' => $data['id']]
+            );
+        }
+        
+        $form = \Drupal::formBuilder()->getForm(OpportunitiesExploreForm::class);
+
         return [
             '#attached'         => [
                 'library' => [
                     'een/opportunity-list',
                 ],
             ],
-            '#opportunity_type' => $data['opportunity_type'],
             '#theme'            => 'explore_opportunities',
+            '#form'             => $form,
             '#route'            => 'opportunities.explore',
         ];
     }

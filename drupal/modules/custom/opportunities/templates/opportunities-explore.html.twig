@@ -16,19 +16,23 @@
 </div>
 
 <div class="grid-row">
-    <div class="column-full-width sentence-builder">
-        <p>I'm looking for <span id="keywords" contenteditable="true">Enter a keyword </span>partners to do <span tabindex="0">...trigger...</span> located in <span tabindex="0">...trigger...</span> </p>
-       
-        <div style="display:block;">
-            <form>
-                <input type="text" name="search" id="search"/>
-                <div id="modal">
-                     <select>
-                         <option>Select ....</option>
-                         <option>Select ....</option>
-                     </select> 
+    <div class="column-fullwidth">
+        <div class="column-full">
+            <br />
+            <br />
+            
+            <div class="sentence-builder">
+                <p>I'm looking for <span id="keywords" contenteditable="true">Enter a keyword </span>partners to do <span tabindex="0">...trigger...</span> located in <span tabindex="0">...trigger...</span> </p>
+
+                <div style="display:block;">
+
+                    <div class="modal">
+                        {{ form }}
+                    </div>
                 </div>
-            </form>
+            </div>
+                
+            <p><a href="/opportunities">No thanks, let me see all opportunities</a></p>
         </div>
         
     </div>
