@@ -231,4 +231,20 @@ class OpportunitiesController extends ControllerBase
             ]
         );
     }
+    
+    public function exploreOpportunities(Request $request)
+    {
+        $data = $this->getOpportunities($request);
+        
+        return [
+            '#attached'         => [
+                'library' => [
+                    'een/opportunity-list',
+                ],
+            ],
+            '#opportunity_type' => $data['opportunity_type'],
+            '#theme'            => 'explore_opportunities',
+            '#route'            => 'opportunities.explore',
+        ];
+    }
 }

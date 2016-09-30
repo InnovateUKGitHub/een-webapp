@@ -15,6 +15,8 @@
 @import 'label';
 @import 'pagination';
 
+$dark-blue:#0d6ca4;
+
 body {
   font-family: $font_family;
   color:#4A4A4A;
@@ -809,6 +811,23 @@ form[data-drupal-selector="opportunity-search-form"] {
             a {
                 color:#64b4e6;
             }
+        }
+    }
+}
+
+.sentence-builder {
+    #keywords {
+        border-bottom:3px solid $dark-blue;
+        padding:4px;
+        color:$dark-blue;
+        min-width:250px;
+        
+        &:before {
+            content: " e.g automative conponents";
+            color:grey;
+            font-size:14px;
+            position: absolute;
+            margin-top: -15px;
         }
     }
 }
