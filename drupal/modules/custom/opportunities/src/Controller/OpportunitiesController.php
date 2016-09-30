@@ -10,6 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+use Drupal\opportunities\Form\CompaniesHouseForm;
+
 class OpportunitiesController extends ControllerBase
 {
     const PAGE_NUMBER = 'page';
@@ -231,4 +233,41 @@ class OpportunitiesController extends ControllerBase
             ]
         );
     }
+    
+    
+    
+    
+    
+    
+    public function temp()
+    {
+        $form = \Drupal::formBuilder()->getForm(CompaniesHouseForm::class);
+        return [
+            '#form'             => $form,
+            '#theme'            => 'opportunities_search_temp',
+            '#route'            => 'opportunities.search.temp',
+        ];
+    }
+    
+    public function tempajax()
+    {
+        $key = '7orha_oflH8yLjXTboak_oUDkvhnuOhpQWJhwirD';
+ 
+        $query = array('q'=> $_GET['q']);
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, 'https://api.companieshouse.gov.uk/search/companies?'.http_build_query($query));
+        curl_setopt($ch, CURLOPT_USERNAME, $key);
+        $result = curl_exec($ch);
+        
+        return new JsonResponse(
+            [
+                'results'          => $result
+            ]
+        );
+    }
+    
+    
+    
 }
