@@ -26,6 +26,22 @@ class CompaniesHouseForm extends AbstractForm
      */
     public function buildForm(array $form, FormStateInterface $form_state)
     {
+        $types = [
+            'UK' => t('UK Newsletter'),
+            'EE' => t('East of England'),
+            'L' => t('London'),
+            'M' => t('Midlands'),
+            'NE' => t('North England'),
+            'NI' => t('Northern Ireland'),
+            'SE' => t('South East England'),
+            'SW' => t('South West England'),
+            'W' => t('Wales'),
+        ];
+        $radio = [
+            'UK' => t('UK Newsletter'),
+            'EE' => t('East of England'),
+        ];
+        
         $form = [
             'company_name' => [
                 '#type'                => 'textfield',
@@ -40,6 +56,66 @@ class CompaniesHouseForm extends AbstractForm
                     ],
                     'id' => [
                         'ch_search'
+                    ]
+                ],
+            ],
+            'newsletter' => [
+                '#type'    => 'checkboxes',
+                '#title'   => t('Please send me emails when there is a new:'),
+                '#options' => $types,
+            ],
+            
+            'testradio' => [
+                '#type'    => 'radios',
+                '#title'   => t('Please send me emails when there is a new:'),
+                '#options' => $radio,
+                '#attributes' => [
+                    'class' => [
+                        'radio-buttons',
+                    ]
+                ],
+            ],
+            
+            'firstname'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Fisrt name'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'lastname'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Last name'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'email'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Email'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'phone'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Contact telephone number'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
                     ]
                 ],
             ],
@@ -65,17 +141,6 @@ class CompaniesHouseForm extends AbstractForm
             'company_number'       => [
                 '#type'          => 'textfield',
                 '#title'         => t('Company number'),
-                '#label_display' => 'before',
-                '#attributes'    => [
-                    'class' => [
-                        'form-control',
-                    ],
-                ],
-            ],
-            
-            'no_company_number'       => [
-                '#type'          => 'checkbox',
-                '#title'         => t('I do not have a Companies House number'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [

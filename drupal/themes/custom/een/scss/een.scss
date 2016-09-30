@@ -185,7 +185,74 @@ form {
     :-ms-input-placeholder {   font-size:0.9em; font-style: italic;  }
 }
 
+.form-heading {
+    border-bottom:solid 5px $govuk-blue;
+    h1 {
+        font-size:36px;
+    }
+}
+.form-companies-house-search {
+    .form-section {
+        margin-bottom:20px;
+    }
+    .fieldset-legend {
+        display:block;
+        margin-bottom:10px;
+    }
+    .block-label {
+        border:none;
+        padding:1px 0 2px 36px;
+        margin:0;
+        background:none;
+        input[type=checkbox],input.radio-buttons {
+           height: 1px;
+           width: 1px;
+           overflow: hidden;
+        }
+        input::before {
+            content: '';
+            width: 9px;
+            height: 5px;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            border: 3px solid #fcfff4;
+            border-top: none;
+            border-right: none;
+            background: transparent;
+            opacity: 0;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+        &::after {
+            width:20px;
+            height:20px;
+            display:block;
+            position:absolute;
+            left:0px;
+            top:0px;
+            float:left;
+            border:1px solid #9b9b9b;
+            border-radius:1px;
+            content:" ";
+            background:#fcfff4 none repeat scroll 0 0; 
+        }
+    }
+    .block-label.selected:after {
+        background: #006BA6 url('../img/tick-checkbox.png') no-repeat center 50%;
+        border-color: #00587C;
 
+    }
+    #ch-search-trigger {
+        height:36px;
+        border-radius:0
+    }
+    fieldset.radio-buttons {
+        .block-label:after {
+            border-radius:50%;
+        }
+    }
+}
 form {
     .form-label {
         @extend .font-small;
