@@ -3,6 +3,7 @@ namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\opportunities\Form\CompaniesHouseForm;
 use Drupal\opportunities\Form\MultiOpportunitiesForm;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\opportunities\Form\OpportunitiesExploreForm;
@@ -10,8 +11,6 @@ use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Drupal\opportunities\Form\CompaniesHouseForm;
 
 class OpportunitiesController extends ControllerBase
 {
@@ -234,41 +233,53 @@ class OpportunitiesController extends ControllerBase
             ]
         );
     }
-    
-    
-    
-    
-    
-    
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function count(Request $request)
+    {
+        $search = $request->query->get(self::SEARCH);
+        $types = $request->query->get(self::OPPORTUNITY_TYPE);
+        $countries = $request->query->get(self::COUNTRY);
+
+        $count = $this->service->count($search, $types, $countries);
+
+        return new JsonResponse($count);
+    }
+
     public function temp()
     {
         $form = \Drupal::formBuilder()->getForm(CompaniesHouseForm::class);
+
         return [
-            '#form'             => $form,
-            '#theme'            => 'opportunities_search_temp',
-            '#route'            => 'opportunities.search.temp',
+            '#form'  => $form,
+            '#theme' => 'opportunities_search_temp',
+            '#route' => 'opportunities.search.temp',
         ];
     }
-    
+
     public function tempajax()
     {
         $key = '7orha_oflH8yLjXTboak_oUDkvhnuOhpQWJhwirD';
- 
-        $query = array('q'=> $_GET['q']);
-        
+
+        $query = ['q' => $_GET['q']];
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, 'https://api.companieshouse.gov.uk/search/companies?'.http_build_query($query));
+        curl_setopt($ch, CURLOPT_URL, 'https://api.companieshouse.gov.uk/search/companies?' . http_build_query($query));
         curl_setopt($ch, CURLOPT_USERNAME, $key);
         $result = curl_exec($ch);
-        
+
         return new JsonResponse(
             [
-                'results'          => $result
+                'results' => $result,
             ]
         );
     }
-    
+
     public function exploreOpportunities(Request $request)
     {
         
@@ -279,7 +290,7 @@ class OpportunitiesController extends ControllerBase
                 'opportunities.details',
                 ['profileId' => $data['id']]
             );
-        }
+}
         
         $form = \Drupal::formBuilder()->getForm(OpportunitiesExploreForm::class);
 

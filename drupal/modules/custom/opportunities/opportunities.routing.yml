@@ -1,3 +1,10 @@
+opportunities.search.count:
+ path: '/opportunities/_count'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::count'
+ requirements:
+   _permission: 'access content'
+
 opportunities.search:
  path: '/opportunities'
  defaults:
