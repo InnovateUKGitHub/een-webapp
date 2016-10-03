@@ -8,7 +8,6 @@ use Drupal\opportunities\Form\EmailVerificationForm;
 use Drupal\opportunities\Form\ExpressionOfInterestForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
-use Drupal\user\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -41,17 +40,17 @@ class OpportunityController extends ControllerBase
      * OpportunityController constructor.
      *
      * @param OpportunitiesService    $service
-     * @param PrivateTempStoreFactory $tempStore
+     * @param PrivateTempStore $session
      * @param SessionManagerInterface $sessionManager
      */
     public function __construct(
         OpportunitiesService $service,
-        PrivateTempStoreFactory $tempStore,
+        PrivateTempStore $session,
         SessionManagerInterface $sessionManager
     )
     {
         $this->service = $service;
-        $this->session = $tempStore->get(self::SESSION);
+        $this->session = $session;
         $this->sessionManager = $sessionManager;
 
         // TODO check if the user is connected when the login is implemented
@@ -70,7 +69,7 @@ class OpportunityController extends ControllerBase
     {
         return new self(
             $container->get('opportunities.service'),
-            $container->get('user.private_tempstore'),
+            $container->get('user.private_tempstore')->get(self::SESSION),
             $container->get('session_manager')
         );
     }
