@@ -349,8 +349,6 @@
         $scope.data.page = 1;
       }
 
-      console.log('hitting api');
-
       oppsFactory.search({
         page: $scope.data.page,
         opportunity_type: $scope.data.opportunity_type,
