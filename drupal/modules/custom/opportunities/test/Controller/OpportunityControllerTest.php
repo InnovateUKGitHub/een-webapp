@@ -4,6 +4,7 @@ namespace Drupal\opportunities\Test\Controller;
 use Drupal\Core\Form\FormBuilder;
 use Drupal\Core\Routing\UrlGenerator;
 use Drupal\opportunities\Controller\OpportunityController;
+use Drupal\opportunities\Form\EmailVerificationForm;
 use Drupal\opportunities\Form\ExpressionOfInterestForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\Tests\UnitTestCase;
@@ -39,32 +40,21 @@ class OpportunityControllerTest extends UnitTestCase
             ->willReturn($mockFormBuilder);
         $container->expects(self::at(1))
             ->method('get')
-            ->with('url_generator')
-            ->willReturn($mockUrlGenerator);
+            ->with('form_builder')
+            ->willReturn($mockFormBuilder);
         $container->expects(self::at(2))
             ->method('get')
             ->with('url_generator')
             ->willReturn($mockUrlGenerator);
 
-        $mockFormBuilder->expects(self::once())
+        $mockFormBuilder->expects(self::at(0))
             ->method('getForm')
             ->with(ExpressionOfInterestForm::class)
             ->willReturn([]);
-        $mockUrlGenerator->expects(self::at(0))
-            ->method('generateFromRoute')
-            ->with(
-                'opportunities.details',
-                ['profileId' => 1],
-                ['query' => ['search' => 'H2020', 'opportunity_type' => ['BO']]]
-            )
-            ->willReturn('my-action');
-        $mockUrlGenerator->expects(self::at(1))
-            ->method('generateFromRoute')
-            ->with(
-                'opportunities.details',
-                ['profileId' => 1]
-            )
-            ->willReturn('my-action');
+        $mockFormBuilder->expects(self::at(1))
+            ->method('getForm')
+            ->with(EmailVerificationForm::class)
+            ->willReturn([]);
 
         $mockRequest->query = $mockQuery;
 
@@ -88,36 +78,18 @@ class OpportunityControllerTest extends UnitTestCase
 
         self::assertEquals(
             [
-                '#attached'         => [
-                    'library' => [
-                        'core/drupal.ajax',
-                        'core/drupal.dialog',
-                        'core/drupal.dialog.ajax',
-                        'een/opportunity',
-                    ],
-                ],
-                '#theme'            => 'opportunities_details',
-                '#form'             => [
-                    '#action' => 'my-action',
-                ],
-                '#opportunity'      => [
-                    '_source' => ['title' => 'Opportunity Title'],
-                ],
-                '#search'           => 'H2020',
-                '#opportunity_type' => ['BO'],
-                '#country'          => ['FR'],
-                '#mail'             => [
-                    'subject' => 'Opportunity Title',
-                    'body'    => 'Hello,
-
-Here\'s a partnering opportunity I thought might be of interest:
-my-action
-
-It\'s on Enterprise Europe Network\'s website, the world\'s largest business support network, led by the European Commission.
-',
-                ],
+                '#theme',
+                '#form_email',
+                '#form',
+                '#opportunity',
+                '#search',
+                '#opportunity_type',
+                '#country',
+                '#token',
+                '#email',
+                '#mail',
             ],
-            $this->controller->index(1, $mockRequest)
+            array_keys($this->controller->index(1, null, $mockRequest))
         );
     }
 
