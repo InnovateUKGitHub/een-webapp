@@ -181,7 +181,16 @@ class CompaniesHouseForm extends AbstractForm
                     ]
                 ],
             ],
-            
+            'postcode'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Enter your postcode'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
             'addressone'       => [
                 '#type'          => 'textfield',
                 '#title'         => t('Address Line 1'),
