@@ -190,6 +190,9 @@ form {
     h1 {
         font-size:36px;
     }
+    p {
+        font-size:19px;
+    }
 }
 .form-companies-house-search {
     .form-section {
@@ -201,9 +204,13 @@ form {
     }
     .block-label {
         border:none;
-        padding:1px 0 2px 36px;
+        padding:3px 0 2px 36px;
         margin:0;
         background:none;
+        input {
+            top:5px;
+            left:10px;
+        }
         input[type=checkbox],input.radio-buttons {
            height: 1px;
            width: 1px;
@@ -229,8 +236,8 @@ form {
             height:20px;
             display:block;
             position:absolute;
-            left:0px;
-            top:0px;
+            left:3px;
+            top:3px;
             float:left;
             border:1px solid #9b9b9b;
             border-radius:1px;
@@ -824,7 +831,6 @@ form[data-drupal-selector="opportunity-search-form"] {
         font-weight: bold;
         margin-bottom: 0.5em;
     }
-
     .save-action {
         clear:both;
         margin:0 0 0.3em 0;
