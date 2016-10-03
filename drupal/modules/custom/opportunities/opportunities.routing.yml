@@ -27,12 +27,20 @@ opportunities.search.ajax:
    _permission: 'access content'
 
 opportunities.details:
- path: '/opportunities/{profileId}'
+ path: '/opportunities/{profileId}/{token}'
  defaults:
    _controller: '\Drupal\opportunities\Controller\OpportunityController::index'
+   token: null
  requirements:
    _permission: 'access content'
-   
+
+opportunities.details.ajax:
+ path: '/opportunities/{profileId}/_ajax'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunityController::ajax'
+ requirements:
+   _permission: 'access content'
+
 opportunities.search.temp:
  path: '/opportunities-temp'
  defaults:
