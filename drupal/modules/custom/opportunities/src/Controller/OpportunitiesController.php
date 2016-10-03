@@ -139,11 +139,6 @@ class OpportunitiesController extends ControllerBase
         }
 
         return [
-            '#attached'         => [
-                'library' => [
-                    'een/opportunity-list',
-                ],
-            ],
             '#theme'            => 'opportunities_search',
             '#form'             => $data['form'],
             '#search'           => $data['search'],

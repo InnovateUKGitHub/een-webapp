@@ -3,6 +3,7 @@ namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\opportunities\Form\EmailVerificationForm;
 use Drupal\opportunities\Form\ExpressionOfInterestForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -15,6 +16,7 @@ class OpportunityController extends ControllerBase
     const SEARCH = 'search';
     const OPPORTUNITY_TYPE = 'opportunity_type';
     const COUNTRY = 'country';
+    const EMAIL = 'email';
 
     /**
      * @var OpportunitiesService
@@ -43,40 +45,41 @@ class OpportunityController extends ControllerBase
 
     /**
      * @param string  $profileId
+     * @param string  $token
      * @param Request $request
      *
      * @return array
      */
-    public function index($profileId, Request $request)
+    public function index($profileId, $token, Request $request)
     {
         $search = $request->query->get(self::SEARCH);
         $opportunityType = $request->query->get(self::OPPORTUNITY_TYPE);
         $country = $request->query->get(self::COUNTRY);
+        $email = $request->query->get(self::EMAIL);
 
         $results = $this->service->get($profileId);
 
         $form = \Drupal::formBuilder()->getForm(ExpressionOfInterestForm::class);
-        $form['#action'] = Url::fromRoute(
-            'opportunities.details',
-            ['profileId' => $profileId],
-            ['query' => ['search' => $search, 'opportunity_type' => $opportunityType]]
-        )->toString();
+        $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);
+        $formEmail['profile-id']['#value'] = $profileId;
+
+        if ($token === null) {
+            $this->disableForm($form);
+        } else {
+            $form['email']['#value'] = $email;
+            $form['email']['#attributes']['disabled'] = 'disabled';
+        }
 
         return [
-            '#attached'         => [
-                'library' => [
-                    'core/drupal.ajax',
-                    'core/drupal.dialog',
-                    'core/drupal.dialog.ajax',
-                    'een/opportunity',
-                ],
-            ],
             '#theme'            => 'opportunities_details',
+            '#form_email'       => $formEmail,
             '#form'             => $form,
             '#opportunity'      => $results,
             '#search'           => $search,
             '#opportunity_type' => $opportunityType,
             '#country'          => $country,
+            '#token'            => $token,
+            '#email'            => $email,
             '#mail'             => [
                 'subject' => $results['_source']['title'],
                 'body'    => "Hello,
@@ -88,5 +91,35 @@ It's on Enterprise Europe Network's website, the world's largest business suppor
 ",
             ],
         ];
+    }
+
+    /**
+     * @param array $form
+     */
+    private function disableForm(&$form)
+    {
+        $form['description']['#attributes']['disabled'] = 'disabled';
+        $form['interest']['#attributes']['disabled'] = 'disabled';
+        $form['more']['#attributes']['disabled'] = 'disabled';
+        $form['email']['#attributes']['disabled'] = 'disabled';
+        $form['actions']['submit']['#attributes']['disabled'] = 'disabled';
+    }
+
+    /**
+     * @param string  $profileId
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function ajax($profileId, Request $request)
+    {
+        $email = $request->query->get(self::EMAIL);
+
+        $this->service->verifyEmail(
+            $email,
+            $profileId
+        );
+
+        return ['success' => true];
     }
 }
