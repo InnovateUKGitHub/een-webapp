@@ -152,6 +152,11 @@ class CompaniesHouseForm extends AbstractForm
                     ],
                 ],
             ],
+            'nocompanynumber' => [
+                '#type'    => 'checkbox',
+                '#title'   => t('I do not have a company number'),
+            ],
+            
             
             'actions'     => [
                 '#type'  => 'actions',

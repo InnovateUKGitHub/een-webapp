@@ -210,7 +210,50 @@ input,textarea,select,button,#global-header input:focus {
     }
 }
 .form-companies-house-search {
-    h2.heading-large:first-of-type {
+    .companies-house-list {
+        border: 1px solid #9B9B9B;
+        display:none;
+        width:70%;
+        max-height: 185px;
+        overflow: auto;
+
+        li { 
+            border-top: 1px solid #9B9B9B;
+            padding: 6px;
+            font-size: 14px;
+            border-bottom:none;
+            
+            a {
+                display:block;
+            }
+        }
+        li:first-of-type {
+            border: none;
+        }
+    }
+    .ch_search {
+        float:left;
+        width:60%;
+        margin-right:7px;
+    }
+    .form-item-company-name {
+        margin-bottom:7px;
+    }
+    
+    #ch-search-trigger {
+        border: 2px solid $light-blue;
+        padding: 8px;
+        top: -3px;
+        position: relative;
+        border-radius: 4px;
+        color: $light-blue;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: bold;
+        top: -8px;
+        width:auto; 
+    }
+    h2.heading-large {
         margin-top:0;
     }
     .step {
@@ -270,10 +313,6 @@ input,textarea,select,button,#global-header input:focus {
         background: #006BA6 url('../img/tick-checkbox.png') no-repeat center 50%;
         border-color: $border-colour;
     }
-    #ch-search-trigger {
-        height:36px;
-        border-radius:0
-    }
     fieldset.radio-buttons {
         .block-label:after {
             border-radius:50%;
@@ -298,6 +337,10 @@ input,textarea,select,button,#global-header input:focus {
             content:"Required";
             padding-top:5px;
         }
+    }
+    #ch-search-trigger {
+        height:40px;
+        border-radius:0;
     }
 }
 form {
@@ -920,52 +963,6 @@ form[data-drupal-selector="opportunity-search-form"] {
                 color:#64b4e6;
             }
         }
-    }
-}
-
-.form-companies-house-search {
-    .companies-house-list {
-        border: 1px solid #9B9B9B;
-        display:none;
-        width:70%;
-        max-height: 185px;
-        overflow: auto;
-
-        li { 
-            border-top: 1px solid #9B9B9B;
-            padding: 6px;
-            font-size: 14px;
-            border-bottom:none;
-            
-            a {
-                display:block;
-            }
-        }
-        li:first-of-type {
-            border: none;
-        }
-    }
-    .ch_search {
-        float:left;
-        width:60%;
-        margin-right:7px;
-    }
-    .form-item-company-name {
-        margin-bottom:7px;
-    }
-    
-    #ch-search-trigger {
-        border: 2px solid $light-blue;
-        padding: 8px;
-        top: -3px;
-        position: relative;
-        border-radius: 4px;
-        color: $light-blue;
-        font-size: 14px;
-        cursor: pointer;
-        font-weight: bold;
-        top: -8px;
-        width:auto; 
     }
 }
 
