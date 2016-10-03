@@ -65,7 +65,7 @@ class CompaniesHouseForm extends AbstractForm
                 '#options' => $types,
             ],
             
-            'testradio' => [
+            'radiobutton' => [
                 '#type'    => 'radios',
                 '#title'   => t('Please send me emails when there is a new:'),
                 '#options' => $radio,
@@ -80,6 +80,7 @@ class CompaniesHouseForm extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Fisrt name'),
                 '#label_display' => 'before',
+                '#required' => TRUE,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -91,6 +92,7 @@ class CompaniesHouseForm extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Last name'),
                 '#label_display' => 'before',
+                '#required' => TRUE,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -102,6 +104,7 @@ class CompaniesHouseForm extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Email'),
                 '#label_display' => 'before',
+                '#required' => TRUE,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -113,6 +116,7 @@ class CompaniesHouseForm extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Contact telephone number'),
                 '#label_display' => 'before',
+                '#required' => TRUE,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -160,7 +164,7 @@ class CompaniesHouseForm extends AbstractForm
                 
                 'submit' => [
                     '#type'        => 'button',
-                    '#value'       => $this->t('Search Companies House'),
+                    '#value'       => $this->t('Continue'),
                     '#button_type' => 'primary',
                     '#method' => 'append',
                     '#url' => '/opportunities-tempajax',

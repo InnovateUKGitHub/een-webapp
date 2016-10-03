@@ -184,17 +184,32 @@ form {
     ::-moz-placeholder {  /* Firefox 19+ */   font-size:0.9em; font-style: italic; }
     :-ms-input-placeholder {   font-size:0.9em; font-style: italic;  }
 }
-
+input,textarea,select,button,#global-header input:focus {
+    &:focus {
+        outline: 3px solid $focus;
+    }
+}
+.form-text {
+    font-size:16px;
+    padding:8px 12px;
+}
 .form-heading {
     border-bottom:solid 5px $govuk-blue;
     h1 {
         font-size:36px;
     }
     p {
-        font-size:19px;
+        width:84%;
+        font-size:24px;
     }
 }
 .form-companies-house-search {
+    h2.heading-large:first-of-type {
+        margin-top:0;
+    }
+    .step {
+        color:#9b9b9b;
+    }
     .form-section {
         margin-bottom:20px;
     }
@@ -223,7 +238,7 @@ form {
             position: absolute;
             top: 4px;
             left: 4px;
-            border: 3px solid #fcfff4;
+            border: 3px solid $border-colour;
             border-top: none;
             border-right: none;
             background: transparent;
@@ -239,16 +254,15 @@ form {
             left:3px;
             top:3px;
             float:left;
-            border:1px solid #9b9b9b;
+            border:1px solid $border-colour;
             border-radius:1px;
             content:" ";
-            background:#fcfff4 none repeat scroll 0 0; 
+            background:#fcfff4; 
         }
     }
     .block-label.selected:after {
         background: #006BA6 url('../img/tick-checkbox.png') no-repeat center 50%;
-        border-color: #00587C;
-
+        border-color: $border-colour;
     }
     #ch-search-trigger {
         height:36px;
@@ -257,6 +271,26 @@ form {
     fieldset.radio-buttons {
         .block-label:after {
             border-radius:50%;
+        }
+    }
+    .tick {
+        position:relative;
+        &::after {
+            font-family:FontAwesome;
+            position:absolute;
+            top:0;
+            right:0;
+            content:"\f00c";
+            color:#b9e88b;
+        }
+    }
+    .form-required {
+        &:after {
+            font-size:14px;
+            float:right;
+            font-style:italic;
+            content:"Required";
+            padding-top:5px;
         }
     }
 }
@@ -294,7 +328,6 @@ form {
 
 
 .form-opportunities {
-    
     div[id$="--description"] {
         border-left:6px solid #DEE0E2;
         padding-left: 14px;
@@ -352,20 +385,17 @@ form[data-drupal-selector="opportunity-search-form"] {
 
     .form-item-search, .fieldgroup  {
         background: #DEE0E2;
-
         margin-bottom: 14px;
         .form-control {
             width: 100%;
         }
         .fieldset-wrapper {
-
             legend {
                 margin: 10px;
                 display: block;
                 top: 15px;
                 position: relative;
             }
-
             .block-label {
                 background: white;
                 width: initial;
@@ -426,17 +456,13 @@ form[data-drupal-selector="opportunity-search-form"] {
     .block-label:first-of-type{
         border-top-width:1px;
     }
-
-
     .block-label.selected:after {
         background: #006BA6 url('../img/tick-checkbox.png') no-repeat center 50%;
         border-color: #00587C;
-
     }
     .block-label.focused:after {
          outline: 3px solid #ffbf47;
     }
-
     .block-label.focused {
         z-index: 1;
         outline:none;
