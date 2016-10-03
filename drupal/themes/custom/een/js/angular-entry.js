@@ -157,9 +157,9 @@
   var een = window.angular.module('een', []);
 
   // changed to stop conflicting with Drupal templating engine
-  een.config(function ($interpolateProvider) {
+  een.config(['$interpolateProvider', function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-  });
+  }]);
 
   een.filter('cut', function () {
     return function (value, wordwise, max, tail) {
@@ -185,7 +185,7 @@
     };
   });
 
-  een.filter('unsafe', function ($sce) { return $sce.trustAsHtml; });
+  een.filter('unsafe', ['$sce', function ($sce) { return $sce.trustAsHtml; }]);
 
   een.factory('timeFactory', function () {
     var opts = {
@@ -320,7 +320,7 @@
     };
   });
 
-  een.controller('MainCtrl', function ($scope, oppsFactory, timeFactory, $sce, checkboxFactory) {
+  een.controller('MainCtrl', ['$scope', 'oppsFactory', 'timeFactory', '$sce', 'checkboxFactory', function ($scope, oppsFactory, timeFactory, $sce, checkboxFactory) {
 
     var changingHash = false;
 
@@ -513,6 +513,6 @@
         changingHash = false;
       }
     };
-  });
+  }]);
 
 })();

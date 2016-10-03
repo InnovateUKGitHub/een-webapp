@@ -99,5 +99,5 @@ gulp.task('clean', function () {
       .pipe(clean({force: true}));
 });
 
-gulp.task('default', ['clean', 'js', 'img', 'css', 'fonts', 'flags']);
+gulp.task('default', ['js', 'img', 'css', 'fonts', 'flags']);
 gulp.task('dev', ['js-dev', 'img', 'css', 'fonts', 'flags']);
