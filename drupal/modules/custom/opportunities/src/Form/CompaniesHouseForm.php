@@ -142,7 +142,7 @@ class CompaniesHouseForm extends AbstractForm
             ],
             
             
-            'company_number'       => [
+            'companynumber'       => [
                 '#type'          => 'textfield',
                 '#title'         => t('Company number'),
                 '#label_display' => 'before',
@@ -152,11 +152,79 @@ class CompaniesHouseForm extends AbstractForm
                     ],
                 ],
             ],
+            
             'nocompanynumber' => [
                 '#type'    => 'checkbox',
                 '#title'   => t('I do not have a company number'),
             ],
             
+            'website'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Website URL'),
+                '#label_display' => 'before',
+                '#required' => TRUE,
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'companytel'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Company telephone number'),
+                '#label_display' => 'before',
+                '#required' => TRUE,
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'addressone'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Address Line 1'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'addresstwo'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Address Line 2'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'city'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Town/City'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'county'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('County'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
             
             'actions'     => [
                 '#type'  => 'actions',

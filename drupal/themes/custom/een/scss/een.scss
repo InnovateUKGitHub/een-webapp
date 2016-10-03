@@ -338,6 +338,11 @@ input,textarea,select,button,#global-header input:focus {
             padding-top:5px;
         }
     }
+    .form-item-companynumber {
+        input {
+            width:60%;
+        }
+    }
     #ch-search-trigger {
         height:40px;
         border-radius:0;
