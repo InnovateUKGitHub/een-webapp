@@ -1,0 +1,45 @@
+<div class="grid-row">
+    <div class="column-full">
+        <div class="form-heading">
+            <h1 class="heading-large">Thank you for applying for this project.</h1>
+            <p>To complete your project application please create an account with EEN to take advantage
+                of some other great benefits to help grow your business</p>
+        </div>
+    </div>
+
+    <div class="column-two-thirds">
+
+        <form method="{{ form['#method'] }}" class="form-companies-house-search">
+
+            {#Required hidden field for drupal form#}
+            {{ form.form_build_id }}
+            {{ form.form_id }}
+
+            <p class="heading-medium step">Step 1 of 3</p>
+            <h2 class="heading-large">About you</h2>
+            <div class="form-section">
+                {{ form.firstname }}
+            </div>
+
+            <div class="form-section">
+                {{ form.lastname }}
+            </div>
+
+            <div class="form-section">
+                {{ form.email }}
+            </div>
+
+            <div class="form-section">
+                {{ form.phone }}
+            </div>
+
+            <div class="form-section">
+                {{ form.newsletter }}
+            </div>
+
+            {{ form.actions }}
+
+        </form>
+
+    </div>
+</div>

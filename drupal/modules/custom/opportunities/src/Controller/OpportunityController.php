@@ -99,8 +99,10 @@ class OpportunityController extends ControllerBase
         if ($token != null && $token === $tokenSession) {
             $form['email']['#value'] = $emailSession;
             $form['email']['#attributes']['disabled'] = 'disabled';
+            $this->session->set('isLoggedIn', true);
         } else {
             $this->disableForm($form);
+            $this->session->set('isLoggedIn', false);
         }
 
         return [

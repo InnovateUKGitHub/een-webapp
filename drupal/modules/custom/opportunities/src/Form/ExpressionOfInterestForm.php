@@ -1,11 +1,9 @@
 <?php
 namespace Drupal\opportunities\Form;
 
-use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\opportunities\Controller\OpportunityController;
 use Drupal\user\PrivateTempStore;
-use Drupal\user\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -58,7 +56,7 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#attributes'          => [
-                    'class' => [
+                    'class'       => [
                         'form-control',
                     ],
                     'placeholder' => [
@@ -74,7 +72,7 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#attributes'          => [
-                    'class' => [
+                    'class'       => [
                         'form-control',
                     ],
                     'placeholder' => [
@@ -90,7 +88,7 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#attributes'          => [
-                    'class' => [
+                    'class'       => [
                         'form-control',
                     ],
                     'placeholder' => [
@@ -108,7 +106,7 @@ class ExpressionOfInterestForm extends AbstractForm
                     ],
                 ],
             ],
-            'other_email'       => [
+            'other_email' => [
                 '#type'          => 'textfield',
                 '#title'         => t('Other email addresses (optional)'),
                 '#label_display' => 'before',
@@ -129,8 +127,8 @@ class ExpressionOfInterestForm extends AbstractForm
                 ],
             ],
             'phoneStatus' => [
-                '#type'  => 'hidden',
-                '#attributes'    => [
+                '#type'       => 'hidden',
+                '#attributes' => [
                     'class' => [
                         'phoneStatus',
                     ],
@@ -165,14 +163,17 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        $form_state->disableRedirect();
+        $form_state->setRedirect(
+            'opportunities.eoi.step1',
+            [
+                'profileId' => $this->session->get('profileId'),
+            ]
+        );
 
         $this->session->set('other_email', $form_state->getValue('other_email'));
         $this->session->set('description', $form_state->getValue('description'));
         $this->session->set('interest', $form_state->getValue('interest'));
         $this->session->set('more', $form_state->getValue('more'));
         $this->session->set('phone', $form_state->getValue('phone'));
-
-        return false;
     }
 }
