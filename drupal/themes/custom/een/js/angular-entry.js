@@ -296,9 +296,15 @@
       var inputs = $('#edit-opportunity-type--wrapper').find('input');
       for (var i = 0; i < inputs.length; i++) {
         var index = indexOf(opps, inputs[i].value);
+        var $item = $(inputs[i]);
+        var $parent = $item.parent();
 
         if (index > -1) {
-          $(inputs[i]).prop('checked', true);
+          $item.prop('checked', true);
+          $parent.addClass('selected');
+        } else {
+          $item.prop('checked', false);
+          $parent.removeClass('selected');
         }
       }
     };
@@ -307,9 +313,15 @@
       var inputs = $('#edit-country--wrapper').find('input');
       for (var i = 0; i < inputs.length; i++) {
         var index = indexOf(opps, inputs[i].value);
+        var $item = $(inputs[i]);
+        var $parent = $item.parent();
 
         if (index > -1) {
-          $(inputs[i]).prop('checked', true);
+          $item.prop('checked', true);
+          $parent.addClass('selected');
+        } else {
+          $item.prop('checked', false);
+          $parent.removeClass('selected');
         }
       }
     };
@@ -489,7 +501,7 @@
           page: 1
         };
 
-        if ($scope.meta.loaded) {
+        if ($scope.meta.searched) {
           queryAPI(true);
         }
       }
