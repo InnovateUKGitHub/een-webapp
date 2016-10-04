@@ -323,6 +323,8 @@
           $item.prop('checked', false);
           $parent.removeClass('selected');
         }
+
+        $('.selected-countries').html(opps.length + ' Selected');
       }
     };
 
