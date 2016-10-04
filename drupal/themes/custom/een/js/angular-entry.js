@@ -162,7 +162,7 @@
   }]);
 
   een.filter('cut', function () {
-    return function (value, wordwise, max, tail) {
+    return function (value, wordwise, max, tail, id) {
       if (!value) return '';
 
       max = parseInt(max, 10);
@@ -181,7 +181,7 @@
           }
       }
 
-      return value + (tail || ' …');
+      return value + (tail || ' …') + '<a href="/opportunities/' + id + '">more</a>';
     };
   });
 

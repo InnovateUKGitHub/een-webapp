@@ -47,7 +47,9 @@
                             </a>
                         </h3>
 
-                        <p class="description" ng-bind-html="row.summary | unsafe">{[{ row.summary | cut:true:240:' ...' }]} <a ng-href="/opportunities/{[{row.id}]}">more</a></p>
+                        <p class="description" ng-bind-html="row.summary | cut:true:247:'... ':row.id | unsafe">
+                          {[{ row.summary }]}
+                        </p>
 
                         <p class="meta-inline font-small">
                             {# lastupdated #}

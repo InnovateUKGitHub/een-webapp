@@ -217,12 +217,12 @@ input,textarea,select,button,#global-header input:focus {
         max-height: 185px;
         overflow: auto;
 
-        li { 
+        li {
             border-top: 1px solid #9B9B9B;
             padding: 6px;
             font-size: 14px;
             border-bottom:none;
-            
+
             a {
                 display:block;
             }
@@ -239,7 +239,7 @@ input,textarea,select,button,#global-header input:focus {
     .form-item-company-name {
         margin-bottom:7px;
     }
-    
+
     #ch-search-trigger {
         border: 2px solid $light-blue;
         padding: 8px;
@@ -251,7 +251,7 @@ input,textarea,select,button,#global-header input:focus {
         cursor: pointer;
         font-weight: bold;
         top: -8px;
-        width:auto; 
+        width:auto;
     }
     h2.heading-large {
         margin-top:0;
@@ -306,7 +306,7 @@ input,textarea,select,button,#global-header input:focus {
             border:1px solid $border-colour;
             border-radius:1px;
             content:" ";
-            background:#fcfff4; 
+            background:#fcfff4;
         }
     }
     .block-label.selected:after {
@@ -362,7 +362,7 @@ form {
             text-decoration: underline;
         }
     }
-    
+
     .form-control {
         width:100%;
         border-color: #9B9B9B;
@@ -611,6 +611,10 @@ form[data-drupal-selector="opportunity-search-form"] {
         span {
             background: #f7e53b;
             padding: 1px 6px;
+        }
+
+        .more {
+          display: inline-block;
         }
 
         a {
