@@ -1,8 +1,9 @@
 <?php
-namespace Drupal\opportunities\Form;
+namespace Drupal\opportunities\Form\ExpressionOfInterest;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\opportunities\Controller\OpportunityController;
+use Drupal\opportunities\Form\AbstractForm;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
