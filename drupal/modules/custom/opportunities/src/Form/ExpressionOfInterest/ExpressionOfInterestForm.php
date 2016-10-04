@@ -55,6 +55,7 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#description'         => t('Lorem ipsum'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
+                '#required'            => true,
                 '#attributes'          => [
                     'class'       => [
                         'form-control',
@@ -71,6 +72,7 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#description'         => t('Lorem ipsum'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
+                '#required'            => true,
                 '#attributes'          => [
                     'class'       => [
                         'form-control',
