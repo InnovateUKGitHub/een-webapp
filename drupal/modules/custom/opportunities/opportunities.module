@@ -49,6 +49,13 @@ function opportunities_theme()
             ],
             'template'  => 'opportunities-details',
         ],
+        'opportunities_sign_up_step1'             => [
+            'variables' => [
+                'form'       => null,
+                'profile_id' => null,
+            ],
+            'template'  => 'opportunities-sign-up-step1',
+        ],
         'opportunities_search_temp' => [
             'variables' => [
                 'form'             => null,

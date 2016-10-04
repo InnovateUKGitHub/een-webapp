@@ -106,7 +106,7 @@ class OpportunityControllerTest extends UnitTestCase
         $this->mockContainer = self::getMock(ContainerInterface::class, [], [], '', false);
 
         $this->mockService = self::getMock(OpportunitiesService::class, [], [], '', false);
-        $this->mockSession = self::getMock(PrivateTempStore::class, ['get'], [], '', false);
+        $this->mockSession = self::getMock(PrivateTempStore::class, ['get', 'set'], [], '', false);
         $this->mockSessionManager = self::getMock(SessionManagerInterface::class, [], [], '', false);
 
         \Drupal::setContainer($this->mockContainer);

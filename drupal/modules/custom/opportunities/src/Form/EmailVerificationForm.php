@@ -106,13 +106,12 @@ class EmailVerificationForm extends AbstractForm
 
         $email = $form_state->getValue('email-verification');
         $token = bin2hex(random_bytes(50));
+        $profileId = $form_state->getValue('profile-id');
+
         $this->session->set('email', $email);
         $this->session->set('token', $token);
+        $this->session->set('profileId', $profileId);
 
-        $this->service->verifyEmail(
-            $email,
-            $token,
-            $form_state->getValue('profile-id')
-        );
+        $this->service->verifyEmail($email, $token, $profileId);
     }
 }

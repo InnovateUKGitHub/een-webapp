@@ -69,7 +69,8 @@ class ExpressionOfInterestFormTest extends UnitTestCase
 
         $formArray = $this->form->buildForm($formArray, $formState);
 
-        self::assertFalse($this->form->submitForm($formArray, $formState));
+        $this->form->submitForm($formArray, $formState);
+        $this->assertEquals('opportunities.eoi.step1', $formState->getRedirect()->getRouteName());
     }
 
     protected function setup()
