@@ -1,8 +1,9 @@
 <?php
-namespace Drupal\opportunities\Form;
+namespace Drupal\opportunities\Form\ExpressionOfInterest;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\opportunities\Controller\OpportunityController;
+use Drupal\opportunities\Form\AbstractForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
 use Drupal\user\PrivateTempStoreFactory;
@@ -61,9 +62,10 @@ class EmailVerificationForm extends AbstractForm
     {
         $form = [
             'email-verification' => [
-                '#type'          => 'textfield',
+                '#type'          => 'email',
                 '#title'         => t('Email'),
                 '#label_display' => 'before',
+                '#required'      => true,
                 '#attributes'    => [
                     'class' => [
                         'form-control',

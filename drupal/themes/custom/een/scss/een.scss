@@ -27,7 +27,8 @@ html, body, button, input, table, td, th, p, h1, h2, h3, h4, h5, li, p, label, i
 }
 
 hr {
-  clear: both;
+  clear:both;
+  margin:20px 0;
 }
 
 .button-brand {
@@ -41,7 +42,9 @@ hr {
     font-weight: bold;
     white-space:inherit;
 }
-
+.no-margin {
+    margin:0;
+}
 #global-header,
 .global-header-inner,
 #global-header .header-wrapper,
@@ -199,8 +202,9 @@ input,textarea,select,button,#global-header input:focus {
     font-size:16px;
     padding:8px 12px;
 }
-.form-heading {
+.header-secondary {
     border-bottom:solid 5px $govuk-blue;
+    margin-bottom:50px;
     h1 {
         font-size:36px;
     }
@@ -258,6 +262,9 @@ input,textarea,select,button,#global-header input:focus {
     }
     .step {
         color:#9b9b9b;
+        &:first-child {
+            margin-top:0;
+        }
     }
     .form-section {
         margin-bottom:20px;
@@ -909,6 +916,62 @@ form[data-drupal-selector="opportunity-search-form"] {
 
 }
 
+.row {
+    width:100%;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+.column-two-thirds {
+    &.with-cta {
+        > div {
+            width:90%;
+            float:left;
+            overflow:hidden;
+            p {
+                margin-bottom:20px;
+            }
+        }
+        > p {
+            width:10%;
+            float:right;
+            text-align:right;
+        }
+        div p {
+            margin:0;
+        }
+    }
+    .label {
+        width:200px;
+        display:inline-block;
+        &.your-contact {
+            margin-bottom:30px;
+        }
+    }
+}
+.vcard {
+    span,.post-code {
+        display:block;
+    }
+}
+
+.banner {
+    text-align:center;
+    border:solid 5px $govuk-blue;
+    padding:20px;
+    background:#e0f0f9;
+    p {
+        margin-bottom:0;
+    }
+    .heading-xlarge {
+        margin:15px 0;
+    } 
+    .heading-large {
+        margin-top:0;
+    }
+    .heading-medium {
+        margin-top:20px;
+    }
+}
 
 .save-actions {
     h3 {

@@ -4,8 +4,8 @@ namespace Drupal\opportunities\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Session\SessionManagerInterface;
 use Drupal\Core\Url;
-use Drupal\opportunities\Form\EmailVerificationForm;
-use Drupal\opportunities\Form\ExpressionOfInterestForm;
+use Drupal\opportunities\Form\ExpressionOfInterest\EmailVerificationForm;
+use Drupal\opportunities\Form\ExpressionOfInterest\ExpressionOfInterestForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -40,7 +40,7 @@ class OpportunityController extends ControllerBase
      * OpportunityController constructor.
      *
      * @param OpportunitiesService    $service
-     * @param PrivateTempStore $session
+     * @param PrivateTempStore        $session
      * @param SessionManagerInterface $sessionManager
      */
     public function __construct(
@@ -99,6 +99,15 @@ class OpportunityController extends ControllerBase
         if ($token != null && $token === $tokenSession) {
             $form['email']['#value'] = $emailSession;
             $form['email']['#attributes']['disabled'] = 'disabled';
+
+            $form['#action'] = Url::fromRoute(
+                'opportunities.details',
+                [
+                    'profileId' => $profileId,
+                    'token'     => $token,
+                ]
+            )->toString();
+
             $this->session->set('isLoggedIn', true);
         } else {
             $this->disableForm($form);

@@ -1,8 +1,9 @@
 <?php
-namespace Drupal\opportunities\Form;
+namespace Drupal\opportunities\Form\ExpressionOfInterest;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\opportunities\Controller\OpportunityController;
+use Drupal\opportunities\Form\AbstractForm;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,6 +56,7 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#description'         => t('Lorem ipsum'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
+                '#required'            => true,
                 '#attributes'          => [
                     'class'       => [
                         'form-control',
@@ -71,6 +73,7 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#description'         => t('Lorem ipsum'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
+                '#required'            => true,
                 '#attributes'          => [
                     'class'       => [
                         'form-control',

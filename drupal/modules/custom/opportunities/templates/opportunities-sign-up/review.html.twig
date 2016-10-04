@@ -1,0 +1,145 @@
+<div class="grid-row">
+    <div class="column-full">
+        <div class="header-secondary">
+            <h1 class="heading-large">Check your answers before completing your application</h1>
+        </div>
+        <h2 class="heading-medium">Opportunity application</h2>
+        <hr/>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p><strong>Opportunity ID:</strong></p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div><p>{{ form.profile_id }}</p></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p><strong>Opportunity title:</strong></p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div><p>{{ form.profile_title }}</p></div>
+        </div>
+        <div class="column-full">
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p><strong>Short description of your organisation, activities, products and services:</strong></p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div><p>{{ form.description }}</p></div>
+            <p><a href="#">Edit</a></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p><strong>What interests you about this opportunity and what do you expect of that organisation?</strong>
+            </p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div><p>{{ form.interest }}</p></div>
+            <p><a href="#">Edit</a></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p><strong>Is there anything further you would like to know about this opportunity?</strong></p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div><p>{{ form.more }}</p></div>
+            <p><a href="#">Edit</a></p>
+        </div>
+    </div>
+
+    <!-- Account details -->
+    <div class="column-full">
+        <h2 class="heading-medium">Your account details</h2>
+        <hr/>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p><strong>About you</strong></p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div>
+                <p class="no-margin">
+                    <strong class="label your-name">Your name:</strong><span>{{ form.firstname }} {{ form.lastname }}</span>
+                </p>
+                <p class="no-margin">
+                    <strong class="label your-email">Your email address:</strong><span>{{ form.contact_email }}</span>
+                </p>
+                <p class="no-margin">
+                    <strong class="label your-contact">Contact number:</strong><span>{{ form.contact_phone }}</span>
+                </p>
+                {% if form.newsletter is empty %}
+                    <p>No - please don't send me emails when there is a new blog post and newsletter</p>
+                {% else %}
+                    <p>Yes - please send me emails when there is a new blog post and newsletter</p>
+                {% endif %}
+            </div>
+            <p><a href="{{ url('opportunities.eoi.step1', {'profileId': form.profile_id}) }}">Change</a></p>
+        </div>
+        <div class="column-full">
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p><strong>Your company</strong></p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div>
+                <p><strong class="label company-name">Company name:</strong><span>{{ form.company_name }}</span></p>
+                <p><strong class="label company-url">Company URL:</strong><span>{{ form.website }}</span></p>
+                <p><strong class="label telephone-number">Telephone number:</strong><span>{{ form.company_phone }}</span></p>
+            </div>
+            <p><a href="{{ url('opportunities.eoi.step2', {'profileId': form.profile_id}) }}">Change</a></p>
+        </div>
+        <div class="column-full">
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column-one-third">
+            <p><strong>Your address</strong></p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div class="vcard">
+                <div class="adr" itemprop="address" itemscope="itemscope"
+                     itemtype="http://data-vocabulary.org/Address/">
+                    <span class="street-address-one" itemprop="street-address-one">{{ form.addressone }}</span>
+                    <span class="street-address-two" itemprop="street-address-two">{{ form.addresstwo }}</span>
+                    <span class="city" itemprop="locality">{{ form.city }}</span>
+                    <abbr class="region" itemprop="region" title="Florida">{{ form.county }}</abbr>
+                    <abbr class="post-code" itemprop="post-code" title="SN13 8PN">{{ form.postcode }}</abbr>
+                </div>
+            </div>
+            <p><a href="{{ url('opportunities.eoi.step3', {'profileId': form.profile_id}) }}">Change</a></p>
+        </div>
+        <div class="column-full">
+            <hr>
+        </div>
+    </div>
+
+    <!-- Send application -->
+    <div class="row">
+        <div class="column-two-thirds">
+            <h2 class="heading-medium">Now send your application</h2>
+            <div>
+                <p>By submitting this application you are confirming that the details you are correct and that, as per
+                    the privacy policy, my personal information will not be shared.</p>
+            </div>
+            <p><a href="{{ url('opportunities.eoi.complete', {'profileId': form.profile_id}) }}" class="button">Complete your application</a></p>
+        </div>
+        <div class="column-one-third">
+
+        </div>
+        <div class="column-full">
+            <hr>
+        </div>
+    </div>
+</div>

@@ -1,15 +1,14 @@
 <?php
-namespace Drupal\opportunities\Form;
+namespace Drupal\opportunities\Form\ExpressionOfInterest;
 
-use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\opportunities\Controller\OpportunityController;
+use Drupal\opportunities\Form\AbstractForm;
 use Drupal\user\PrivateTempStore;
-use Drupal\user\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class SignUpStep1Form extends AbstractForm
+class SignUpStep3Form extends AbstractForm
 {
     /**
      * @var PrivateTempStore
@@ -17,7 +16,7 @@ class SignUpStep1Form extends AbstractForm
     private $session;
 
     /**
-     * SignUpStep1Form constructor.
+     * SignUpStep3Form constructor.
      *
      * @param PrivateTempStore $session
      */
@@ -29,7 +28,7 @@ class SignUpStep1Form extends AbstractForm
     /**
      * @param ContainerInterface $container
      *
-     * @return SignUpStep1Form
+     * @return SignUpStep3Form
      */
     public static function create(ContainerInterface $container)
     {
@@ -41,7 +40,7 @@ class SignUpStep1Form extends AbstractForm
      */
     public function getFormId()
     {
-        return 'sign_up_step_1expression_of_interest_form';
+        return 'sign_up_step_2_form';
     }
 
     /**
@@ -49,79 +48,57 @@ class SignUpStep1Form extends AbstractForm
      */
     public function buildForm(array $form, FormStateInterface $form_state)
     {
-        $types = [
-            'UK' => t('UK Newsletter'),
-            'EE' => t('East of England'),
-            'L' => t('London'),
-            'M' => t('Midlands'),
-            'NE' => t('North England'),
-            'NI' => t('Northern Ireland'),
-            'SE' => t('South East England'),
-            'SW' => t('South West England'),
-            'W' => t('Wales'),
-        ];
-        $radio = [
-            'UK' => t('UK Newsletter'),
-            'EE' => t('East of England'),
-        ];
-
         $form = [
-            'firstname'       => [
+            'postcode'       => [
                 '#type'          => 'textfield',
-                '#title'         => t('Fisrt name'),
+                '#title'         => t('Enter your postcode'),
                 '#label_display' => 'before',
-                '#required' => true,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
                     ]
                 ],
             ],
-            'lastname'       => [
+            'addressone'       => [
                 '#type'          => 'textfield',
-                '#title'         => t('Last name'),
+                '#title'         => t('Address Line 1'),
                 '#label_display' => 'before',
-                '#required' => true,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
                     ]
                 ],
             ],
-            'email'       => [
-                '#type'          => 'email',
-                '#title'         => t('Email'),
-                '#label_display' => 'before',
-                '#required' => true,
-                '#attributes'    => [
-                    'class' => [
-                        'form-control',
-                    ]
-                ],
-            ],
-            'phone'       => [
+
+            'addresstwo'       => [
                 '#type'          => 'textfield',
-                '#title'         => t('Contact telephone number'),
+                '#title'         => t('Address Line 2'),
                 '#label_display' => 'before',
-                '#required' => true,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
                     ]
                 ],
             ],
-            'newsletter' => [
-                '#type'    => 'checkboxes',
-                '#title'   => t('Please send me emails when there is a new:'),
-                '#options' => $types,
-            ],
-            'radiobutton' => [
-                '#type'    => 'radios',
-                '#title'   => t('Please send me emails when there is a new:'),
-                '#options' => $radio,
-                '#attributes' => [
+
+            'city'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Town/City'),
+                '#label_display' => 'before',
+                '#attributes'    => [
                     'class' => [
-                        'radio-buttons',
+                        'form-control',
+                    ]
+                ],
+            ],
+
+            'county'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('County'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
                     ]
                 ],
             ],
@@ -152,13 +129,19 @@ class SignUpStep1Form extends AbstractForm
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        $form_state->disableRedirect();
+        $form_state->setRedirect(
+            'opportunities.eoi.review',
+            [
+                'profileId' => $this->session->get('profileId'),
+            ]
+        );
 
-        $this->session->set('firstname', $form_state->getValue('firstname'));
-        $this->session->set('lastname', $form_state->getValue('lastname'));
-        $this->session->set('email-company', $form_state->getValue('email'));
-        $this->session->set('phone-company', $form_state->getValue('phone'));
-        $this->session->set('newsletter', $form_state->getValue('newsletter'));
-        $this->session->set('radiobutton', $form_state->getValue('radiobutton'));
+        $this->session->set('postcode', $form_state->getValue('postcode'));
+        $this->session->set('addressone', $form_state->getValue('addressone'));
+        $this->session->set('addresstwo', $form_state->getValue('addresstwo'));
+        $this->session->set('city', $form_state->getValue('city'));
+        $this->session->set('county', $form_state->getValue('county'));
+
+        $this->session->set('reference_number', random_int(1111, 9999) . '-' . random_int(1111, 9999));
     }
 }
