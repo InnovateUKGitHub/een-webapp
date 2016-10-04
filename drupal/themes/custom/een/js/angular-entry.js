@@ -321,7 +321,6 @@
   });
 
   een.controller('MainCtrl', ['$scope', 'oppsFactory', 'timeFactory', '$sce', 'checkboxFactory', function ($scope, oppsFactory, timeFactory, $sce, checkboxFactory) {
-
     var changingHash = false;
 
     var parseResults = function (results) {
@@ -489,6 +488,10 @@
           search: '',
           page: 1
         };
+
+        if ($scope.meta.loaded) {
+          queryAPI(true);
+        }
       }
     };
 
