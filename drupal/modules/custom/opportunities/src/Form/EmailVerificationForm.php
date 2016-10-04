@@ -2,12 +2,20 @@
 namespace Drupal\opportunities\Form;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\opportunities\Controller\OpportunityController;
 use Drupal\opportunities\Service\OpportunitiesService;
+use Drupal\user\PrivateTempStore;
+use Drupal\user\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class EmailVerificationForm extends AbstractForm
 {
+    /**
+     * @var PrivateTempStore
+     */
+    private $session;
+
     /**
      * @var OpportunitiesService
      */
@@ -16,11 +24,13 @@ class EmailVerificationForm extends AbstractForm
     /**
      * OpportunitiesController constructor.
      *
-     * @param OpportunitiesService $service
+     * @param OpportunitiesService    $service
+     * @param PrivateTempStoreFactory $tempStore
      */
-    public function __construct(OpportunitiesService $service)
+    public function __construct(OpportunitiesService $service, PrivateTempStoreFactory $tempStore)
     {
         $this->service = $service;
+        $this->session = $tempStore->get(OpportunityController::SESSION);
     }
 
     /**
@@ -30,7 +40,10 @@ class EmailVerificationForm extends AbstractForm
      */
     public static function create(ContainerInterface $container)
     {
-        return new self($container->get('opportunities.service'));
+        return new self(
+            $container->get('opportunities.service'),
+            $container->get('user.private_tempstore')
+        );
     }
 
     /**
@@ -47,7 +60,7 @@ class EmailVerificationForm extends AbstractForm
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $form = [
-            'email-verification'   => [
+            'email-verification' => [
                 '#type'          => 'textfield',
                 '#title'         => t('Email'),
                 '#label_display' => 'before',
@@ -57,10 +70,10 @@ class EmailVerificationForm extends AbstractForm
                     ],
                 ],
             ],
-            'profile-id' => [
-                '#type'  => 'hidden',
+            'profile-id'         => [
+                '#type' => 'hidden',
             ],
-            'actions' => [
+            'actions'            => [
                 '#type'  => 'actions',
                 'submit' => [
                     '#type'        => 'submit',
@@ -68,7 +81,7 @@ class EmailVerificationForm extends AbstractForm
                     '#button_type' => 'primary',
                 ],
             ],
-            '#method' => Request::METHOD_POST,
+            '#method'            => Request::METHOD_POST,
         ];
         $form_state->setCached(false);
 
@@ -91,8 +104,14 @@ class EmailVerificationForm extends AbstractForm
         $form_state->disableRedirect();
         drupal_set_message('Thank you, please check your email to verify your identity.');
 
+        $email = $form_state->getValue('email-verification');
+        $token = bin2hex(random_bytes(50));
+        $this->session->set('email', $email);
+        $this->session->set('token', $token);
+
         $this->service->verifyEmail(
-            $form_state->getValue('email-verification'),
+            $email,
+            $token,
             $form_state->getValue('profile-id')
         );
     }
