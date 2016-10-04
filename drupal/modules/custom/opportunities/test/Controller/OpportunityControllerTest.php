@@ -3,11 +3,14 @@ namespace Drupal\opportunities\Test\Controller;
 
 use Drupal\Core\Form\FormBuilder;
 use Drupal\Core\Routing\UrlGenerator;
+use Drupal\Core\Session\SessionManagerInterface;
 use Drupal\opportunities\Controller\OpportunityController;
 use Drupal\opportunities\Form\EmailVerificationForm;
 use Drupal\opportunities\Form\ExpressionOfInterestForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\Tests\UnitTestCase;
+use Drupal\user\PrivateTempStore;
+use Drupal\user\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +22,10 @@ class OpportunityControllerTest extends UnitTestCase
 {
     /** @var OpportunitiesService|\PHPUnit_Framework_MockObject_MockObject */
     private $mockService;
+    /** @var PrivateTempStoreFactory|\PHPUnit_Framework_MockObject_MockObject */
+    private $mockSession;
+    /** @var SessionManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    private $mockSessionManager;
     /** @var ContainerInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $mockContainer;
     /** @var OpportunityController */
@@ -32,7 +39,7 @@ class OpportunityControllerTest extends UnitTestCase
         $mockQuery = self::getMock(ParameterBag::class, [], [], '', false);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject $container */
-        $container = \Drupal::getContainer();
+        $container = $this->mockContainer;
 
         $container->expects(self::at(0))
             ->method('get')
@@ -56,8 +63,6 @@ class OpportunityControllerTest extends UnitTestCase
             ->with(EmailVerificationForm::class)
             ->willReturn([]);
 
-        $mockRequest->query = $mockQuery;
-
         $mockQuery->expects(self::at(0))
             ->method('get')
             ->with(OpportunityController::SEARCH)
@@ -70,6 +75,7 @@ class OpportunityControllerTest extends UnitTestCase
             ->method('get')
             ->with(OpportunityController::COUNTRY)
             ->willReturn(['FR']);
+        $mockRequest->query = $mockQuery;
 
         $this->mockService->expects(self::once())
             ->method('get')
@@ -89,7 +95,7 @@ class OpportunityControllerTest extends UnitTestCase
                 '#email',
                 '#mail',
             ],
-            array_keys($this->controller->index(1, null, $mockRequest))
+            array_keys($this->controller->index(1, '', $mockRequest))
         );
     }
 
@@ -97,15 +103,18 @@ class OpportunityControllerTest extends UnitTestCase
     {
         parent::setUp();
 
-        $this->mockService = self::getMock(OpportunitiesService::class, [], [], '', false);
         $this->mockContainer = self::getMock(ContainerInterface::class, [], [], '', false);
+
+        $this->mockService = self::getMock(OpportunitiesService::class, [], [], '', false);
+        $this->mockSession = self::getMock(PrivateTempStore::class, ['get'], [], '', false);
+        $this->mockSessionManager = self::getMock(SessionManagerInterface::class, [], [], '', false);
+
         \Drupal::setContainer($this->mockContainer);
 
-        $this->mockContainer->expects(self::at(0))
-            ->method('get')
-            ->with('opportunities.service')
-            ->willReturn($this->mockService);
-
-        $this->controller = OpportunityController::create($this->mockContainer);
+        $this->controller = new OpportunityController(
+            $this->mockService,
+            $this->mockSession,
+            $this->mockSessionManager
+        );
     }
 }

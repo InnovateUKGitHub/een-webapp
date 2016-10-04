@@ -149,16 +149,15 @@ class OpportunitiesService
         return $this->service->sendRequest();
     }
 
-    public function verifyEmail($email, $profileId)
+    public function verifyEmail($email, $token, $profileId)
     {
         $params = [
             'email' => $email,
             'url'   => $_SERVER['SERVER_NAME'] . Url::fromRoute(
                 'opportunities.details',
                 [
+                    'token'     => $token,
                     'profileId' => $profileId,
-                    'token'     => bin2hex(random_bytes(50)),
-                    'email'     => $email,
                 ]
             )->toString(),
         ];
