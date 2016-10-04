@@ -55,6 +55,13 @@ opportunities.eoi.step2:
  requirements:
    _permission: 'access content'
 
+opportunities.eoi.step3:
+ path: '/opportunities/{profileId}/step3'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\SignUpController::step3'
+ requirements:
+   _permission: 'access content'
+
 opportunities.search.temp:
  path: '/opportunities-temp'
  defaults:

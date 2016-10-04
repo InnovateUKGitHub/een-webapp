@@ -1,15 +1,13 @@
 <?php
 namespace Drupal\opportunities\Form;
 
-use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\opportunities\Controller\OpportunityController;
 use Drupal\user\PrivateTempStore;
-use Drupal\user\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class SignUpStep1Form extends AbstractForm
+class SignUpStep2Form extends AbstractForm
 {
     /**
      * @var PrivateTempStore
@@ -17,7 +15,7 @@ class SignUpStep1Form extends AbstractForm
     private $session;
 
     /**
-     * SignUpStep1Form constructor.
+     * SignUpStep2Form constructor.
      *
      * @param PrivateTempStore $session
      */
@@ -29,7 +27,7 @@ class SignUpStep1Form extends AbstractForm
     /**
      * @param ContainerInterface $container
      *
-     * @return SignUpStep1Form
+     * @return SignUpStep2Form
      */
     public static function create(ContainerInterface $container)
     {
@@ -41,7 +39,7 @@ class SignUpStep1Form extends AbstractForm
      */
     public function getFormId()
     {
-        return 'sign_up_step_1_form';
+        return 'sign_up_step_2_form';
     }
 
     /**
@@ -49,79 +47,72 @@ class SignUpStep1Form extends AbstractForm
      */
     public function buildForm(array $form, FormStateInterface $form_state)
     {
-        $types = [
-            'UK' => t('UK Newsletter'),
-            'EE' => t('East of England'),
-            'L' => t('London'),
-            'M' => t('Midlands'),
-            'NE' => t('North England'),
-            'NI' => t('Northern Ireland'),
-            'SE' => t('South East England'),
-            'SW' => t('South West England'),
-            'W' => t('Wales'),
-        ];
-        $radio = [
-            'UK' => t('UK Newsletter'),
-            'EE' => t('East of England'),
-        ];
-
         $form = [
-            'firstname'       => [
+            'company_name' => [
+                '#type'                => 'textfield',
+                '#title'               => t('Company Name'),
+                '#label_display'       => 'before',
+                '#attributes'          => [
+                    'class' => [
+                        'form-control ch_search',
+                    ],
+                    'placeholder' => [
+                        'Your company\'s name',
+                    ],
+                    'id' => [
+                        'ch_search'
+                    ]
+                ],
+            ],
+            'search'       => [
+                '#type'          => 'html_tag',
+                '#title'         => t('Search Companies House'),
+                '#label_display' => 'before',
+                '#executes_submit_callback' => false,
+                '#value' => 'Search Companies House',
+                '#tag' => 'button',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ],
+                    'id' => [
+                        'ch-search-trigger',
+                    ]
+                ],
+            ],
+            'company_number'       => [
                 '#type'          => 'textfield',
-                '#title'         => t('Fisrt name'),
+                '#title'         => t('Company number'),
                 '#label_display' => 'before',
-                '#required' => true,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
                 ],
             ],
-            'lastname'       => [
+            'no_company_number' => [
+                '#type'    => 'checkbox',
+                '#title'   => t('I do not have a company number'),
+            ],
+            'website'       => [
                 '#type'          => 'textfield',
-                '#title'         => t('Last name'),
+                '#title'         => t('Website URL'),
                 '#label_display' => 'before',
-                '#required' => true,
+                '#required' => TRUE,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
                     ]
                 ],
             ],
-            'email'       => [
-                '#type'          => 'email',
-                '#title'         => t('Email'),
-                '#label_display' => 'before',
-                '#required' => true,
-                '#attributes'    => [
-                    'class' => [
-                        'form-control',
-                    ]
-                ],
-            ],
-            'phone'       => [
+            'company_phone'       => [
                 '#type'          => 'textfield',
-                '#title'         => t('Contact telephone number'),
+                '#title'         => t('Company telephone number'),
                 '#label_display' => 'before',
-                '#required' => true,
+                '#required' => TRUE,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
-                ],
-            ],
-            'newsletter' => [
-                '#type'    => 'checkboxes',
-                '#title'   => t('Please send me emails when there is a new:'),
-                '#options' => $types,
-            ],
-            'radiobutton' => [
-                '#type'    => 'radios',
-                '#title'   => t('Please send me emails when there is a new:'),
-                '#options' => $radio,
-                '#attributes' => [
-                    'class' => [
-                        'radio-buttons',
                     ]
                 ],
             ],
@@ -153,17 +144,16 @@ class SignUpStep1Form extends AbstractForm
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $form_state->setRedirect(
-            'opportunities.eoi.step2',
+            'opportunities.eoi.step3',
             [
                 'profileId' => $this->session->get('profileId'),
             ]
         );
 
-        $this->session->set('firstname', $form_state->getValue('firstname'));
-        $this->session->set('lastname', $form_state->getValue('lastname'));
-        $this->session->set('email-company', $form_state->getValue('email'));
-        $this->session->set('phone-company', $form_state->getValue('phone'));
-        $this->session->set('newsletter', $form_state->getValue('newsletter'));
-        $this->session->set('radiobutton', $form_state->getValue('radiobutton'));
+        $this->session->set('company_name', $form_state->getValue('company_name'));
+        $this->session->set('company_number', $form_state->getValue('company_number'));
+        $this->session->set('no_company_number', $form_state->getValue('no_company_number'));
+        $this->session->set('website', $form_state->getValue('website'));
+        $this->session->set('company_phone', $form_state->getValue('company_phone'));
     }
 }
