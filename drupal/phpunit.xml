@@ -5,7 +5,6 @@
         colors="true"
         beStrictAboutTestsThatDoNotTestAnything="true"
         beStrictAboutOutputDuringTests="true"
-        beStrictAboutChangesToGlobalState="true"
         stopOnFailure="true"
         syntaxCheck="true"
 >
