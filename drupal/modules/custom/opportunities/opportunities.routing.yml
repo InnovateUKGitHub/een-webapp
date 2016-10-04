@@ -69,6 +69,13 @@ opportunities.eoi.review:
  requirements:
    _permission: 'access content'
 
+opportunities.eoi.complete:
+ path: '/opportunities/{profileId}/complete'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\SignUpController::complete'
+ requirements:
+   _permission: 'access content'
+
 opportunities.search.temp:
  path: '/opportunities-temp'
  defaults:

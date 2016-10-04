@@ -73,6 +73,12 @@ function opportunities_theme()
             ],
             'template'  => 'opportunities-sign-up/review',
         ],
+        'opportunities_sign_up_complete' => [
+            'variables' => [
+                'form'       => null,
+            ],
+            'template'  => 'opportunities-sign-up/complete',
+        ],
         'opportunities_search_temp'   => [
             'variables' => [
                 'form'             => null,

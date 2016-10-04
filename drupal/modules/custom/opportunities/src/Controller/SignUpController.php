@@ -227,4 +227,35 @@ class SignUpController extends ControllerBase
             '#form'  => $form,
         ];
     }
+
+    /**
+     * @param string $profileId
+     *
+     * @return array
+     */
+    public function complete($profileId)
+    {
+        if (!$this->session->get('isLoggedIn')) {
+            return $this->redirect('system.403');
+        }
+
+        $results = $this->service->get($profileId);
+
+        $form = [
+            'reference_number' => $this->session->get('reference_number'),
+            'profile_id'       => $profileId,
+            'profile_title'    => $results['_source']['title'],
+
+            'firstname'     => $this->session->get('firstname'),
+            'lastname'      => $this->session->get('lastname'),
+            'contact_email' => $this->session->get('contact_email'),
+            'contact_phone' => $this->session->get('contact_phone'),
+            'newsletter'    => $this->session->get('newsletter'),
+        ];
+
+        return [
+            '#theme' => 'opportunities_sign_up_complete',
+            '#form'  => $form,
+        ];
+    }
 }
