@@ -39,7 +39,7 @@ class OpportunitiesExploreForm extends AbstractForm
      */
     public function getFormId()
     {
-        return 'opportunity_search_form';
+        return 'opportunity_search_explore_form';
     }
 
     /**
@@ -55,6 +55,12 @@ class OpportunitiesExploreForm extends AbstractForm
             'RD' => t('develop tech / bid for funding'),
         ];
         $countries = $this->service->getCountryList();
+        
+        $countryChoices = [
+            'anywhere' => t('anywhere in the world'),
+            'europe' => t('in europe'),
+            '' => t('specific countries')
+        ];
 
         $form = [
             'search'           => [
@@ -77,9 +83,26 @@ class OpportunitiesExploreForm extends AbstractForm
                 '#title'   => t('Choose a partnership type...'),
                 '#options' => $types,
                 '#attributes' => [
-                    'ng-click' => 'selectOppCheckbox($event)'
+                    'ng-click' => 'selectOppCheckbox($event)',
+                    'class' => [
+                        'form-types',
+                    ],
                 ]
             ],
+            
+            
+            'country_choice' => [
+                '#type'    => 'radios',
+                '#title'   => t('Where.. '),
+                '#options' => $countryChoices,
+                '#attributes' => [
+                    'ng-click' => 'selectOppCheckbox($event)',
+                    'class' => [
+                        'form-countries',
+                    ],
+                ]
+            ],
+            
             'country'          => [
                 '#type'       => 'select',
                 '#title'      => t('Country of origin'),
@@ -87,7 +110,7 @@ class OpportunitiesExploreForm extends AbstractForm
                 '#attributes' => [
                     //'ng-click' => 'selectCountryCheckbox($event)',
                     'class' => [
-                        'chosen-select chosen-select-multiple',
+                        'chosen-select chosen-select-multiple form-countries-all',
                     ],
                     'data-placeholder' => 'Choose your countries',
                     'multiple' => true,
@@ -106,6 +129,9 @@ class OpportunitiesExploreForm extends AbstractForm
             '#method'          => Request::METHOD_POST,
             '#attributes'      => [
                 'ng-submit' => "submit()",
+                'class' => [
+                    'explore-form',
+                ],
             ],
         ];
 

@@ -275,29 +275,14 @@ class OpportunitiesController extends ControllerBase
         );
     }
 
-    public function exploreOpportunities(Request $request)
-    {
-        
-        $data = $this->getOpportunities($request);
-
-        if (isset($data['redirect']) && $data['redirect'] === true) {
-            return $this->redirect(
-                'opportunities.details',
-                ['profileId' => $data['id']]
-            );
-}
-        
+    public function exploreOpportunities()
+    {        
         $form = \Drupal::formBuilder()->getForm(OpportunitiesExploreForm::class);
 
         return [
-            '#attached'         => [
-                'library' => [
-                    'een/opportunity-list',
-                ],
-            ],
-            '#theme'            => 'explore_opportunities',
-            '#form'             => $form,
-            '#route'            => 'opportunities.explore',
+            '#form'  => $form,
+            '#theme' => 'explore_opportunities',
+            '#route' => 'opportunities.explore',
         ];
     }
     

@@ -37,7 +37,7 @@ function opportunities_theme()
                 'resultPerPage'    => 10,
                 'route'            => 'opportunities.explore',
             ],
-            'template'  => 'opportunities-explore',
+            'template'  => 'opportunities-sentence-builder',
         ],
         
         'opportunities_search'      => [
