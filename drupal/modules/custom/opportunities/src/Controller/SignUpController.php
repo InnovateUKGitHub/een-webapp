@@ -67,20 +67,6 @@ class SignUpController extends ControllerBase
     }
 
     /**
-     * @param array  $form
-     * @param array  $fields
-     * @param string $name
-     */
-    private function addCheckboxAttributes(&$form, $fields, $name)
-    {
-        if (empty($fields) === false) {
-            foreach ($fields as $field) {
-                $form[$name][$field]['#attributes']['checked'] = 'checked';
-            }
-        }
-    }
-
-    /**
      * @param string $profileId
      *
      * @return array
@@ -100,17 +86,37 @@ class SignUpController extends ControllerBase
 
         $form['firstname']['#value'] = $this->session->get('firstname');
         $form['lastname']['#value'] = $this->session->get('lastname');
-        $form['email']['#value'] = $this->session->get('email-company');
-        $form['phone']['#value'] = $this->session->get('phone-company');
+
+        $form['contact_email']['#value'] = $this->session->get('contact_email');
+        if (empty($form['contact_email']['#value'])) {
+            $form['contact_email']['#value'] = $this->session->get('email');
+        }
+        $form['contact_phone']['#value'] = $this->session->get('contact_phone');
+        if (empty($form['contact_phone']['#value'])) {
+            $form['contact_phone']['#value'] = $this->session->get('phone');
+        }
 
         $this->addCheckboxAttributes($form, $this->session->get('newsletter'), 'newsletter');
         $this->addCheckboxAttributes($form, $this->session->get('radiobutton'), 'radiobutton');
 
         return [
-            '#theme'      => 'opportunities_sign_up_step1',
-            '#form'       => $form,
-            '#profile_id' => $profileId,
+            '#theme' => 'opportunities_sign_up_step1',
+            '#form'  => $form,
         ];
+    }
+
+    /**
+     * @param array  $form
+     * @param array  $fields
+     * @param string $name
+     */
+    private function addCheckboxAttributes(&$form, $fields, $name)
+    {
+        if (empty($fields) === false) {
+            foreach ($fields as $field) {
+                $form[$name][$field]['#attributes']['checked'] = 'checked';
+            }
+        }
     }
 
     /**
@@ -138,9 +144,8 @@ class SignUpController extends ControllerBase
         $form['company_phone']['#value'] = $this->session->get('company_phone');
 
         return [
-            '#theme'      => 'opportunities_sign_up_step2',
-            '#form'       => $form,
-            '#profile_id' => $profileId,
+            '#theme' => 'opportunities_sign_up_step2',
+            '#form'  => $form,
         ];
     }
 
@@ -169,9 +174,57 @@ class SignUpController extends ControllerBase
         $form['county']['#value'] = $this->session->get('county');
 
         return [
-            '#theme'      => 'opportunities_sign_up_step3',
-            '#form'       => $form,
-            '#profile_id' => $profileId,
+            '#theme' => 'opportunities_sign_up_step3',
+            '#form'  => $form,
+        ];
+    }
+
+    /**
+     * @param string $profileId
+     *
+     * @return array
+     */
+    public function review($profileId)
+    {
+        if (!$this->session->get('isLoggedIn')) {
+            return $this->redirect('system.403');
+        }
+
+        $results = $this->service->get($profileId);
+
+        $form = [
+            'profile_id'    => $profileId,
+            'profile_title' => $results['_source']['title'],
+
+            'other_email' => $this->session->get('other_email'),
+            'description' => $this->session->get('description'),
+            'interest'    => $this->session->get('interest'),
+            'more'        => $this->session->get('more'),
+            'phone'       => $this->session->get('phone'),
+            'email'       => $this->session->get('email'),
+
+            'firstname'     => $this->session->get('firstname'),
+            'lastname'      => $this->session->get('lastname'),
+            'contact_email' => $this->session->get('contact_email'),
+            'contact_phone' => $this->session->get('contact_phone'),
+            'newsletter'    => $this->session->get('newsletter'),
+
+            'company_name'      => $this->session->get('company_name'),
+            'company_number'    => $this->session->get('company_number'),
+            'no_company_number' => $this->session->get('no_company_number'),
+            'website'           => $this->session->get('website'),
+            'company_phone'     => $this->session->get('company_phone'),
+
+            'postcode'   => $this->session->get('postcode'),
+            'addressone' => $this->session->get('postcode'),
+            'addresstwo' => $this->session->get('addresstwo'),
+            'city'       => $this->session->get('city'),
+            'county'     => $this->session->get('county'),
+        ];
+
+        return [
+            '#theme' => 'opportunities_sign_up_review',
+            '#form'  => $form,
         ];
     }
 }

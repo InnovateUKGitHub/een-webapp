@@ -62,6 +62,13 @@ opportunities.eoi.step3:
  requirements:
    _permission: 'access content'
 
+opportunities.eoi.review:
+ path: '/opportunities/{profileId}/review'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\SignUpController::review'
+ requirements:
+   _permission: 'access content'
+
 opportunities.search.temp:
  path: '/opportunities-temp'
  defaults:

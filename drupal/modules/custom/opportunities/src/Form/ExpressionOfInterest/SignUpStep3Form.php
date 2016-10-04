@@ -129,7 +129,12 @@ class SignUpStep3Form extends AbstractForm
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        $form_state->disableRedirect();
+        $form_state->setRedirect(
+            'opportunities.eoi.review',
+            [
+                'profileId' => $this->session->get('profileId'),
+            ]
+        );
 
         $this->session->set('postcode', $form_state->getValue('postcode'));
         $this->session->set('addressone', $form_state->getValue('addressone'));
