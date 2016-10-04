@@ -4,6 +4,7 @@ namespace Drupal\opportunities\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Session\SessionManagerInterface;
 use Drupal\opportunities\Form\SignUpStep1Form;
+use Drupal\opportunities\Form\SignUpStep2Form;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -70,9 +71,9 @@ class SignUpController extends ControllerBase
      */
     public function step1($profileId)
     {
-//        if (!$this->session->get('isLoggedIn')) {
-//            return $this->redirect('system.403');
-//        }
+        if (!$this->session->get('isLoggedIn')) {
+            return $this->redirect('system.403');
+        }
         $form = \Drupal::formBuilder()->getForm(SignUpStep1Form::class);
 
         $form['firstname']['#value'] = $this->session->get('firstname');
@@ -84,6 +85,27 @@ class SignUpController extends ControllerBase
 
         return [
             '#theme'      => 'opportunities_sign_up_step1',
+            '#form'       => $form,
+            '#profile_id' => $profileId,
+        ];
+    }
+
+    /**
+     * @param string $profileId
+     *
+     * @return array
+     */
+    public function step2($profileId)
+    {
+        if (!$this->session->get('isLoggedIn')) {
+            return $this->redirect('system.403');
+        }
+        $form = \Drupal::formBuilder()->getForm(SignUpStep2Form::class);
+
+//        $form['firstname']['#value'] = $this->session->get('firstname');
+
+        return [
+            '#theme'      => 'opportunities_sign_up_step2',
             '#form'       => $form,
             '#profile_id' => $profileId,
         ];

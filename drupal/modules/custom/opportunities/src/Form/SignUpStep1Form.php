@@ -41,7 +41,7 @@ class SignUpStep1Form extends AbstractForm
      */
     public function getFormId()
     {
-        return 'sign_up_step_1expression_of_interest_form';
+        return 'sign_up_step_1_form';
     }
 
     /**
@@ -152,7 +152,12 @@ class SignUpStep1Form extends AbstractForm
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        $form_state->disableRedirect();
+        $form_state->setRedirect(
+            'opportunities.eoi.step2',
+            [
+                'profileId' => $this->session->get('profileId'),
+            ]
+        );
 
         $this->session->set('firstname', $form_state->getValue('firstname'));
         $this->session->set('lastname', $form_state->getValue('lastname'));
