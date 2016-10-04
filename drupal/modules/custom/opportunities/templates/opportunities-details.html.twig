@@ -10,6 +10,15 @@
 {% endif %}
 
 {% if opportunity is not empty %}
+    {% if token %}
+        <div class="status-summary">
+            <p>
+                {{ 'Thank you for verifying your email address '|t }}
+                <span class="bold-small">{{ email }}</span>
+                <a class="button-brand" href="#express_your_interest">{{ 'Continue with application'|t }}</a>
+            </p>
+        </div>
+    {% endif %}
     <div>
         <div>
             <a class="back-link"
@@ -33,7 +42,7 @@
                     </p>
                 </div>
                 {% if opportunity._source.date|date('U') > '-5 days'|date('U') %}
-                   <div class="meta-data">
+                    <div class="meta-data">
                         <label>{{ 'Last updated:'|t }}</label>
                         <p>{{ opportunity._source.date|time_diff }}</p>
                     </div>
@@ -46,8 +55,8 @@
         </div>
     </div>
     <div class="grid-row grid-row-1">
-        <div class="column-one-third sticky-nav-container">            
-            
+        <div class="column-one-third sticky-nav-container">
+
             <div class="contents-list sticky-sidebar">
                 <h3 class="heading-medium sticky-sidebar-header">{{ 'Contents'|t }}</h3>
                 <ul class="sticky-sidebar-content">
@@ -64,10 +73,11 @@
                 <div class="save-actions">
                     <h3>Save for later</h3>
                     <div class="save-action sa-pin">
-                       <a href="#">Pin to favourites</a>
+                        <a href="#">Pin to favourites</a>
                     </div>
                     <div class="save-action sa-share">
-                        <a href="mailto:?subject={{ mail.subject|url_encode }}&body={{ mail.body|url_encode }}" target="_top">Share opportunity</a>
+                        <a href="mailto:?subject={{ mail.subject|url_encode }}&body={{ mail.body|url_encode }}"
+                           target="_top">Share opportunity</a>
                     </div>
                 </div>
             </div>
@@ -128,10 +138,11 @@
     <hr/>
     <div class="grid-row">
         <div class="column-one-third">
-            <h3 class="heading-medium single-header-one-col" id="express_your_interest">{{ 'Apply for this project'|t }}</h3>
+            <h3 class="heading-medium single-header-one-col"
+                id="express_your_interest">{{ 'Apply for this project'|t }}</h3>
         </div>
         <div class="column-two-thirds">
-            
+
             <div class="progressor">
                 <h3>How it works</h3>
                 <div class="step-container">
@@ -142,38 +153,56 @@
                     </ul>
                 </div>
             </div>
-            
-            
-            
-            <form action="{{ form['#action']|url_encode }}" method="POST" class="form-opportunities">
-                <div class="form-section">
-                    {{ form.description }}
+
+            {% if token == false %}
+                {{ form_email }}
+                <div class="transp">
+            {% endif %}
+
+                <form method="{{ form['#method'] }}" class="form-opportunities">
+
+                    <div class="form-section">
+                        {{ form.description }}
+                    </div>
+                    <div class="form-section">
+                        {{ form.interest }}
+                    </div>
+                    <div class="form-section">
+                        {{ form.more }}
+                    </div>
+                    {{ form.email }}
+                    <div id="edit-email--description" class="description">
+                        {{ 'You will be asked to create your EEN account if you do not already have one. If you do not have an email address, '|t }}
+                        <a class="edit-email--phone-number"
+                           href="#edit-phone">{{ 'please enter your phone number instead.'|t }}</a>
+                    </div>
+                    <div class="eoi-phone-number">
+                        {{ form.phoneStatus }}
+                        {{ form.phone }}
+                    </div>
+                    {{ form.other_email }}
+                    {{ form.form_build_id }}
+                    {{ form.form_id }}
+                    <hr/>
+                    <div>
+                        <h4 class="heading-small">{{ 'By submitting this information, I understand that:'|t }}</h4>
+                        <ul>
+                            <li>{{ 'We will be in touch within 2 days'|t }}</li>
+                            <li>
+                                {{ 'As per the '|t }}
+                                <a href="#">{{ 'privacy policy'|t }}</a>,
+                                {{ 'my personal information will not be shared.' }}
+                            </li>
+                            <li>{{ 'Information I provide in this application can be shared with potential partner in question after an EEN adviser has reviewed it and deemed it is what the receiving client is lookin for.'|t }}</li>
+                            <li>{{ 'If we connect you, our involvement will step back a bit, but you need to keep us informed of follow on discussions and negociations.'|t }}</li>
+                        </ul>
+                    </div>
+                    {{ form.actions }}
+                </form>
+            {% if token is not null %}
                 </div>
-                <div class="form-section">
-                    {{ form.interest }}
-                </div>
-                <div class="form-section">
-                    {{ form.more }}
-                </div>
-                {{ form.email }}
-                <div id="edit-email--description" class="description">
-                    {{ 'You will be asked to create your EEN account if you do not already have one. If you do not have an email address, '|t }}
-                    <a class="edit-email--phone-number" href="#edit-phone" >{{ 'please enter your phone number instead.'|t }}</a>
-                </div>
-                <div class="eoi-phone-number">
-                    {#<input type="hidden" id="eoi-phone-number-open" name="eoi-phone-number-open" value="0"/>#}
-                    {{ form.phoneStatus }}
-                    {{ form.phone }}
-                </div>
-                {{ form.form_build_id }}
-                {{ form.form_id }}
-                <hr/>
-                <div>
-                    <h4 class="heading-small">{{ 'By submitting this information, I understand that:'|t }}</h4>
-                    <p>{{ 'An EEN adviser  will review your expression of interest and share with their client if it\'s what they\'re looking for. If we connect you, our involvement will step back at it, but we need you to keep us informed of follow on discussions and negociations'|t }}</p>
-                </div>
-                {{ form.actions }}
-            </form>
+            {% endif %}
+
         </div>
     </div>
 {% endif %}

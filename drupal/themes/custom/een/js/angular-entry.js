@@ -133,7 +133,12 @@
   };
 
   var setParams = function (page, q) {
-    window.location.hash = '!/page/' + page + '?' + q;
+    var newHash = '!/page/' + page + '?' + q;
+    if ('#' + newHash !== window.location.hash) {
+      window.location.hash = '!/page/' + page + '?' + q;
+    } else {
+      window.dispatchEvent(new HashChangeEvent('hashchange'));
+    }
   };
 
   var distance = function (date) {
@@ -152,12 +157,12 @@
   var een = window.angular.module('een', []);
 
   // changed to stop conflicting with Drupal templating engine
-  een.config(function ($interpolateProvider) {
+  een.config(['$interpolateProvider', function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-  });
+  }]);
 
   een.filter('cut', function () {
-    return function (value, wordwise, max, tail) {
+    return function (value, wordwise, max, tail, id) {
       if (!value) return '';
 
       max = parseInt(max, 10);
@@ -176,11 +181,11 @@
           }
       }
 
-      return value + (tail || ' …');
+      return value + (tail || ' …') + '<a href="/opportunities/' + id + '">more</a>';
     };
   });
 
-  een.filter('unsafe', function ($sce) { return $sce.trustAsHtml; });
+  een.filter('unsafe', ['$sce', function ($sce) { return $sce.trustAsHtml; }]);
 
   een.factory('timeFactory', function () {
     var opts = {
@@ -315,7 +320,9 @@
     };
   });
 
-  een.controller('MainCtrl', function ($scope, oppsFactory, timeFactory, $sce, checkboxFactory) {
+  een.controller('MainCtrl', ['$scope', 'oppsFactory', 'timeFactory', '$sce', 'checkboxFactory', function ($scope, oppsFactory, timeFactory, $sce, checkboxFactory) {
+
+    var changingHash = false;
 
     var parseResults = function (results) {
       return $.map(results, function (result) {
@@ -354,7 +361,7 @@
           country: data.country || [],
           pageTotal: parseInt(data.pageTotal),
           total: parseInt(data.total),
-          search: data.search
+          search: $scope.data.search
         };
 
         $scope.meta = {
@@ -366,6 +373,8 @@
 
         $scope.results = parseResults(data.results);
         $scope.$apply();
+
+        changingHash = true;
 
         setParams($scope.data.page, $.param({
           search: $scope.data.search,
@@ -383,7 +392,7 @@
       $scope.$apply();
 
       queryAPI();
-    }, 400);
+    }, 700);
 
     $scope.submit = function () {
       queryAPI(true);
@@ -391,7 +400,7 @@
     };
 
     $scope.queryKeyUp = function () {
-      if ($scope.data.search.length > 3) {
+      if ($scope.data.search.length > 2) {
         liveQueryAPI();
       }
     };
@@ -441,7 +450,6 @@
           }
         }
       }
-      liveQueryAPI();
     };
 
     $scope.selectCountryCheckbox = function ($event) {
@@ -458,10 +466,31 @@
           }
         }
       }
-      liveQueryAPI();
     };
 
-    var data = getParams();
+    var initData = function () {
+      var data = getParams();
+
+      if (data) {
+        $scope.data = {
+          opportunity_type: data.opportunity_type || [],
+          country: data.country || [],
+          search: data.search,
+          page: data.page
+        };
+
+        queryAPI(true);
+        checkboxFactory.setOpps($scope.data.opportunity_type);
+        checkboxFactory.setCountry($scope.data.country);
+      } else {
+        $scope.data = {
+          opportunity_type: [],
+          country: [],
+          search: '',
+          page: 1
+        };
+      }
+    };
 
     $scope.meta = {
       loaded: true,
@@ -472,25 +501,18 @@
 
     $scope.results = [];
 
-    if (data) {
-      $scope.data = {
-        opportunity_type: data.opportunity_type || [],
-        country: data.country || [],
-        search: data.search,
-        page: data.page
-      };
+    initData();
 
-      queryAPI(true);
-      checkboxFactory.setOpps($scope.data.opportunity_type);
-      checkboxFactory.setCountry($scope.data.country);
-    } else {
-      $scope.data = {
-        opportunity_type: [],
-        country: [],
-        search: '',
-        page: 1
-      };
-    }
-  });
+    window.onhashchange = function () {
+      if (!changingHash) {
+        $scope.meta.searching = true;
+        $scope.$apply();
+
+        initData();
+      } else {
+        changingHash = false;
+      }
+    };
+  }]);
 
 })();

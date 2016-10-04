@@ -3,10 +3,39 @@ namespace Drupal\opportunities\Form;
 
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\opportunities\Controller\OpportunityController;
+use Drupal\user\PrivateTempStore;
+use Drupal\user\PrivateTempStoreFactory;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class ExpressionOfInterestForm extends AbstractForm
 {
+    /**
+     * @var PrivateTempStore
+     */
+    private $session;
+
+    /**
+     * ExpressionOfInterestForm constructor.
+     *
+     * @param PrivateTempStore $session
+     */
+    public function __construct(PrivateTempStore $session)
+    {
+        $this->session = $session;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     *
+     * @return ExpressionOfInterestForm
+     */
+    public static function create(ContainerInterface $container)
+    {
+        return new self($container->get('user.private_tempstore')->get(OpportunityController::SESSION));
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -71,7 +100,17 @@ class ExpressionOfInterestForm extends AbstractForm
             ],
             'email'       => [
                 '#type'          => 'textfield',
-                '#title'         => t('Email'),
+                '#title'         => t('Your Email'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ],
+                ],
+            ],
+            'other_email'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Other email addresses (optional)'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [
@@ -101,11 +140,8 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#type'  => 'actions',
                 'submit' => [
                     '#type'        => 'submit',
-                    '#value'       => $this->t('Express your interest in this opportunity'),
+                    '#value'       => $this->t('Submit your application'),
                     '#button_type' => 'primary',
-                    '#ajax'        => [
-                        'callback' => [$this, 'submitHandler'],
-                    ],
                 ],
             ],
             '#method'     => Request::METHOD_POST,
@@ -118,25 +154,10 @@ class ExpressionOfInterestForm extends AbstractForm
     /**
      * {@inheritdoc}
      */
-    public function submitHandler(array &$form, FormStateInterface $form_state)
-    {
-        $response = parent::generateAjaxError($form, $form_state, ['description', 'interest', 'more', 'email', 'phone']);
-
-        if (!$form_state->getErrors()) {
-            $response->addCommand(new OpenModalDialogCommand('Thank you', 'Your expression of interest has been recorded'));
-        }
-
-        return $response;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
         parent::checkRequireField($form_state, 'description', t('A short description of your organisation is required to complete your application.'));
         parent::checkRequireField($form_state, 'interest', t('Details of your interest in this opportunity are required to complete your application.'));
-        parent::checkEmailAndPhoneField($form_state);
     }
 
     /**
@@ -144,7 +165,14 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        // TODO Submit Form to api
+        $form_state->disableRedirect();
+
+        $this->session->set('other_email', $form_state->getValue('other_email'));
+        $this->session->set('description', $form_state->getValue('description'));
+        $this->session->set('interest', $form_state->getValue('interest'));
+        $this->session->set('more', $form_state->getValue('more'));
+        $this->session->set('phone', $form_state->getValue('phone'));
+
         return false;
     }
 }

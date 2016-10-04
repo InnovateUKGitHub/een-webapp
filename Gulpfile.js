@@ -1,12 +1,12 @@
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
-    minify = require('gulp-minify'),
+    uglify = require('gulp-uglify'),
     watch = require('gulp-watch'),
     copy = require('gulp-contrib-copy'),
-    gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     babel = require('gulp-babel'),
     concat = require('gulp-concat');
+    clean = require('gulp-clean');
 
 var themeDir = 'drupal/themes/custom/een';
 
@@ -43,24 +43,14 @@ var flagDir = 'node_modules/flag-icon-css/flags/**/*';
 
 gulp.task('js', function () {
     gulp.src(jsDirs)
-        .pipe(babel({
-            ignore: ['node_modules'],
-            presets: ['es2015']
-        }))
         .pipe(concat('bundle.js'))
-        .pipe(minify())
+        .pipe(uglify())
         .pipe(gulp.dest(themeDir + '/dist/js'))
 });
 
 gulp.task('js-dev', function () {
     gulp.src(jsDirs)
-        .pipe(sourcemaps.init())
-        .pipe(babel({
-            ignore: ['node_modules'],
-            presets: ['es2015']
-        }))
         .pipe(concat('bundle.js'))
-        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(themeDir + '/dist/js'))
 });
 
@@ -105,4 +95,10 @@ gulp.task('watch', function () {
     gulp.watch([themeDir + '/js/**/*.js'], ['js-dev']);
 });
 
+gulp.task('clean', function () {
+  return gulp.src(themeDir + '/dist')
+      .pipe(clean({force: true}));
+});
+
 gulp.task('default', ['js', 'img', 'css', 'fonts', 'flags']);
+gulp.task('dev', ['js-dev', 'img', 'css', 'fonts', 'flags']);

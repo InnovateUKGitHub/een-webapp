@@ -65,7 +65,7 @@ class CompaniesHouseForm extends AbstractForm
                 '#options' => $types,
             ],
             
-            'testradio' => [
+            'radiobutton' => [
                 '#type'    => 'radios',
                 '#title'   => t('Please send me emails when there is a new:'),
                 '#options' => $radio,
@@ -80,6 +80,7 @@ class CompaniesHouseForm extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Fisrt name'),
                 '#label_display' => 'before',
+                '#required' => TRUE,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -91,6 +92,7 @@ class CompaniesHouseForm extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Last name'),
                 '#label_display' => 'before',
+                '#required' => TRUE,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -102,6 +104,7 @@ class CompaniesHouseForm extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Email'),
                 '#label_display' => 'before',
+                '#required' => TRUE,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -113,6 +116,7 @@ class CompaniesHouseForm extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Contact telephone number'),
                 '#label_display' => 'before',
+                '#required' => TRUE,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -138,7 +142,7 @@ class CompaniesHouseForm extends AbstractForm
             ],
             
             
-            'company_number'       => [
+            'companynumber'       => [
                 '#type'          => 'textfield',
                 '#title'         => t('Company number'),
                 '#label_display' => 'before',
@@ -146,6 +150,88 @@ class CompaniesHouseForm extends AbstractForm
                     'class' => [
                         'form-control',
                     ],
+                ],
+            ],
+            
+            'nocompanynumber' => [
+                '#type'    => 'checkbox',
+                '#title'   => t('I do not have a company number'),
+            ],
+            
+            'website'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Website URL'),
+                '#label_display' => 'before',
+                '#required' => TRUE,
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'companytel'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Company telephone number'),
+                '#label_display' => 'before',
+                '#required' => TRUE,
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            'postcode'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Enter your postcode'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            'addressone'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Address Line 1'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'addresstwo'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Address Line 2'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'city'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('Town/City'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
+                ],
+            ],
+            
+            'county'       => [
+                '#type'          => 'textfield',
+                '#title'         => t('County'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ]
                 ],
             ],
             
@@ -160,7 +246,7 @@ class CompaniesHouseForm extends AbstractForm
                 
                 'submit' => [
                     '#type'        => 'button',
-                    '#value'       => $this->t('Search Companies House'),
+                    '#value'       => $this->t('Continue'),
                     '#button_type' => 'primary',
                     '#method' => 'append',
                     '#url' => '/opportunities-tempajax',

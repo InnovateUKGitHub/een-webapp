@@ -2,19 +2,34 @@
 namespace Drupal\opportunities\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Session\SessionManagerInterface;
 use Drupal\Core\Url;
+use Drupal\opportunities\Form\EmailVerificationForm;
 use Drupal\opportunities\Form\ExpressionOfInterestForm;
 use Drupal\opportunities\Service\OpportunitiesService;
+use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class OpportunityController extends ControllerBase
 {
+    const SESSION = 'opportunity';
     const PAGE_NUMBER = 'page';
     const RESULT_PER_PAGE = 'resultPerPage';
     const SEARCH = 'search';
     const OPPORTUNITY_TYPE = 'opportunity_type';
     const COUNTRY = 'country';
+    const EMAIL = 'email';
+
+    /**
+     * @var PrivateTempStore
+     */
+    private $session;
+
+    /**
+     * @var SessionManagerInterface
+     */
+    private $sessionManager;
 
     /**
      * @var OpportunitiesService
@@ -24,11 +39,25 @@ class OpportunityController extends ControllerBase
     /**
      * OpportunityController constructor.
      *
-     * @param OpportunitiesService $service
+     * @param OpportunitiesService    $service
+     * @param PrivateTempStore $session
+     * @param SessionManagerInterface $sessionManager
      */
-    public function __construct(OpportunitiesService $service)
+    public function __construct(
+        OpportunitiesService $service,
+        PrivateTempStore $session,
+        SessionManagerInterface $sessionManager
+    )
     {
         $this->service = $service;
+        $this->session = $session;
+        $this->sessionManager = $sessionManager;
+
+        // TODO check if the user is connected when the login is implemented
+        if (!isset($_SESSION['session_started'])) {
+            $_SESSION['session_started'] = true;
+            $this->sessionManager->start();
+        }
     }
 
     /**
@@ -38,16 +67,21 @@ class OpportunityController extends ControllerBase
      */
     public static function create(ContainerInterface $container)
     {
-        return new self($container->get('opportunities.service'));
+        return new self(
+            $container->get('opportunities.service'),
+            $container->get('user.private_tempstore')->get(self::SESSION),
+            $container->get('session_manager')
+        );
     }
 
     /**
      * @param string  $profileId
+     * @param string  $token
      * @param Request $request
      *
      * @return array
      */
-    public function index($profileId, Request $request)
+    public function index($profileId, $token, Request $request)
     {
         $search = $request->query->get(self::SEARCH);
         $opportunityType = $request->query->get(self::OPPORTUNITY_TYPE);
@@ -56,27 +90,29 @@ class OpportunityController extends ControllerBase
         $results = $this->service->get($profileId);
 
         $form = \Drupal::formBuilder()->getForm(ExpressionOfInterestForm::class);
-        $form['#action'] = Url::fromRoute(
-            'opportunities.details',
-            ['profileId' => $profileId],
-            ['query' => ['search' => $search, 'opportunity_type' => $opportunityType]]
-        )->toString();
+        $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);
+        $formEmail['profile-id']['#value'] = $profileId;
+
+        $emailSession = $this->session->get('email');
+        $tokenSession = $this->session->get('token');
+
+        if ($token != null && $token === $tokenSession) {
+            $form['email']['#value'] = $emailSession;
+            $form['email']['#attributes']['disabled'] = 'disabled';
+        } else {
+            $this->disableForm($form);
+        }
 
         return [
-            '#attached'         => [
-                'library' => [
-                    'core/drupal.ajax',
-                    'core/drupal.dialog',
-                    'core/drupal.dialog.ajax',
-                    'een/opportunity',
-                ],
-            ],
             '#theme'            => 'opportunities_details',
+            '#form_email'       => $formEmail,
             '#form'             => $form,
             '#opportunity'      => $results,
             '#search'           => $search,
             '#opportunity_type' => $opportunityType,
             '#country'          => $country,
+            '#token'            => $token != null && $token === $tokenSession,
+            '#email'            => $emailSession,
             '#mail'             => [
                 'subject' => $results['_source']['title'],
                 'body'    => "Hello,
@@ -88,5 +124,41 @@ It's on Enterprise Europe Network's website, the world's largest business suppor
 ",
             ],
         ];
+    }
+
+    /**
+     * @param array $form
+     */
+    private function disableForm(&$form)
+    {
+        $form['description']['#attributes']['disabled'] = 'disabled';
+        $form['interest']['#attributes']['disabled'] = 'disabled';
+        $form['more']['#attributes']['disabled'] = 'disabled';
+        $form['email']['#attributes']['disabled'] = 'disabled';
+        $form['other_email']['#attributes']['disabled'] = 'disabled';
+        $form['phone']['#attributes']['disabled'] = 'disabled';
+        $form['actions']['submit']['#attributes']['disabled'] = 'disabled';
+    }
+
+    /**
+     * @param string  $profileId
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function ajax($profileId, Request $request)
+    {
+        $email = $request->query->get(self::EMAIL);
+        $token = bin2hex(random_bytes(50));
+        $this->session->set('email', $email);
+        $this->session->set('token', $token);
+
+        $this->service->verifyEmail(
+            $email,
+            $token,
+            $profileId
+        );
+
+        return ['success' => true];
     }
 }

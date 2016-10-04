@@ -1,15 +1,16 @@
 <div class="grid-row">
-    <div class="column-full-width">
-        <h1 class="heading-large">Companies house search</h1>
+    <div class="column-full">
         <div class="form-heading">
             <h1 class="heading-large">Thank you for applying for this project.</h1>
             <p>To complete your project application please create an account with EEN to take advantage
  of some other great benefits to help grow your business</p>
         </div>
     </div>    
-        <br /><br /><br />
+        
     <div class="column-two-thirds">
         <form action="{{ form['#action'] }}" method="POST" class="form-companies-house-search">
+            <p class="heading-medium step">Step 1 of 3</p>
+            <h2 class="heading-large">About you</h2>
             <div class="form-section">
                 {{ form.firstname }}
             </div>
@@ -31,13 +32,14 @@
             </div>
             
             <div class="form-section">
-                {{ form.testradio }}
+                {{ form.actions }}
             </div>
 
             <div class="form-section">
                 {{ form.no_company_number }}
             </div>
-            
+            <p class="heading-medium step">Step 2 of 3</p>
+            <h2 class="heading-large">About you</h2>
             <div class="form-section">
                 {{ form.company_name }} {{ form.search }} 
                 <div class="form-group" id="ch_search-results">
@@ -45,6 +47,52 @@
                 </div>
             </div>
 
+            <div class="form-section">
+                {{ form.companynumber }}
+            </div>
+
+            <div class="form-section">
+                {{ form.nocompanynumber }}
+            </div>
+
+            <div class="form-section">
+                {{ form.website }}
+            </div>
+
+            <div class="form-section">
+                {{ form.companytel }}
+            </div>
+
+            <div class="form-section">
+                {{ form.actions }}
+            </div>
+
+            <p class="heading-medium step">Step 3 of 3</p>
+            <h2 class="heading-large">Your address</h2>
+            
+            <div class="form-section">
+                {{ form.postcode }}
+            </div>
+
+            <div class="form-section">
+                {{ form.addressone }}
+            </div>
+
+            <div class="form-section">
+                {{ form.addresstwo }}
+            </div>
+            
+            <div class="form-section">
+                {{ form.city }}
+            </div>
+
+            <div class="form-section">
+                {{ form.county }}
+            </div>
+
+            <div class="form-section">
+                {{ form.actions }}
+            </div>
         </form>
         
     </div>

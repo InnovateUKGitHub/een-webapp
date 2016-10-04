@@ -58,15 +58,18 @@ function opportunities_theme()
         'opportunities_details'     => [
             'variables' => [
                 'form'             => null,
+                'form_email'       => null,
                 'opportunity'      => [],
                 'search'           => null,
                 'opportunity_type' => null,
                 'country'          => null,
+                'token'            => null,
+                'email'            => null,
                 'mail'             => null,
             ],
             'template'  => 'opportunities-details',
         ],
-        'opportunities_search_temp'  => [
+        'opportunities_search_temp' => [
             'variables' => [
                 'form'             => null,
                 'search'           => null,
@@ -83,7 +86,7 @@ function opportunities_theme()
                 'route'            => 'opportunities.search',
             ],
             'template'  => 'opportunities-search-temp',
-        ]
-        
+        ],
+
     ];
 }
