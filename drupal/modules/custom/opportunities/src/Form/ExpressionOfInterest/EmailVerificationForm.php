@@ -61,9 +61,10 @@ class EmailVerificationForm extends AbstractForm
     {
         $form = [
             'email-verification' => [
-                '#type'          => 'textfield',
+                '#type'          => 'email',
                 '#title'         => t('Email'),
                 '#label_display' => 'before',
+                '#required'      => true,
                 '#attributes'    => [
                     'class' => [
                         'form-control',

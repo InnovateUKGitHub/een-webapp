@@ -2,7 +2,7 @@
 function opportunities_theme()
 {
     return [
-        'opportunities_search_test' => [
+        'opportunities_search_test'   => [
             'variables' => [
                 'form'             => null,
                 'search'           => null,
@@ -20,7 +20,7 @@ function opportunities_theme()
             ],
             'template'  => 'opportunities-search-test',
         ],
-        'opportunities_search'      => [
+        'opportunities_search'        => [
             'variables' => [
                 'form'             => null,
                 'search'           => null,
@@ -35,7 +35,7 @@ function opportunities_theme()
             ],
             'template'  => 'opportunities-search',
         ],
-        'opportunities_details'     => [
+        'opportunities_details'       => [
             'variables' => [
                 'form'             => null,
                 'form_email'       => null,
@@ -49,14 +49,28 @@ function opportunities_theme()
             ],
             'template'  => 'opportunities-details',
         ],
-        'opportunities_sign_up_step1'             => [
+        'opportunities_sign_up_step1' => [
             'variables' => [
                 'form'       => null,
                 'profile_id' => null,
             ],
-            'template'  => 'opportunities-sign-up-step1',
+            'template'  => 'opportunities-sign-up/step1',
         ],
-        'opportunities_search_temp' => [
+        'opportunities_sign_up_step2' => [
+            'variables' => [
+                'form'       => null,
+                'profile_id' => null,
+            ],
+            'template'  => 'opportunities-sign-up/step2',
+        ],
+        'opportunities_sign_up_step3' => [
+            'variables' => [
+                'form'       => null,
+                'profile_id' => null,
+            ],
+            'template'  => 'opportunities-sign-up/step3',
+        ],
+        'opportunities_search_temp'   => [
             'variables' => [
                 'form'             => null,
                 'search'           => null,
