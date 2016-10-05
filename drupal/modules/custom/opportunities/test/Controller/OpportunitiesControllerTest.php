@@ -24,66 +24,38 @@ class OpportunitiesControllerTest extends UnitTestCase
 
     public function testIndex()
     {
-        $mockFormBuilder = self::getMock(FormBuilder::class, [], [], '', false);
         $mockRequest = self::getMock(Request::class, [], [], '', false);
-        $mockQuery = self::getMock(ParameterBag::class, [], [], '', false);
-
-        /** @var \PHPUnit_Framework_MockObject_MockObject $container */
-        $container = \Drupal::getContainer();
-
-        $container->expects(self::at(0))
-            ->method('get')
-            ->with('form_builder')
-            ->willReturn($mockFormBuilder);
-
-        $mockFormBuilder->expects(self::once())
-            ->method('getForm')
-            ->with(OpportunitiesForm::class)
-            ->willReturn([]);
-
-        $mockRequest->query = $mockQuery;
-
-        $mockQuery->expects(self::at(0))
-            ->method('get')
-            ->with(OpportunitiesController::PAGE_NUMBER)
-            ->willReturn(1);
-        $mockQuery->expects(self::at(1))
-            ->method('get')
-            ->with(OpportunitiesController::RESULT_PER_PAGE)
-            ->willReturn(10);
-        $mockQuery->expects(self::at(2))
-            ->method('get')
-            ->with(OpportunitiesController::SEARCH)
-            ->willReturn('H2020');
-        $mockQuery->expects(self::at(3))
-            ->method('get')
-            ->with(OpportunitiesController::OPPORTUNITY_TYPE)
-            ->willReturn(['BO']);
-        $mockQuery->expects(self::at(4))
-            ->method('get')
-            ->with(OpportunitiesController::COUNTRY)
-            ->willReturn(['FR']);
 
         $this->mockService->expects(self::once())
-            ->method('search')
-            ->with([], 'H2020', ['BO'], ['FR'], 1, 10)
-            ->willReturn(['results' => [], 'total' => 10]);
+            ->method('getOpportunities')
+            ->with($mockRequest)
+            ->willReturn([
+                'form'             => 10,
+                'search'           => 10,
+                'opportunity_type' => 10,
+                'country'          => 10,
+                'results'          => [],
+                'total'            => 10,
+                'pageTotal'        => 10,
+                'page'             => 10,
+                'resultPerPage'    => 10,
+            ]);
 
         self::assertEquals(
             [
-                '#theme'            => 'opportunities_search',
-                '#form'             => [],
-                '#search'           => 'H2020',
-                '#opportunity_type' => ['BO'],
-                '#country'          => ['FR'],
-                '#results'          => [],
-                '#total'            => 10,
-                '#pageTotal'        => 1,
-                '#page'             => 1,
-                '#resultPerPage'    => 10,
-                '#route'            => 'opportunities.search',
+                '#theme',
+                '#form',
+                '#search',
+                '#opportunity_type',
+                '#country',
+                '#results',
+                '#total',
+                '#pageTotal',
+                '#page',
+                '#resultPerPage',
+                '#route',
             ],
-            $this->controller->index($mockRequest)
+            array_keys($this->controller->index($mockRequest))
         );
     }
 

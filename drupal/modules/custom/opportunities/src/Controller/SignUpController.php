@@ -10,10 +10,13 @@ use Drupal\opportunities\Form\ExpressionOfInterest\SignUpStep3Form;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class SignUpController extends ControllerBase
 {
+    const VALUE = 'value';
+
     /**
      * @var PrivateTempStore
      */
@@ -261,5 +264,48 @@ class SignUpController extends ControllerBase
             '#theme' => 'opportunities_sign_up_complete',
             '#form'  => $form,
         ];
+    }
+
+    /**
+     * @param string  $field
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function update($field, Request $request)
+    {
+        $value = $request->get(self::VALUE);
+
+        $this->session->set($field, $value);
+
+        return new JsonResponse(
+            [
+                'success' => true,
+                'params'  => $value,
+            ]
+        );
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function companies()
+    {
+        // TODO Add key and uri to a config file
+        $key = '7orha_oflH8yLjXTboak_oUDkvhnuOhpQWJhwirD';
+
+        $query = ['q' => $_GET['q']];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, 'https://api.companieshouse.gov.uk/search/companies?' . http_build_query($query));
+        curl_setopt($ch, CURLOPT_USERNAME, $key);
+        $result = curl_exec($ch);
+
+        return new JsonResponse(
+            [
+                'results' => $result,
+            ]
+        );
     }
 }

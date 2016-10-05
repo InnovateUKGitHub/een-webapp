@@ -69,6 +69,13 @@ opportunities.eoi.review:
  requirements:
    _permission: 'access content'
 
+opportunities.eoi.update:
+ path: '/opportunities/eoi/update/{field}'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\SignUpController::update'
+ requirements:
+   _permission: 'access content'
+
 opportunities.eoi.complete:
  path: '/opportunities/{profileId}/complete'
  defaults:
@@ -76,16 +83,9 @@ opportunities.eoi.complete:
  requirements:
    _permission: 'access content'
 
-opportunities.search.temp:
- path: '/opportunities-temp'
+opportunities.eoi.companies:
+ path: '/opportunities/eoi/companies'
  defaults:
-   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::temp'
- requirements:
-   _permission: 'access content'
-   
-opportunities.search.tempajax:
- path: '/opportunities-tempajax'
- defaults:
-   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::tempajax'
+   _controller: '\Drupal\opportunities\Controller\SignUpController::companies'
  requirements:
    _permission: 'access content'

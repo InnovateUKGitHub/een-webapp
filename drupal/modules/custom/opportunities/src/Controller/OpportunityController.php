@@ -93,6 +93,32 @@ class OpportunityController extends ControllerBase
         $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);
         $formEmail['profile-id']['#value'] = $profileId;
 
+        $this->checkSession($form, $token, $profileId);
+
+        return [
+            '#theme'            => 'opportunities_details',
+            '#form_email'       => $formEmail,
+            '#form'             => $form,
+            '#opportunity'      => $results,
+            '#search'           => $search,
+            '#opportunity_type' => $opportunityType,
+            '#country'          => $country,
+            '#token'            => $token != null && $token === $this->session->get('token'),
+            '#email'            => $this->session->get('email'),
+            '#mail'             => [
+                'subject' => $results['_source']['title'],
+                'body'    => $this->getMailToBody($request, $profileId),
+            ],
+        ];
+    }
+
+    /**
+     * @param array  $form
+     * @param string $token
+     * @param string $profileId
+     */
+    private function checkSession(&$form, $token, $profileId)
+    {
         $emailSession = $this->session->get('email');
         $tokenSession = $this->session->get('token');
 
@@ -113,28 +139,6 @@ class OpportunityController extends ControllerBase
             $this->disableForm($form);
             $this->session->set('isLoggedIn', false);
         }
-
-        return [
-            '#theme'            => 'opportunities_details',
-            '#form_email'       => $formEmail,
-            '#form'             => $form,
-            '#opportunity'      => $results,
-            '#search'           => $search,
-            '#opportunity_type' => $opportunityType,
-            '#country'          => $country,
-            '#token'            => $token != null && $token === $tokenSession,
-            '#email'            => $emailSession,
-            '#mail'             => [
-                'subject' => $results['_source']['title'],
-                'body'    => "Hello,
-
-Here's a partnering opportunity I thought might be of interest:
-" . $request->getSchemeAndHttpHost() . Url::fromRoute('opportunities.details', ['profileId' => $profileId])->toString() . "
-
-It's on Enterprise Europe Network's website, the world's largest business support network, led by the European Commission.
-",
-            ],
-        ];
     }
 
     /**
@@ -149,6 +153,23 @@ It's on Enterprise Europe Network's website, the world's largest business suppor
         $form['other_email']['#attributes']['disabled'] = 'disabled';
         $form['phone']['#attributes']['disabled'] = 'disabled';
         $form['actions']['submit']['#attributes']['disabled'] = 'disabled';
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $profileId
+     *
+     * @return string
+     */
+    private function getMailToBody(Request $request, $profileId)
+    {
+        return "Hello,
+
+Here's a partnering opportunity I thought might be of interest:
+" . $request->getSchemeAndHttpHost() . Url::fromRoute('opportunities.details', ['profileId' => $profileId])->toString() . "
+
+It's on Enterprise Europe Network's website, the world's largest business support network, led by the European Commission.
+";
     }
 
     /**

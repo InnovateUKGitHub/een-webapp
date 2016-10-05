@@ -197,7 +197,7 @@ AddEncoding gzip svgz
   RequestHeader unset Proxy
 </IfModule>
 
-Authtype Basic
-AuthName "Put whatever you want here"
-AuthUserFile /home/web/een/drupal/.htpasswd
-Require valid-user
+#Authtype Basic
+#AuthName "Put whatever you want here"
+#AuthUserFile /home/web/een/drupal/.htpasswd
+#Require valid-user

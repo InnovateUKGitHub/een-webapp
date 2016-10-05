@@ -30,8 +30,16 @@
             <p><strong>Short description of your organisation, activities, products and services:</strong></p>
         </div>
         <div class="column-two-thirds with-cta">
-            <div><p>{{ form.description }}</p></div>
-            <p><a href="#">Edit</a></p>
+            <div>
+                <p>{{ form.description }}</p>
+                <form class="hidden">
+                    <textarea class="form-control form-textarea required" name="description" rows="5" cols="60">{{ form.description }}</textarea>
+                </form>
+            </div>
+            <p>
+                <a href="#" class="edit-eoi">Edit</a>
+                <a href="#" class="hidden update-eoi">Update</a>
+            </p>
         </div>
     </div>
     <div class="row">
@@ -40,8 +48,16 @@
             </p>
         </div>
         <div class="column-two-thirds with-cta">
-            <div><p>{{ form.interest }}</p></div>
-            <p><a href="#">Edit</a></p>
+            <div>
+                <p>{{ form.interest }}</p>
+                <form class="hidden">
+                    <textarea class="form-control form-textarea required" name="interest" rows="5" cols="60">{{ form.interest }}</textarea>
+                </form>
+            </div>
+            <p>
+                <a href="#" class="edit-eoi">Edit</a>
+                <a href="#" class="hidden update-eoi">Update</a>
+            </p>
         </div>
     </div>
     <div class="row">
@@ -49,8 +65,16 @@
             <p><strong>Is there anything further you would like to know about this opportunity?</strong></p>
         </div>
         <div class="column-two-thirds with-cta">
-            <div><p>{{ form.more }}</p></div>
-            <p><a href="#">Edit</a></p>
+            <div>
+                <p>{{ form.more }}</p>
+                <form class="hidden">
+                    <textarea class="form-control form-textarea" name="more" rows="5" cols="60">{{ form.more }}</textarea>
+                </form>
+            </div>
+            <p>
+                <a href="#" class="edit-eoi">Edit</a>
+                <a href="#" class="hidden update-eoi">Update</a>
+            </p>
         </div>
     </div>
 

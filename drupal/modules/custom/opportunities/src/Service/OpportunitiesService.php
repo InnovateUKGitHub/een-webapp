@@ -4,11 +4,19 @@ namespace Drupal\opportunities\Service;
 
 use Drupal\Core\Url;
 use Drupal\elastic_search\Service\ElasticSearchService;
+use Drupal\opportunities\Form\OpportunitiesForm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OpportunitiesService
 {
+    const PAGE_NUMBER = 'page';
+    const RESULT_PER_PAGE = 'resultPerPage';
+    const DEFAULT_RESULT_PER_PAGE = 20;
+    const SEARCH = 'search';
+    const OPPORTUNITY_TYPE = 'opportunity_type';
+    const COUNTRY = 'country';
+
     /**
      * @var ElasticSearchService
      */
@@ -46,6 +54,65 @@ class OpportunitiesService
             ->setBody($params);
 
         return $this->service->sendRequest();
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function getOpportunities(Request $request)
+    {
+        $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
+
+        $page = $request->query->get(self::PAGE_NUMBER, 1);
+        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
+        $search = $request->query->get(self::SEARCH);
+        $types = $request->query->get(self::OPPORTUNITY_TYPE);
+        $countries = $request->query->get(self::COUNTRY);
+
+        if ($countries[0] == 'anywhere') {
+            $countries = null;
+        }
+        if ($countries[0] == 'europe') {
+            $countries = $this->getEuropeCountryCode();
+        }
+
+        $results = $this->search($form, $search, $types, $countries, $page, $resultPerPage, 3);
+
+        // Test if single match
+        if (isset($results['_id'])) {
+            return [
+                'redirect' => true,
+                'id'       => $results['_id'],
+            ];
+        }
+
+        return [
+            'form'             => $form,
+            'results'          => $results['results'],
+            'total'            => $results['total'],
+            'pageTotal'        => (int)ceil($results['total'] / $resultPerPage),
+            'page'             => $page,
+            'resultPerPage'    => $resultPerPage,
+            'search'           => $search,
+            'opportunity_type' => $types,
+            'country'          => $countries,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getEuropeCountryCode()
+    {
+        return [
+            'AD', 'AL', 'AT', 'BA', 'BE', 'BG', 'BY', 'CH', 'CY', 'CZ',
+            'DE', 'DK', 'EE', 'ES', 'FI', 'FO', 'FR', 'GB', 'GI', 'GR',
+            'HR', 'HU', 'IE', 'IM', 'IS', 'IT', 'LI', 'LT', 'LU', 'LV',
+            'MC', 'MD', 'ME', 'MK', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO',
+            'RS', 'RU', 'SE', 'SI', 'SK', 'SM', 'UA', 'UK', 'VA',
+        ];
     }
 
     /**
@@ -99,6 +166,10 @@ class OpportunitiesService
             $results = null;
         }
 
+        if (!isset($results['_id'])) {
+            return $this->reformatResults($results);
+        }
+
         return $results;
     }
 
@@ -114,6 +185,41 @@ class OpportunitiesService
                 $form[$name][$field]['#attributes']['checked'] = 'checked';
             }
         }
+    }
+
+    /**
+     * @param array $results
+     *
+     * @return array
+     */
+    private function reformatResults($results)
+    {
+        $response = [
+            'total'   => $results['total'],
+            'results' => [],
+        ];
+
+        if (isset($results['results']) === false) {
+            return $response;
+        }
+
+        foreach ($results['results'] as $result) {
+
+            $title = isset($result['highlight']['title']) ? implode('', $result['highlight']['title']) : $result['_source']['title'];
+            $summary = isset($result['highlight']['summary']) ? implode('', $result['highlight']['summary']) : $result['_source']['summary'];
+
+            $response['results'][] = [
+                'id'           => $result['_id'],
+                'title'        => str_replace('</span> <span>', ' ', $title),
+                'summary'      => str_replace('</span> <span>', ' ', $summary),
+                'type'         => $result['_source']['type'],
+                'date'         => $result['_source']['date'],
+                'country_code' => $result['_source']['country_code'],
+                'country'      => $result['_source']['country'],
+            ];
+        }
+
+        return $response;
     }
 
     /**
@@ -149,17 +255,22 @@ class OpportunitiesService
         return $this->service->sendRequest();
     }
 
+    /**
+     * @param string $email
+     * @param string $token
+     * @param string $profileId
+     */
     public function verifyEmail($email, $token, $profileId)
     {
         $params = [
             'email' => $email,
-            'url'   => $_SERVER['SERVER_NAME'] . Url::fromRoute(
-                'opportunities.details',
-                [
-                    'token'     => $token,
-                    'profileId' => $profileId,
-                ]
-            )->toString(),
+            'url'   => \Drupal::request()->getSchemeAndHttpHost() . Url::fromRoute(
+                    'opportunities.details',
+                    [
+                        'token'     => $token,
+                        'profileId' => $profileId,
+                    ]
+                )->toString(),
         ];
 
         $this->service
