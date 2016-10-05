@@ -159,7 +159,11 @@
                 <div class="transp">
             {% endif %}
 
-                <form method="{{ form['#method'] }}" class="form-opportunities">
+                <form action="{{ form['#action'] }}" method="{{ form['#method'] }}" class="form-opportunities">
+
+                    {#Required hidden field for drupal form#}
+                    {{ form.form_build_id }}
+                    {{ form.form_id }}
 
                     <div class="form-section">
                         {{ form.description }}
@@ -181,8 +185,6 @@
                         {{ form.phone }}
                     </div>
                     {{ form.other_email }}
-                    {{ form.form_build_id }}
-                    {{ form.form_id }}
                     <hr/>
                     <div>
                         <h4 class="heading-small">{{ 'By submitting this information, I understand that:'|t }}</h4>

@@ -1,8 +1,9 @@
 <?php
-namespace Drupal\opportunities\Form;
+namespace Drupal\opportunities\Form\ExpressionOfInterest;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\opportunities\Controller\OpportunityController;
+use Drupal\opportunities\Form\AbstractForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
 use Drupal\user\PrivateTempStoreFactory;
@@ -61,9 +62,10 @@ class EmailVerificationForm extends AbstractForm
     {
         $form = [
             'email-verification' => [
-                '#type'          => 'textfield',
+                '#type'          => 'email',
                 '#title'         => t('Email'),
                 '#label_display' => 'before',
+                '#required'      => true,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -93,7 +95,16 @@ class EmailVerificationForm extends AbstractForm
      */
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
-        parent::checkRequireField($form_state, 'email-verification', t('An email is necessary to verify your identity.'));
+        if (!parent::checkRegexField($form_state, self::EMAIL_REGEX, 'email-verification')) {
+            $form_state->setErrorByName(
+                'email-verification',
+                [
+                    'key'  => 'edit-email-verification',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The email is required to verify your identity.'),
+                ]
+            );
+        }
     }
 
     /**
@@ -102,17 +113,16 @@ class EmailVerificationForm extends AbstractForm
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $form_state->disableRedirect();
-        drupal_set_message('Thank you, please check your email to verify your identity.');
+        drupal_set_message('Thank you, please check your email to verify you want to apply for a project.');
 
         $email = $form_state->getValue('email-verification');
         $token = bin2hex(random_bytes(50));
+        $profileId = $form_state->getValue('profile-id');
+
         $this->session->set('email', $email);
         $this->session->set('token', $token);
+        $this->session->set('profileId', $profileId);
 
-        $this->service->verifyEmail(
-            $email,
-            $token,
-            $form_state->getValue('profile-id')
-        );
+        $this->service->verifyEmail($email, $token, $profileId);
     }
 }

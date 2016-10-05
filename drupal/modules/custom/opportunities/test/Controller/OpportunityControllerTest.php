@@ -5,8 +5,8 @@ use Drupal\Core\Form\FormBuilder;
 use Drupal\Core\Routing\UrlGenerator;
 use Drupal\Core\Session\SessionManagerInterface;
 use Drupal\opportunities\Controller\OpportunityController;
-use Drupal\opportunities\Form\EmailVerificationForm;
-use Drupal\opportunities\Form\ExpressionOfInterestForm;
+use Drupal\opportunities\Form\ExpressionOfInterest\EmailVerificationForm;
+use Drupal\opportunities\Form\ExpressionOfInterest\ExpressionOfInterestForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\Tests\UnitTestCase;
 use Drupal\user\PrivateTempStore;
@@ -106,7 +106,7 @@ class OpportunityControllerTest extends UnitTestCase
         $this->mockContainer = self::getMock(ContainerInterface::class, [], [], '', false);
 
         $this->mockService = self::getMock(OpportunitiesService::class, [], [], '', false);
-        $this->mockSession = self::getMock(PrivateTempStore::class, ['get'], [], '', false);
+        $this->mockSession = self::getMock(PrivateTempStore::class, ['get', 'set'], [], '', false);
         $this->mockSessionManager = self::getMock(SessionManagerInterface::class, [], [], '', false);
 
         \Drupal::setContainer($this->mockContainer);
