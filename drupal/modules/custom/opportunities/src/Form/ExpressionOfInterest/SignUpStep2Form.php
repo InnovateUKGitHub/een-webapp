@@ -99,7 +99,12 @@ class SignUpStep2Form extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Website URL'),
                 '#label_display' => 'before',
-                '#required' => TRUE,
+                '#required' => true,
+                '#required_error' => [
+                    'key'          => 'edit-website',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The website url is required to complete your application.'),
+                ],
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -110,7 +115,12 @@ class SignUpStep2Form extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Company telephone number'),
                 '#label_display' => 'before',
-                '#required' => TRUE,
+                '#required' => true,
+                '#required_error' => [
+                    'key'          => 'edit-company-phone',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The telephone number is required to complete your application.'),
+                ],
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -137,6 +147,18 @@ class SignUpStep2Form extends AbstractForm
      */
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
+        if ($form_state->getValue('no_company_number') === 0) {
+            if (!parent::checkRequireField($form_state, 'company_number', '', false)) {
+                $form_state->setErrorByName(
+                    'company_name',
+                    [
+                        'key'  => 'edit-company-name',
+                        'text'         => t('This is required to complete your application.'),
+                        'general_text' => t('The company is required to complete your application.'),
+                    ]
+                );
+            }
+        }
     }
 
     /**

@@ -67,9 +67,14 @@ class SignUpStep1Form extends AbstractForm
         $form = [
             'firstname'     => [
                 '#type'          => 'textfield',
-                '#title'         => t('Fisrt name'),
+                '#title'         => t('First name'),
                 '#label_display' => 'before',
                 '#required'      => true,
+                '#required_error' => [
+                    'key'          => 'edit-firstname',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The first name is required to complete your application.'),
+                ],
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -81,6 +86,11 @@ class SignUpStep1Form extends AbstractForm
                 '#title'         => t('Last name'),
                 '#label_display' => 'before',
                 '#required'      => true,
+                '#required_error' => [
+                    'key'          => 'edit-lastname',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The last name is required to complete your application.'),
+                ],
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -92,6 +102,11 @@ class SignUpStep1Form extends AbstractForm
                 '#title'         => t('Email'),
                 '#label_display' => 'before',
                 '#required'      => true,
+                '#required_error' => [
+                    'key'          => 'edit-contact-email',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The email is required to complete your application.'),
+                ],
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -103,6 +118,11 @@ class SignUpStep1Form extends AbstractForm
                 '#title'         => t('Contact telephone number'),
                 '#label_display' => 'before',
                 '#required'      => true,
+                '#required_error' => [
+                    'key'          => 'edit-contact-phone',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The telephone number is required to complete your application.'),
+                ],
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -144,6 +164,16 @@ class SignUpStep1Form extends AbstractForm
      */
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
+        if (!parent::checkRegexField($form_state, self::EMAIL_REGEX, 'contact_email')) {
+            $form_state->setErrorByName(
+                'contact_email',
+                [
+                    'key'  => 'edit-contact-email',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The email is required to complete your application.'),
+                ]
+            );
+        }
     }
 
     /**

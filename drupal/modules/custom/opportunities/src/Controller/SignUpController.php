@@ -10,6 +10,7 @@ use Drupal\opportunities\Form\ExpressionOfInterest\SignUpStep3Form;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class SignUpController extends ControllerBase
 {
@@ -67,11 +68,12 @@ class SignUpController extends ControllerBase
     }
 
     /**
-     * @param string $profileId
+     * @param string  $profileId
+     * @param Request $request
      *
      * @return array
      */
-    public function step1($profileId)
+    public function step1($profileId, Request $request)
     {
         if (!$this->session->get('isLoggedIn')) {
             return $this->redirect('system.403');
@@ -84,20 +86,22 @@ class SignUpController extends ControllerBase
             ]
         )->toString();
 
-        $form['firstname']['#value'] = $this->session->get('firstname');
-        $form['lastname']['#value'] = $this->session->get('lastname');
+        if ($request->isMethod('GET')) {
+            $form['firstname']['#value'] = $this->session->get('firstname');
+            $form['lastname']['#value'] = $this->session->get('lastname');
 
-        $form['contact_email']['#value'] = $this->session->get('contact_email');
-        if (empty($form['contact_email']['#value'])) {
-            $form['contact_email']['#value'] = $this->session->get('email');
-        }
-        $form['contact_phone']['#value'] = $this->session->get('contact_phone');
-        if (empty($form['contact_phone']['#value'])) {
-            $form['contact_phone']['#value'] = $this->session->get('phone');
-        }
+            $form['contact_email']['#value'] = $this->session->get('contact_email');
+            if (empty($form['contact_email']['#value'])) {
+                $form['contact_email']['#value'] = $this->session->get('email');
+            }
+            $form['contact_phone']['#value'] = $this->session->get('contact_phone');
+            if (empty($form['contact_phone']['#value'])) {
+                $form['contact_phone']['#value'] = $this->session->get('phone');
+            }
 
-        $this->addCheckboxAttributes($form, $this->session->get('newsletter'), 'newsletter');
-        $this->addCheckboxAttributes($form, $this->session->get('radiobutton'), 'radiobutton');
+            $this->addCheckboxAttributes($form, $this->session->get('newsletter'), 'newsletter');
+            $this->addCheckboxAttributes($form, $this->session->get('radiobutton'), 'radiobutton');
+        }
 
         return [
             '#theme' => 'opportunities_sign_up_step1',
