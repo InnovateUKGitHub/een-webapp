@@ -95,7 +95,16 @@ class EmailVerificationForm extends AbstractForm
      */
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
-        parent::checkRequireField($form_state, 'email-verification', t('An email is necessary to verify your identity.'));
+        if (!parent::checkRegexField($form_state, self::EMAIL_REGEX, 'email-verification')) {
+            $form_state->setErrorByName(
+                'email-verification',
+                [
+                    'key'  => 'edit-email-verification',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The email is required to verify your identity.'),
+                ]
+            );
+        }
     }
 
     /**
