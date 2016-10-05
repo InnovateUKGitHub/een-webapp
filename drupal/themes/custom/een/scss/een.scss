@@ -1023,7 +1023,8 @@ form[data-drupal-selector="opportunity-search-form"] {
         display:none;
         z-index: 20;
         margin:-170px 0 0 20%;
-        min-width: 400px;
+        min-width: 500px;
+        max-width: 500px;
         
        
        @media (max-width:640px){
@@ -1039,7 +1040,13 @@ form[data-drupal-selector="opportunity-search-form"] {
     .form-submit {
         display: none;
     }
-    
+    .sb-close-modal {
+        float: right;
+        margin: -25px 0 0 0;
+        font-size: 16px;
+        color: $dark-blue;
+        font-weight: bold;
+    }
     
     @media (max-width:640px){
         p {
@@ -1108,6 +1115,7 @@ form[data-drupal-selector="opportunity-search-explore-form"] {
     .form-label {
         color:#0B0C0C;
         font-weight: 600;
+        display:none;
     }
 
     fieldset {
@@ -1135,6 +1143,7 @@ form[data-drupal-selector="opportunity-search-explore-form"] {
                 display: block;
                 top: 15px;
                 position: relative;
+                font-size: 24px;
             }
             .block-label {
                 background: white;
@@ -1142,6 +1151,7 @@ form[data-drupal-selector="opportunity-search-explore-form"] {
                 margin: 0;
                 font-size: 16px;
                 float:none;
+                font-size: 24px;
             }
         }
     }
@@ -1200,9 +1210,9 @@ form[data-drupal-selector="opportunity-search-explore-form"] {
     }
     .block-label.selected:after {
         font-family:FontAwesome;
-        content:"\f00c";
+        content:"\f00c"; //tick
         color:$dark-blue;
-        background: none;
+        background: #ffffff;
     }
     .block-label.focused:after {
          outline: 3px solid #ffbf47;
