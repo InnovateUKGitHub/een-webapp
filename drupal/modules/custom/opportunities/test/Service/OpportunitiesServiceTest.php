@@ -40,10 +40,10 @@ class OpportunitiesServiceTest extends UnitTestCase
             ->willReturn($this->mockService);
         $this->mockService->expects(self::once())
             ->method('sendRequest')
-            ->willReturn(['success' => true]);
+            ->willReturn(['total' => 0]);
 
         $form = [];
-        self::assertEquals(['success' => true], $this->service->search($form, 'H2020', ['BO'], ['FR'], 1, 10));
+        self::assertEquals(['total' => 0, 'results' => []], $this->service->search($form, 'H2020', ['BO'], ['FR'], 1, 10));
 
         self::assertEquals([
             'search'           => [

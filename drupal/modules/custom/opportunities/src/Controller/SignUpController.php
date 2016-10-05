@@ -285,4 +285,27 @@ class SignUpController extends ControllerBase
             ]
         );
     }
+
+    /**
+     * @return JsonResponse
+     */
+    public function companies()
+    {
+        // TODO Add key and uri to a config file
+        $key = '7orha_oflH8yLjXTboak_oUDkvhnuOhpQWJhwirD';
+
+        $query = ['q' => $_GET['q']];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, 'https://api.companieshouse.gov.uk/search/companies?' . http_build_query($query));
+        curl_setopt($ch, CURLOPT_USERNAME, $key);
+        $result = curl_exec($ch);
+
+        return new JsonResponse(
+            [
+                'results' => $result,
+            ]
+        );
+    }
 }

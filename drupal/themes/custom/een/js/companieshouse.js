@@ -1,6 +1,6 @@
 jQuery(function () {
     var $ = jQuery,
-        url = '/opportunities-tempajax',
+        url = '/opportunities/eoi/companies',
         $searchResultsContainer = $('.companies-house-list'),
         $searchTrigger = $("#ch-search-trigger"),
         $searchField = $('#ch_search');
@@ -47,7 +47,4 @@ jQuery(function () {
     if(!$('.form-companies-house-search #edit-company-number').val()){
         $('.form-companies-house-search .js-form-item-company-number').hide();
     }
-
-
-
 });
