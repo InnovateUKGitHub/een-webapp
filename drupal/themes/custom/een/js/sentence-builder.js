@@ -2,35 +2,83 @@ jQuery(function () {
     var $ = jQuery,
         $modal = $('.modal');
 
-    var updateResults = function () {
-      // var search = $('#search').val();
-      // var country = [$('#edit-country-choice-anywhere').val()];
-      // var opportunity_type = [$('#edit-opportunity-type-br').val()];
-      //
-      // if (country[0] === 'anywhere') {
-      //   country[0] = '';
-      // }
-      //
-      // return $.ajax({
-      //   url: 'opportunities/_count',
-      //   data: {
-      //     search: search,
-      //     opportunity_type: opportunity_type,
-      //     country: country
-      //   }
-      // }).then(function (data) {
-      //   $('.sb-results').html(data.total + ' results');
-      // });
+    var debounce = function (func, wait, immediate) {
+      var timeout;
+      return function () {
+        var context = this;
+        var args = arguments;
+        var later = function () {
+          timeout = null;
+          if (!immediate) {
+            func.apply(context, args);
+          }
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) {
+          func.apply(context, args);
+        }
+      };
     };
 
-    $('#keywords').on('keyup', function(){
+    var ajaxSearch = function () {
+      var search = $('#search').val();
+      var country;
+      var opportunity_type = [$('input:checked', '.explore-form #edit-opportunity-type').val()];
+      var checkboxes = [$('input:checked', '.explore-form #edit-country-choice').val()];
+
+      if (checkboxes && checkboxes[0] === '') {
+        country = $(".chosen-select-multiple").val();
+      } else {
+        country = checkboxes;
+      }
+
+      if (country && country[0] === 'anywhere') {
+        country[0] = '';
+      }
+
+      return $.ajax({
+        url: 'opportunities/_count',
+        data: {
+          search: search,
+          opportunity_type: opportunity_type,
+          country: country
+        }
+      }).then(function (data) {
+        $('.sb-results').html(data.total + ' results');
+      });
+    };
+
+    var updateResults = debounce(function() {
+      $('.sb-results').addClass('transp');
+      ajaxSearch().then(function() {
+        $('.sb-results').removeClass('transp');
+      });
+    }, 600);
+
+    $('#keywords').on('keyup', function() {
         $('#search').val($('#keywords').text());
+        updateResults();
+    });
+
+    $('#keywords').click(function() {
+      if ($('#search').val() === '') {
+        $('#keywords').text('');
+        $('#search').val('');
+      }
+      updateResults();
     });
 
     $(".chosen-select-multiple").chosen({
         disable_search:false
     });
 
+    $(".chosen-select-multiple").on('change', function(evt, params) {
+      //var x = $(".chosen-select-multiple").val();
+      //$('input:checked', '.explore-form #edit-country-choice').val(x);
+      updateResults();
+    });
 
     /* opportunity type dropdown (1st) */
     $('#search_type').on('click', function(){
@@ -103,6 +151,8 @@ jQuery(function () {
         $.each( countries, function( key, value ) {
             //add to sentence builder
         });
+
+        updateResults();
     });
 
 
