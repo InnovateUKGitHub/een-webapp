@@ -41,6 +41,48 @@ opportunities.details.ajax:
  requirements:
    _permission: 'access content'
 
+opportunities.eoi.step1:
+ path: '/opportunities/{profileId}/step1'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\SignUpController::step1'
+ requirements:
+   _permission: 'access content'
+
+opportunities.eoi.step2:
+ path: '/opportunities/{profileId}/step2'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\SignUpController::step2'
+ requirements:
+   _permission: 'access content'
+
+opportunities.eoi.step3:
+ path: '/opportunities/{profileId}/step3'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\SignUpController::step3'
+ requirements:
+   _permission: 'access content'
+
+opportunities.eoi.review:
+ path: '/opportunities/{profileId}/review'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\SignUpController::review'
+ requirements:
+   _permission: 'access content'
+
+opportunities.eoi.update:
+ path: '/opportunities/eoi/update/{field}'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\SignUpController::update'
+ requirements:
+   _permission: 'access content'
+
+opportunities.eoi.complete:
+ path: '/opportunities/{profileId}/complete'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\SignUpController::complete'
+ requirements:
+   _permission: 'access content'
+
 opportunities.search.temp:
  path: '/opportunities-temp'
  defaults:

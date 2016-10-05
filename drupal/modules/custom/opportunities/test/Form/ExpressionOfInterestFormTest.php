@@ -1,16 +1,14 @@
 <?php
 namespace Drupal\opportunities\Test\Form;
 
-use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Form\FormState;
-use Drupal\Core\Render\Renderer;
-use Drupal\opportunities\Form\ExpressionOfInterestForm;
+use Drupal\opportunities\Form\ExpressionOfInterest\ExpressionOfInterestForm;
 use Drupal\Tests\UnitTestCase;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * @covers \Drupal\opportunities\Form\ExpressionOfInterestForm
+ * @covers \Drupal\opportunities\Form\ExpressionOfInterest\ExpressionOfInterestForm
  * @covers \Drupal\opportunities\Form\AbstractForm
  */
 class ExpressionOfInterestFormTest extends UnitTestCase
@@ -69,7 +67,8 @@ class ExpressionOfInterestFormTest extends UnitTestCase
 
         $formArray = $this->form->buildForm($formArray, $formState);
 
-        self::assertFalse($this->form->submitForm($formArray, $formState));
+        $this->form->submitForm($formArray, $formState);
+        $this->assertEquals('opportunities.eoi.step1', $formState->getRedirect()->getRouteName());
     }
 
     protected function setup()

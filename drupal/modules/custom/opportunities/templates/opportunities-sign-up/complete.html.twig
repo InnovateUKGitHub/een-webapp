@@ -1,0 +1,63 @@
+<div class="grid-row">
+    <div class="column-full">
+        <div class="banner">
+            <p class="heading-xlarge">Application complete</p>
+            <p>Your reference number is</p>
+            <p class="heading-large">{{ form.reference_number }}</p>
+            <p class="heading-medium">Your opportunity application has been submitted and your account created.</p>
+        </div>
+    </div>
+    <div class="column-full">
+        <h2 class="heading-medium">Opportunity application</h2>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p class="no-margin"><strong>Opportunity ID:</strong></p>
+        </div>
+        <div class="column-two-thirds">
+            <div><p class="no-margin">{{ form.profile_id }}</p></div>
+        </div>
+        <div class="column-one-third">
+            <p><strong>Opportunity title:</strong></p>
+        </div>
+        <div class="column-two-thirds">
+            <div><p>{{ form.profile_title }}</p></div>
+        </div>
+        <div class="column-one-third">
+            <p> </p>
+        </div>
+        <div class="column-two-thirds">
+            <div>
+                <h2 class="heading-medium">What happens next?</h2>
+                <p>You will receive an email confirming your application shortly. Your application will now be reviewed by our advisors and presented to the opportunity provider for consideration.</p>
+            </div>
+        </div>
+    </div>
+    <div class="column-full">
+        <h2 class="heading-medium">Your account details</h2>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p><strong>About you</strong></p>
+        </div>
+        <div class="column-two-thirds">
+            <p class="no-margin"><strong class="label your-name">Your name:</strong><span>{{ form.firstname }} {{ form.firstname }}</span></p>
+            <p class="no-margin"><strong class="label your-email">Your email address:</strong><span>{{ form.contact_email }}</span></p>
+            <p class="no-margin"><strong class="label your-contact">Contact number:</strong><span>{{ form.contact_phone }}</span></p>
+            {% if form.newsletter is empty %}
+                <p>No - please don't send me emails when there is a new blog post and newsletter</p>
+            {% else %}
+                <p>Yes - please send me emails when there is a new blog post and newsletter</p>
+            {% endif %}
+            <p><a href="#" class="button">View your account</a></p>
+            <p class="font-xsmall">Please note: Accounts with EEN operate on a session basis only and do not require a password.
+                When using this website in the future, you simply need ato validate your email when applying for opportunities of registering for events.
+            </p>
+        </div>
+        <div class="column-full">
+            <hr />
+        </div>
+    </div>
+</div>

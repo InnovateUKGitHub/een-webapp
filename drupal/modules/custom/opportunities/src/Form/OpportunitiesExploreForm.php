@@ -55,7 +55,7 @@ class OpportunitiesExploreForm extends AbstractForm
             'RD' => t('develop tech / bid for funding'),
         ];
         $countries = $this->service->getCountryList();
-        
+
         $countryChoices = [
             'anywhere' => t('anywhere in the world'),
             'europe' => t('in europe'),
@@ -89,8 +89,8 @@ class OpportunitiesExploreForm extends AbstractForm
                     ],
                 ]
             ],
-            
-            
+
+
             'country_choice' => [
                 '#type'    => 'radios',
                 '#title'   => t('Where.. '),
@@ -102,7 +102,7 @@ class OpportunitiesExploreForm extends AbstractForm
                     ],
                 ]
             ],
-            
+
             'country'          => [
                 '#type'       => 'select',
                 '#title'      => t('Country of origin'),
@@ -125,7 +125,7 @@ class OpportunitiesExploreForm extends AbstractForm
                     '#button_type' => 'primary',
                 ],
             ],
-            
+
             '#method'          => Request::METHOD_POST,
             '#attributes'      => [
                 'ng-submit' => "submit()",

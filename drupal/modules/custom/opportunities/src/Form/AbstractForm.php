@@ -105,7 +105,7 @@ abstract class AbstractForm extends FormBase
                 $form_state->setErrorByName(
                     $field,
                     [
-                        'key'          => 'edit-' . $field,
+                        'key'          => 'edit-' . str_replace('_', '-', $field),
                         'text'         => t('This is required to complete your application.'),
                         'general_text' => ($message !== '' ? $message : t('This is required to complete your application.')),
                     ]

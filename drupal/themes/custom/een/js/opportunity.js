@@ -11,17 +11,22 @@ jQuery(function () {
         phoneField.toggle();
     });
     
-    
-    $('.contents-list a[href*="#"]:not([href="#"])').click(function() {
-        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-            var target = $(this.hash);
-            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+    function smoothScroll(t) {
+        if (location.pathname.replace(/^\//,'') == t.pathname.replace(/^\//,'') && location.hostname == t.hostname) {
+            var target = $(t.hash);
+            target = target.length ? target : $('[name=' + t.hash.slice(1) +']');
             if (target.length) {
                 $('html, body').animate({
-                  scrollTop: target.offset().top
+                    scrollTop: target.offset().top
                 }, 700);
-              return false;
+                return false;
             }
         }
+    }
+
+    $('.contents-list a[href*="#"]:not([href="#"]),' +
+        '.error-summary a[href*="#"]:not([href="#"]),' +
+        '.status-summary a[href*="#"]:not([href="#"])').click(function() {
+        smoothScroll(this);
     });
 });
