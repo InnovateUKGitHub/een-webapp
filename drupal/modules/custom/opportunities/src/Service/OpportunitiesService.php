@@ -284,4 +284,19 @@ class OpportunitiesService
             drupal_set_message('There was a problem while sending the email, please try later.', 'error');
         }
     }
+
+    /**
+     * @param string $email
+     *
+     * @return array
+     */
+    public function createLead($email)
+    {
+        $this->service
+            ->setUrl('lead')
+            ->setMethod(Request::METHOD_POST)
+            ->setBody(['email' => $email]);
+
+        return $this->service->sendRequest();
+    }
 }

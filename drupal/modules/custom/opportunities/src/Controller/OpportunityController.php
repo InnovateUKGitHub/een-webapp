@@ -123,6 +123,9 @@ class OpportunityController extends ControllerBase
         $tokenSession = $this->session->get('token');
 
         if ($token != null && $token === $tokenSession) {
+
+            $this->clearSession();
+
             $form['email']['#value'] = $emailSession;
             $form['email']['#attributes']['disabled'] = 'disabled';
 
@@ -135,10 +138,39 @@ class OpportunityController extends ControllerBase
             )->toString();
 
             $this->session->set('isLoggedIn', true);
+            $contact = $this->service->createLead($emailSession);
+            $this->session->set('type', $contact['type']);
         } else {
             $this->disableForm($form);
             $this->session->set('isLoggedIn', false);
         }
+    }
+
+    private function clearSession()
+    {
+        $this->session->delete('other_email');
+        $this->session->delete('description');
+        $this->session->delete('interest');
+        $this->session->delete('more');
+        $this->session->delete('phone');
+
+        $this->session->delete('firstname');
+        $this->session->delete('lastname');
+        $this->session->delete('contact_email');
+        $this->session->delete('contact_phone');
+        $this->session->delete('newsletter');
+
+        $this->session->delete('company_name');
+        $this->session->delete('company_number');
+        $this->session->delete('no_company_number');
+        $this->session->delete('website');
+        $this->session->delete('company_phone');
+
+        $this->session->delete('postcode');
+        $this->session->delete('addressone');
+        $this->session->delete('addresstwo');
+        $this->session->delete('city');
+        $this->session->delete('county');
     }
 
     /**
