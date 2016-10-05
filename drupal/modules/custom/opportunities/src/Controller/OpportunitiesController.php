@@ -169,6 +169,13 @@ class OpportunitiesController extends ControllerBase
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
         $countries = $request->query->get(self::COUNTRY);
 
+        if ($countries[0] == 'anywhere') {
+            $countries = null;
+        }
+        if ($countries[0] == 'europe') {
+            $countries = $this->service->getEuropeCountries();
+        }
+
         $results = $this->service->search($form, $search, $types, $countries, $page, $resultPerPage, 3);
 
         // Test if single match
@@ -240,6 +247,12 @@ class OpportunitiesController extends ControllerBase
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
         $countries = $request->query->get(self::COUNTRY);
 
+        if ($countries[0] == 'anywhere') {
+            $countries = null;
+        }
+        if ($countries[0] == 'europe') {
+            $countries = $this->service->getEuropeCountries();
+        }
         $count = $this->service->count($search, $types, $countries);
 
         return new JsonResponse($count);
