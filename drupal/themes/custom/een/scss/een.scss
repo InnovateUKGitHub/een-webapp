@@ -1111,6 +1111,8 @@ form[data-drupal-selector="opportunity-search-form"] {
         font-weight: bold;
     }
     
+    
+    
     @media (max-width:640px){
         p {
            font-size:19px;
@@ -1135,31 +1137,24 @@ form[data-drupal-selector="opportunity-search-form"] {
     }
     
 }
-/*
-.modal-overlay {
-    background: rgba(0,0,0, 0.6);
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-    z-index: 1;
-    
-    @media (max-width:640px){
-         position: fixed;
-    }
-}*/
+
+.sb-results {
+    position: relative;
+    top: 14px;
+    left: 14px;
+}
+
+
 
 form[data-drupal-selector="opportunity-search-explore-form"] {
 
     .block-label {
-        width:100%;
         padding:7px 31px;
         border:none;
         background:white;
         
         &:hover {
-            background:lightblue!important;
+            //background:lightblue!important;
         }
     }
     
