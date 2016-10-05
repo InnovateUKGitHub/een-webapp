@@ -106,10 +106,30 @@ a {
 }
 
 .status-summary {
-    border: 4px solid #27931f;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    padding: 15px 10px;
+    overflow:hidden;
+    border-left:solid 5px $govuk-blue;
+    padding:20px 16px;
+    margin-bottom:25px;
+    background:$status-background;
+    p {
+        position:relative;
+        padding-left:30px;
+        margin:0;
+    }
+    .fa {
+        font-size:24px;
+        position:absolute;
+        top:0;
+        left:-10px;
+        color:$govuk-blue;
+    }
+    .column-one-third {
+        padding-right:0;
+    }
+    .button-brand {
+        float:right;
+    }
+    
 }
 
 .contents-list {
@@ -155,14 +175,14 @@ a.back-link {
 .content-heading {
     padding: 32px 0;
     border-bottom: 1px solid #9B9B9B;
-
     h1 {
         margin: 0;
         color:#9B9B9B;
         @extend .font-medium;
+        margin-bottom:10px;
     }
     h2 {
-        margin: 0;
+        margin:0 0 10px 0;
         @extend .font-large;
         font-weight: bold;
     }
@@ -175,8 +195,13 @@ a.back-link {
 .meta {
     .meta-data  {
         label, p {
-            display: inline;
+            display:inline-block;
             @extend .font-small;
+            margin:0;
+        }
+        label {
+            display:inline-block;
+            min-width:160px;
         }
     }
 }
@@ -213,6 +238,34 @@ input,textarea,select,button,#global-header input:focus {
         font-size:24px;
     }
 }
+.verify-email {
+    border:solid 1px $status-background;
+    overflow:hidden;
+    padding:16px;
+    margin-bottom:30px;
+    background:#f5fafd;
+    .form-email {
+        width:64%;
+        float:left;
+        margin-bottom:16px;
+        padding-left:2%;
+        padding-right:2%;
+    }
+    .form-actions {
+       width:34%;
+       float:right;
+       margin-bottom:16px;
+       .button {
+           height:35px;
+           padding:4px 32px;
+           border:solid 1px $govuk-blue;
+           box-shadow:none;
+           color:$govuk-blue;
+           background:#fff;
+       }
+    }
+}
+
 .form-companies-house-search {
     .companies-house-list {
         border: 1px solid #9B9B9B;
@@ -958,7 +1011,7 @@ form[data-drupal-selector="opportunity-search-form"] {
     text-align:center;
     border:solid 5px $govuk-blue;
     padding:20px;
-    background:#e0f0f9;
+    background:$status-background;
     p {
         margin-bottom:0;
     }

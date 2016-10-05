@@ -10,5 +10,8 @@ jQuery(function () {
         var desc = $(this).next();
         $(desc).toggle();
     });
+    $('textarea').focus(function() {
+        $(this).closest('form').find('div').show();
+    });
 });
 

@@ -63,7 +63,7 @@ class EmailVerificationForm extends AbstractForm
         $form = [
             'email-verification' => [
                 '#type'          => 'email',
-                '#title'         => t('Email'),
+                '#title'         => t('First, please enter your email'),
                 '#label_display' => 'before',
                 '#required'      => true,
                 '#attributes'    => [

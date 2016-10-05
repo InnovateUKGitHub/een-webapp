@@ -12,18 +12,22 @@
 {% if opportunity is not empty %}
     {% if token %}
         <div class="status-summary">
-            <p>
-                {{ 'Thank you for verifying your email address '|t }}
-                <span class="bold-small">{{ email }}</span>
+            <div class="column-two-thirds">
+                <p><i class="fa fa-info-circle" aria-hidden="true"></i>
+                    {{ 'Thank you for verifying your email address '|t }}
+                    <span class="bold-small">{{ email }}</span>
+                </p>
+            </div>
+            <div class="column-one-third">
                 <a class="button-brand" href="#express_your_interest">{{ 'Continue with application'|t }}</a>
-            </p>
+            </div>
         </div>
     {% endif %}
     <div>
         <div>
             <a class="back-link"
                href="{{ url('opportunities.search', params) }}">
-                {{ '&lt; Back to search results'|t }}
+                {{ '&lt; &nbsp;Back to search results'|t }}
             </a>
         </div>
         <div class="content-heading">
@@ -155,10 +159,16 @@
             </div>
 
             {% if token == false %}
+            <div class="verify-email">
                 {{ form_email }}
+                <p>To apply for this opportunity we need to validate your email. You will be sent a 6 digit confirmation email containing a verfication code. Simply copy this into the field below to continue.</p>
+                <hr />
+            </div>
                 <div class="transp">
             {% endif %}
-
+                
+                
+            
                 <form action="{{ form['#action'] }}" method="{{ form['#method'] }}" class="form-opportunities">
 
                     {#Required hidden field for drupal form#}
