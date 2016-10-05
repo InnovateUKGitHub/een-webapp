@@ -69,6 +69,13 @@ opportunities.eoi.review:
  requirements:
    _permission: 'access content'
 
+opportunities.eoi.update:
+ path: '/opportunities/eoi/update/{field}'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\SignUpController::update'
+ requirements:
+   _permission: 'access content'
+
 opportunities.eoi.complete:
  path: '/opportunities/{profileId}/complete'
  defaults:
