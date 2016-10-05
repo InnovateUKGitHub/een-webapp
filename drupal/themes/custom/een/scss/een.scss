@@ -211,6 +211,24 @@ a.back-link {
     margin-top: 0;
 }
 
+.form-opportunities .js-form-type-textarea {
+    position:relative;
+    div[id$="--description"] {
+        width:250px;
+        height:100px;
+        position:absolute;
+        border:0;
+        bottom:-7px;
+        left:-270px;
+        padding:10px!important;
+        color:$govuk-blue;
+        background:#e0f0f9;
+    }
+}
+.show {
+    display:block!important;
+}
+
 
 form {
     ::-webkit-input-placeholder {   font-size:0.9em; font-style: italic;   }
@@ -871,6 +889,7 @@ form[data-drupal-selector="opportunity-search-form"] {
     top: -1px;
     border:1px solid #4A4A4A;
     background-size: cover;
+    margin-right:8px;
 }
 
 

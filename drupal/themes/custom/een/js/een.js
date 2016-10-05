@@ -10,8 +10,10 @@ jQuery(function () {
         var desc = $(this).next();
         $(desc).toggle();
     });
+    
+    /* EEN-229
     $('textarea').focus(function() {
-        $(this).closest('form').find('div').show();
-    });
+        $(this).closest('.js-form-type-textarea').find('div[id$="--description"]').toggleClass('show');
+    }); */
 });
 
