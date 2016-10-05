@@ -1,5 +1,6 @@
 jQuery(function () {
-    var $ = jQuery;
+    var $ = jQuery,
+        $modal = $('.modal');
     
     
     
@@ -29,8 +30,10 @@ jQuery(function () {
     });
     
     
-    /* country type dropdown (2nd) */
-    
+    /*
+     * Country type selection
+     * 
+     */
     $('#search_country').on('click', function(){
         $('.modal .form-item').hide();
         openModal();
@@ -42,15 +45,19 @@ jQuery(function () {
          }
     });
     
-    
+    /*
+     * Specific country selection
+     * 
+     */
     $('.explore-form #edit-country-choice input').on('change', function() {
         var text = $('input:checked', '.explore-form #edit-country-choice').parent().text(); 
         var val = $('input:checked', '.explore-form #edit-country-choice').val(); 
+        var $countryList = $('.modal .form-item-country');
+        
         if(text){
-            
             if(val == ''){
-                $('.modal .form-item-country').show();
-                
+                $countryList.show();
+                $countryList.prepend('<span class="sb-close-modal">Close</span>');
             } else {
                 $('#search_country').html(text);
                 closeModal();
@@ -58,17 +65,31 @@ jQuery(function () {
         }
     });
     
-    function openModal(){
+    /*
+     *  close modal for selecting multiple countries. 
+     * 
+     */
+    $(document).on('click', '.sb-close-modal', function(){
+        closeModal();
         
-         $('.modal').show();
+        /* get array of selected values */
+        var countries = $("#edit-country").val();
+        
+        $.each( countries, function( key, value ) {
+            //add to sentence builder
+        });
+    });
+    
+    
+    function openModal(){
+        $modal.show();
         if ($(window).width() < 640) {
             $('body').append('<div class="modal-overlay"></div>');
-            $('.modal').show().css('top', $(document).scrollTop() + 30+'px');
-
+            $modal.show().css('top', $(document).scrollTop() + 30+'px');
         }
     }
     function closeModal(){
-        $('.modal').hide();
+        $modal.hide();
         $('.modal-overlay').remove();
     }
     
