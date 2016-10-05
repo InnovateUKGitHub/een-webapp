@@ -10,10 +10,13 @@ use Drupal\opportunities\Form\ExpressionOfInterest\SignUpStep3Form;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class SignUpController extends ControllerBase
 {
+    const VALUE = 'value';
+
     /**
      * @var PrivateTempStore
      */
@@ -261,5 +264,25 @@ class SignUpController extends ControllerBase
             '#theme' => 'opportunities_sign_up_complete',
             '#form'  => $form,
         ];
+    }
+
+    /**
+     * @param string  $field
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function update($field, Request $request)
+    {
+        $value = $request->get(self::VALUE);
+
+        $this->session->set($field, $value);
+
+        return new JsonResponse(
+            [
+                'success' => true,
+                'params'  => $value,
+            ]
+        );
     }
 }
