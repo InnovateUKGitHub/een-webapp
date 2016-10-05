@@ -104,7 +104,7 @@ class EmailVerificationForm extends AbstractForm
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $form_state->disableRedirect();
-        drupal_set_message('Thank you, please check your email to verify your identity.');
+        drupal_set_message('Thank you, please check your email to verify you want to apply for a project.');
 
         $email = $form_state->getValue('email-verification');
         $token = bin2hex(random_bytes(50));
