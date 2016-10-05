@@ -89,3 +89,11 @@ opportunities.eoi.companies:
    _controller: '\Drupal\opportunities\Controller\SignUpController::companies'
  requirements:
    _permission: 'access content'
+   
+   
+opportunities.explore:
+ path: '/explore-opportunities'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::exploreOpportunities'
+ requirements:
+   _permission: 'access content'

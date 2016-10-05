@@ -518,18 +518,20 @@
 
     $scope.results = [];
 
-    initData();
+    if (window.location.pathname === '/opportunities') {
+      initData();
 
-    window.onhashchange = function () {
-      if (!changingHash) {
-        $scope.meta.searching = true;
-        $scope.$apply();
+      window.onhashchange = function () {
+        if (!changingHash) {
+          $scope.meta.searching = true;
+          $scope.$apply();
 
-        initData();
-      } else {
-        changingHash = false;
-      }
-    };
+          initData();
+        } else {
+          changingHash = false;
+        }
+      };
+    }
   }]);
 
 })();

@@ -4,6 +4,8 @@ namespace Drupal\opportunities\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Drupal\opportunities\Form\MultiOpportunitiesForm;
+use Drupal\opportunities\Form\OpportunitiesForm;
+use Drupal\opportunities\Form\OpportunitiesExploreForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -163,4 +165,18 @@ class OpportunitiesController extends ControllerBase
 
         return new JsonResponse($count);
     }
+
+    public function exploreOpportunities()
+    {        
+        $form = \Drupal::formBuilder()->getForm(OpportunitiesExploreForm::class);
+
+        return [
+            '#form'  => $form,
+            '#theme' => 'explore_opportunities',
+            '#route' => 'opportunities.explore',
+        ];
+    }
+    
+    
+    
 }
