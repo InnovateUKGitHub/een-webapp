@@ -191,7 +191,7 @@ jQuery(function () {
         }
         
         var str = $.param({ search: search, opportunity_type: opportunity_type, country: country });
-        var url = '/opportunities#!/page/1?'+str;
+        var url = '/opportunities?'+str;
         
         $('.js-sb-view-results').attr('href', url);
     }
