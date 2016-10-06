@@ -1033,7 +1033,7 @@ CREATE TABLE `menu_link_content_data` (
 LOCK TABLES `menu_link_content_data` WRITE;
 /*!40000 ALTER TABLE `menu_link_content_data` DISABLE KEYS */;
 set autocommit=0;
-INSERT INTO `menu_link_content_data` VALUES (1,'menu_link_content','en','Partenering opportunities','Find the opportunity made for you','main','internal:/opportunities','','a:0:{}',0,1,1,0,1,NULL,1469096282,1), (2, 'menu_link_content', 'en', 'Events', 'List of the events', 'main', 'internal:/events', '', 'a:0:{}', 0, 1, 2, 0, 1, null, 1473336495, 1);
+INSERT INTO `menu_link_content_data` VALUES (1,'menu_link_content','en','Partnering opportunities','Find the opportunity made for you','main','internal:/opportunities','','a:0:{}',0,1,1,0,1,NULL,1469096282,1), (2, 'menu_link_content', 'en', 'Events', 'List of the events', 'main', 'internal:/events', '', 'a:0:{}', 0, 1, 2, 0, 1, null, 1473336495, 1);
 /*!40000 ALTER TABLE `menu_link_content_data` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;
