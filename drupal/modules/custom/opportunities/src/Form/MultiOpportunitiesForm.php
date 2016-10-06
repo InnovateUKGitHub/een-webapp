@@ -1,7 +1,6 @@
 <?php
 namespace Drupal\opportunities\Form;
 
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,7 +11,7 @@ class MultiOpportunitiesForm extends AbstractForm
      */
     public function getFormId()
     {
-        return 'opportunity_search_form';
+        return 'opportunity_search_test_form';
     }
 
     /**
