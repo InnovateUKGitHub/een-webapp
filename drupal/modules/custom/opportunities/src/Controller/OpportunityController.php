@@ -165,7 +165,6 @@ class OpportunityController extends ControllerBase
         $this->session->delete('step2');
         $this->session->delete('company_name');
         $this->session->delete('company_number');
-        $this->session->delete('no_company_number');
         $this->session->delete('website');
         $this->session->delete('company_phone');
 
@@ -174,7 +173,6 @@ class OpportunityController extends ControllerBase
         $this->session->delete('addressone');
         $this->session->delete('addresstwo');
         $this->session->delete('city');
-        $this->session->delete('county');
 
         $this->session->delete('complete');
     }

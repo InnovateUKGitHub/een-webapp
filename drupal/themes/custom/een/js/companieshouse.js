@@ -12,13 +12,12 @@ jQuery(function () {
         if(searchTerm.length > 0){
 
             $.get(url, {q: searchTerm}, function( data ) {
-                var results = $.parseJSON(data.results);
 
-                if(results && results.total_results > 0){
+                if(data && data.total_results > 0){
 
                     $searchResultsContainer.empty();
 
-                    $.each(results.items, function() {
+                    $.each(data.items, function() {
                         $searchResultsContainer.append($('<li>')
                                 .append($('<a>', {'class': 'company-result', href: '#', text: this.title.toLowerCase(), 'data-title': this.title.toLowerCase(), 'data-number': this.company_number, 'data-postcode': this.address.postal_code}))
                                 .append(' '));
