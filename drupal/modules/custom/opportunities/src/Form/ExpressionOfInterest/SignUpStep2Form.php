@@ -95,12 +95,6 @@ class SignUpStep2Form extends AbstractForm
                 '#type'           => 'textfield',
                 '#title'          => t('Website URL'),
                 '#label_display'  => 'before',
-                '#required'       => true,
-                '#required_error' => [
-                    'key'          => 'edit-website',
-                    'text'         => t('This is required to complete your application.'),
-                    'general_text' => t('The website url is required to complete your application.'),
-                ],
                 '#attributes'     => [
                     'class' => [
                         'form-control',
