@@ -188,6 +188,7 @@ class SignUpStep1Form extends AbstractForm
             ]
         );
 
+        $this->session->set('step1', true);
         $this->session->set('firstname', $form_state->getValue('firstname'));
         $this->session->set('lastname', $form_state->getValue('lastname'));
         $this->session->set('contact_email', $form_state->getValue('contact_email'));

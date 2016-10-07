@@ -179,6 +179,7 @@ class ExpressionOfInterestForm extends AbstractForm
             );
         }
 
+        $this->session->set('eoi', true);
         $this->session->set('other_email', $form_state->getValue('other_email'));
         $this->session->set('description', $form_state->getValue('description'));
         $this->session->set('interest', $form_state->getValue('interest'));

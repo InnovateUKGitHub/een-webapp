@@ -138,6 +138,7 @@ class SignUpStep2Form extends AbstractForm
             ]
         );
 
+        $this->session->set('step2', true);
         $this->session->set('company_name', $form_state->getValue('company_name'));
         $this->session->set('company_number', $form_state->getValue('company_number'));
         $this->session->set('website', $form_state->getValue('website'));

@@ -81,6 +81,13 @@ class SignUpController extends ControllerBase
         if (!$this->session->get('isLoggedIn')) {
             return $this->redirect('system.403');
         }
+        if (!$this->session->get('eoi')) {
+            return $this->redirect(
+                'opportunities.details',
+                ['profileId' => $profileId, 'token' => $this->session->get('token')]
+            );
+        }
+
         $form = \Drupal::formBuilder()->getForm(SignUpStep1Form::class);
         $form['#action'] = Url::fromRoute(
             'opportunities.eoi.step1',
@@ -137,6 +144,13 @@ class SignUpController extends ControllerBase
         if (!$this->session->get('isLoggedIn')) {
             return $this->redirect('system.403');
         }
+        if (!$this->session->get('step1')) {
+            return $this->redirect(
+                'opportunities.eoi.step1',
+                ['profileId' => $profileId]
+            );
+        }
+
         $form = \Drupal::formBuilder()->getForm(SignUpStep2Form::class);
         $form['#action'] = Url::fromRoute(
             'opportunities.eoi.step2',
@@ -169,6 +183,13 @@ class SignUpController extends ControllerBase
         if (!$this->session->get('isLoggedIn')) {
             return $this->redirect('system.403');
         }
+        if (!$this->session->get('step2')) {
+            return $this->redirect(
+                'opportunities.eoi.step2',
+                ['profileId' => $profileId]
+            );
+        }
+
         $form = \Drupal::formBuilder()->getForm(SignUpStep3Form::class);
         $form['#action'] = Url::fromRoute(
             'opportunities.eoi.step3',
@@ -200,33 +221,18 @@ class SignUpController extends ControllerBase
         if (!$this->session->get('isLoggedIn')) {
             return $this->redirect('system.403');
         }
+        if (!$this->session->get('step3')) {
+            return $this->redirect(
+                'opportunities.eoi.step3',
+                ['profileId' => $profileId]
+            );
+        }
 
         $results = $this->service->get($profileId);
         $form = $this->getSession($profileId, $results['_source']['title']);
 
         return [
             '#theme' => 'opportunities_sign_up_review',
-            '#form'  => $form,
-        ];
-    }
-
-    /**
-     * @param string $profileId
-     *
-     * @return array
-     */
-    public function complete($profileId)
-    {
-        if (!$this->session->get('isLoggedIn')) {
-            return $this->redirect('system.403');
-        }
-
-        $results = $this->service->get($profileId);
-        $form = $this->getSession($profileId, $results['_source']['title']);
-        $this->service->convertLead($form);
-
-        return [
-            '#theme' => 'opportunities_sign_up_complete',
             '#form'  => $form,
         ];
     }
@@ -265,6 +271,37 @@ class SignUpController extends ControllerBase
             'addressone' => $this->session->get('addressone'),
             'addresstwo' => $this->session->get('addresstwo'),
             'city'       => $this->session->get('city'),
+        ];
+    }
+
+    /**
+     * @param string $profileId
+     *
+     * @return array
+     */
+    public function complete($profileId)
+    {
+        if (!$this->session->get('isLoggedIn')) {
+            return $this->redirect('system.403');
+        }
+        if (!$this->session->get('step3')) {
+            return $this->redirect(
+                'opportunities.eoi.step3',
+                ['profileId' => $profileId]
+            );
+        }
+
+        $results = $this->service->get($profileId);
+        $form = $this->getSession($profileId, $results['_source']['title']);
+
+        if ($this->session->get('complete')) {
+            $this->service->convertLead($form);
+            $this->session->set('complete', true);
+        }
+
+        return [
+            '#theme' => 'opportunities_sign_up_complete',
+            '#form'  => $form,
         ];
     }
 

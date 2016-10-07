@@ -148,29 +148,35 @@ class OpportunityController extends ControllerBase
 
     private function clearSession()
     {
+        $this->session->delete('eoi');
         $this->session->delete('other_email');
         $this->session->delete('description');
         $this->session->delete('interest');
         $this->session->delete('more');
         $this->session->delete('phone');
 
+        $this->session->delete('step1');
         $this->session->delete('firstname');
         $this->session->delete('lastname');
         $this->session->delete('contact_email');
         $this->session->delete('contact_phone');
         $this->session->delete('newsletter');
 
+        $this->session->delete('step2');
         $this->session->delete('company_name');
         $this->session->delete('company_number');
         $this->session->delete('no_company_number');
         $this->session->delete('website');
         $this->session->delete('company_phone');
 
+        $this->session->delete('step3');
         $this->session->delete('postcode');
         $this->session->delete('addressone');
         $this->session->delete('addresstwo');
         $this->session->delete('city');
         $this->session->delete('county');
+
+        $this->session->delete('complete');
     }
 
     /**
