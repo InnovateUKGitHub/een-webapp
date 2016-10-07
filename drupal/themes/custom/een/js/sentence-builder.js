@@ -62,15 +62,21 @@ jQuery(function () {
 
     $('#keywords').on('keyup', function() {
         $('#search').val($('#keywords').text());
+        if($('#keywords').text().length > 20){
+            $(this).removeClass('block');
+        } else {
+            $(this).addClass('block');
+        }
         updateResults();
     });
 
     $('#keywords').click(function() {
-      if ($('#search').val() === '') {
-        $('#keywords').text('');
-        $('#search').val('');
-      }
-      updateResults();
+        if ($('#search').val() === '') {
+            $(this).addClass('block');
+            $('#keywords').text('');
+            $('#search').val('');
+        }
+        updateResults();
     });
 
     $(".chosen-select-multiple").chosen({

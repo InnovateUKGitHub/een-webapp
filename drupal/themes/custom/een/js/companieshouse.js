@@ -20,7 +20,7 @@ jQuery(function () {
 
                     $.each(results.items, function() {
                         $searchResultsContainer.append($('<li>')
-                                .append($('<a>', {'class': 'company-result', href: '#', text: this.title, 'data-title': this.title, 'data-number': this.company_number, 'data-postcode': this.address.postal_code}))
+                                .append($('<a>', {'class': 'company-result', href: '#', text: this.title.toLowerCase(), 'data-title': this.title.toLowerCase(), 'data-number': this.company_number, 'data-postcode': this.address.postal_code}))
                                 .append(' '));
                     });
                     $searchResultsContainer.show();
