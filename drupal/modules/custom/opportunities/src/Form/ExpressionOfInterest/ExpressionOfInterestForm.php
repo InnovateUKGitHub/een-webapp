@@ -165,7 +165,7 @@ class ExpressionOfInterestForm extends AbstractForm
     {
         if ($this->session->get('type') === 'Client') {
             $form_state->setRedirect(
-                'opportunities.eoi.complete',
+                'opportunities.eoi.review',
                 [
                     'profileId' => $this->session->get('profileId'),
                 ]

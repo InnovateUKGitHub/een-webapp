@@ -137,15 +137,25 @@ class OpportunityController extends ControllerBase
                 ]
             )->toString();
 
-            $this->session->set('isLoggedIn', true);
             $contact = $this->service->createLead($emailSession);
-            $this->session->set('type', $contact['type']);
+            $contact = $contact['records'];
+
+            $this->session->set('isLoggedIn', true);
+            $this->session->set('type', $contact['Contact_Status__c']);
+
+            if ($contact['Contact_Status__c'] !== 'Lead') {
+                $form['other_email']['#value'] = $contact['Email'];
+                $this->setSession($contact);
+            }
         } else {
             $this->disableForm($form);
             $this->session->set('isLoggedIn', false);
         }
     }
 
+    /**
+     * Delete all the information stored in session
+     */
     private function clearSession()
     {
         $this->session->delete('eoi');
@@ -175,6 +185,33 @@ class OpportunityController extends ControllerBase
         $this->session->delete('city');
 
         $this->session->delete('complete');
+    }
+
+    /**
+     * @param $contact
+     */
+    public function setSession($contact)
+    {
+        $this->session->set('other_email', $contact['Email_Address_2__c']);
+        $this->session->set('phone', $contact['Phone']);
+
+        $this->session->set('step1', true);
+        $this->session->set('firstname', $contact['FirstName']);
+        $this->session->set('lastname', $contact['LastName']);
+        $this->session->set('contact_email', $contact['Email']);
+        $this->session->set('contact_phone', $contact['MobilePhone']);
+        $this->session->set('newsletter', $contact['Email_Newsletter__c']);
+
+        $this->session->set('step2', true);
+        $this->session->set('company_name', $contact['Account']['Name']);
+        $this->session->set('company_number', $contact['Account']['Company_Registration_Number__c']);
+        $this->session->set('website', $contact['Account']['Website']);
+        $this->session->set('company_phone', $contact['Account']['Phone']);
+
+        $this->session->set('step3', true);
+        $this->session->set('postcode', $contact['MailingPostalCode']);
+        $this->session->set('addressone', $contact['MailingStreet']);
+        $this->session->set('city', $contact['MailingCity']);
     }
 
     /**
