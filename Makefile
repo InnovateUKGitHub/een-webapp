@@ -51,7 +51,7 @@ install-module:
 	@sh -c "cd drupal && $(DRUSH) en opportunities events elastic_search twig_extensions -y"
 
 delete-module:
-	@sh -c "cd drupal && $(DRUSH) pm-uninstall opportunities events elastic_search twig_extensions -y"
+	@sh -c "cd drupal && $(DRUSH) pm-uninstall elastic_search opportunities events twig_extensions -y"
 
 install-dependencies:
 	@echo "Installing dependencies..."
