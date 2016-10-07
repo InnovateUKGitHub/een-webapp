@@ -6,9 +6,9 @@
         <h2 class="heading-medium">Opportunity application</h2>
         <hr/>
     </div>
-    <div class="row">
+    <div class="row no-margin">
         <div class="column-one-third">
-            <p><strong>Opportunity ID:</strong></p>
+            <p class="sh-bold no-margin">Opportunity ID:</p>
         </div>
         <div class="column-two-thirds with-cta">
             <div><p>{{ form.profile_id }}</p></div>
@@ -16,7 +16,7 @@
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p><strong>Opportunity title:</strong></p>
+            <p class="sh-bold">Opportunity title:</p>
         </div>
         <div class="column-two-thirds with-cta">
             <div><p>{{ form.profile_title }}</p></div>
@@ -27,7 +27,7 @@
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p><strong>Short description of your organisation, activities, products and services:</strong></p>
+            <p class="sh-bold">Short description of your organisation, activities, products and services:</p>
         </div>
         <div class="column-two-thirds with-cta">
             <div>
@@ -47,7 +47,7 @@
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p><strong>What interests you about this opportunity and what do you expect of that organisation?</strong>
+            <p class="sh-bold">What interests you about this opportunity and what do you expect of that organisation?
             </p>
         </div>
         <div class="column-two-thirds with-cta">
@@ -68,7 +68,7 @@
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p><strong>Is there anything further you would like to know about this opportunity?</strong></p>
+            <p class="sh-bold">Is there anything further you would like to know about this opportunity?</p>
         </div>
         <div class="column-two-thirds with-cta">
             <div>
@@ -91,18 +91,18 @@
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p><strong>About you</strong></p>
+            <p class="sh-bold">About you</p>
         </div>
         <div class="column-two-thirds with-cta">
             <div>
                 <p class="no-margin">
-                    <strong class="label your-name">Your name:</strong><span>{{ form.firstname }} {{ form.lastname }}</span>
+                    <strong class="label your-name sh-bold">Your name:</strong><span>{{ form.firstname }} {{ form.lastname }}</span>
                 </p>
                 <p class="no-margin">
-                    <strong class="label your-email">Your email address:</strong><span>{{ form.contact_email }}</span>
+                    <strong class="label your-email sh-bold">Your email address:</strong><span>{{ form.contact_email }}</span>
                 </p>
                 <p class="no-margin">
-                    <strong class="label your-contact">Contact number:</strong><span>{{ form.contact_phone }}</span>
+                    <strong class="label your-contact sh-bold">Contact number:</strong><span>{{ form.contact_phone }}</span>
                 </p>
                 {% if form.newsletter is empty %}
                     <p>No - please don't send me emails when there is a new blog post and newsletter</p>
@@ -118,15 +118,15 @@
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p><strong>Your company</strong></p>
+            <p class="sh-bold">Your company</p>
         </div>
         <div class="column-two-thirds with-cta">
             <div>
                 {% if form.company_name %}
-                   <p><strong class="label company-name">Company name:</strong><span>{{ form.company_name }}</span></p>
+                   <p><strong class="label company-name sh-bold">Company name:</strong><span>{{ form.company_name }}</span></p>
                 {% endif %}
-                <p><strong class="label company-url">Company URL:</strong><span>{{ form.website }}</span></p>
-                <p><strong class="label telephone-number">Telephone number:</strong><span>{{ form.company_phone }}</span></p>
+                <p><strong class="label company-url sh-bold">Company URL:</strong><span>{{ form.website }}</span></p>
+                <p><strong class="label telephone-number sh-bold">Telephone number:</strong><span>{{ form.company_phone }}</span></p>
             </div>
             <p><a href="{{ url('opportunities.eoi.step2', {'profileId': form.profile_id}) }}">Change</a></p>
         </div>
@@ -137,7 +137,7 @@
 
     <div class="row">
         <div class="column-one-third">
-            <p><strong>Your address</strong></p>
+            <p class="sh-bold">Your address</p>
         </div>
         <div class="column-two-thirds with-cta">
             <div class="vcard">

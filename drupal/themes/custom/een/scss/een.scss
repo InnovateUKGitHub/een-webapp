@@ -22,10 +22,11 @@ body {
   color:#4A4A4A;
 }
 
-html, body, button, input, table, td, th, p, h1, h2, h3, h4, h5, li, p, label, input, small, a, legend,
+html, body, button, input, table, td, th, p, h1, h2, h3, h4, h5, li, p, label, input, small, a, legend, textarea
 .form-label,
-.font-xsmall, .font-small, .font-medium, .font-large {
+.font-xsmall, .font-small, .font-medium, .font-large, .form-control {
   font-family: $font_family;
+  color:#4A4A4A;
 }
 
 hr {
@@ -998,6 +999,9 @@ form[data-drupal-selector="opportunity-search-form"] {
     width:100%;
     overflow:hidden;
     margin-bottom:20px;
+    &.no-margin{
+        margin-bottom:0;
+    }
 }
 .column-two-thirds {
     &.with-cta {
@@ -1030,6 +1034,9 @@ form[data-drupal-selector="opportunity-search-form"] {
     span,.post-code {
         display:block;
     }
+}
+.sh-bold {
+    font-weight: bold;
 }
 
 .banner {
