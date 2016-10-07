@@ -166,6 +166,9 @@ class OpportunitiesController extends ControllerBase
         return new JsonResponse($count);
     }
 
+    /**
+     * @return array
+     */
     public function exploreOpportunities()
     {        
         $form = \Drupal::formBuilder()->getForm(OpportunitiesExploreForm::class);

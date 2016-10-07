@@ -163,7 +163,7 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        if ($this->session->get('type') === 'Contact') {
+        if ($this->session->get('type') === 'Client') {
             $form_state->setRedirect(
                 'opportunities.eoi.complete',
                 [
