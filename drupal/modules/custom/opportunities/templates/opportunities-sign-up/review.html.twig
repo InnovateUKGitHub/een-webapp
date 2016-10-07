@@ -122,7 +122,9 @@
         </div>
         <div class="column-two-thirds with-cta">
             <div>
-                <p><strong class="label company-name">Company name:</strong><span>{{ form.company_name }}</span></p>
+                {% if form.company_name %}
+                   <p><strong class="label company-name">Company name:</strong><span>{{ form.company_name }}</span></p>
+                {% endif %}
                 <p><strong class="label company-url">Company URL:</strong><span>{{ form.website }}</span></p>
                 <p><strong class="label telephone-number">Telephone number:</strong><span>{{ form.company_phone }}</span></p>
             </div>
@@ -144,7 +146,6 @@
                     <span class="street-address-one" itemprop="street-address-one">{{ form.addressone }}</span>
                     <span class="street-address-two" itemprop="street-address-two">{{ form.addresstwo }}</span>
                     <span class="city" itemprop="locality">{{ form.city }}</span>
-                    <abbr class="region" itemprop="region" title="Florida">{{ form.county }}</abbr>
                     <abbr class="post-code" itemprop="post-code" title="SN13 8PN">{{ form.postcode }}</abbr>
                 </div>
             </div>

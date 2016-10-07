@@ -53,12 +53,6 @@ class SignUpStep2Form extends AbstractForm
                 '#type'           => 'textfield',
                 '#title'          => t('Company Name'),
                 '#label_display'  => 'before',
-                '#required'       => true,
-                '#required_error' => [
-                    'key'          => 'edit-company-name',
-                    'text'         => t('This is required to complete your application.'),
-                    'general_text' => t('The company name is required to complete your application.'),
-                ],
                 '#attributes'     => [
                     'class'       => [
                         'form-control ch_search',
@@ -97,10 +91,6 @@ class SignUpStep2Form extends AbstractForm
                     ],
                 ],
             ],
-            'no_company_number' => [
-                '#type'  => 'checkbox',
-                '#title' => t('I do not have a company number'),
-            ],
             'website'           => [
                 '#type'           => 'textfield',
                 '#title'          => t('Website URL'),
@@ -121,12 +111,6 @@ class SignUpStep2Form extends AbstractForm
                 '#type'           => 'textfield',
                 '#title'          => t('Company telephone number'),
                 '#label_display'  => 'before',
-                '#required'       => true,
-                '#required_error' => [
-                    'key'          => 'edit-company-phone',
-                    'text'         => t('This is required to complete your application.'),
-                    'general_text' => t('The telephone number is required to complete your application.'),
-                ],
                 '#attributes'     => [
                     'class' => [
                         'form-control',
@@ -151,25 +135,6 @@ class SignUpStep2Form extends AbstractForm
     /**
      * {@inheritdoc}
      */
-    public function validateForm(array &$form, FormStateInterface $form_state)
-    {
-        if ($form_state->getValue('no_company_number') === 0) {
-            if (!parent::checkRequireField($form_state, 'company_number', '', false)) {
-                $form_state->setErrorByName(
-                    'company_number',
-                    [
-                        'key'          => 'edit-company-number',
-                        'text'         => t('This is required to complete your application.'),
-                        'general_text' => t('The company is required to complete your application.'),
-                    ]
-                );
-            }
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $form_state->setRedirect(
@@ -181,7 +146,6 @@ class SignUpStep2Form extends AbstractForm
 
         $this->session->set('company_name', $form_state->getValue('company_name'));
         $this->session->set('company_number', $form_state->getValue('company_number'));
-        $this->session->set('no_company_number', $form_state->getValue('no_company_number'));
         $this->session->set('website', $form_state->getValue('website'));
         $this->session->set('company_phone', $form_state->getValue('company_phone'));
     }

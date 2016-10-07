@@ -89,7 +89,7 @@ class SignUpController extends ControllerBase
             ]
         )->toString();
 
-        if ($request->isMethod('GET')) {
+        if ($request->isMethod(Request::METHOD_GET)) {
             $form['firstname']['#value'] = $this->session->get('firstname');
             $form['lastname']['#value'] = $this->session->get('lastname');
 
@@ -145,10 +145,9 @@ class SignUpController extends ControllerBase
             ]
         )->toString();
 
-        if ($request->isMethod('GET')) {
+        if ($request->isMethod(Request::METHOD_GET)) {
             $form['company_name']['#value'] = $this->session->get('company_name');
             $form['company_number']['#value'] = $this->session->get('company_number');
-            $form['no_company_number']['#value'] = $this->session->get('no_company_number');
             $form['website']['#value'] = $this->session->get('website');
             $form['company_phone']['#value'] = $this->session->get('company_phone');
         }
@@ -178,12 +177,11 @@ class SignUpController extends ControllerBase
             ]
         )->toString();
 
-        if ($request->isMethod('GET')) {
+        if ($request->isMethod(Request::METHOD_GET)) {
             $form['postcode']['#value'] = $this->session->get('postcode');
             $form['addressone']['#value'] = $this->session->get('addressone');
             $form['addresstwo']['#value'] = $this->session->get('addresstwo');
             $form['city']['#value'] = $this->session->get('city');
-            $form['county']['#value'] = $this->session->get('county');
         }
 
         return [
@@ -224,15 +222,13 @@ class SignUpController extends ControllerBase
 
             'company_name'      => $this->session->get('company_name'),
             'company_number'    => $this->session->get('company_number'),
-            'no_company_number' => $this->session->get('no_company_number'),
             'website'           => $this->session->get('website'),
             'company_phone'     => $this->session->get('company_phone'),
 
             'postcode'   => $this->session->get('postcode'),
-            'addressone' => $this->session->get('postcode'),
+            'addressone' => $this->session->get('addressone'),
             'addresstwo' => $this->session->get('addresstwo'),
             'city'       => $this->session->get('city'),
-            'county'     => $this->session->get('county'),
         ];
 
         return [

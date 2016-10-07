@@ -53,6 +53,12 @@ class SignUpStep3Form extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Enter your postcode'),
                 '#label_display' => 'before',
+                '#required'       => true,
+                '#required_error' => [
+                    'key'          => 'edit-postcode',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The postcode is required to complete your application.'),
+                ],
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -63,13 +69,18 @@ class SignUpStep3Form extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Address Line 1'),
                 '#label_display' => 'before',
+                '#required'       => true,
+                '#required_error' => [
+                    'key'          => 'edit-addressone',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The address is required to complete your application.'),
+                ],
                 '#attributes'    => [
                     'class' => [
                         'form-control',
                     ]
                 ],
             ],
-
             'addresstwo'       => [
                 '#type'          => 'textfield',
                 '#title'         => t('Address Line 2'),
@@ -80,22 +91,16 @@ class SignUpStep3Form extends AbstractForm
                     ]
                 ],
             ],
-
             'city'       => [
                 '#type'          => 'textfield',
                 '#title'         => t('Town/City'),
                 '#label_display' => 'before',
-                '#attributes'    => [
-                    'class' => [
-                        'form-control',
-                    ]
+                '#required'       => true,
+                '#required_error' => [
+                    'key'          => 'edit-city',
+                    'text'         => t('This is required to complete your application.'),
+                    'general_text' => t('The city is required to complete your application.'),
                 ],
-            ],
-
-            'county'       => [
-                '#type'          => 'textfield',
-                '#title'         => t('County'),
-                '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [
                         'form-control',
@@ -120,13 +125,6 @@ class SignUpStep3Form extends AbstractForm
     /**
      * {@inheritdoc}
      */
-    public function validateForm(array &$form, FormStateInterface $form_state)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $form_state->setRedirect(
@@ -140,7 +138,6 @@ class SignUpStep3Form extends AbstractForm
         $this->session->set('addressone', $form_state->getValue('addressone'));
         $this->session->set('addresstwo', $form_state->getValue('addresstwo'));
         $this->session->set('city', $form_state->getValue('city'));
-        $this->session->set('county', $form_state->getValue('county'));
 
         $this->session->set('reference_number', random_int(1111, 9999) . '-' . random_int(1111, 9999));
     }
