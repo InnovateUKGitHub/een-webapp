@@ -20,7 +20,7 @@ jQuery(function () {
 
                     $.each(results.items, function() {
                         $searchResultsContainer.append($('<li>')
-                                .append($('<a>', {'class': 'company-result', href: '#', text: this.title, 'data-number': this.company_number, 'data-postcode': this.address.postal_code}))
+                                .append($('<a>', {'class': 'company-result', href: '#', text: this.title, 'data-title': this.title, 'data-number': this.company_number, 'data-postcode': this.address.postal_code}))
                                 .append(' '));
                     });
                     $searchResultsContainer.show();
@@ -39,12 +39,8 @@ jQuery(function () {
 
     $(document).on('click', '.company-result', function(e){
         e.preventDefault();
+        $('.form-companies-house-search #ch_search').val($(this).attr('data-title'));
         $('.form-companies-house-search #edit-company-number').val($(this).attr('data-number'));
-        $('.form-companies-house-search .js-form-item-company-number').show();
         $searchResultsContainer.hide();
     });
-
-    if(!$('.form-companies-house-search #edit-company-number').val()){
-        $('.form-companies-house-search .js-form-item-company-number').hide();
-    }
 });

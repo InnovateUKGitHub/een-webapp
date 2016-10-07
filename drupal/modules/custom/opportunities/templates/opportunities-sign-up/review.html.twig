@@ -33,7 +33,10 @@
             <div>
                 <p>{{ form.description }}</p>
                 <form class="hidden">
-                    <textarea class="form-control form-textarea required" name="description" rows="5" cols="60">{{ form.description }}</textarea>
+                    <div class="js-form-item form-item js-form-type-texteare form-item-description js-form-item-description">
+                        <span class="error-message"></span>
+                        <textarea class="form-control form-textarea required" name="description" rows="5" cols="60">{{ form.description }}</textarea>
+                    </div>
                 </form>
             </div>
             <p>
@@ -51,7 +54,10 @@
             <div>
                 <p>{{ form.interest }}</p>
                 <form class="hidden">
-                    <textarea class="form-control form-textarea required" name="interest" rows="5" cols="60">{{ form.interest }}</textarea>
+                    <div class="js-form-item form-item js-form-type-texteare form-item-interest js-form-item-interest">
+                        <span class="error-message"></span>
+                        <textarea class="form-control form-textarea required" name="interest" rows="5" cols="60">{{ form.interest }}</textarea>
+                    </div>
                 </form>
             </div>
             <p>

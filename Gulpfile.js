@@ -2,7 +2,6 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     uglify = require('gulp-uglify'),
     watch = require('gulp-watch'),
-    copy = require('gulp-contrib-copy'),
     sourcemaps = require('gulp-sourcemaps'),
     babel = require('gulp-babel'),
     concat = require('gulp-concat');
@@ -56,19 +55,16 @@ gulp.task('js-dev', function () {
 
 gulp.task('img', function () {
     gulp.src(imgDirs)
-        .pipe(copy())
         .pipe(gulp.dest(themeDir + '/dist/img'));
 });
 
 gulp.task('fonts', function () {
     gulp.src(fontDirs)
-        .pipe(copy())
         .pipe(gulp.dest(themeDir + '/dist/fonts'));
 });
 
 gulp.task('flags', function () {
     gulp.src(flagDir)
-        .pipe(copy())
         .pipe(gulp.dest(themeDir + '/dist/flags'));
 });
 

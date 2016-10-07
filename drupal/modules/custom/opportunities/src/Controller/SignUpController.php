@@ -127,11 +127,12 @@ class SignUpController extends ControllerBase
     }
 
     /**
-     * @param string $profileId
+     * @param string  $profileId
+     * @param Request $request
      *
      * @return array
      */
-    public function step2($profileId)
+    public function step2($profileId, Request $request)
     {
         if (!$this->session->get('isLoggedIn')) {
             return $this->redirect('system.403');
@@ -144,11 +145,13 @@ class SignUpController extends ControllerBase
             ]
         )->toString();
 
-        $form['company_name']['#value'] = $this->session->get('company_name');
-        $form['company_number']['#value'] = $this->session->get('company_number');
-        $form['no_company_number']['#value'] = $this->session->get('no_company_number');
-        $form['website']['#value'] = $this->session->get('website');
-        $form['company_phone']['#value'] = $this->session->get('company_phone');
+        if ($request->isMethod('GET')) {
+            $form['company_name']['#value'] = $this->session->get('company_name');
+            $form['company_number']['#value'] = $this->session->get('company_number');
+            $form['no_company_number']['#value'] = $this->session->get('no_company_number');
+            $form['website']['#value'] = $this->session->get('website');
+            $form['company_phone']['#value'] = $this->session->get('company_phone');
+        }
 
         return [
             '#theme' => 'opportunities_sign_up_step2',
@@ -157,11 +160,12 @@ class SignUpController extends ControllerBase
     }
 
     /**
-     * @param string $profileId
+     * @param string  $profileId
+     * @param Request $request
      *
      * @return array
      */
-    public function step3($profileId)
+    public function step3($profileId, Request $request)
     {
         if (!$this->session->get('isLoggedIn')) {
             return $this->redirect('system.403');
@@ -174,11 +178,13 @@ class SignUpController extends ControllerBase
             ]
         )->toString();
 
-        $form['postcode']['#value'] = $this->session->get('postcode');
-        $form['addressone']['#value'] = $this->session->get('addressone');
-        $form['addresstwo']['#value'] = $this->session->get('addresstwo');
-        $form['city']['#value'] = $this->session->get('city');
-        $form['county']['#value'] = $this->session->get('county');
+        if ($request->isMethod('GET')) {
+            $form['postcode']['#value'] = $this->session->get('postcode');
+            $form['addressone']['#value'] = $this->session->get('addressone');
+            $form['addresstwo']['#value'] = $this->session->get('addresstwo');
+            $form['city']['#value'] = $this->session->get('city');
+            $form['county']['#value'] = $this->session->get('county');
+        }
 
         return [
             '#theme' => 'opportunities_sign_up_step3',
