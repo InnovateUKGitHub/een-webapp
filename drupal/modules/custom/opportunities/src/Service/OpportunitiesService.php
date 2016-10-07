@@ -299,4 +299,14 @@ class OpportunitiesService
 
         return $this->service->sendRequest();
     }
+
+    public function convertLead($data)
+    {
+        $this->service
+            ->setUrl('contact')
+            ->setMethod(Request::METHOD_POST)
+            ->setBody($data);
+
+        return $this->service->sendRequest();
+    }
 }

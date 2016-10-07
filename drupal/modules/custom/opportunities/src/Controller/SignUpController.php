@@ -202,10 +202,46 @@ class SignUpController extends ControllerBase
         }
 
         $results = $this->service->get($profileId);
+        $form = $this->getSession($profileId, $results['_source']['title']);
 
-        $form = [
+        return [
+            '#theme' => 'opportunities_sign_up_review',
+            '#form'  => $form,
+        ];
+    }
+
+    /**
+     * @param string $profileId
+     *
+     * @return array
+     */
+    public function complete($profileId)
+    {
+        if (!$this->session->get('isLoggedIn')) {
+            return $this->redirect('system.403');
+        }
+
+        $results = $this->service->get($profileId);
+        $form = $this->getSession($profileId, $results['_source']['title']);
+        $this->service->convertLead($form);
+
+        return [
+            '#theme' => 'opportunities_sign_up_complete',
+            '#form'  => $form,
+        ];
+    }
+
+    /**
+     * @param string $profileId
+     * @param string $profileTitle
+     *
+     * @return array
+     */
+    private function getSession($profileId, $profileTitle)
+    {
+        return [
             'profile_id'    => $profileId,
-            'profile_title' => $results['_source']['title'],
+            'profile_title' => $profileTitle,
 
             'other_email' => $this->session->get('other_email'),
             'description' => $this->session->get('description'),
@@ -229,42 +265,6 @@ class SignUpController extends ControllerBase
             'addressone' => $this->session->get('addressone'),
             'addresstwo' => $this->session->get('addresstwo'),
             'city'       => $this->session->get('city'),
-        ];
-
-        return [
-            '#theme' => 'opportunities_sign_up_review',
-            '#form'  => $form,
-        ];
-    }
-
-    /**
-     * @param string $profileId
-     *
-     * @return array
-     */
-    public function complete($profileId)
-    {
-        if (!$this->session->get('isLoggedIn')) {
-            return $this->redirect('system.403');
-        }
-
-        $results = $this->service->get($profileId);
-
-        $form = [
-            'reference_number' => $this->session->get('reference_number'),
-            'profile_id'       => $profileId,
-            'profile_title'    => $results['_source']['title'],
-
-            'firstname'     => $this->session->get('firstname'),
-            'lastname'      => $this->session->get('lastname'),
-            'contact_email' => $this->session->get('contact_email'),
-            'contact_phone' => $this->session->get('contact_phone'),
-            'newsletter'    => $this->session->get('newsletter'),
-        ];
-
-        return [
-            '#theme' => 'opportunities_sign_up_complete',
-            '#form'  => $form,
         ];
     }
 

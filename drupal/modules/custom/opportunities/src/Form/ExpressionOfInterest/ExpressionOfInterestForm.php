@@ -163,16 +163,16 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        if ($this->session->get('type') == 'Lead') {
+        if ($this->session->get('type') === 'Contact') {
             $form_state->setRedirect(
-                'opportunities.eoi.step1',
+                'opportunities.eoi.complete',
                 [
                     'profileId' => $this->session->get('profileId'),
                 ]
             );
         } else {
             $form_state->setRedirect(
-                'opportunities.eoi.complete',
+                'opportunities.eoi.step1',
                 [
                     'profileId' => $this->session->get('profileId'),
                 ]
