@@ -52,8 +52,7 @@ class ExpressionOfInterestForm extends AbstractForm
             'description' => [
                 '#type'                => 'textarea',
                 '#title'               => t('Short description of your organisation, activities, products and services'),
-                '#field_prefix'        => t('Why do EEN need this?'),
-                '#description'         => t('Lorem ipsum'),
+                '#description'         => t('This is your pitch: remember to include your unique selling points (USP) and why someone would want to do business with you'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#required'            => true,
@@ -62,15 +61,14 @@ class ExpressionOfInterestForm extends AbstractForm
                         'form-control',
                     ],
                     'placeholder' => [
-                        'This is your pitch: remember to include your unique selling points (USP) and why someone would want to do business with you',
+                        '',
                     ],
                 ],
             ],
             'interest'    => [
                 '#type'                => 'textarea',
                 '#title'               => t('What interests you about this opportunity and what do you expect of that organisation?'),
-                '#field_prefix'        => t('Why do EEN need this?'),
-                '#description'         => t('Lorem ipsum'),
+                '#description'         => t('Tell us why you are a good fit for this opportunity, and why you think you\'re the right people for this partnership'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#required'            => true,
@@ -79,15 +77,14 @@ class ExpressionOfInterestForm extends AbstractForm
                         'form-control',
                     ],
                     'placeholder' => [
-                        'Tell us why you are a good fit for this opportunity, and why you think you\'re the right people for this partnership',
+                        '',
                     ],
                 ],
             ],
             'more'        => [
                 '#type'                => 'textarea',
                 '#title'               => t('Is there anything further you would like to know about this opportunity?'),
-                '#field_prefix'        => t('Why do EEN need this?'),
-                '#description'         => t('Lorem ipsum'),
+                '#description'         => t('If there\'s anything additional, or commercially sensitive you\'d like to know about this opportunity, please let us know'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#attributes'          => [
@@ -95,7 +92,7 @@ class ExpressionOfInterestForm extends AbstractForm
                         'form-control',
                     ],
                     'placeholder' => [
-                        'If there\'s anything additional, or commercially sensitive you\'d like to know about this opportunity, please let us know',
+                        '',
                     ],
                 ],
             ],

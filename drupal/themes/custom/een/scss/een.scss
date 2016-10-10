@@ -216,9 +216,13 @@ a.back-link {
 
 .form-opportunities .js-form-type-textarea {
     position:relative;
+    .form-textarea {
+        height:150px;
+        overflow-y:scroll;
+    }
     div[id$="--description"] {
         width:250px;
-        height:100px;
+        height:130px;
         position:absolute;
         border:0;
         bottom:-7px;
