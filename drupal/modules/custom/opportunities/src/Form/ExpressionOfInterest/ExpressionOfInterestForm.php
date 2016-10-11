@@ -163,17 +163,30 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        $form_state->setRedirect(
-            'opportunities.eoi.step1',
-            [
-                'profileId' => $this->session->get('profileId'),
-            ]
-        );
+        if ($this->session->get('type') === 'Client') {
+            $form_state->setRedirect(
+                'opportunities.eoi.review',
+                [
+                    'profileId' => $this->session->get('profileId'),
+                ]
+            );
+        } else {
+            $form_state->setRedirect(
+                'opportunities.eoi.step1',
+                [
+                    'profileId' => $this->session->get('profileId'),
+                ]
+            );
+        }
 
+        $this->session->set('eoi', true);
         $this->session->set('other_email', $form_state->getValue('other_email'));
         $this->session->set('description', $form_state->getValue('description'));
         $this->session->set('interest', $form_state->getValue('interest'));
         $this->session->set('more', $form_state->getValue('more'));
         $this->session->set('phone', $form_state->getValue('phone'));
+
+        // Set temporary reference number
+        $this->session->set('reference_number', random_int(1111, 9999) . '-' . random_int(1111, 9999));
     }
 }

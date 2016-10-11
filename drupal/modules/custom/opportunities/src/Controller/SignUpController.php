@@ -12,6 +12,7 @@ use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class SignUpController extends ControllerBase
 {
@@ -78,9 +79,11 @@ class SignUpController extends ControllerBase
      */
     public function step1($profileId, Request $request)
     {
-        if (!$this->session->get('isLoggedIn')) {
-            return $this->redirect('system.403');
+        $this->isLoggedIn();
+        if (($redirect = $this->isStepValid('eoi', 'opportunities.details', $profileId, $this->session->get('token'))) !== null) {
+            return $redirect;
         }
+
         $form = \Drupal::formBuilder()->getForm(SignUpStep1Form::class);
         $form['#action'] = Url::fromRoute(
             'opportunities.eoi.step1',
@@ -113,6 +116,41 @@ class SignUpController extends ControllerBase
     }
 
     /**
+     * @throws UnauthorizedHttpException
+     */
+    private function isLoggedIn()
+    {
+        if (!$this->session->get('isLoggedIn')) {
+            throw new UnauthorizedHttpException('');
+        }
+    }
+
+    /**
+     * @param string $step
+     * @param string $redirect
+     * @param string $profileId
+     * @param null   $token
+     *
+     * @return null|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    private function isStepValid($step, $redirect, $profileId, $token = null)
+    {
+        if (!$this->session->get($step)) {
+            $params = ['profileId' => $profileId];
+            if ($token !== null) {
+                $params['token'] = $token;
+            }
+
+            return $this->redirect(
+                $redirect,
+                $params
+            );
+        }
+
+        return null;
+    }
+
+    /**
      * @param array  $form
      * @param array  $fields
      * @param string $name
@@ -134,9 +172,11 @@ class SignUpController extends ControllerBase
      */
     public function step2($profileId, Request $request)
     {
-        if (!$this->session->get('isLoggedIn')) {
-            return $this->redirect('system.403');
+        $this->isLoggedIn();
+        if (($redirect = $this->isStepValid('step1', 'opportunities.eoi.step1', $profileId)) !== null) {
+            return $redirect;
         }
+
         $form = \Drupal::formBuilder()->getForm(SignUpStep2Form::class);
         $form['#action'] = Url::fromRoute(
             'opportunities.eoi.step2',
@@ -166,9 +206,11 @@ class SignUpController extends ControllerBase
      */
     public function step3($profileId, Request $request)
     {
-        if (!$this->session->get('isLoggedIn')) {
-            return $this->redirect('system.403');
+        $this->isLoggedIn();
+        if (($redirect = $this->isStepValid('step2', 'opportunities.eoi.step2', $profileId)) !== null) {
+            return $redirect;
         }
+
         $form = \Drupal::formBuilder()->getForm(SignUpStep3Form::class);
         $form['#action'] = Url::fromRoute(
             'opportunities.eoi.step3',
@@ -197,15 +239,31 @@ class SignUpController extends ControllerBase
      */
     public function review($profileId)
     {
-        if (!$this->session->get('isLoggedIn')) {
-            return $this->redirect('system.403');
+        $this->isLoggedIn();
+        if (($redirect = $this->isStepValid('step3', 'opportunities.eoi.step3', $profileId)) !== null) {
+            return $redirect;
         }
 
         $results = $this->service->get($profileId);
+        $form = $this->getSession($profileId, $results['_source']['title']);
 
-        $form = [
+        return [
+            '#theme' => 'opportunities_sign_up_review',
+            '#form'  => $form,
+        ];
+    }
+
+    /**
+     * @param string $profileId
+     * @param string $profileTitle
+     *
+     * @return array
+     */
+    private function getSession($profileId, $profileTitle)
+    {
+        return [
             'profile_id'    => $profileId,
-            'profile_title' => $results['_source']['title'],
+            'profile_title' => $profileTitle,
 
             'other_email' => $this->session->get('other_email'),
             'description' => $this->session->get('description'),
@@ -220,20 +278,15 @@ class SignUpController extends ControllerBase
             'contact_phone' => $this->session->get('contact_phone'),
             'newsletter'    => $this->session->get('newsletter'),
 
-            'company_name'      => $this->session->get('company_name'),
-            'company_number'    => $this->session->get('company_number'),
-            'website'           => $this->session->get('website'),
-            'company_phone'     => $this->session->get('company_phone'),
+            'company_name'   => $this->session->get('company_name'),
+            'company_number' => $this->session->get('company_number'),
+            'website'        => $this->session->get('website'),
+            'company_phone'  => $this->session->get('company_phone'),
 
             'postcode'   => $this->session->get('postcode'),
             'addressone' => $this->session->get('addressone'),
             'addresstwo' => $this->session->get('addresstwo'),
             'city'       => $this->session->get('city'),
-        ];
-
-        return [
-            '#theme' => 'opportunities_sign_up_review',
-            '#form'  => $form,
         ];
     }
 
@@ -244,23 +297,18 @@ class SignUpController extends ControllerBase
      */
     public function complete($profileId)
     {
-        if (!$this->session->get('isLoggedIn')) {
-            return $this->redirect('system.403');
+        $this->isLoggedIn();
+        if (($redirect = $this->isStepValid('step3', 'opportunities.eoi.step3', $profileId)) !== null) {
+            return $redirect;
         }
 
         $results = $this->service->get($profileId);
+        $form = $this->getSession($profileId, $results['_source']['title']);
 
-        $form = [
-            'reference_number' => $this->session->get('reference_number'),
-            'profile_id'       => $profileId,
-            'profile_title'    => $results['_source']['title'],
-
-            'firstname'     => $this->session->get('firstname'),
-            'lastname'      => $this->session->get('lastname'),
-            'contact_email' => $this->session->get('contact_email'),
-            'contact_phone' => $this->session->get('contact_phone'),
-            'newsletter'    => $this->session->get('newsletter'),
-        ];
+        if ($this->session->get('complete')) {
+            $this->service->convertLead($form);
+            $this->session->set('complete', true);
+        }
 
         return [
             '#theme' => 'opportunities_sign_up_complete',
@@ -289,25 +337,12 @@ class SignUpController extends ControllerBase
     }
 
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function companies()
+    public function companies(Request $request)
     {
-        // TODO Add key and uri to a config file
-        $key = '7orha_oflH8yLjXTboak_oUDkvhnuOhpQWJhwirD';
-
-        $query = ['q' => $_GET['q']];
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, 'https://api.companieshouse.gov.uk/search/companies?' . http_build_query($query));
-        curl_setopt($ch, CURLOPT_USERNAME, $key);
-        $result = curl_exec($ch);
-
-        return new JsonResponse(
-            [
-                'results' => $result,
-            ]
-        );
+        return new JsonResponse($this->service->getCompaniesList($request->get('q')));
     }
 }
