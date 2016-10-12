@@ -244,7 +244,7 @@ input,textarea,select,button,#global-header input:focus {
         outline: 3px solid $focus;
     }
 }
-.form-text {
+.form-text, .form-email {
     font-size:16px;
     padding:8px 12px;
 }
@@ -1123,7 +1123,9 @@ form[data-drupal-selector="opportunity-search-form"] {
     }
 }
 
-
+.breadcrumbs {
+    display:none;
+}
 
 .sentence-builder {
     

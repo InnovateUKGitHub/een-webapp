@@ -13,13 +13,13 @@
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p class="no-margin"><strong>Opportunity ID:</strong></p>
+            <p class="no-margin sh-bold">Opportunity ID:</p>
         </div>
         <div class="column-two-thirds">
             <div><p class="no-margin">{{ form.profile_id }}</p></div>
         </div>
         <div class="column-one-third">
-            <p><strong>Opportunity title:</strong></p>
+            <p class="sh-bold">Opportunity title:</p>
         </div>
         <div class="column-two-thirds">
             <div><p>{{ form.profile_title }}</p></div>
@@ -40,12 +40,12 @@
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p><strong>About you</strong></p>
+            <p class="sh-bold">About you</p>
         </div>
         <div class="column-two-thirds">
-            <p class="no-margin"><strong class="label your-name">Your name:</strong><span>{{ form.firstname }} {{ form.firstname }}</span></p>
-            <p class="no-margin"><strong class="label your-email">Your email address:</strong><span>{{ form.contact_email }}</span></p>
-            <p class="no-margin"><strong class="label your-contact">Contact number:</strong><span>{{ form.contact_phone }}</span></p>
+            <p class="no-margin"><strong class="label your-name sh-bold">Your name:</strong><span>{{ form.firstname }} {{ form.firstname }}</span></p>
+            <p class="no-margin"><strong class="label your-email sh-bold">Your email address:</strong><span>{{ form.contact_email }}</span></p>
+            <p class="no-margin"><strong class="label your-contact sh-bold">Contact number:</strong><span>{{ form.contact_phone }}</span></p>
             {% if form.newsletter is empty %}
                 <p>No - please don't send me emails when there is a new blog post and newsletter</p>
             {% else %}
@@ -53,7 +53,7 @@
             {% endif %}
             <p><a href="#" class="button">View your account</a></p>
             <p class="font-xsmall">Please note: Accounts with EEN operate on a session basis only and do not require a password.
-                When using this website in the future, you simply need ato validate your email when applying for opportunities of registering for events.
+                When using this website in the future, you simply need to validate your email when applying for opportunities of registering for events.
             </p>
         </div>
         <div class="column-full">
