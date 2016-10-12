@@ -55,6 +55,7 @@ jQuery(function () {
       ajaxSearch().then(function() {
         $('.sb-results').removeClass('transp');
       });
+      $('.js-sb-view-results').removeClass('disabled');
       
       getResultUrl();
       
