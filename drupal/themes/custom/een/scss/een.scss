@@ -235,7 +235,22 @@ a.back-link {
 .show {
     display:block!important;
 }
-
+@media (max-width: 767px) { 
+    .form-opportunities .js-form-type-textarea {
+        position:relative;
+        .form-textarea {
+            height:150px;
+            overflow-y:scroll;
+        }
+        div[id$="--description"] {
+            width:95%;
+            height:auto;
+            position:relative;
+            left:0;
+            bottom:0;
+        }
+    }        
+}
 
 form {
     ::-webkit-input-placeholder {   font-size:0.9em; font-style: italic;   }
@@ -269,6 +284,10 @@ input,textarea,select,button,#global-header input:focus {
     padding:16px;
     margin-bottom:30px;
     background:#f5fafd;
+    #email-verification-form {
+        overflow:hidden;
+        padding:2px
+    }
     .form-email {
         width:64%;
         float:left;
@@ -281,7 +300,7 @@ input,textarea,select,button,#global-header input:focus {
        float:right;
        margin-bottom:16px;
        .button {
-           height:35px;
+           height:40px;
            padding:4px 32px;
            border:solid 1px $govuk-blue;
            box-shadow:none;
@@ -290,7 +309,36 @@ input,textarea,select,button,#global-header input:focus {
        }
     }
 }
-
+@media (min-width: 768px) and (max-width: 1002px) { 
+    .verify-email {
+        .form-email {
+            width:50%;
+        }
+        .form-actions {
+           width:50%;
+           input.button {
+               min-width:200px;
+               float:right;
+               padding:0;
+           }
+        }
+    }   
+} 
+@media (max-width: 767px) {
+    .verify-email {
+        .form-email {
+            width:100%;
+        }
+        .form-actions {
+           width:100%;
+           input.button {
+               min-width:200px;
+               float:none;
+               padding:0;
+           }
+        }
+    }
+}    
 .form-companies-house-search {
     .companies-house-list {
         border: 1px solid #9B9B9B;
@@ -491,6 +539,7 @@ form {
         width:70%;
     }
 }
+
 
 .filter-container {
     padding:32px 0;
