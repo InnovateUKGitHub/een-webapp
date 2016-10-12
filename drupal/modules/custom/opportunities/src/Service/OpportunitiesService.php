@@ -284,4 +284,51 @@ class OpportunitiesService
             drupal_set_message('There was a problem while sending the email, please try later.', 'error');
         }
     }
+
+    /**
+     * @param string $search
+     *
+     * @return array
+     */
+    public function getCompaniesList($search)
+    {
+        $this->service->setServer('https://api.companieshouse.gov.uk/');
+        $this->service
+            ->setUrl('search/companies')
+            ->setMethod(Request::METHOD_GET)
+            ->setQueryParams(['q' => $search])
+            ->setBasicAuth('7orha_oflH8yLjXTboak_oUDkvhnuOhpQWJhwirD');
+
+        return $this->service->sendRequest();
+    }
+
+    /**
+     * @param string $email
+     *
+     * @return array
+     */
+    public function createLead($email)
+    {
+        $this->service
+            ->setUrl('lead')
+            ->setMethod(Request::METHOD_POST)
+            ->setBody(['email' => $email]);
+
+        return $this->service->sendRequest();
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    public function convertLead($data)
+    {
+        $this->service
+            ->setUrl('contact')
+            ->setMethod(Request::METHOD_POST)
+            ->setBody($data);
+
+        return $this->service->sendRequest();
+    }
 }

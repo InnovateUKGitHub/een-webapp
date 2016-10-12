@@ -10,7 +10,7 @@ class ElasticSearchService
 {
     const SERVICE_ERROR_MSG = 'Cannot connect to elastic search.';
     /** @var string */
-    private $baseUrl;
+    private $server;
     /** @var Client */
     private $client;
     /** @var int */
@@ -24,13 +24,25 @@ class ElasticSearchService
     public function __construct()
     {
         $config = \Drupal::config('elastic_search.settings');
-        $this->baseUrl = $config->get('server');
+        $this->server = $config->get('server');
         $this->client = new Client(null, ['timeout' => 30]);
         $this->client->setHeaders([
             'Content-type' => 'application/json',
             'accept'       => 'application/json',
         ]);
         $this->client->setMethod(Request::METHOD_POST);
+    }
+
+    /**
+     * @param string $server
+     *
+     * @return $this
+     */
+    public function setServer($server)
+    {
+        $this->server = $server;
+
+        return $this;
     }
 
     /**
@@ -76,7 +88,7 @@ class ElasticSearchService
      */
     public function setUrl($endPoint)
     {
-        $this->client->setUri($this->baseUrl . $endPoint);
+        $this->client->setUri($this->server . $endPoint);
 
         return $this;
     }
@@ -115,6 +127,11 @@ class ElasticSearchService
         $this->searchSize = $searchSize;
 
         return $this;
+    }
+
+    public function setBasicAuth($auth)
+    {
+        $this->client->setAuth($auth, null);
     }
 
     /**

@@ -134,11 +134,10 @@ class SignUpStep3Form extends AbstractForm
             ]
         );
 
+        $this->session->set('step3', true);
         $this->session->set('postcode', $form_state->getValue('postcode'));
         $this->session->set('addressone', $form_state->getValue('addressone'));
         $this->session->set('addresstwo', $form_state->getValue('addresstwo'));
         $this->session->set('city', $form_state->getValue('city'));
-
-        $this->session->set('reference_number', random_int(1111, 9999) . '-' . random_int(1111, 9999));
     }
 }

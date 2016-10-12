@@ -9,5 +9,10 @@ jQuery(function () {
         var desc = $(this).next();
         $(desc).toggle();
     });
+     
+    $('textarea').focus(function() {
+        $(this).closest('.js-form-type-textarea').find('div[id$="--description"]').toggleClass('show');
+    });
+
 });
 

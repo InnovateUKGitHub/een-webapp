@@ -52,8 +52,7 @@ class ExpressionOfInterestForm extends AbstractForm
             'description' => [
                 '#type'                => 'textarea',
                 '#title'               => t('Short description of your organisation, activities, products and services'),
-                '#field_prefix'        => t('Why do EEN need this?'),
-                '#description'         => t('Lorem ipsum'),
+                '#description'         => t('This is your pitch: remember to include your unique selling points (USP) and why someone would want to do business with you'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#required'            => true,
@@ -62,15 +61,14 @@ class ExpressionOfInterestForm extends AbstractForm
                         'form-control',
                     ],
                     'placeholder' => [
-                        'This is your pitch: remember to include your unique selling points (USP) and why someone would want to do business with you',
+                        '',
                     ],
                 ],
             ],
             'interest'    => [
                 '#type'                => 'textarea',
                 '#title'               => t('What interests you about this opportunity and what do you expect of that organisation?'),
-                '#field_prefix'        => t('Why do EEN need this?'),
-                '#description'         => t('Lorem ipsum'),
+                '#description'         => t('Tell us why you are a good fit for this opportunity, and why you think you\'re the right people for this partnership'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#required'            => true,
@@ -79,15 +77,14 @@ class ExpressionOfInterestForm extends AbstractForm
                         'form-control',
                     ],
                     'placeholder' => [
-                        'Tell us why you are a good fit for this opportunity, and why you think you\'re the right people for this partnership',
+                        '',
                     ],
                 ],
             ],
             'more'        => [
                 '#type'                => 'textarea',
                 '#title'               => t('Is there anything further you would like to know about this opportunity?'),
-                '#field_prefix'        => t('Why do EEN need this?'),
-                '#description'         => t('Lorem ipsum'),
+                '#description'         => t('If there\'s anything additional, or commercially sensitive you\'d like to know about this opportunity, please let us know'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#attributes'          => [
@@ -95,7 +92,7 @@ class ExpressionOfInterestForm extends AbstractForm
                         'form-control',
                     ],
                     'placeholder' => [
-                        'If there\'s anything additional, or commercially sensitive you\'d like to know about this opportunity, please let us know',
+                        '',
                     ],
                 ],
             ],
@@ -166,17 +163,30 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        $form_state->setRedirect(
-            'opportunities.eoi.step1',
-            [
-                'profileId' => $this->session->get('profileId'),
-            ]
-        );
+        if ($this->session->get('type') === 'Client') {
+            $form_state->setRedirect(
+                'opportunities.eoi.review',
+                [
+                    'profileId' => $this->session->get('profileId'),
+                ]
+            );
+        } else {
+            $form_state->setRedirect(
+                'opportunities.eoi.step1',
+                [
+                    'profileId' => $this->session->get('profileId'),
+                ]
+            );
+        }
 
+        $this->session->set('eoi', true);
         $this->session->set('other_email', $form_state->getValue('other_email'));
         $this->session->set('description', $form_state->getValue('description'));
         $this->session->set('interest', $form_state->getValue('interest'));
         $this->session->set('more', $form_state->getValue('more'));
         $this->session->set('phone', $form_state->getValue('phone'));
+
+        // Set temporary reference number
+        $this->session->set('reference_number', random_int(1111, 9999) . '-' . random_int(1111, 9999));
     }
 }
