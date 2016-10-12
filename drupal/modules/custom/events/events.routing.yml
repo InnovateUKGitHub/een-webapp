@@ -6,8 +6,9 @@ events.search:
    _permission: 'access content'
 
 events.details:
- path: '/events/{eventId}'
+ path: '/events/{eventId}/{token}'
  defaults:
    _controller: '\Drupal\events\Controller\EventController::index'
+   token: null
  requirements:
    _permission: 'access content'

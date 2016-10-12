@@ -6,7 +6,6 @@ use Drupal\Core\Url;
 use Drupal\elastic_search\Service\ElasticSearchService;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OpportunitiesService
 {
@@ -263,8 +262,10 @@ class OpportunitiesService
     public function verifyEmail($email, $token, $profileId)
     {
         $params = [
-            'email' => $email,
-            'url'   => \Drupal::request()->getSchemeAndHttpHost() . Url::fromRoute(
+            'template' => 'email-verification-opportunity',
+            'email'    => $email,
+            'url'      => \Drupal::request()->getSchemeAndHttpHost() .
+                Url::fromRoute(
                     'opportunities.details',
                     [
                         'token'     => $token,
@@ -280,7 +281,7 @@ class OpportunitiesService
 
         try {
             $this->service->sendRequest();
-        } catch (NotFoundHttpException $e) {
+        } catch (\Exception $e) {
             drupal_set_message('There was a problem while sending the email, please try later.', 'error');
         }
     }

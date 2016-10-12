@@ -66,7 +66,7 @@ class SignUpController extends ControllerBase
     {
         return new self(
             $container->get('opportunities.service'),
-            $container->get('user.private_tempstore')->get(OpportunityController::SESSION),
+            $container->get('user.private_tempstore')->get('SESSION_ANONYMOUS'),
             $container->get('session_manager')
         );
     }

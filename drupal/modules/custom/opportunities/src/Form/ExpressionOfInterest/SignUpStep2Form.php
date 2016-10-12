@@ -32,7 +32,7 @@ class SignUpStep2Form extends AbstractForm
      */
     public static function create(ContainerInterface $container)
     {
-        return new self($container->get('user.private_tempstore')->get(OpportunityController::SESSION));
+        return new self($container->get('user.private_tempstore')->get('SESSION_ANONYMOUS'));
     }
 
     /**
