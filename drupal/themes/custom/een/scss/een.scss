@@ -435,7 +435,12 @@ input,textarea,select,button,#global-header input:focus {
     #ch-search-trigger {
         height:40px;
         border-radius:0;
+    } 
+    
+    legend { 
+        font-weight: 600;
     }
+    
 }
 form {
     .form-label {
@@ -633,21 +638,10 @@ form[data-drupal-selector="opportunity-search-form"] {
     }
 
     .accordion-toggle {
-        font-family: 'FontAwesome';
-        background: none;
-        border: none;
         font-size:16px;
-        color:#4A4A4A;
         float:right;
-
-        &:before {
-           content: "\f078";
-        }
-    }
-    .accordion-toggle.visible {
-        &:before {
-            content: "\f077";
-        }
+        clear: none;
+        top: 0;
     }
 }
 
@@ -1131,6 +1125,44 @@ form[data-drupal-selector="opportunity-search-form"] {
     display:none;
 }
 
+
+
+    a.accordion-toggle {
+        background: none;
+        border: none;
+        color: #4A4A4A;
+        float: none;
+        clear: both;
+        display: block;
+        margin: 0;
+        top: 7px;
+        position: relative;
+
+        &:before {
+            font-family: 'FontAwesome';
+           content: "\f078";
+        }
+    }
+    .accordion-toggle.visible {
+        &:before {
+            font-family: 'FontAwesome';
+            content: "\f077";
+        }
+    }
+    
+    .accordion-content {
+        margin: 14px 38px;
+        display: block;
+        border-left: 3px solid lightgray;
+        clear: both;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        padding: 0 13px;
+    }
+
+
+
 .sentence-builder {
     
     p {
@@ -1292,6 +1324,8 @@ form[data-drupal-selector="opportunity-search-explore-form"] {
         padding:7px 31px;
         border:none;
         background:white;
+        display:block;
+        float:none;
         
         &:hover {
             //background:lightblue!important;
@@ -1424,8 +1458,6 @@ form[data-drupal-selector="opportunity-search-explore-form"] {
     .form-item-country {
         padding:21px;
     }
-    
-    
 }
 
 
