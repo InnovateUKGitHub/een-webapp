@@ -1083,6 +1083,23 @@ form[data-drupal-selector="opportunity-search-form"] {
         }
     }
 }
+@media (max-width: 767px) { 
+    .column-two-thirds {
+        &.with-cta {
+            > div {
+                width:80%;
+                float:left;
+                overflow:hidden;
+                p {
+                    margin-bottom:20px;
+                }
+            }
+            > p {
+                width:20%;
+            }
+        }
+    }    
+}    
 .vcard {
     span,.post-code {
         display:block;
