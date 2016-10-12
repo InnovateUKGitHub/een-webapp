@@ -11,21 +11,24 @@
             <br />
 
             <div class="sentence-builder">
-                <p>I'm looking for <span id="keywords" contenteditable="true">Enter a keyword </span>partners
-                    <span class="dropdown" tabindex="0" id="search_type">to do  <i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                <p>I'm looking for <span id="keywords" class="block" contenteditable="true">Enter a keyword </span>partners
+                    <span class="dropdown empty" tabindex="0" id="search_type"><span class="chosen">to do</span>  <i class="fa fa-chevron-down" aria-hidden="true"></i></span>
                     located
-                    <span class="dropdown" tabindex="0" id="search_country">in <i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                    <span class="dropdown empty" tabindex="0" id="search_country"><span class="chosen">in</span> <i class="fa fa-chevron-down" aria-hidden="true"></i></span>
                 </p>
 
                 <div>
 
+                    
                     <div class="modal">
-                        {{ form }}
+                        <div class="modal-holder">
+                            {{ form }}
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <p><a href="/opportunities" class="button button--primary js-sb-view-results">View Results</a>  <span class="sb-results">0 results</span></p>
+            <p><a href="/opportunities" class="button button--primary js-sb-view-results sb-view-results">View Results</a>  <span tabindex="0" class="sb-results"></span></p>
             <p><a href="/opportunities">No thanks, let me see all opportunities</a></p>
         </div>
 
