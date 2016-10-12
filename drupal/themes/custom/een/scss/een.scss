@@ -368,6 +368,7 @@ input,textarea,select,button,#global-header input:focus {
         float:left;
         width:50%;
         margin-right:7px;
+        text-transform: capitalize;
     }
     .form-item-company-name {
         margin-bottom:7px;
