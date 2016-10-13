@@ -31,7 +31,7 @@
                             {{ row._source.start_date|date("d-m-Y") }}
                         {% endif %}
                         {# Country of origin #}
-                        {% if row._source.country_code %}
+                        {% if row._source.country_code is not empty %}
                             |
                             {% set flag = row._source.country_code|lower %}
                             {% if flag == 'uk' %}
@@ -42,13 +42,13 @@
                         {% endif %}
                     </p>
                     <p>
-                        {{ row._source.summary }}
+                        {{ row._source.summary|raw }}
                     </p>
                 </div>
 
             {% endfor %}
 
-            {% include 'themes/custom/een/templates/pagination.html.twig'
+            {% include 'themes/custom/een/templates/navigation/pagination.html.twig'
             with {
             'route': route,
             'page': page,

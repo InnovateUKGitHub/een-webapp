@@ -18,18 +18,20 @@
         <div class="content-heading">
             <h1>{{ 'Event'|t }}</h1>
             <h2 class="heading-large">{{ event._source.title }}</h2>
-            <h3 class="heading-medium">{{ event._source.summary }}</h3>
+            <h3 class="heading-medium">{{ event._source.summary|raw }}</h3>
             <div class="meta">
-                <div class="meta-data">
-                    <p>
-                        {% set flag = event._source.country_code|lower %}
-                        {% if flag == 'uk' %}
-                            {% set flag = 'gb' %}
-                        {% endif %}
-                        <span class="flag-icon flag-icon-{{ flag }}"></span>
-                        {{ event._source.country }}
-                    </p>
-                </div>
+                {% if event._source.country_code is not empty %}
+                    <div class="meta-data">
+                        <p>
+                            {% set flag = event._source.country_code|lower %}
+                            {% if flag == 'uk' %}
+                                {% set flag = 'gb' %}
+                            {% endif %}
+                            <span class="flag-icon flag-icon-{{ flag }}"></span>
+                            {{ event._source.country }}
+                        </p>
+                    </div>
+                {% endif %}
                 {% if event._source.fee is not empty %}
                     <div class="meta-data">
                         <p>{{ 'A delegate registration fee of <span class="bold-small">£%d +VAT</span> will apply. Delegates must cover the cost for flight, accommodation, evening meals and other travel on the mission'|format(event._source.fee)|t }}</p>
@@ -56,8 +58,8 @@
         <div class="column-two-thirds contents-text-block">
             <h3 class="heading-medium" id="information">{{ 'Event Information'|t }}</h3>
             <p>
-                {% if opportunity._source.description %}
-                    {{ opportunity._source.description }}
+                {% if event._source.description %}
+                    {{ event._source.description|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
