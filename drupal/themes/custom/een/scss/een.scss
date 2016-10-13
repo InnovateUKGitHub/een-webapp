@@ -1079,6 +1079,9 @@ form[data-drupal-selector="opportunity-search-form"] {
     }
 }
 @media (max-width: 680px) { 
+    .header-secondary h1 {
+        font-size:24px;
+    }
     .column-two-thirds {
         &.with-cta {
             > div {
