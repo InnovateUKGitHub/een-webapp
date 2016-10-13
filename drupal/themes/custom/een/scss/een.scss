@@ -300,10 +300,12 @@ input,textarea,select,button,#global-header input:focus {
        float:right;
        margin-bottom:16px;
        .button {
-           height:40px;
-           padding:4px 32px;
+           min-width:200px;
+           height:39px;
+           line-height:39px;
            border:solid 1px $govuk-blue;
            box-shadow:none;
+           padding:0;
            color:$govuk-blue;
            background:#fff;
        }
@@ -311,18 +313,14 @@ input,textarea,select,button,#global-header input:focus {
 }
 @media (min-width: 768px) and (max-width: 1020px) { 
     .verify-email {
-        .form-email {
-            width:50%;
-        }
         .form-actions {
-           width:50%;
            input.button {
-               min-width:200px;
-               float:right;
-               padding:0;
+               width:100%;
+               min-width:144px;
+               
            }
         }
-    }   
+    } 
 } 
 @media (max-width: 767px) {
     .verify-email {
@@ -1079,10 +1077,19 @@ form[data-drupal-selector="opportunity-search-form"] {
     }
 }
 @media (max-width: 680px) { 
+    .row {
+        margin-bottom:10px;
+    }
+    hr {
+        margin:10px 0;
+    }
     .header-secondary h1 {
         font-size:24px;
     }
     .column-two-thirds {
+        h2 {
+            margin-top:0;
+        }
         &.with-cta {
             > div {
                 width:100%;
@@ -1096,10 +1103,14 @@ form[data-drupal-selector="opportunity-search-form"] {
                 width:100%;
                 float:none;
                 text-align:left;
+                margin:0;
             }
         }
         .label {
-            width:140px;
+            width:145px;
+            &.your-contact {
+                margin-bottom:10px;
+            }
         }
     }    
 }    
