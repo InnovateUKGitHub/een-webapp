@@ -167,14 +167,14 @@ class ExpressionOfInterestForm extends AbstractForm
             $form_state->setRedirect(
                 'opportunities.eoi.review',
                 [
-                    'profileId' => $this->session->get('profileId'),
+                    'profileId' => $this->session->get('id'),
                 ]
             );
         } else {
             $form_state->setRedirect(
                 'opportunities.eoi.step1',
                 [
-                    'profileId' => $this->session->get('profileId'),
+                    'profileId' => $this->session->get('id'),
                 ]
             );
         }

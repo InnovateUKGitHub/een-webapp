@@ -186,7 +186,7 @@ class SignUpStep1Form extends AbstractForm
         $form_state->setRedirect(
             'opportunities.eoi.step2',
             [
-                'profileId' => $this->session->get('profileId'),
+                'profileId' => $this->session->get('id'),
             ]
         );
 

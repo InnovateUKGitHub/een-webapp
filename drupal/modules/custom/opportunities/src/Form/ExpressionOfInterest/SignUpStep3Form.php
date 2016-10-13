@@ -130,7 +130,7 @@ class SignUpStep3Form extends AbstractForm
         $form_state->setRedirect(
             'opportunities.eoi.review',
             [
-                'profileId' => $this->session->get('profileId'),
+                'profileId' => $this->session->get('id'),
             ]
         );
 

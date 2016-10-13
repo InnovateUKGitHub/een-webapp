@@ -182,8 +182,6 @@ class OpportunityController extends ControllerBase
         $this->session->delete('addressone');
         $this->session->delete('addresstwo');
         $this->session->delete('city');
-
-        $this->session->delete('complete');
     }
 
     /**
