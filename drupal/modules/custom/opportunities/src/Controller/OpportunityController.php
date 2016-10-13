@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class OpportunityController extends ControllerBase
 {
-    const SESSION = 'opportunity';
     const PAGE_NUMBER = 'page';
     const RESULT_PER_PAGE = 'resultPerPage';
     const SEARCH = 'search';
@@ -69,7 +68,7 @@ class OpportunityController extends ControllerBase
     {
         return new self(
             $container->get('opportunities.service'),
-            $container->get('user.private_tempstore')->get(self::SESSION),
+            $container->get('user.private_tempstore')->get('SESSION_ANONYMOUS'),
             $container->get('session_manager')
         );
     }
@@ -91,7 +90,7 @@ class OpportunityController extends ControllerBase
 
         $form = \Drupal::formBuilder()->getForm(ExpressionOfInterestForm::class);
         $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);
-        $formEmail['profile-id']['#value'] = $profileId;
+        $formEmail['id']['#value'] = $profileId;
 
         $this->checkSession($form, $token, $profileId);
 
@@ -188,7 +187,7 @@ class OpportunityController extends ControllerBase
     }
 
     /**
-     * @param $contact
+     * @param array $contact
      */
     public function setSession($contact)
     {

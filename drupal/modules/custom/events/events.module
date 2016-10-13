@@ -2,7 +2,7 @@
 function events_theme()
 {
     return [
-        'events_search' => [
+        'events_search'  => [
             'variables' => [
                 'results'       => null,
                 'total'         => 0,
@@ -15,8 +15,12 @@ function events_theme()
         ],
         'events_details' => [
             'variables' => [
-                'event'       => null,
-                'page'          => 1,
+                'form_email' => null,
+                'event'      => null,
+                'page'       => 1,
+                'email'      => null,
+                'token'      => null,
+                'route'      => 'events.search',
             ],
             'template'  => 'events-details',
         ],
