@@ -49,6 +49,8 @@ class SignUpStep1Form extends AbstractForm
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $types = [
+            'BP' => t('Blog Post'),
+            'C' => t('Consultation'),
             'UK' => t('UK Newsletter'),
             'EE' => t('East of England'),
             'L'  => t('London'),

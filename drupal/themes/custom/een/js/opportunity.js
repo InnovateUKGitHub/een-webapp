@@ -30,4 +30,40 @@ jQuery(function () {
         e.preventDefault();
         smoothScroll(this);
     });
+    
+    
+    
+    
+    var newletterFormSection = $('#edit-newsletter--wrapper');
+    if($(newletterFormSection).length){
+        
+        $(newletterFormSection).find('.block-label').each(function(i, item){
+             if(i > 1){
+                $(item).addClass('indented');
+            }
+        });
+
+        $('.block-label.indented').wrapAll($('<div class="accordion-content"/>'));
+    }
+    
+    if($('.accordion-content').length){
+        var panel = $('.accordion-content');
+            panel.before('<a role="button" tabindex="0" class="accordion-toggle" href="#" aria-label="Toggle checkboxes"> Newsletter </a>');
+            panel.hide();
+
+        var toggle = $('.accordion-toggle');
+
+        $(document).on('click', '.accordion-toggle', function(e){
+            e.preventDefault();
+
+            var accordionContent = $(this).next(panel);
+
+            //Expand or collapse this panel
+            $(accordionContent).slideToggle('slow', function(){
+                 $(toggle).toggleClass('visible', $(this).is(':visible'));
+            });
+        });
+    }
+  
+  
 });
