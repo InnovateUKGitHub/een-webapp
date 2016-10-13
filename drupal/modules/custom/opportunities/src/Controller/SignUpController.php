@@ -66,7 +66,7 @@ class SignUpController extends ControllerBase
     {
         return new self(
             $container->get('opportunities.service'),
-            $container->get('user.private_tempstore')->get(OpportunityController::SESSION),
+            $container->get('user.private_tempstore')->get('SESSION_ANONYMOUS'),
             $container->get('session_manager')
         );
     }
@@ -306,10 +306,7 @@ class SignUpController extends ControllerBase
         $results = $this->service->get($profileId);
         $form = $this->getSession($profileId, $results['_source']['title']);
 
-        if ($this->session->get('complete')) {
-            $this->service->convertLead($form);
-            $this->session->set('complete', true);
-        }
+        $this->service->convertLead($form);
 
         return [
             '#theme' => 'opportunities_sign_up_complete',

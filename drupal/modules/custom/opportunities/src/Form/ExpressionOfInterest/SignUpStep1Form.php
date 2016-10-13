@@ -32,7 +32,7 @@ class SignUpStep1Form extends AbstractForm
      */
     public static function create(ContainerInterface $container)
     {
-        return new self($container->get('user.private_tempstore')->get(OpportunityController::SESSION));
+        return new self($container->get('user.private_tempstore')->get('SESSION_ANONYMOUS'));
     }
 
     /**
@@ -186,7 +186,7 @@ class SignUpStep1Form extends AbstractForm
         $form_state->setRedirect(
             'opportunities.eoi.step2',
             [
-                'profileId' => $this->session->get('profileId'),
+                'profileId' => $this->session->get('id'),
             ]
         );
 

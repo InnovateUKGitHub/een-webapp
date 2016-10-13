@@ -90,13 +90,14 @@
                     {% endfor %}
                 </div>
 
-                {% include 'themes/custom/een/templates/pagination.html.twig'
+                {% include 'themes/custom/een/templates/navigation/pagination.html.twig'
                 with {
                 'route': route,
                 'params': params,
                 'page': page,
                 'resultPerPage': resultPerPage,
-                'pageTotal': pageTotal
+                'pageTotal': pageTotal,
+                'ajax': true
                 } only %}
 
             {% else %}
