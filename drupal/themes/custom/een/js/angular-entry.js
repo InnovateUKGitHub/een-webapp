@@ -407,6 +407,13 @@
       queryAPI();
     }, 700);
 
+    var liveQueryAPIDirect = debounce(function () {
+      $scope.meta.searching = true;
+      $scope.$apply();
+
+      queryAPI();
+    });
+
     $scope.submit = function () {
       queryAPI(true);
       return true;
@@ -462,6 +469,7 @@
             $scope.data.opportunity_type.splice(index, 1);
           }
         }
+        liveQueryAPIDirect();
       }
     };
 
@@ -478,6 +486,7 @@
             $scope.data.country.splice(index, 1);
           }
         }
+        liveQueryAPIDirect();
       }
     };
 
