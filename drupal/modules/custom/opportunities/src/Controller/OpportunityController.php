@@ -143,7 +143,6 @@ class OpportunityController extends ControllerBase
             $this->session->set('type', $contact['Contact_Status__c']);
 
             if ($contact['Contact_Status__c'] !== 'Lead') {
-                $form['other_email']['#value'] = $contact['Email'];
                 $this->setSession($contact);
             }
         } else {
@@ -187,23 +186,32 @@ class OpportunityController extends ControllerBase
     /**
      * @param array $contact
      */
-    public function setSession($contact)
+    private function setSession($contact)
     {
-        $this->session->set('other_email', $contact['Email_Address_2__c']);
-        $this->session->set('phone', $contact['Phone']);
+        if (isset($contact['Email_Address_2__c'])) {
+            $this->session->set('other_email', $contact['Email_Address_2__c']);
+        }
+        if (isset($contact['Phone'])) {
+            $this->session->set('phone', $contact['Phone']);
+        }
 
         $this->session->set('step1', true);
         $this->session->set('firstname', $contact['FirstName']);
         $this->session->set('lastname', $contact['LastName']);
         $this->session->set('contact_email', $contact['Email']);
         $this->session->set('contact_phone', $contact['MobilePhone']);
-        $this->session->set('newsletter', $contact['Email_Newsletter__c']);
 
         $this->session->set('step2', true);
         $this->session->set('company_name', $contact['Account']['Name']);
-        $this->session->set('company_number', $contact['Account']['Company_Registration_Number__c']);
-        $this->session->set('website', $contact['Account']['Website']);
-        $this->session->set('company_phone', $contact['Account']['Phone']);
+        if (isset($contact['Account']['Company_Registration_Number__c'])) {
+            $this->session->set('company_number', $contact['Account']['Company_Registration_Number__c']);
+        }
+        if (isset($contact['Account']['Website'])) {
+            $this->session->set('website', $contact['Account']['Website']);
+        }
+        if (isset($contact['Account']['Phone'])) {
+            $this->session->set('company_phone', $contact['Account']['Phone']);
+        }
 
         $this->session->set('step3', true);
         $this->session->set('postcode', $contact['MailingPostalCode']);
