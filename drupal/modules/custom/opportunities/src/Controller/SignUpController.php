@@ -306,7 +306,7 @@ class SignUpController extends ControllerBase
         $results = $this->service->get($profileId);
         $form = $this->getSession($profileId, $results['_source']['title']);
 
-        if ($this->session->get('complete')) {
+        if ($this->session->get('complete') !== true) {
             $this->service->convertLead($form);
             $this->session->set('complete', true);
         }
