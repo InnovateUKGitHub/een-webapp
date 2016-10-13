@@ -204,8 +204,8 @@ class OpportunitiesService
 
         foreach ($results['results'] as $result) {
 
-            $title = isset($result['highlight']['title']) ? implode('', $result['highlight']['title']) : $result['_source']['title'];
-            $summary = isset($result['highlight']['summary']) ? implode('', $result['highlight']['summary']) : $result['_source']['summary'];
+            $title = isset($result['highlight']['title']) ? implode(' ... ', $result['highlight']['title']) : $result['_source']['title'];
+            $summary = isset($result['highlight']['summary']) ? implode(' ... ', $result['highlight']['summary']) : $result['_source']['summary'];
 
             $response['results'][] = [
                 'id'           => $result['_id'],
