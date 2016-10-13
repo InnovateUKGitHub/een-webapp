@@ -12,7 +12,7 @@
             {% for row in results %}
                 <div class="row row-bordered">
                     <h3>
-                        {% if row._source.url and row._source.url matches '/^http*/' %}
+                        {% if row._source.type == 'merlin' or row._source.type == 'eventBrite' %}
                             <a rel="external" href="{{ row._source.url }}" target="_blank">
                                 {{ row._source.title }}
                             </a>

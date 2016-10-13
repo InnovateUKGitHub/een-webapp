@@ -32,7 +32,7 @@
                         </p>
                     </div>
                 {% endif %}
-                {% if event._source.fee is not empty %}
+                {% if event._source.fee is not empty and event._source.fee != 0 %}
                     <div class="meta-data">
                         <p>{{ 'A delegate registration fee of <span class="bold-small">£%d +VAT</span> will apply. Delegates must cover the cost for flight, accommodation, evening meals and other travel on the mission'|format(event._source.fee)|t }}</p>
                     </div>
