@@ -185,28 +185,25 @@
                         {{ form.more }}
                     </div>
                     {{ form.email }}
-                    <div id="edit-email--description" class="description" tabindex="0">
-                        {{ 'You will be asked to create your EEN account if you do not already have one. If you do not have an email address, '|t }}
-                        <a class="edit-email--phone-number"
-                           href="#edit-phone">{{ 'please enter your phone number instead.'|t }}</a>
-                    </div>
+                    <hr />
                     <div class="eoi-phone-number">
                         {{ form.phoneStatus }}
                         {{ form.phone }}
                     </div>
                     {{ form.other_email }}
+                    {{ '<p>If you need colleagues or others to be kept updated with the status of this application, please enter their email addresses here(separated by commas).</p>' }}
                     <hr/>
                     <div>
                         <h4 class="heading-small" tabindex="0">{{ 'By submitting this information, I understand that:'|t }}</h4>
-                        <ul>
+                        <ul class="bullets">
                             <li>{{ 'We will be in touch within 2 days'|t }}</li>
                             <li>
                                 {{ 'As per the '|t }}
                                 <a href="#">{{ 'privacy policy'|t }}</a>,
                                 {{ 'my personal information will not be shared.' }}
                             </li>
-                            <li>{{ 'Information I provide in this application can be shared with potential partner in question after an EEN adviser has reviewed it and deemed it is what the receiving client is lookin for.'|t }}</li>
-                            <li>{{ 'If we connect you, our involvement will step back a bit, but you need to keep us informed of follow on discussions and negociations.'|t }}</li>
+                            <li>{{ 'Information I provide in this application can be shared with potential partner in question after an EEN adviser has reviewed it and deemed it is what the receiving client is looking for.'|t }}</li>
+                            <li>{{ 'If we connect you, our involvement will step back a bit, but you need to keep us informed of follow on discussions and negotiations.'|t }}</li>
                         </ul>
                     </div>
                     {{ form.actions }}

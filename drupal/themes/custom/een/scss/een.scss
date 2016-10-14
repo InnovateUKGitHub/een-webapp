@@ -66,7 +66,13 @@ a {
         color:$light-blue;
     }
 }
-
+.bullets {
+    list-style:outside;
+    margin-bottom:20px;
+    li {
+        margin:0 0 0 28px;
+    }
+}
 .form-label, .form-label-bold {
     color:inherit;
 }

@@ -13,6 +13,9 @@ jQuery(function () {
     $('textarea').focus(function() {
         $(this).closest('.js-form-type-textarea').find('div[id$="--description"]').toggleClass('show');
     });
+    $('textarea').focusout(function() {
+        $(this).closest('.js-form-type-textarea').find('div[id$="--description"]').toggleClass('show');
+    });
 
 });
 
