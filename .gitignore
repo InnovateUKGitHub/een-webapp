@@ -32,3 +32,4 @@ html-coverage/
 drupal/themes/custom/een/dist
 /drupal/nbproject/private/
 compiled/
+db/update/
