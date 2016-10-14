@@ -116,7 +116,6 @@ class EventController extends ControllerBase
             $this->session->set('type', $contact['Contact_Status__c']);
 
             if ($contact['Contact_Status__c'] !== 'Lead') {
-                $form['other_email']['#value'] = $contact['Email'];
                 $this->setSession($contact);
             }
         } else {
