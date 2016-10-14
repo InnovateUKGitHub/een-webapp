@@ -1328,9 +1328,12 @@ form[data-drupal-selector="opportunity-search-form"] {
             border:1px solid $dark-blue;
             background:#fff;
             z-index: 20;
-            margin:-250px auto 0;
+            margin:-200px auto 0;
             min-width: 500px;
             max-width: 500px;
+            -webkit-box-shadow: 5px 5px 0px -1px rgba(0,0,0,0.19);
+            -moz-box-shadow: 5px 5px 0px -1px rgba(0,0,0,0.19);
+            box-shadow: 5px 5px 0px -1px rgba(0,0,0,0.19);
             
             
              @media (max-width:640px){
@@ -1356,6 +1359,10 @@ form[data-drupal-selector="opportunity-search-form"] {
         right: 48px;
         bottom: 0;
         top: 39px;
+        
+        &.hide {
+            display:none;
+        }
     }
     
     
@@ -1414,7 +1421,7 @@ form[data-drupal-selector="opportunity-search-explore-form"] {
         float:none;
         
         &:hover {
-            //background:lightblue!important;
+            background:#e1f0fa!important;
         }
     }
     

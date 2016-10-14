@@ -48,11 +48,11 @@ class OpportunitiesExploreForm extends AbstractForm
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $types = [
-            'BO' => t('buy a product or service'),
-            'BR' => t('sell my product or service'),
-            'TR' => t('find a manufacturer or licensee'),
-            'TO' => t('find a specialist'),
-            'RD' => t('develop tech / bid for funding'),
+            'BO' => t('to buy from'),
+            'BR' => t('to sell to'),
+            'TR' => t('that needs my technology or expertise'),
+            'TO' => t('with technology or expertise that I need'),
+            'RD' => t('to collaborate with'),
         ];
         $countries = $this->service->getCountryList();
 

@@ -47,6 +47,12 @@ jQuery(function () {
         }
       }).then(function (data) {
         $('.sb-results').html('<span>'+data.total + '</span> opportunities found');
+        
+        
+        var str = $.param({ search: search, opportunity_type: opportunity_type, country: country });
+        var url = '/opportunities#!/page/1?'+str;
+        $('.js-sb-view-results').attr('href', url);
+        
       });
     };
 
@@ -57,10 +63,12 @@ jQuery(function () {
       });
       $('.js-sb-view-results').removeClass('disabled');
       
-      getResultUrl();
-      
     }, 600);
 
+
+    /*
+     * Keyword search 
+     */
     $('#keywords').on('keyup', function() {
         $('#search').val($('#keywords').text());
         if($('#keywords').text().length > 20){
@@ -79,14 +87,29 @@ jQuery(function () {
         }
         updateResults();
     });
+    
+    
+    /* 
+     * initialise chosen select for multiple country select 
+     */
 
     $(".chosen-select-multiple").chosen({
         disable_search:false
     });
 
-    $(".chosen-select-multiple").on('change', function(evt, params) {
-      updateResults();
+  
+    
+    $(".chosen-select-multiple").chosen().change(function(){
+        updateResults();
+         
+        var countries = $("#edit-country").val();
+        if(countries.length == 1){
+            $('#search_country .chosen').text(countries.length + ' country selected');
+        } else {
+            $('#search_country .chosen').text(countries.length + ' countries selected');
+        }
     });
+    
 
     /* opportunity type dropdown (1st) */
     $('#search_type').on('click', function(){
@@ -103,7 +126,7 @@ jQuery(function () {
            $('#search_type .chosen').html(text);
            $('#search_type').removeClass('empty');
            closeModal();
-           $('.sb-close-modal').remove();
+           $('.sb-close-modal').addClass('hide');
        }
 
        updateResults();
@@ -117,14 +140,15 @@ jQuery(function () {
     $('#search_country').on('click', function(){
         $('.modal .form-item').hide();
         openModal();
-        $('.modal .form-countries').show();
-
-         var val = $('input:checked', '.explore-form #edit-country-choice').val();
-         if(val == ''){
-             $('.modal .form-item-country').show();
-         }
-         updateResults();
+        $('.modal .form-countries, .modal .form-item-country').show();
+        $('.search-field input').attr('disabled', 'disabled');
+        $('label[for="edit-country-choice-"]').append('<span class="sb-close-modal">Done</span>');
+        
+        updateResults();
     });
+
+
+
 
     /*
      * Specific country selection
@@ -134,20 +158,23 @@ jQuery(function () {
         var text = $('input:checked', '.explore-form #edit-country-choice').parent().text();
         var val = $('input:checked', '.explore-form #edit-country-choice').val();
         var $countryList = $('.modal .form-item-country');
+            $countryList.show();
 
         if(text){
-            if(val == ''){
-                $countryList.show();
-                $('label[for="edit-country-choice-"]').append('<span class="sb-close-modal">Done</span>');
-            } else {
+           
+                
+            if(val != ''){
                 $('#search_country .chosen').html(text);
                 $('#search_country').removeClass('empty');
-                
-                $('.sb-close-modal').remove();
-                closeModal();
-            }
-        }
 
+                $('.sb-close-modal').addClass('hide');
+                closeModal();
+            } else {
+                $('.search-field input').removeAttr('disabled');
+                $('.sb-close-modal').removeClass('hide');
+            }
+            
+        }
         updateResults();
     });
 
@@ -157,21 +184,9 @@ jQuery(function () {
      */
     $(document).on('click', '.sb-close-modal', function(){
         closeModal();
-
-        /* get array of selected values */
-        var countries = $("#edit-country").val();
-
-        if(countries.length == 1){
-            $('#search_country').text(countries.length + ' country selected');
-        } else {
-            $('#search_country').text(countries.length + ' countries selected');
-        }
-        
-
-        updateResults();
     });
-
-
+    
+    
     function openModal(){
         $modal.show();
         if ($(window).width() < 640) {
@@ -180,30 +195,26 @@ jQuery(function () {
     }
     function closeModal(){
         $modal.hide();
+        $('.sb-close-modal').remove();
     }
     
-    
-    
-    function getResultUrl() {
-        var search = $('#search').val();
-        var country;
-        var opportunity_type = [$('input:checked', '.explore-form #edit-opportunity-type').val()];
-        var checkboxes = [$('input:checked', '.explore-form #edit-country-choice').val()];
-
-        if (checkboxes && checkboxes[0] === '') {
-          country = $(".chosen-select-multiple").val();
-        } else {
-          country = checkboxes;
-        }
-
-        if (country && country[0] === 'anywhere') {
-          country[0] = '';
-        }
+    if($('.modal')){
+         $(document).keyup(function(e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                closeModal();
+            }
+        });
         
-        var str = $.param({ search: search, opportunity_type: opportunity_type, country: country });
-        var url = '/opportunities#!/page/1?'+str;
-        
-        $('.js-sb-view-results').attr('href', url);
+        $(window).click(function(event) {
+            closeModal();
+        });
+
+        $('.modal, .dropdown, .sb-close-modal').click(function(event){
+            var target = $( event.target );
+            if (!target.is(".sb-close-modal")) {
+                 event.stopPropagation(); 
+            } 
+        });       
     }
     
 
