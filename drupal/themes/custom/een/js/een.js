@@ -13,6 +13,20 @@ jQuery(function () {
     $('textarea').focus(function() {
         $(this).closest('.js-form-type-textarea').find('div[id$="--description"]').toggleClass('show');
     });
+    
+    
+  
+    
+    /*
+     * In some instances get a link to behave like button on spacebar press
+     */
+    $("a.js-spb-click").on("keydown", function(e) {
+        
+        if (e.which == 32) {            
+            $(this)[0].click();
+            e.preventDefault();
+        }
+    });
 
 });
 

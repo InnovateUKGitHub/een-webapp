@@ -62,7 +62,10 @@ class SignUpStep3Form extends AbstractForm
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
+                    'autocomplete' => [
+                        'shipping postal-code'
+                    ],
                 ],
             ],
             'addressone'       => [
@@ -78,7 +81,10 @@ class SignUpStep3Form extends AbstractForm
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
+                    'autocomplete' => [
+                        'shipping address-line1'
+                    ],
                 ],
             ],
             'addresstwo'       => [
@@ -88,7 +94,10 @@ class SignUpStep3Form extends AbstractForm
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
+                    'autocomplete' => [
+                        'shipping address-line2'
+                    ],
                 ],
             ],
             'city'       => [
@@ -104,7 +113,10 @@ class SignUpStep3Form extends AbstractForm
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
+                    'autocomplete' => [
+                        'shipping locality'
+                    ],
                 ],
             ],
             'actions'     => [

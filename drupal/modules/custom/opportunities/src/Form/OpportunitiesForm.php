@@ -73,7 +73,7 @@ class OpportunitiesForm extends AbstractForm
             ],
             'opportunity_type' => [
                 '#type'    => 'checkboxes',
-                '#title'   => t('I want to...'),
+                '#title'   => t('I want to&hellip;'),
                 '#options' => $types,
                 '#attributes' => [
                     'ng-click' => 'selectOppCheckbox($event)'
