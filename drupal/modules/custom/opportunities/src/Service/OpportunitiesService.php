@@ -70,10 +70,10 @@ class OpportunitiesService
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
         $countries = $request->query->get(self::COUNTRY);
 
-        if ($countries[0] == 'anywhere') {
+        if (is_array($countries) && current($countries) == 'anywhere') {
             $countries = null;
         }
-        if ($countries[0] == 'europe') {
+        if (is_array($countries) && current($countries) == 'europe') {
             $countries = $this->getEuropeCountryCode();
         }
 
