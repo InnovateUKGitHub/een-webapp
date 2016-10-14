@@ -28,7 +28,8 @@ jQuery(function () {
         '.error-summary a[href*="#"]:not([href="#"]),' +
         '.status-summary a[href*="#"]:not([href="#"])').click(function (e) {
         e.preventDefault();
-        smoothScroll(this);
+        smoothScroll(this);        
+        $($(this).attr('href')).focus();
     });
     
     
