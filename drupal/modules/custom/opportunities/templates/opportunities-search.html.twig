@@ -16,13 +16,7 @@
 </div>
 
 <div class="grid-row">
-    <div class="column-one-third">
-        <div class="filter-container">
-            <p class="font-xsmall">You can use the filters to show only results that match your interests</p>
-            {{ form }}
-        </div>
-    </div>
-    <div class="column-two-thirds">
+    <div class="column-two-thirds pull-right">
         {% if results is not null %}
             {% if total > 0 %}
                 <div class="row" ng-show="meta.searched" ng-cloak ng-class="{ transp: meta.searching }">
@@ -33,12 +27,14 @@
                 </div>
 
                 <div class="row" ng-show="!meta.searched" ng-class="{ transp: meta.searching }">
-                    <h3 class="heading-xlarge results-list-heading" tabindex="0">{{ total|number_format(0, '.', ',') }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
+                    <h3 class="heading-xlarge gov uk results-list-heading" tabindex="0">{{ total|number_format(0, '.', ',') }} <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
                 </div>
 
                 <div class="results-list">
                     <p class="list-subtext" tabindex="0">Get updates to this list  <a href="#" class="follow-list"tabindex="0"><i class="fa fa-envelope" aria-hidden="true"></i> Email</a> <a href="#" class="follow-list" tabindex="0"><i class="fa fa-rss" aria-hidden="true"></i> RSS</a></p>
-
+                    <div class="contents-text-block">
+                        <p tabindex="0" class="sr-only">The search results below each have a summary which you may find useful in determining if the opportunity is what you’re looking for.</p>
+                    </div>
                     <div class="row row-bordered" ng-show="meta.searched" ng-repeat="row in results" ng-cloak ng-class="{ transp: meta.searching }">
                         <h3 class="results-list-heading-item" tabindex="0">
                             <a ng-href="/opportunities/{[{row.id}]}" id="opportunity-link" ng-bind-html="row.title | unsafe">
@@ -109,5 +105,11 @@
 
             {% endif %}
         {% endif %}
+    </div>
+    <div class="column-one-third pull-left">
+        <div class="filter-container">
+            <p class="font-xsmall">You can use the filters to show only results that match your interests</p>
+            {{ form }}
+        </div>
     </div>
 </div>
