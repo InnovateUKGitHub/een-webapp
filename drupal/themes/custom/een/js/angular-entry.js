@@ -395,6 +395,9 @@
           country: $scope.data.country
         }));
 
+        checkboxFactory.setOpps($scope.data.opportunity_type);
+        checkboxFactory.setCountry($scope.data.country);
+
       }).fail(function () {
         $scope.results = [];
       });
@@ -502,8 +505,7 @@
         };
 
         queryAPI(true);
-        checkboxFactory.setOpps($scope.data.opportunity_type);
-        checkboxFactory.setCountry($scope.data.country);
+
       } else {
         $scope.data = {
           opportunity_type: [],
