@@ -25,7 +25,7 @@ if [ ! -z "$csdTemplatesChanges" ] || [ ! -z "$jsTemplatesChanges" ] || [ ! -z "
     ./node_modules/gulp-cli/bin/gulp.js --verbose
 
 else
-    echo "drupal/themes/custom/een has not changed, not running gulp"
+    echo "drupal/themes/custom/een or /js has not changed, not running gulp"
 fi
 
 

@@ -106,16 +106,6 @@ class ExpressionOfInterestForm extends AbstractForm
                     ],
                 ],
             ],
-            'other_email' => [
-                '#type'          => 'textfield',
-                '#title'         => t('Other email addresses (optional)'),
-                '#label_display' => 'before',
-                '#attributes'    => [
-                    'class' => [
-                        'form-control',
-                    ],
-                ],
-            ],
             'phone'       => [
                 '#type'          => 'textfield',
                 '#title'         => t('Phone number'),
@@ -180,7 +170,6 @@ class ExpressionOfInterestForm extends AbstractForm
         }
 
         $this->session->set('eoi', true);
-        $this->session->set('other_email', $form_state->getValue('other_email'));
         $this->session->set('description', $form_state->getValue('description'));
         $this->session->set('interest', $form_state->getValue('interest'));
         $this->session->set('more', $form_state->getValue('more'));

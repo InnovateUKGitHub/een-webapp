@@ -32,20 +32,19 @@ sed -i -e "s/DB_USERNAME/$dbuser/g" $drupalSettings
 sed -i -e "s/DB_PASSWORD/$dbpass/g" $drupalSettings
 sed -i -e "s/DB_HOST/$dbhost/g" $drupalSettings
 
-# force compile on first build
-test -e $htdocs/compiled/db/init || forceCompile=true
-
-databaseChanges=`diff --exclude="*.git*" -r $htdocs/db/init $htdocs/compiled/db/init | grep "Common subdirectories" -v || true`
-# check if diff is empty (no changes)
+test -e $htdocs/db/update || forceCompile=true
+databaseChanges=`diff --exclude="*.git*" -r $htdocs/db/update $htdocs/db/init | grep "Common subdirectories" -v || true`
 
 if [ ! -z "$databaseChanges" ] || [ ! -z "$forceCompile" ];then
-    echo "db/init has changed:"
+    echo "db/update has changed:"
     echo "updating database"
 
     $htdocs/db/setup.sh
     $htdocs/bin/drush cr
     $htdocs/bin/drush en opportunities events elastic_search twig_extensions -y
 
+    mkdir -p $htdocs/db/update
+    cp -r $htdocs/db/init/* $htdocs/db/update
 else
     echo "db/init has not changed, clearing the cache"
     $htdocs/bin/drush cr
