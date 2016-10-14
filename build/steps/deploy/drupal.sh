@@ -18,8 +18,6 @@ drupalSettings=$htdocs/drupal/sites/default/settings.php
 cp $serviceRoot/elastic_search.default.settings.yml $serviceRoot/elastic_search.settings.yml
 sed -i -e "s/HOSTNAME_SERVICE/$hostnameapi/g" $serviceRoot/elastic_search.settings.yml
 
-$htdocs/db/setup.sh
-
 cp $drupalRoot/default/default.settings.php $drupalSettings
 cp $drupalRoot/example.settings.local.php $drupalRoot/default/settings.local.php
 chmod 755 $drupalRoot/default/settings.php
@@ -34,8 +32,22 @@ sed -i -e "s/DB_USERNAME/$dbuser/g" $drupalSettings
 sed -i -e "s/DB_PASSWORD/$dbpass/g" $drupalSettings
 sed -i -e "s/DB_HOST/$dbhost/g" $drupalSettings
 
-echo "Clearing drupal cache"
-$htdocs/bin/drush cr
+# force compile on first build
+test -e $htdocs/compiled/db/init || forceCompile=true
 
-echo "Installing modules"
-$htdocs/bin/drush en opportunities events elastic_search twig_extensions -y
+databaseChanges=`diff --exclude="*.git*" -r $htdocs/db/init $htdocs/compiled/db/init | grep "Common subdirectories" -v || true`
+# check if diff is empty (no changes)
+
+if [ ! -z "$databaseChanges" ] || [ ! -z "$forceCompile" ];then
+    echo "db/init has changed:"
+    echo "updating database"
+
+    $htdocs/db/setup.sh
+    $htdocs/bin/drush cr
+    $htdocs/bin/drush en opportunities events elastic_search twig_extensions -y
+
+else
+    echo "db/init has not changed, clearing the cache"
+    $htdocs/bin/drush cr
+fi
+

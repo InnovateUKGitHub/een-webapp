@@ -31,3 +31,4 @@ drupal/modules/custom/elastic_search/config/install/elastic_search.settings.yml
 html-coverage/
 drupal/themes/custom/een/dist
 /drupal/nbproject/private/
+compiled/
