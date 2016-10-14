@@ -266,7 +266,6 @@ class SignUpController extends ControllerBase
             'profile_title' => $profileTitle,
             'reference_number' => $this->session->get('reference_number'),
             
-            'other_email' => $this->session->get('other_email'),
             'description' => $this->session->get('description'),
             'interest'    => $this->session->get('interest'),
             'more'        => $this->session->get('more'),

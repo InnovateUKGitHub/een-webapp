@@ -157,7 +157,6 @@ class OpportunityController extends ControllerBase
     private function clearSession()
     {
         $this->session->delete('eoi');
-        $this->session->delete('other_email');
         $this->session->delete('description');
         $this->session->delete('interest');
         $this->session->delete('more');
@@ -188,9 +187,6 @@ class OpportunityController extends ControllerBase
      */
     private function setSession($contact)
     {
-        if (isset($contact['Email_Address_2__c'])) {
-            $this->session->set('other_email', $contact['Email_Address_2__c']);
-        }
         if (isset($contact['Phone'])) {
             $this->session->set('phone', $contact['Phone']);
         }
@@ -228,7 +224,6 @@ class OpportunityController extends ControllerBase
         $form['interest']['#attributes']['disabled'] = 'disabled';
         $form['more']['#attributes']['disabled'] = 'disabled';
         $form['email']['#attributes']['disabled'] = 'disabled';
-        $form['other_email']['#attributes']['disabled'] = 'disabled';
         $form['phone']['#attributes']['disabled'] = 'disabled';
         $form['actions']['submit']['#attributes']['disabled'] = 'disabled';
     }
