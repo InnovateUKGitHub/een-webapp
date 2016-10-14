@@ -80,7 +80,7 @@ class OpportunitiesExploreForm extends AbstractForm
             ],
             'opportunity_type' => [
                 '#type'    => 'radios',
-                '#title'   => t('Choose a partnership type...'),
+                '#title'   => t('Choose a partnership type &hellip;'),
                 '#options' => $types,
                 '#attributes' => [
                     'ng-click' => 'selectOppCheckbox($event)',
@@ -93,7 +93,7 @@ class OpportunitiesExploreForm extends AbstractForm
 
             'country_choice' => [
                 '#type'    => 'radios',
-                '#title'   => t('Where.. '),
+                '#title'   => t('Where &hellip;'),
                 '#options' => $countryChoices,
                 '#attributes' => [
                     'ng-click' => 'selectOppCheckbox($event)',

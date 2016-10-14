@@ -81,7 +81,11 @@ class SignUpStep1Form extends AbstractForm
                     'class' => [
                         'form-control',
                     ],
+                    'autocomplete' => [
+                        'given-name'
+                    ],
                 ],
+                
             ],
             'lastname'      => [
                 '#type'          => 'textfield',
@@ -96,6 +100,9 @@ class SignUpStep1Form extends AbstractForm
                 '#attributes'    => [
                     'class' => [
                         'form-control',
+                    ],
+                    'autocomplete' => [
+                        'family-name'
                     ],
                 ],
             ],
@@ -113,10 +120,13 @@ class SignUpStep1Form extends AbstractForm
                     'class' => [
                         'form-control',
                     ],
+                    'autocomplete' => [
+                        'email'
+                    ],
                 ],
             ],
             'contact_phone' => [
-                '#type'          => 'textfield',
+                '#type'          => 'number',
                 '#title'         => t('Contact telephone number'),
                 '#label_display' => 'before',
                 '#required'      => true,
@@ -129,23 +139,17 @@ class SignUpStep1Form extends AbstractForm
                     'class' => [
                         'form-control',
                     ],
+                    'autocomplete' => [
+                        'tel'
+                    ],
                 ],
             ],
             'newsletter'    => [
                 '#type'    => 'checkboxes',
-                '#title'   => t('Please send me emails when there is a new:'),
-                '#options' => $types,
+                '#title'   => t('<span tabindex="0">Please send me emails when there is a new:</span>'),
+                '#options' => $types
             ],
-            'radiobutton'   => [
-                '#type'       => 'radios',
-                '#title'      => t('Please send me emails when there is a new:'),
-                '#options'    => $radio,
-                '#attributes' => [
-                    'class' => [
-                        'radio-buttons',
-                    ],
-                ],
-            ],
+            
             'actions'       => [
                 '#type'  => 'actions',
                 'submit' => [
