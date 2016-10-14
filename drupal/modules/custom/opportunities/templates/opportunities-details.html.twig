@@ -19,7 +19,7 @@
                 </p>
             </div>
             <div class="column-one-third">
-                <a class="button-brand" href="#express_your_interest">{{ 'Continue with application'|t }}</a>
+                <a tabindex="0" class="button-brand" href="#express_your_interest" title="Apply for this project">{{ 'Continue with application'|t }}</a>
             </div>
         </div>
     {% endif %}
@@ -31,8 +31,8 @@
             </a>
         </div>
         <div class="content-heading">
-            <h1>{{ 'Opportunity'|t }}</h1>
-            <h2 class="heading-large">{{ opportunity._source.title }}</h2>
+            <h1 tabindex="0">{{ 'Opportunity'|t }}</h1>
+            <h2 class="heading-large" tabindex="0">{{ opportunity._source.title }}</h2>
             <div class="meta">
                 <div class="meta-data">
                     <label>{{ 'Country of origin:'|t }}</label>
@@ -62,7 +62,7 @@
         <div class="column-one-third sticky-nav-container">
 
             <div class="contents-list sticky-sidebar">
-                <h3 class="heading-medium sticky-sidebar-header">{{ 'Contents'|t }}</h3>
+                <h3 class="heading-medium sticky-sidebar-header" tabindex="0">{{ 'Contents'|t }}</h3>
                 <ul class="sticky-sidebar-content">
                     <li><a href="#summary">{{ 'Summary'|t }}</a></li>
                     <li><a href="#description">{{ 'Description'|t }}</a></li>
@@ -72,10 +72,10 @@
                     <li><a href="#ipr">{{ 'Intellectual Property Rights (IPR)'|t }}</a></li>
                 </ul>
 
-                <a class="button-brand" href="#express_your_interest">Apply for this project</a>
+                <a tabindex="0" class="button-brand" href="#express_your_interest">Apply for this project</a>
                 <hr/>
                 <div class="save-actions">
-                    <h3>Save for later</h3>
+                    <h3  tabindex="0">Save for later</h3>
                     <div class="save-action sa-pin">
                         <a href="#">Pin to favourites</a>
                     </div>
@@ -87,7 +87,7 @@
             </div>
         </div>
         <div class="column-two-thirds contents-text-block">
-            <h3 class="heading-medium" id="summary">{{ 'Summary'|t }}</h3>
+            <h3 class="heading-medium" id="summary" tabindex="0">{{ 'Summary'|t }}</h3>
             <p>
                 {% if opportunity._source.summary %}
                     {{ opportunity._source.summary }}
@@ -95,7 +95,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium" id="description">{{ 'Description'|t }}</h3>
+            <h3 class="heading-medium" id="description" tabindex="0">{{ 'Description'|t }}</h3>
             <p>
                 {% if opportunity._source.description %}
                     {{ opportunity._source.description }}
@@ -103,7 +103,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium" id="partner_expertise_sought">{{ 'Partner expertise sought'|t }}</h3>
+            <h3 class="heading-medium" id="partner_expertise_sought" tabindex="0">{{ 'Partner expertise sought'|t }}</h3>
             <p>
                 {% if opportunity._source.partner_expertise %}
                     {{ opportunity._source.partner_expertise }}
@@ -111,7 +111,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium" id="advantages_and_innovations">{{ 'Advantages and innovations'|t }}</h3>
+            <h3 class="heading-medium" id="advantages_and_innovations" tabindex="0">{{ 'Advantages and innovations'|t }}</h3>
             <p>
                 {% if opportunity._source.advantage %}
                     {{ opportunity._source.advantage }}
@@ -119,7 +119,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium" id="development_stage">{{ 'Development Stage'|t }}</h3>
+            <h3 class="heading-medium" id="development_stage" tabindex="0">{{ 'Development Stage'|t }}</h3>
             <p>
                 {% if opportunity._source.stage %}
                     {{ opportunity._source.stage }}
@@ -127,7 +127,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium" id="ipr">{{ 'Intellectual Property Rights (IPR)'|t }}</h3>
+            <h3 class="heading-medium" id="ipr" tabindex="0">{{ 'Intellectual Property Rights (IPR)'|t }}</h3>
             <p>
                 {% if opportunity._source.ipr or opportunity._source.ipr_comment %}
                     {{ opportunity._source.ipr }}
@@ -143,17 +143,17 @@
     <div class="grid-row">
         <div class="column-one-third">
             <h3 class="heading-medium single-header-one-col"
-                id="express_your_interest">{{ 'Apply for this project'|t }}</h3>
+                id="express_your_interest" tabindex="0">{{ 'Apply for this project'|t }}</h3>
         </div>
         <div class="column-two-thirds">
 
             <div class="progressor">
-                <h3>How it works</h3>
+                <h3 tabindex="0">How it works</h3>
                 <div class="step-container">
                     <ul class="progressbar">
-                        <li class="active step1"><span>Submit your application to EEN</span></li>
-                        <li class="step2"><span>Later, EEN advisors will present applications</span></li>
-                        <li class="step3"><span>Then, client selects winning application(s)</span></li>
+                        <li class="active step1" tabindex="0"><span>Submit your application to EEN</span></li>
+                        <li class="step2" tabindex="0"><span>Later, EEN advisors will present applications</span></li>
+                        <li class="step3" tabindex="0"><span>Then, client selects winning application(s)</span></li>
                     </ul>
                 </div>
             </div>
@@ -185,7 +185,7 @@
                         {{ form.more }}
                     </div>
                     {{ form.email }}
-                    <div id="edit-email--description" class="description">
+                    <div id="edit-email--description" class="description" tabindex="0">
                         {{ 'You will be asked to create your EEN account if you do not already have one. If you do not have an email address, '|t }}
                         <a class="edit-email--phone-number"
                            href="#edit-phone">{{ 'please enter your phone number instead.'|t }}</a>
@@ -197,7 +197,7 @@
                     {{ form.other_email }}
                     <hr/>
                     <div>
-                        <h4 class="heading-small">{{ 'By submitting this information, I understand that:'|t }}</h4>
+                        <h4 class="heading-small" tabindex="0">{{ 'By submitting this information, I understand that:'|t }}</h4>
                         <ul>
                             <li>{{ 'We will be in touch within 2 days'|t }}</li>
                             <li>

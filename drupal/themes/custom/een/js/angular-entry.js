@@ -395,6 +395,9 @@
           country: $scope.data.country
         }));
 
+        checkboxFactory.setOpps($scope.data.opportunity_type);
+        checkboxFactory.setCountry($scope.data.country);
+
       }).fail(function () {
         $scope.results = [];
       });
@@ -406,6 +409,13 @@
 
       queryAPI();
     }, 700);
+
+    var liveQueryAPIDirect = debounce(function () {
+      $scope.meta.searching = true;
+      $scope.$apply();
+
+      queryAPI();
+    });
 
     $scope.submit = function () {
       queryAPI(true);
@@ -462,6 +472,7 @@
             $scope.data.opportunity_type.splice(index, 1);
           }
         }
+        liveQueryAPIDirect();
       }
     };
 
@@ -478,6 +489,7 @@
             $scope.data.country.splice(index, 1);
           }
         }
+        liveQueryAPIDirect();
       }
     };
 
@@ -493,8 +505,7 @@
         };
 
         queryAPI(true);
-        checkboxFactory.setOpps($scope.data.opportunity_type);
-        checkboxFactory.setCountry($scope.data.country);
+
       } else {
         $scope.data = {
           opportunity_type: [],

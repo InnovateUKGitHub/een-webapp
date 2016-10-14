@@ -6,7 +6,6 @@ use Drupal\Core\Url;
 use Drupal\elastic_search\Service\ElasticSearchService;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OpportunitiesService
 {
@@ -71,10 +70,10 @@ class OpportunitiesService
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
         $countries = $request->query->get(self::COUNTRY);
 
-        if ($countries[0] == 'anywhere') {
+        if (is_array($countries) && current($countries) == 'anywhere') {
             $countries = null;
         }
-        if ($countries[0] == 'europe') {
+        if (is_array($countries) && current($countries) == 'europe') {
             $countries = $this->getEuropeCountryCode();
         }
 
@@ -206,7 +205,11 @@ class OpportunitiesService
         foreach ($results['results'] as $result) {
 
             $title = isset($result['highlight']['title']) ? implode('', $result['highlight']['title']) : $result['_source']['title'];
-            $summary = isset($result['highlight']['summary']) ? implode('', $result['highlight']['summary']) : $result['_source']['summary'];
+            $summary = (isset($result['highlight']['summary'])
+                ? implode('', $result['highlight']['summary'])
+                : (isset($result['highlight']['description'])
+                    ? implode('', $result['highlight']['description'])
+                    : $result['_source']['summary']));
 
             $response['results'][] = [
                 'id'           => $result['_id'],
@@ -263,8 +266,10 @@ class OpportunitiesService
     public function verifyEmail($email, $token, $profileId)
     {
         $params = [
-            'email' => $email,
-            'url'   => \Drupal::request()->getSchemeAndHttpHost() . Url::fromRoute(
+            'template' => 'email-verification-opportunity',
+            'email'    => $email,
+            'url'      => \Drupal::request()->getSchemeAndHttpHost() .
+                Url::fromRoute(
                     'opportunities.details',
                     [
                         'token'     => $token,
@@ -280,7 +285,7 @@ class OpportunitiesService
 
         try {
             $this->service->sendRequest();
-        } catch (NotFoundHttpException $e) {
+        } catch (\Exception $e) {
             drupal_set_message('There was a problem while sending the email, please try later.', 'error');
         }
     }

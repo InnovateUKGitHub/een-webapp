@@ -12,7 +12,7 @@
             {% for row in results %}
                 <div class="row row-bordered">
                     <h3>
-                        {% if row._source.url and row._source.url matches '/^http*/' %}
+                        {% if row._source.type == 'merlin' or row._source.type == 'eventBrite' %}
                             <a rel="external" href="{{ row._source.url }}" target="_blank">
                                 {{ row._source.title }}
                             </a>
@@ -26,26 +26,29 @@
                         {# Start and End date #}
                         {% if row._source.start_date|date("d-m-Y") != row._source.end_date|date("d-m-Y") %}
                             {{ row._source.start_date|date("d-m-Y") }} |
-                            {{ row._source.end_date|date("d-m-Y") }} |
+                            {{ row._source.end_date|date("d-m-Y") }}
                         {% else %}
-                            {{ row._source.start_date|date("d-m-Y") }} |
+                            {{ row._source.start_date|date("d-m-Y") }}
                         {% endif %}
                         {# Country of origin #}
-                        {% set flag = row._source.country_code|lower %}
-                        {% if flag == 'uk' %}
-                            {% set flag = 'gb' %}
+                        {% if row._source.country_code is not empty %}
+                            |
+                            {% set flag = row._source.country_code|lower %}
+                            {% if flag == 'uk' %}
+                                {% set flag = 'gb' %}
+                            {% endif %}
+                            <span class="flag-icon flag-icon-{{ flag }}"></span>
+                            {{ row._source.country }}
                         {% endif %}
-                        <span class="flag-icon flag-icon-{{ flag }}"></span>
-                        {{ row._source.country }}
                     </p>
                     <p>
-                        {{ row._source.description }}
+                        {{ row._source.summary|raw }}
                     </p>
                 </div>
 
             {% endfor %}
 
-            {% include 'themes/custom/een/templates/pagination.html.twig'
+            {% include 'themes/custom/een/templates/navigation/pagination.html.twig'
             with {
             'route': route,
             'page': page,

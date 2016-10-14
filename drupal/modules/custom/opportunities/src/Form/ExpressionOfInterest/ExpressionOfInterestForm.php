@@ -32,7 +32,7 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public static function create(ContainerInterface $container)
     {
-        return new self($container->get('user.private_tempstore')->get(OpportunityController::SESSION));
+        return new self($container->get('user.private_tempstore')->get('SESSION_ANONYMOUS'));
     }
 
     /**
@@ -167,14 +167,14 @@ class ExpressionOfInterestForm extends AbstractForm
             $form_state->setRedirect(
                 'opportunities.eoi.review',
                 [
-                    'profileId' => $this->session->get('profileId'),
+                    'profileId' => $this->session->get('id'),
                 ]
             );
         } else {
             $form_state->setRedirect(
                 'opportunities.eoi.step1',
                 [
-                    'profileId' => $this->session->get('profileId'),
+                    'profileId' => $this->session->get('id'),
                 ]
             );
         }
