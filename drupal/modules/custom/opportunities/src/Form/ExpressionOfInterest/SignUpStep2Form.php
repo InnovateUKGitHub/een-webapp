@@ -93,7 +93,7 @@ class SignUpStep2Form extends AbstractForm
             ],
             'website'           => [
                 '#type'           => 'textfield',
-                '#title'          => t('Website URL'),
+                '#title'          => t('Website'),
                 '#label_display'  => 'before',
                 '#attributes'     => [
                     'class' => [
@@ -103,7 +103,7 @@ class SignUpStep2Form extends AbstractForm
             ],
             'company_phone'     => [
                 '#type'           => 'textfield',
-                '#title'          => t('Company telephone number'),
+                '#title'          => t('Company switchboard phone number'),
                 '#label_display'  => 'before',
                 '#attributes'     => [
                     'class' => [
