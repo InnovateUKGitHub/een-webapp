@@ -747,6 +747,11 @@ form[data-drupal-selector="opportunity-search-form"] {
          @extend .font-xsmall;
     }
     .list-subtext {
+        
+        @extend .font-xsmall;
+        margin-top: .26316em;
+        margin-bottom: 1.05263em;
+    
         .follow-list {
             margin: 0 0 0 10px;
             font-weight:bold;
@@ -1304,7 +1309,7 @@ form[data-drupal-selector="opportunity-search-form"] {
         }
         
         &:before {
-            content: " e.g automative conponents";
+            content: " e.g automative components";
             color:#9B9B9B;
             font-size:18px;
             position: absolute;
