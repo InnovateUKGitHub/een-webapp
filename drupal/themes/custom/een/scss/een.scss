@@ -1143,7 +1143,7 @@ form[data-drupal-selector="opportunity-search-form"] {
     }
 }
 .sh-bold {
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .banner {
@@ -1153,6 +1153,7 @@ form[data-drupal-selector="opportunity-search-form"] {
     background:$status-background;
     p {
         margin-bottom:0;
+        font-weight:600;
     }
     .heading-xlarge {
         margin:15px 0;
