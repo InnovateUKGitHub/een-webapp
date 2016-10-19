@@ -1,6 +1,9 @@
 jQuery(function () {
     var $ = jQuery,
-        $modal = $('.modal');
+        $modal = $('.modal'),
+        $keywords = $('#keywords'),
+        $search = $('#search'),
+        $searchCountryInput = $('#search_country');
 
     var debounce = function (func, wait, immediate) {
       var timeout;
@@ -48,7 +51,6 @@ jQuery(function () {
       }).then(function (data) {
         $('.sb-results').html('<span>'+data.total + '</span> opportunities found');
         
-        
         var str = $.param({ search: search, opportunity_type: opportunity_type, country: country });
         var url = '/opportunities#!/page/1?'+str;
         $('.js-sb-view-results').attr('href', url);
@@ -69,24 +71,41 @@ jQuery(function () {
     /*
      * Keyword search 
      */
-    $('#keywords').on('keyup', function() {
-        $('#search').val($('#keywords').text());
-        if($('#keywords').text().length > 20){
-            $(this).removeClass('block');
-        } else {
-            $(this).addClass('block');
+    $keywords.on('keyup', function(e) {
+        
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code != 9 && code != 16){
+            $search.val($keywords.text());
+            if($keywords.text().length > 20){
+                $(this).removeClass('block');
+            } else {
+                $(this).addClass('block');
+            }
+            $(this).removeAttr("aria-label");
+            updateResults();
         }
-        updateResults();
+        
     });
 
-    $('#keywords').click(function() {
-        if ($('#search').val() === '') {
+    $keywords.click(function() {
+        if ($search.val() === '') {
             $(this).addClass('block');
-            $('#keywords').text('');
-            $('#search').val('');
+            $keywords.text('');
+            $search.val('');
         }
-        updateResults();
     });
+    
+    $keywords.on('focus', function(e){
+        $(window).keyup(function (e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 9 && $keywords.text() === 'Enter a keyword') {
+                $keywords.text('');
+                $search.val('');
+            }
+        });
+    });
+
+    
     
     
     /* 
@@ -105,20 +124,32 @@ jQuery(function () {
         var countries = $("#edit-country").val();
         if(countries.length == 1){
             $('#search_country .chosen').text(countries.length + ' country selected');
+            $('#search_country').attr("aria-label", countries.length + ' country selected');
         } else {
             $('#search_country .chosen').text(countries.length + ' countries selected');
+            $('#search_country').attr("aria-label", countries.length + ' countries selected');
         }
     });
     
 
     /* opportunity type dropdown (1st) */
     $('#search_type').on('click', function(){
-       $('.modal .form-item').hide();
+        openTypeList();
+    });
+    
+    $('#search_type').on('keydown', function(e){
+        if (e.which == 32) {   // on spacebar    
+            e.stopPropagation(); 
+            openTypeList();
+        }
+    });
+    
+    function openTypeList() {
+        $('.modal .form-item').hide();
         openModal();
         $('.modal .form-types').show();
-        updateResults();
-    });
-
+        setTimeout(function() { $('#edit-opportunity-type--wrapper legend').focus() }, 500);
+    }
 
     $('.explore-form #edit-opportunity-type input').on('change', function() {
        var text = $('input:checked', '.explore-form #edit-opportunity-type').parent().text();
@@ -127,8 +158,9 @@ jQuery(function () {
            $('#search_type').removeClass('empty');
            closeModal();
            $('.sb-close-modal').addClass('hide');
+           $('#search_type').focus();
+           $('#search_type').attr("aria-label", text);
        }
-
        updateResults();
     });
 
@@ -137,15 +169,28 @@ jQuery(function () {
      * Country type selection
      *
      */
-    $('#search_country').on('click', function(){
+    
+    
+    /* opportunity type dropdown (1st) */
+    $searchCountryInput.on('click', function(){
+        showCountryTypes();
+    });
+    
+    $searchCountryInput.on('keydown', function(e){
+        if (e.which == 32) {   // on spacebar   
+            e.stopPropagation(); 
+            showCountryTypes();
+        }
+    });
+    
+    function showCountryTypes(){
         $('.modal .form-item').hide();
         openModal();
         $('.modal .form-countries, .modal .form-item-country').show();
         $('.search-field input').attr('disabled', 'disabled');
         $('label[for="edit-country-choice-"]').append('<span class="sb-close-modal">Done</span>');
-        
-        updateResults();
-    });
+        setTimeout(function() { $('#edit-country-choice--wrapper legend').focus() }, 500);
+    }
 
 
 
@@ -164,11 +209,11 @@ jQuery(function () {
            
                 
             if(val != ''){
-                $('#search_country .chosen').html(text);
-                $('#search_country').removeClass('empty');
-
+                $searchCountryInput.children('.chosen').html(text);
+                $searchCountryInput.removeClass('empty').focus().attr("aria-label", text);;
                 $('.sb-close-modal').addClass('hide');
                 closeModal();
+                
             } else {
                 $('.search-field input').removeAttr('disabled');
                 $('.sb-close-modal').removeClass('hide');
@@ -178,17 +223,23 @@ jQuery(function () {
         updateResults();
     });
 
+
+    
+    
+    $('.explore-form legend, .explore-form label').attr('tabindex', "0");
+    $('.explore-form label[for="edit-country-choice-"]').removeAttr("tabindex").attr("aria-hidden", "true");
+    
+    
+    
     /*
-     *  close modal for selecting multiple countries.
-     *
+     * 
+     * MODAL
      */
-    $(document).on('click', '.sb-close-modal', function(){
-        closeModal();
-    });
     
     
     function openModal(){
         $modal.show();
+        $modal.attr('aria-live', 'assertive');
         if ($(window).width() < 640) {
             $modal.show().css('top', $(document).scrollTop() + 30+'px');
         }
@@ -217,5 +268,11 @@ jQuery(function () {
         });       
     }
     
-
+        /*
+     *  close modal for selecting multiple countries.
+     *
+     */
+    $(document).on('click', '.sb-close-modal', function(){
+        closeModal();
+    });
 });
