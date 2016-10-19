@@ -18,7 +18,7 @@
 <div class="grid-row">
     <div class="column-two-thirds pull-right">
         <div class="row" ng-show="meta.searched" ng-cloak ng-class="{ transp: meta.searching }">
-            <h3 class="heading-xlarge results-list-heading">
+            <h3 class="heading-xlarge results-list-heading" tabindex="0">
                 {[{ data.total | number }]}
                 <span class="font-xsmall">
                     <ng-pluralize count="data.total"
@@ -33,20 +33,19 @@
         </div>
 
         <div class="results-list">
-            <h4 tabindex="0" class="list-subtext">Get updates to this list <a href="#" class="follow-list"
-                                                                             tabindex="0"><i class="fa fa-envelope"
-                                                                                             aria-hidden="true"></i>
-                    Email</a> <a href="#" class="follow-list" tabindex="0"><i class="fa fa-rss" aria-hidden="true"></i>
-                    RSS</a></h4>
+            <h4 tabindex="0" class="list-subtext">Get updates to this list 
+                <a href="#" class="follow-list" tabindex="0"><i class="fa fa-envelope" aria-hidden="true"></i>Email<span tabindex="0" class="sr-only">Receive email updates on this search</span></a> 
+                <a href="#" class="follow-list" tabindex="0"><i class="fa fa-rss" aria-hidden="true"></i>RSS<span tabindex="0" class="sr-only">Receive RSS updates on this search</span></a>
+            </h4>
             <div class="contents-text-block">
-                <p tabindex="0" class="sr-only">The search results below each have a summary which you may find useful
-                    in determining if the opportunity is what you’re looking for.</p>
+                <h3 tabindex="0" class="sr-only">The search results below each have a summary which you may find useful
+                    in determining if the opportunity is what you’re looking for.</h3>
             </div>
             <div class="row row-bordered" ng-show="meta.searched" ng-repeat="row in results" ng-cloak
                  ng-class="{ transp: meta.searching }">
                 <h3 class="results-list-heading-item" tabindex="0">
                     <a ng-href="/opportunities/{[{row.id}]}" id="opportunity-link" ng-bind-html="row.title | unsafe">
-                        {[{ row.title }]}
+                        {[{ row.title }]}</span>
                     </a>
                 </h3>
 
@@ -58,8 +57,8 @@
                     {# lastupdated #}
                     {[{ row.date }]}
 
-                    <span ng-class="getFlagClass(row.country_code)"></span>
-                    {[{ row.country }]}
+                    <span ng-class="getFlagClass(row.country_code)" role="presentation"></span>
+                    <span class="sr-only">Country of origin </span>{[{ row.country }]}
                 </p>
             </div>
 
@@ -111,7 +110,7 @@
     </div>
     <div class="column-one-third pull-left">
         <div class="filter-container">
-            <p class="font-xsmall">You can use the filters to show only results that match your interests</p>
+            <p class="font-xsmall" tabindex="0">You can use the filters to show only results that match your interests</p>
             {{ form }}
         </div>
     </div>

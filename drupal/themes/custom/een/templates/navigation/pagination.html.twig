@@ -17,7 +17,7 @@
 
     {% if page < pageTotal %}
         <li class="next" {% if ajax == true %}ng-show="!meta.searched"{% endif %}>
-            <a id="pagination-next" href="{{ url(route, {'page': page + 1}|merge(params)) }}" {% if ajax == true %}ng-click="next($event)"{% endif %}>
+            <a id="pagination-next" tabindex="0" href="{{ url(route, {'page': page + 1}|merge(params)) }}" {% if ajax == true %}ng-click="next($event)"{% endif %}>
                 {{ 'Next'|t }} <span class="visuallyhidden">{{ 'page'|t }}</span>
                 <span class="page-numbers">{{ page + 1 }} {{ 'of'|t }} {{ pageTotal }}</span>
             </a>
@@ -33,7 +33,7 @@
         </li>
 
         <li class="next" ng-show="meta.searched && data.page < data.pageTotal" ng-cloak>
-            <a id="pagination-next" ng-click="next($event)">
+            <a id="pagination-next" tabindex="0" ng-click="next($event)">
                 Next <span class="visuallyhidden">page</span>
                 <span class="page-numbers">{[{ data.page + 1 }]} of {[{ data.pageTotal }]}</span>
             </a>
