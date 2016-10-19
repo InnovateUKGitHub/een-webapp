@@ -45,7 +45,7 @@
                  ng-class="{ transp: meta.searching }">
                 <h3 class="results-list-heading-item" tabindex="0">
                     <a ng-href="/opportunities/{[{row.id}]}" id="opportunity-link" ng-bind-html="row.title | unsafe">
-                        {[{ row.title }]}
+                        {[{ row.title }]}</span>
                     </a>
                 </h3>
 
@@ -57,8 +57,8 @@
                     {# lastupdated #}
                     {[{ row.date }]}
 
-                    <span ng-class="getFlagClass(row.country_code)"></span>
-                    {[{ row.country }]}
+                    <span ng-class="getFlagClass(row.country_code)" role="presentation"></span>
+                    <span class="sr-only">Country of origin </span>{[{ row.country }]}
                 </p>
             </div>
 

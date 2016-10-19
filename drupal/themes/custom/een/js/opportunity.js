@@ -56,7 +56,15 @@ jQuery(function () {
 
         $(document).on('click', '.accordion-toggle', function(e){
             e.preventDefault();
+            var accordionContent = $(this).next(panel);
 
+            //Expand or collapse this panel
+            $(accordionContent).slideToggle('slow', function(){
+                 $(toggle).toggleClass('visible', $(this).is(':visible'));
+            });
+        });
+        $(document).on('focus', '.accordion-toggle', function(e){
+            e.preventDefault();
             var accordionContent = $(this).next(panel);
 
             //Expand or collapse this panel

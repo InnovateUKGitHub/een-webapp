@@ -40,8 +40,8 @@
                 </form>
             </div>
             <p>
-                <a href="#" class="edit-eoi">Edit</a>
-                <a href="#" class="hidden update-eoi">Update</a>
+                <a href="#" class="edit-eoi">Edit <span class="sr-only">the short description of your organisation, activities, products and services:</span></a>
+                <a href="#" class="hidden update-eoi">Update <span class="sr-only">your changes</span></a>
             </p>
         </div>
     </div>
@@ -61,8 +61,8 @@
                 </form>
             </div>
             <p>
-                <a href="#" class="edit-eoi">Edit</a>
-                <a href="#" class="hidden update-eoi">Update</a>
+                <a href="#" class="edit-eoi">Edit <span class="sr-only">what interests you about this opportunity and what do you expect of that organisation?</span></a>
+                <a href="#" class="hidden update-eoi">Update <span class="sr-only">your changes</span></a>
             </p>
         </div>
     </div>
@@ -78,8 +78,8 @@
                 </form>
             </div>
             <p>
-                <a href="#" class="edit-eoi">Edit</a>
-                <a href="#" class="hidden update-eoi">Update</a>
+                <a href="#" class="edit-eoi">Edit<span class="sr-only">anything further you would like to know about this opportunity?</span></a>
+                <a href="#" class="hidden update-eoi">Update <span class="sr-only">your changes</span></a>
             </p>
         </div>
     </div>
@@ -110,7 +110,7 @@
                     <p>Yes - please send me emails when there is a new blog post and newsletter</p>
                 {% endif %}
             </div>
-            <p><a href="{{ url('opportunities.eoi.step1', {'profileId': form.profile_id}) }}">Change</a></p>
+            <p><a href="{{ url('opportunities.eoi.step1', {'profileId': form.profile_id}) }}">Change <span class="sr-only">details about you</span></a></p>
         </div>
         <div class="column-full">
             <hr>
@@ -128,7 +128,7 @@
                 <p><strong class="label company-url sh-bold">Company URL:</strong><span>{{ form.website }}</span></p>
                 <p><strong class="label telephone-number sh-bold">Telephone number:</strong><span>{{ form.company_phone }}</span></p>
             </div>
-            <p><a href="{{ url('opportunities.eoi.step2', {'profileId': form.profile_id}) }}">Change</a></p>
+            <p><a href="{{ url('opportunities.eoi.step2', {'profileId': form.profile_id}) }}">Change <span class="sr-only">details about your company</span></a></p>
         </div>
         <div class="column-full">
             <hr>
@@ -149,7 +149,7 @@
                     <abbr class="post-code" itemprop="post-code" title="SN13 8PN">{{ form.postcode }}</abbr>
                 </div>
             </div>
-            <p><a href="{{ url('opportunities.eoi.step3', {'profileId': form.profile_id}) }}">Change</a></p>
+            <p><a href="{{ url('opportunities.eoi.step3', {'profileId': form.profile_id}) }}">Change <span class="sr-only">your address</span></a></p>
         </div>
         <div class="column-full">
             <hr>

@@ -548,8 +548,11 @@ form {
         padding-left: 14px;
         color:#4A4A4A;
         margin:7px 0;
-        display:none;
+        @extend .sr-only;
         @extend .font-xsmall;
+        &.show {
+            clip:inherit;
+        }
 
         &#edit-email--description {
             border:none;
