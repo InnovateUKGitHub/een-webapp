@@ -63,6 +63,7 @@ class OpportunitiesForm extends AbstractForm
                 '#attributes' => [
                     'ng-model' => 'data.search',
                     'ng-change' => 'queryKeyUp()',
+                    'tabindex' => '0',
                     'class' => [
                         'form-control',
                     ],
@@ -76,6 +77,7 @@ class OpportunitiesForm extends AbstractForm
                 '#title'   => t('I want to&hellip;'),
                 '#options' => $types,
                 '#attributes' => [
+                    'tabindex' => '0',
                     'ng-click' => 'selectOppCheckbox($event)'
                 ]
             ],
@@ -84,6 +86,7 @@ class OpportunitiesForm extends AbstractForm
                 '#title'      => t('Country of origin'),
                 '#options'    => $countries,
                 '#attributes' => [
+                    'tabindex' => '0',
                     'ng-click' => 'selectCountryCheckbox($event)',
                     'class' => [
                         'accordion-container',
@@ -100,6 +103,7 @@ class OpportunitiesForm extends AbstractForm
             ],
             '#method'          => Request::METHOD_POST,
             '#attributes'      => [
+                'tabindex' => '0',
                 'ng-submit' => "submit()",
             ],
         ];
