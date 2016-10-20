@@ -79,7 +79,7 @@
             <h3 class="heading-medium" id="summary" tabindex="0">{{ 'Summary'|t }}</h3>
             <p>
                 {% if opportunity._source.summary %}
-                    {{ opportunity._source.summary }}
+                    {{ opportunity._source.summary|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
@@ -87,7 +87,7 @@
             <h3 class="heading-medium" id="description" tabindex="0">{{ 'Description'|t }}</h3>
             <p>
                 {% if opportunity._source.description %}
-                    {{ opportunity._source.description }}
+                    {{ opportunity._source.description|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
@@ -95,7 +95,7 @@
             <h3 class="heading-medium" id="partner_expertise_sought" tabindex="0">{{ 'Partner expertise sought'|t }}</h3>
             <p>
                 {% if opportunity._source.partner_expertise %}
-                    {{ opportunity._source.partner_expertise }}
+                    {{ opportunity._source.partner_expertise|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
@@ -103,7 +103,7 @@
             <h3 class="heading-medium" id="advantages_and_innovations" tabindex="0">{{ 'Advantages and innovations'|t }}</h3>
             <p>
                 {% if opportunity._source.advantage %}
-                    {{ opportunity._source.advantage }}
+                    {{ opportunity._source.advantage|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
@@ -111,7 +111,7 @@
             <h3 class="heading-medium" id="development_stage" tabindex="0">{{ 'Development stage'|t }}</h3>
             <p>
                 {% if opportunity._source.stage %}
-                    {{ opportunity._source.stage }}
+                    {{ opportunity._source.stage|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
@@ -119,8 +119,8 @@
             <h3 class="heading-medium" id="ipr" tabindex="0">{{ 'Intellectual Property Rights (IPR)'|t }}</h3>
             <p>
                 {% if opportunity._source.ipr or opportunity._source.ipr_comment %}
-                    {{ opportunity._source.ipr }}
-                    {{ opportunity._source.ipr_comment }}
+                    {{ opportunity._source.ipr|raw }}
+                    {{ opportunity._source.ipr_comment|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
