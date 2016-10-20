@@ -16,9 +16,14 @@
 </div>
 
 <div class="grid-row">
-    <div class="column-two-thirds pull-right">
+    <div class="column-one-third">
+        <div class="filter-container">
+            {{ form }}
+        </div>
+    </div>
+    <div class="column-two-thirds"  aria-live="assertive">
         <div class="row" ng-show="meta.searched" ng-cloak ng-class="{ transp: meta.searching }">
-            <h3 class="heading-xlarge results-list-heading" tabindex="0">
+            <h3 class="heading-xlarge results-list-heading" tabindex="0" aria-live="assertive">
                 {[{ data.total | number }]}
                 <span class="font-xsmall">
                     <ng-pluralize count="data.total"
@@ -29,7 +34,7 @@
 
         <div class="row" ng-show="!meta.searched" ng-class="{ transp: meta.searching }">
             <h3 class="heading-xlarge gov uk results-list-heading" tabindex="0">{{ total|number_format(0, '.', ',') }}
-                <span class="font-xsmall">{{ 'opportunities found'|t }}</span></h3>
+                <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
         </div>
 
         <div class="results-list">
@@ -108,9 +113,5 @@
         } only %}
 
     </div>
-    <div class="column-one-third pull-left">
-        <div class="filter-container">
-            {{ form }}
-        </div>
-    </div>
+    
 </div>
