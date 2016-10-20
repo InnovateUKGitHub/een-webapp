@@ -10,9 +10,9 @@
 {% endif %}
 
 <div class="content-heading">
-    <h1 tabindex="0">{{ 'Partnering Opportunities'|t }}</h1>
+    <h1 tabindex="0">{{ 'Partnering opportunities'|t }}</h1>
     <h2 class="heading-large" tabindex="0">{{ 'Find international partners'|t }}</h2>
-    <h3>{{ 'Search for partners to manufacture, distribute co-develop and supply your products, ideas and business.'|t }}</h3>
+    <h3>{{ 'Search for SME and academic partners to manufacture, distribute, co-develop and supply your products, ideas and business.'|t }}</h3>
 </div>
 
 <div class="grid-row">
@@ -22,20 +22,20 @@
                 {[{ data.total | number }]}
                 <span class="font-xsmall">
                     <ng-pluralize count="data.total"
-                                  when="{'0': 'opportunities', 'one': 'opportunity','other': 'opportunities'}"/>
+                                  when="{'0': 'opportunities found', 'one': 'opportunity found','other': 'opportunities found'}"/>
                 </span>
             </h3>
         </div>
 
         <div class="row" ng-show="!meta.searched" ng-class="{ transp: meta.searching }">
             <h3 class="heading-xlarge gov uk results-list-heading" tabindex="0">{{ total|number_format(0, '.', ',') }}
-                <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
+                <span class="font-xsmall">{{ 'opportunities found'|t }}</span></h3>
         </div>
 
         <div class="results-list">
             <h4 tabindex="0" class="list-subtext">Get updates to this list 
-                <a href="#" class="follow-list" tabindex="0"><i class="fa fa-envelope" aria-hidden="true"></i>Email<span tabindex="0" class="sr-only">Receive email updates on this search</span></a> 
-                <a href="#" class="follow-list" tabindex="0"><i class="fa fa-rss" aria-hidden="true"></i>RSS<span tabindex="0" class="sr-only">Receive RSS updates on this search</span></a>
+                <a href="#" class="follow-list" tabindex="0"><i class="fa fa-envelope" aria-hidden="true"></i> Email<span tabindex="0" class="sr-only">Receive email updates on this search</span></a> 
+                <a href="#" class="follow-list" tabindex="0"><i class="fa fa-rss" aria-hidden="true"></i> RSS<span tabindex="0" class="sr-only">Receive RSS updates on this search</span></a>
             </h4>
             <div class="contents-text-block">
                 <h3 tabindex="0" class="sr-only">The search results below each have a summary which you may find useful
@@ -110,7 +110,6 @@
     </div>
     <div class="column-one-third pull-left">
         <div class="filter-container">
-            <p class="font-xsmall" tabindex="0">You can use the filters to show only results that match your interests</p>
             {{ form }}
         </div>
     </div>

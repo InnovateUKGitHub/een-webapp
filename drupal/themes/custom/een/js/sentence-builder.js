@@ -98,7 +98,7 @@ jQuery(function () {
     $keywords.on('focus', function(e){
         $(window).keyup(function (e) {
             var code = (e.keyCode ? e.keyCode : e.which);
-            if (code == 9 && $keywords.text() === 'Enter a keyword') {
+            if (code == 9 && $keywords.text() === 'Enter sector or product') {
                 $keywords.text('');
                 $search.val('');
             }

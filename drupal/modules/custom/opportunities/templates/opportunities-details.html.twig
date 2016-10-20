@@ -19,7 +19,7 @@
                 </p>
             </div>
             <div class="column-one-third">
-                <a tabindex="0" class="button-brand" href="#express_your_interest" title="Apply for this project">{{ 'Continue with application'|t }}</a>
+                <a tabindex="0" class="button-brand" href="#express_your_interest" title="Apply for this opportunity">{{ 'Continue with application'|t }}</a>
             </div>
         </div>
     {% endif %}
@@ -31,7 +31,7 @@
             </a>
         </div>
         <div class="content-heading">
-            <h1 tabindex="0">{{ 'Opportunity'|t }}</h1>
+            <h1 tabindex="0">{{ 'Partnering opportunity'|t }}</h1>
             <h2 class="heading-large" tabindex="0">{{ opportunity._source.title }}</h2>
             <div class="meta">
                 <div class="meta-data">
@@ -68,22 +68,11 @@
                     <li><a href="#description">{{ 'Description'|t }}</a></li>
                     <li><a href="#partner_expertise_sought">{{ 'Partner expertise sought'|t }}</a></li>
                     <li><a href="#advantages_and_innovations">{{ 'Advantages and innovations'|t }}</a></li>
-                    <li><a href="#development_stage">{{ 'Development Stage'|t }}</a></li>
+                    <li><a href="#development_stage">{{ 'Development stage'|t }}</a></li>
                     <li><a href="#ipr">{{ 'Intellectual Property Rights (IPR)'|t }}</a></li>
                 </ul>
 
-                <a tabindex="0" class="button-brand" href="#express_your_interest">Apply for this project</a>
-                <hr/>
-                <div class="save-actions">
-                    <h3  tabindex="0">Save for later</h3>
-                    <div class="save-action sa-pin">
-                        <a href="#">Pin to favourites</a>
-                    </div>
-                    <div class="save-action sa-share">
-                        <a href="mailto:?subject={{ mail.subject|url_encode }}&body={{ mail.body|url_encode }}"
-                           target="_top">Share opportunity</a>
-                    </div>
-                </div>
+                <a tabindex="0" class="button-brand" href="#express_your_interest">apply for this opportunity</a>
             </div>
         </div>
         <div class="column-two-thirds contents-text-block">
@@ -119,7 +108,7 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium" id="development_stage" tabindex="0">{{ 'Development Stage'|t }}</h3>
+            <h3 class="heading-medium" id="development_stage" tabindex="0">{{ 'Development stage'|t }}</h3>
             <p>
                 {% if opportunity._source.stage %}
                     {{ opportunity._source.stage }}
@@ -143,7 +132,7 @@
     <div class="grid-row">
         <div class="column-one-third">
             <h3 class="heading-medium single-header-one-col"
-                id="express_your_interest" tabindex="0">{{ 'Apply for this project'|t }}</h3>
+                id="express_your_interest" tabindex="0">{{ 'Apply for this opportunity'|t }}</h3>
         </div>
         <div class="column-two-thirds">
 
@@ -152,8 +141,8 @@
                 <div class="step-container">
                     <ul class="progressbar">
                         <li class="active step1" tabindex="0"><span>Submit your application to EEN</span></li>
-                        <li class="step2" tabindex="0"><span>Later, EEN advisors will present applications</span></li>
-                        <li class="step3" tabindex="0"><span>Then, client selects winning application(s)</span></li>
+                        <li class="step2" tabindex="0"><span>Later, EEN sends applications to client</span></li>
+                        <li class="step3" tabindex="0"><span>Then, the client selects winning application(s)</span></li>
                     </ul>
                 </div>
             </div>
@@ -161,8 +150,9 @@
             {% if token == false %}
             <div class="verify-email">
                 {{ form_email }}
-                <p>To apply for this opportunity we need to validate your email. You will be sent a 6 digit confirmation email containing a verfication code. Simply copy this into the field below to continue.</p>
-                <hr />
+                <p>To apply for this opportunity we need to check you're a real person.</p>
+                
+                <p>Enter your email above, check your inbox and click on the link we've sent you to continue this application.</p>
             </div>
                 <div class="transp">
             {% endif %}
@@ -199,7 +189,7 @@
                                 <a href="#">{{ 'privacy policy'|t }}</a>,
                                 {{ 'my personal information will not be shared.' }}
                             </li>
-                            <li>{{ 'Information I provide in this application can be shared with potential partner in question after an EEN adviser has reviewed it and deemed it is what the receiving client is looking for.'|t }}</li>
+                            <li>{{ 'Information I provide in this application can be shared with the potential partner in question after an EEN adviser has reviewed it and deemed it is what the receiving client is looking for.'|t }}</li>
                             <li>{{ 'If we connect you, our involvement will step back a bit, but you need to keep us informed of follow on discussions and negotiations.'|t }}</li>
                         </ul>
                     </div>
