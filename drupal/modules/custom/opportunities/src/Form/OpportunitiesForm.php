@@ -48,11 +48,11 @@ class OpportunitiesForm extends AbstractForm
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $types = [
-            'BO' => t('buy a product or service'),
-            'BR' => t('sell my product or service'),
-            'TR' => t('find a manufacturer or licensee'),
-            'TO' => t('find a specialist'),
-            'RD' => t('develop tech / bid for funding'),
+            'BO' => t('to buy from'),
+            'BR' => t('to sell to'),
+            'TR' => t('that needs my tech/expertise'),
+            'TO' => t('with tech/expertise that I need'),
+            'RD' => t('to collaborate with'),
         ];
         $countries = $this->service->getCountryList();
 
@@ -74,7 +74,7 @@ class OpportunitiesForm extends AbstractForm
             ],
             'opportunity_type' => [
                 '#type'    => 'checkboxes',
-                '#title'   => t('I want to&hellip;'),
+                '#title'   => t('I\'m looking for a partner&hellip;'),
                 '#options' => $types,
                 '#attributes' => [
                     'tabindex' => '0',
