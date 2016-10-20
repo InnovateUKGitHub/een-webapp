@@ -32,7 +32,7 @@
             <ul class="error-summary-list">
                 {% for message in messages %}
                     {% if message is iterable %}
-                        <li>
+                        <li aria-live="assertive">
                             <a href="#{{ message.key }}">
                                 {% if message.general_text %}
                                     {{ message.general_text }}
@@ -42,7 +42,7 @@
                             </a>
                         </li>
                     {% else %}
-                        <li>{{ message }}</li>
+                        <li aria-live="assertive">{{ message }}</li>
                     {% endif %}
                 {% endfor %}
             </ul>

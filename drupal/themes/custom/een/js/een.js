@@ -21,6 +21,14 @@ jQuery(function () {
     
   
     
+    
+    
+    /*
+     * 
+     * accessibility
+     */
+    
+    
     /*
      * In some instances get a link to behave like button on spacebar press
      */
@@ -31,6 +39,26 @@ jQuery(function () {
             e.preventDefault();
         }
     });
+    
+    setTimeout(function() {
+        
+        if($('.error-summary-list').length){
+            $('.error-summary-list').find('li').each(function(){
+                var text = $(this).html();
+                $(this).html(text+'&nbsp;');
+            });
+        }
+        
+        if($('.continue-with-application-status').length){
+            var content = $('.continue-with-application-status').html();
+            $('.continue-with-application-status').html(content+'&nbsp;');
+            $('.js-continue-focus').focus();
+        }
+    }, 1000);
+    
+    
+    
+    
 
 });
 

@@ -10,8 +10,10 @@
 {% endif %}
 
 {% if opportunity is not empty %}
+    
+    
     {% if token %}
-        <div class="status-summary">
+        <div class="status-summary continue-with-application-status" aria-live="assertive">
             <div class="column-two-thirds">
                 <p><i class="fa fa-info-circle" aria-hidden="true"></i>
                     {{ 'Thank you for verifying your email address '|t }}
@@ -19,9 +21,10 @@
                 </p>
             </div>
             <div class="column-one-third">
-                <a tabindex="0" class="button-brand" href="#express_your_interest" title="Apply for this opportunity">{{ 'Continue with application'|t }}</a>
+                <a tabindex="0" class="button-brand js-continue-focus" href="#express_your_interest" title="Apply for this opportunity">{{ 'Continue with application'|t }}</a>
             </div>
         </div>
+        
     {% endif %}
     <div>
         <div>
@@ -53,7 +56,7 @@
                 {% endif %}
                 <div class="meta-data">
                     <label>{{ 'Opportunity ID:'|t }}</label>
-                    <p tabindex="0" aria-label="{{ opportunity._id|split('')|join(' ') }}">{{ opportunity._id }}</p>
+                    <p tabindex="0" aria-label="{{ opportunity._id|split('')|join(' ') }}"><span aria-hidden="true">{{ opportunity._id }}</span></p>
                 </div>
             </div>
         </div>
