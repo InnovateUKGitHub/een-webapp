@@ -39,7 +39,11 @@
   page.html.twig.
 #}
 <a href="#main-content" class="visually-hidden focusable">
-    {{ 'Skip to main content'|t }}
+    {% if skip_text is not null %}
+        {{ skip_text }}
+    {% else %}
+        {{ 'Skip to main content'|t }}
+    {% endif %}
 </a>
 {{ page_top }}
 {{ page }}

@@ -4,7 +4,6 @@ namespace Drupal\opportunities\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Drupal\opportunities\Form\MultiOpportunitiesForm;
-use Drupal\opportunities\Form\OpportunitiesForm;
 use Drupal\opportunities\Form\OpportunitiesExploreForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -170,7 +169,7 @@ class OpportunitiesController extends ControllerBase
      * @return array
      */
     public function exploreOpportunities()
-    {        
+    {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesExploreForm::class);
 
         return [
@@ -179,7 +178,5 @@ class OpportunitiesController extends ControllerBase
             '#route' => 'opportunities.explore',
         ];
     }
-    
-    
-    
+
 }
