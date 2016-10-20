@@ -124,6 +124,6 @@ function opportunities_theme()
 function opportunities_preprocess_html(&$variables)
 {
     if (\Drupal::request()->getPathInfo() === '/opportunities') {
-        $variables['skip_text'] = 'Skip to Search';
+        $variables['skip_text'] = 'View your search results';
     }
 }

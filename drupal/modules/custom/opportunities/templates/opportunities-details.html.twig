@@ -53,7 +53,7 @@
                 {% endif %}
                 <div class="meta-data">
                     <label>{{ 'Opportunity ID:'|t }}</label>
-                    <p>{{ opportunity._id }}</p>
+                    <p tabindex="0" aria-label="{{ opportunity._id|split('')|join(' ') }}">{{ opportunity._id }}</p>
                 </div>
             </div>
         </div>

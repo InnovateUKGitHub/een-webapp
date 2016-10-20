@@ -41,7 +41,7 @@ if [ ! -z "$databaseChanges" ] || [ ! -z "$forceCompile" ];then
 
     $htdocs/db/setup.sh
     $htdocs/bin/drush cr
-    $htdocs/bin/drush en opportunities events elastic_search twig_extensions -y
+    $htdocs/bin/drush en een_common opportunities events elastic_search twig_extensions -y
 
     mkdir -p $htdocs/db/update
     cp -r $htdocs/db/init/* $htdocs/db/update

@@ -1,0 +1,6 @@
+een.contact:
+ path: '/contact-us'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\ContactController::index'
+ requirements:
+   _permission: 'access content'

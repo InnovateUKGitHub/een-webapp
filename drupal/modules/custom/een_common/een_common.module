@@ -1,0 +1,12 @@
+<?php
+function een_common_theme()
+{
+    return [
+        'contact_form' => [
+            'variables' => [
+                'form'  => null,
+            ],
+            'template'  => 'contact-form',
+        ],
+    ];
+}
