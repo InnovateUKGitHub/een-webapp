@@ -53,7 +53,7 @@
                 {% endif %}
                 <div class="meta-data">
                     <label>{{ 'Opportunity ID:'|t }}</label>
-                    <p>{{ opportunity._source.id }}</p>
+                    <p>{{ opportunity._id }}</p>
                 </div>
             </div>
         </div>
@@ -119,8 +119,8 @@
             <h3 class="heading-medium" id="ipr" tabindex="0">{{ 'Intellectual Property Rights (IPR)'|t }}</h3>
             <p>
                 {% if opportunity._source.ipr or opportunity._source.ipr_comment %}
-                    {{ opportunity._source.ipr|raw }}
-                    {{ opportunity._source.ipr_comment|raw }}
+                    {{ opportunity._source.ipr }}
+                    {{ opportunity._source.ipr_comment }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
