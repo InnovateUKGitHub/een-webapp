@@ -26,7 +26,7 @@ jQuery(function () {
     };
 
     var ajaxSearch = function () {
-      var search = $('#search').val();
+      var search = $.trim( $('#search').val() ) ;
       var country;
       var opportunity_type = [$('input:checked', '.explore-form #edit-opportunity-type').val()];
       var checkboxes = [$('input:checked', '.explore-form #edit-country-choice').val()];
@@ -51,7 +51,12 @@ jQuery(function () {
       }).then(function (data) {
         $('.sb-results').html('<span>'+data.total + '</span> opportunities found');
         
-        var str = $.param({ search: search, opportunity_type: opportunity_type, country: country });
+        if(country == ''){
+            var str = $.param({ search: search, opportunity_type: opportunity_type });
+        } else {
+            var str = $.param({ search: search, opportunity_type: opportunity_type, country: country });
+        };
+        
         var url = '/opportunities#!/page/1?'+str;
         $('.js-sb-view-results').attr('href', url);
         
@@ -131,6 +136,13 @@ jQuery(function () {
         }
     });
     
+    
+    $('.modal .block-label').hover(
+            function(){ $(this).addClass('hover') },
+            function(){ $(this).removeClass('hover') }
+    );
+    
+    
 
     /* opportunity type dropdown (1st) */
     $('#search_type').on('click', function(){
@@ -144,14 +156,30 @@ jQuery(function () {
         }
     });
     
+    
+         
+    $(document).on('change', '.explore-form #edit-opportunity-type input', function() {
+        opportunityListUpdated();
+    });
+
+    $(document).on('change', '.explore-form #edit-opportunity-type-hidden', function() {
+        var dropdownVal = $(this).val();
+        $('.input[name="opportunity_type"]').parent('label').removeClass("selected");
+        $('input[name="opportunity_type"][value="' + dropdownVal + '"]').prop('checked', true).parent('label').addClass("selected");
+        opportunityListUpdated();
+    });
+    
+    
     function openTypeList() {
         $('.modal .form-item').hide();
         openModal();
         $('.modal .form-types').show();
-        setTimeout(function() { $('#edit-opportunity-type--wrapper legend').focus() }, 500);
+        $('.modal .js-form-item-opportunity-type-hidden').show();
+        
+        setTimeout(function() { $('#edit-opportunity-type-hidden').focus() }, 500);
     }
-
-    $('.explore-form #edit-opportunity-type input').on('change', function() {
+    
+    function opportunityListUpdated(){
        var text = $('input:checked', '.explore-form #edit-opportunity-type').parent().text();
        if(text){
            $('#search_type .chosen').html(text);
@@ -162,7 +190,10 @@ jQuery(function () {
            $('#search_type').attr("aria-label", text);
        }
        updateResults();
-    });
+    }
+    
+
+   
 
 
     /*
@@ -183,31 +214,42 @@ jQuery(function () {
         }
     });
     
-    function showCountryTypes(){
-        $('.modal .form-item').hide();
-        openModal();
-        $('.modal .form-countries, .modal .form-item-country').show();
-        $('.search-field input').attr('disabled', 'disabled');
-        $('label[for="edit-country-choice-"]').append('<span class="sb-close-modal">Done</span>');
-        setTimeout(function() { $('#edit-country-choice--wrapper legend').focus() }, 500);
-    }
+    //$('#edit-country-choice-hidden').bind('focus', function(){ $(this).removeClass("sh-only").addClass('sh-only'); });
 
-
-
-
+    
     /*
      * Specific country selection
      *
      */
     $('.explore-form #edit-country-choice input').on('change', function() {
+        updateCountryTypes();
+    });
+    
+    $('.explore-form #edit-country-choice-hidden').on('change', function() {
+        var dropdownVal = $(this).val();
+        $('.input[name="country_choice"]').parent('label').removeClass("selected");
+        $('input[name="country_choice"][value="' + dropdownVal + '"]').prop('checked', true).parent('label').addClass("selected");
+        updateCountryTypes();
+    });
+    
+    
+    function showCountryTypes(){
+        $('.modal .form-item').hide();
+        openModal();
+        $('.modal .form-countries, .modal .form-item-country, .modal .js-form-item-country-choice-hidden').show();
+        
+        $('.search-field input').attr('disabled', 'disabled');
+        $('label[for="edit-country-choice-"]').append('<span class="sb-close-modal">Done</span>');
+        setTimeout(function() { $('#edit-country-choice-hidden').focus().removeClass('.sr-only') }, 500);
+    }
+
+    function updateCountryTypes(){
         var text = $('input:checked', '.explore-form #edit-country-choice').parent().text();
         var val = $('input:checked', '.explore-form #edit-country-choice').val();
         var $countryList = $('.modal .form-item-country');
             $countryList.show();
 
-        if(text){
-           
-                
+        if(text){                
             if(val != ''){
                 $searchCountryInput.children('.chosen').html(text);
                 $searchCountryInput.removeClass('empty').focus().attr("aria-label", text);;
@@ -221,14 +263,7 @@ jQuery(function () {
             
         }
         updateResults();
-    });
-
-
-    
-    
-    $('.explore-form legend, .explore-form label').attr('tabindex', "0");
-    $('.explore-form label[for="edit-country-choice-"]').removeAttr("tabindex").attr("aria-hidden", "true");
-    
+    }
     
     
     /*
