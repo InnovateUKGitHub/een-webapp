@@ -100,7 +100,7 @@ class OpportunitiesExploreForm extends AbstractForm
             'opportunity_type_hidden' => [
                 '#type'    => 'select',
                 '#title'   => t('Choose a partnership type &hellip;'),
-                '#options' => $types,
+                '#options' => $typesAccessibility,
                 '#attributes' => [
                     'class' => [
                         'form-types sr-only form-control hidden-select-forms',
