@@ -319,4 +319,28 @@ class OpportunitiesService
 
         return $this->service->sendRequest();
     }
+
+    /**
+     * @param array $user
+     * @param array $data
+     *
+     * @return array
+     */
+    public function submitEoi($user, $data)
+    {
+        $params = [
+            'account_id'  => $user['account']['id'],
+            'profile_id'  => $data['profile_id'],
+            'description' => $data['description'],
+            'interest'    => $data['interest'],
+            'more'        => $data['more'],
+        ];
+
+        $this->service
+            ->setUrl('eoi')
+            ->setMethod(Request::METHOD_POST)
+            ->setBody($params);
+
+        return $this->service->sendRequest();
+    }
 }

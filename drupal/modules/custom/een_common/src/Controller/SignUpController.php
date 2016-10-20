@@ -316,6 +316,9 @@ class SignUpController extends ControllerBase
             ];
             $this->service->registerToEvent($data);
         }
+        if ($type === 'opportunities') {
+            $this->service->submitEoi($user, $form);
+        }
 
         return [
             '#theme' => $type == 'opportunities' ? 'sign_up_complete' : 'sign_up_complete_event',
