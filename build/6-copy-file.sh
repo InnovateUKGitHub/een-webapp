@@ -49,6 +49,3 @@ mkdir -p $workspace/compiled/drupal/themes/custom/een/scss
 mkdir -p $workspace/compiled/drupal/themes/custom/een/js
 cp -r $workspace/drupal/themes/custom/een/scss $workspace/compiled/drupal/themes/custom/een
 cp -r $workspace/drupal/themes/custom/een/js $workspace/compiled/drupal/themes/custom/een
-
-mkdir -p $workspace/compiled/db/init
-cp -r $workspace/db/init $workspace/compiled/db

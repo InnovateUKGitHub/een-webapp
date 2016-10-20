@@ -49,10 +49,10 @@ clear-cache:
 	@sh -c "cd drupal && $(DRUSH) cr"
 
 install-module:
-	@sh -c "cd drupal && $(DRUSH) en opportunities events elastic_search twig_extensions -y"
+	@sh -c "cd drupal && $(DRUSH) en een_common opportunities events elastic_search twig_extensions -y"
 
 delete-module:
-	@sh -c "cd drupal && $(DRUSH) pm-uninstall elastic_search opportunities events twig_extensions -y"
+	@sh -c "cd drupal && $(DRUSH) pm-uninstall een_common elastic_search opportunities events twig_extensions -y"
 
 install-dependencies:
 	@echo "Installing dependencies..."
