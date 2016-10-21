@@ -1608,13 +1608,31 @@ form[data-drupal-selector="opportunity-search-explore-form"] {
         padding:21px;
     } 
     
-    .hidden-select-forms {
-        max-width: 300px;
-        margin-left: 20px;
+    .form-item-opportunity-type-hidden {
+        padding:0;
     }
+    
+    
     .form-item-country-choice-hidden {
         padding:0;
     }
+    
+    
+    .form-item-opportunity-type-hidden, .form-item-country-choice-hidden {
+        label {
+            padding: 8px 0 0;
+            display: block;
+            font-size: 24px;
+        }
+        padding: 14px 14px 100px;
+        
+        select.hidden-select-forms {
+            width:100%;
+            height: 49px;
+        }
+    }
+    
+    
 }
 
 @import '_chosen';
