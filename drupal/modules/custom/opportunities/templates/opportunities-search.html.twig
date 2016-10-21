@@ -71,7 +71,7 @@
 
                 <div class="row row-bordered" ng-show="!meta.searched"
                      ng-class="{ transp: meta.paging || meta.searching }">
-                    <h3 class="results-list-heading-item">
+                    <h3 class="results-list-heading-item" tabindex="0">
                         <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}"
                            id="opportunity-link">
                             {{ row.title|raw }}
