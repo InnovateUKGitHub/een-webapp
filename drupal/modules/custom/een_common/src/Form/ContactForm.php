@@ -23,7 +23,7 @@ class ContactForm extends AbstractForm
         $form = [
             'firstname'     => [
                 '#type'           => 'textfield',
-                '#title'          => t('First name'),
+                '#title'          => t('First Name'),
                 '#label_display'  => 'before',
                 '#required'       => true,
                 '#required_error' => [
@@ -43,7 +43,7 @@ class ContactForm extends AbstractForm
             ],
             'lastname'      => [
                 '#type'           => 'textfield',
-                '#title'          => t('Last name'),
+                '#title'          => t('Last Name'),
                 '#label_display'  => 'before',
                 '#required'       => true,
                 '#required_error' => [
@@ -62,7 +62,7 @@ class ContactForm extends AbstractForm
             ],
             'contact_email' => [
                 '#type'           => 'email',
-                '#title'          => t('Email'),
+                '#title'          => t('Email Address'),
                 '#label_display'  => 'before',
                 '#required'       => true,
                 '#required_error' => [
@@ -81,7 +81,7 @@ class ContactForm extends AbstractForm
             ],
             'contact_phone' => [
                 '#type'           => 'number',
-                '#title'          => t('Contact telephone number'),
+                '#title'          => t('Phone Number'),
                 '#label_display'  => 'before',
                 '#required'       => true,
                 '#required_error' => [

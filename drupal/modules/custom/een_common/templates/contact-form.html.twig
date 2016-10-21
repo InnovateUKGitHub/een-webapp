@@ -1,7 +1,43 @@
 <div class="content-heading">
-    <h1>{{ 'Contact'|t }}</h1>
+    <h1 tabindex="0">{{ 'Contact us'|t }}</h1>
+    <h2 tabindex="0" class="heading-large">Get in touch<h2>
+    <p class="lede" tabindex="0">We're ready and willing to offer publicly-funded support to help ambitious businesses grow internationally.
+        You can pick up the phone or email us via the form below. Or if you prefer, Skype us.</p>
+</div>
+<div class="contents-text-block">
+    <h2 tabindex="0" class="heading-medium">Contact number</h2>
+    <p class="contact-number"><a href="tel:03001233066">0300 123 3066</a></p>
 </div>
 
 <div class="grid-row">
-    {{ form }}
+    <div class="email-form">
+        <hr />
+        <h2 tabindex="0" class="heading-medium">Email form</h2>
+        {{ form }}
+    </div>
+    <div class="skype-block">
+        <div class="skype-connect">
+            <h3 tabindex="0" class="heading-small">We'll happy chat to clients through whatever means they are comfortable with.</h3>
+            <p>Click on the buttons below to open up a Skype chat or video call.</p>
+            <script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
+            <div id="SkypeButton_Call_EENUK_1" class="skype-btn"></div>
+            <div id="SkypeButton_Call_EEN-UK_1" class="skype-btn"></div>
+        </div>
+    </div>
 </div>
+
+
+<script type="text/javascript">
+    Skype.ui(
+    { "name": "call", "element": "SkypeButton_Call_EENUK_1", "participants": ["EENUK"], "imageSize": 32 }
+
+    );
+</script>
+
+<script type="text/javascript">
+Skype.ui(
+{ "name": "chat", "element": "SkypeButton_Call_EEN-UK_1", "participants": ["EEN-UK"], "imageSize": 32 }
+
+);
+</script>
+
