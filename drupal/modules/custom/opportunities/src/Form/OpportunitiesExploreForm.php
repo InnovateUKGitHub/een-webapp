@@ -54,6 +54,17 @@ class OpportunitiesExploreForm extends AbstractForm
             'TO' => t('with technology or expertise that I need'),
             'RD' => t('to collaborate with'),
         ];
+        
+        $typesAccessibility = [
+            '' => t('Select &hellip;'),
+            'BO' => t('to buy from'),
+            'BR' => t('to sell to'),
+            'TR' => t('that needs my technology or expertise'),
+            'TO' => t('with technology or expertise that I need'),
+            'RD' => t('to collaborate with'),
+        ];
+        
+        
         $countries = $this->service->getCountryList();
 
         $countryChoices = [
@@ -61,6 +72,13 @@ class OpportunitiesExploreForm extends AbstractForm
             'europe' => t('in europe'),
             '' => t('specific countries')
         ];
+        
+        $countryChoicesAccessibility = [
+            '' => t('Select &hellip;'),
+            'anywhere' => t('anywhere in the world'),
+            'europe' => t('in europe')
+        ];
+        
 
         $form = [
             'search'           => [
@@ -78,37 +96,76 @@ class OpportunitiesExploreForm extends AbstractForm
                     ]
                 ],
             ],
+            
+            'opportunity_type_hidden' => [
+                '#type'    => 'select',
+                '#title'   => t('Choose a partnership type &hellip;'),
+                '#options' => $typesAccessibility,
+                '#attributes' => [
+                    'class' => [
+                        'form-types sr-only form-control hidden-select-forms',
+                    ],
+                    'tabindex' => [
+                        "0"
+                    ],
+                    'aria-label' => [
+                        "Choose a partnership type"
+                    ],
+                ]
+            ],
+            
             'opportunity_type' => [
                 '#type'    => 'radios',
                 '#title'   => t('Choose a partnership type &hellip;'),
                 '#options' => $types,
                 '#attributes' => [
-                    'ng-click' => 'selectOppCheckbox($event)',
+                    'aria-hidden' => [
+                        "true"
+                    ],
                     'class' => [
                         'form-types',
                     ],
                 ]
             ],
-
+            
+            'country_choice_hidden' => [
+                '#type'    => 'select',
+                '#title'   => t('Where &hellip;'),
+                '#options' => $countryChoicesAccessibility,
+                '#attributes' => [
+                    'tabindex' => [
+                        "0"
+                    ],
+                    'class' => [
+                        'form-countries sr-only form-control hidden-select-forms',
+                    ],
+                ]
+            ],
+            
 
             'country_choice' => [
                 '#type'    => 'radios',
                 '#title'   => t('Where &hellip;'),
                 '#options' => $countryChoices,
                 '#attributes' => [
-                    'ng-click' => 'selectOppCheckbox($event)',
+                    'aria-hidden' => [
+                        "true"
+                    ],
                     'class' => [
                         'form-countries',
                     ],
                 ]
             ],
+            
+            
+            
+            
 
             'country'          => [
                 '#type'       => 'select',
                 '#title'      => t('Country of origin'),
                 '#options'    => $countries,
                 '#attributes' => [
-                    //'ng-click' => 'selectCountryCheckbox($event)',
                     'class' => [
                         'chosen-select chosen-select-multiple form-countries-all',
                     ],
