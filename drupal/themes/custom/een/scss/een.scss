@@ -1712,8 +1712,93 @@ form[data-drupal-selector="opportunity-search-explore-form"] {
         color:lightgray;
     }
 }
+// contact us page
+.email-form {
+    width:58%;
+    box-sizing:border-box;
+    float:left;
+    padding:0 15px;
+}
+.skype-block {
+    width:42%;
+    box-sizing:border-box;
+    float:left;
+    padding:0 15px;
+}
+@media (max-width:640px) {
+    .skype-block,.email-form {
+        width:100%;
+        float:none;
+        
+    }
+} 
+.skype-connect {
+    border-left:solid 5px $light-blue;
+    padding:20px 32px 20px 64px;
+    margin-top:20px;
+    background:#e0f0f9;
+    h3 {
+        position:relative;
+        margin:0 0 20px 0;
+        &:before {
+            font-size:24px;
+            position:absolute;
+            top:-3px;
+            left:-40px;
+            font-family:FontAwesome;
+            content:"\f05a";
+            color:$light-blue;
+        }
+    }
+}
+.skype-btn {
+    //min-width:146px;
+    display:inline-block;
+    position:relative;
+    box-shadow:0 2px 0 $light-blue;
+    margin-bottom:10px;
+    color:$light-blue;
+    background:#fff;
+    p {
+        line-height:1em;
+        font-size:inherit!important;
+        margin:7px 0 0 0;
+        padding:2px 30px;
+        a {
+            img {
+                margin:0!important;
+                vertical-align:0!important;
+            }
+        }
+    }
+}
+@media (min-width:640px) and (max-width:1199px) {
+    .skype-btn {
+        min-width:124px;
+        p {
+            padding:2px 20px;
+        }
+    }
+}
 
-
+.contact-number {
+    font-size:48px;
+    font-weight:bold;
+    margin-bottom:0;
+}
+#een-contact-form {
+    .form-label {
+        margin-top:20px;
+    }
+    .form-textarea {
+        resize:none;
+        margin-bottom:20px;
+    }
+    .form-control {
+        font-size:16px;
+        padding:8px 12px;
+    }
+}
 
 #footer .footer-meta {
     padding-top:30px;
