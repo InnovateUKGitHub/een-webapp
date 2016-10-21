@@ -153,6 +153,9 @@ jQuery(function () {
         if (e.which == 32) {   // on spacebar    
             e.stopPropagation(); 
             openTypeList();
+            $('.form-item-opportunity-type-hidden').show();
+            $('.explore-form #edit-opportunity-type-hidden').removeClass('sr-only');
+            $('#edit-opportunity-type--wrapper').hide();
         }
     });
     
@@ -164,18 +167,15 @@ jQuery(function () {
 
     $(document).on('change', '.explore-form #edit-opportunity-type-hidden', function() {
         var dropdownVal = $(this).val();
-        $('.input[name="opportunity_type"]').parent('label').removeClass("selected");
+        $('input[name="opportunity_type"]').parent('label').removeClass("selected");
         $('input[name="opportunity_type"][value="' + dropdownVal + '"]').prop('checked', true).parent('label').addClass("selected");
         opportunityListUpdated();
     });
-    
     
     function openTypeList() {
         $('.modal .form-item').hide();
         openModal();
         $('.modal .form-types').show();
-        $('.modal .js-form-item-opportunity-type-hidden').show();
-        
         setTimeout(function() { $('#edit-opportunity-type-hidden').focus() }, 500);
     }
     
@@ -211,10 +211,14 @@ jQuery(function () {
         if (e.which == 32) {   // on spacebar   
             e.stopPropagation(); 
             showCountryTypes();
+            
+            $('.form-item-country-choice-hidden').show();
+            $('.explore-form #edit-country-choice-hidden').removeClass('sr-only');
+            $('#edit-country-choice--wrapper, .form-item-country').hide();
+       
         }
     });
     
-    //$('#edit-country-choice-hidden').bind('focus', function(){ $(this).removeClass("sh-only").addClass('sh-only'); });
 
     
     /*
@@ -236,7 +240,7 @@ jQuery(function () {
     function showCountryTypes(){
         $('.modal .form-item').hide();
         openModal();
-        $('.modal .form-countries, .modal .form-item-country, .modal .js-form-item-country-choice-hidden').show();
+        $('.modal .form-countries, .modal .form-item-country').show();
         
         $('.search-field input').attr('disabled', 'disabled');
         $('label[for="edit-country-choice-"]').append('<span class="sb-close-modal">Done</span>');
@@ -270,7 +274,7 @@ jQuery(function () {
      * 
      * MODAL
      */
-    
+        
     
     function openModal(){
         $modal.show();
@@ -282,6 +286,11 @@ jQuery(function () {
     function closeModal(){
         $modal.hide();
         $('.sb-close-modal').remove();
+        $('.explore-form #edit-opportunity-type-hidden').addClass('sr-only');
+        $('.explore-form #edit-country-type-hidden').addClass('sr-only');
+        $('.js-form-item-country-choice-hidden').hide();
+        
+        
     }
     
     if($('.modal')){

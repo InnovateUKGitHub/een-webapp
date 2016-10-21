@@ -139,6 +139,9 @@ class OpportunitiesExploreForm extends AbstractForm
                     'class' => [
                         'form-countries sr-only form-control hidden-select-forms',
                     ],
+                    'aria-label' => [
+                        "Choose a location"
+                    ],
                 ]
             ],
             
