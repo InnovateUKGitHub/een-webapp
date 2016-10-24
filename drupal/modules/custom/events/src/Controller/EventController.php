@@ -85,7 +85,7 @@ class EventController extends ControllerBase
         $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);
         $formEmail['id']['#value'] = $eventId;
 
-        $this->checkSession($form, $token);
+        $this->checkSession($token);
 
         return [
             '#theme'      => 'events_details',
@@ -99,10 +99,9 @@ class EventController extends ControllerBase
     }
 
     /**
-     * @param array  $form
      * @param string $token
      */
-    private function checkSession(&$form, $token)
+    private function checkSession($token)
     {
         $emailSession = $this->session->get('email');
         $tokenSession = $this->session->get('token');
@@ -110,12 +109,12 @@ class EventController extends ControllerBase
         if ($token != null && $token === $tokenSession) {
 
             $contact = $this->service->createLead($emailSession);
-            $contact = $contact['records'];
 
             $this->session->set('isLoggedIn', true);
             $this->session->set('type', $contact['Contact_Status__c']);
 
             if ($contact['Contact_Status__c'] !== 'Lead') {
+                // Todo redirect to thank you page if not lead
                 $this->setSession($contact);
             }
         } else {

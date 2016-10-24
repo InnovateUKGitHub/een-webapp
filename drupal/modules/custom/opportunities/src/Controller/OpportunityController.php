@@ -137,7 +137,6 @@ class OpportunityController extends ControllerBase
             )->toString();
 
             $contact = $this->service->createLead($emailSession);
-            $contact = $contact['records'];
 
             $this->session->set('isLoggedIn', true);
             $this->session->set('type', $contact['Contact_Status__c']);
