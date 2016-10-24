@@ -4,12 +4,16 @@ namespace Drupal\content_moderation;
 
 use Drupal\content_moderation\Plugin\Field\ModerationStateFieldItemList;
 use Drupal\Core\Config\Entity\ConfigEntityTypeInterface;
+use Drupal\Core\Entity\BundleEntityFormBase;
+use Drupal\Core\Entity\ContentEntityFormInterface;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
@@ -19,6 +23,7 @@ use Drupal\content_moderation\Entity\Handler\NodeModerationHandler;
 use Drupal\content_moderation\Form\BundleModerationConfigurationForm;
 use Drupal\content_moderation\Routing\EntityModerationRouteProvider;
 use Drupal\content_moderation\Routing\EntityTypeModerationRouteProvider;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Manipulates entity type information.
@@ -26,7 +31,7 @@ use Drupal\content_moderation\Routing\EntityTypeModerationRouteProvider;
  * This class contains primarily bridged hooks for compile-time or
  * cache-clear-time hooks. Runtime hooks should be placed in EntityOperations.
  */
-class EntityTypeInfo {
+class EntityTypeInfo implements ContainerInjectionInterface {
 
   use StringTranslationTrait;
 
@@ -43,6 +48,13 @@ class EntityTypeInfo {
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
+
+  /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  protected $currentUser;
 
   /**
    * A keyed array of custom moderation handlers for given entity types.
@@ -66,11 +78,25 @@ class EntityTypeInfo {
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Entity type manager.
    */
-  public function __construct(TranslationInterface $translation, ModerationInformationInterface $moderation_information, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(TranslationInterface $translation, ModerationInformationInterface $moderation_information, EntityTypeManagerInterface $entity_type_manager, AccountInterface $current_user) {
     $this->stringTranslation = $translation;
     $this->moderationInfo = $moderation_information;
     $this->entityTypeManager = $entity_type_manager;
+    $this->currentUser = $current_user;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('string_translation'),
+      $container->get('content_moderation.moderation_information'),
+      $container->get('entity_type.manager'),
+      $container->get('current_user')
+    );
+  }
+
 
   /**
    * Adds Moderation configuration to appropriate entity types.
@@ -83,7 +109,7 @@ class EntityTypeInfo {
    * @see hook_entity_type_alter()
    */
   public function entityTypeAlter(array &$entity_types) {
-    foreach ($this->moderationInfo->selectRevisionableEntityTypes($entity_types) as $type_name => $type) {
+    foreach ($this->filterNonRevisionableEntityTypes($entity_types) as $type_name => $type) {
       $entity_types[$type_name] = $this->addModerationToEntityType($type);
       $entity_types[$type->get('bundle_of')] = $this->addModerationToEntity($entity_types[$type->get('bundle_of')]);
     }
@@ -169,8 +195,10 @@ class EntityTypeInfo {
   public function entityOperation(EntityInterface $entity) {
     $operations = [];
     $type = $entity->getEntityType();
-
-    if ($this->moderationInfo->isBundleForModeratableEntity($entity)) {
+    $bundle_of = $type->getBundleOf();
+    if ($this->currentUser->hasPermission('administer moderation states') && $bundle_of &&
+      $this->moderationInfo->canModerateEntitiesOfEntityType($this->entityTypeManager->getDefinition($bundle_of))
+    ) {
       $operations['manage-moderation'] = [
         'title' => t('Manage moderation'),
         'weight' => 27,
@@ -234,9 +262,8 @@ class EntityTypeInfo {
    *   - bundle: The machine name of a bundle, such as "page" or "article".
    */
   protected function getModeratedBundles() {
-    $revisionable_types = $this->moderationInfo->selectRevisionableEntityTypes($this->entityTypeManager->getDefinitions());
     /** @var ConfigEntityTypeInterface $type */
-    foreach ($revisionable_types as $type_name => $type) {
+    foreach ($this->filterNonRevisionableEntityTypes($this->entityTypeManager->getDefinitions()) as $type_name => $type) {
       $result = $this->entityTypeManager
         ->getStorage($type_name)
         ->getQuery()
@@ -259,7 +286,7 @@ class EntityTypeInfo {
    *   New fields added by moderation state.
    */
   public function entityBaseFieldInfo(EntityTypeInterface $entity_type) {
-    if (!$this->moderationInfo->isModeratableEntityType($entity_type)) {
+    if (!$this->moderationInfo->canModerateEntitiesOfEntityType($entity_type)) {
       return [];
     }
 
@@ -289,7 +316,7 @@ class EntityTypeInfo {
   }
 
   /**
-   * Adds the ModerationState constraint to bundles that are moderatable.
+   * Adds ModerationState constraint to bundles whose entities are moderated.
    *
    * @param \Drupal\Core\Field\FieldDefinitionInterface[] $fields
    *   The array of bundle field definitions.
@@ -301,7 +328,7 @@ class EntityTypeInfo {
    * @see hook_entity_bundle_field_info_alter();
    */
   public function entityBundleFieldInfoAlter(&$fields, EntityTypeInterface $entity_type, $bundle) {
-    if (!empty($fields['moderation_state']) && $this->moderationInfo->isModeratableBundle($entity_type, $bundle)) {
+    if (!empty($fields['moderation_state']) && $this->moderationInfo->shouldModerateEntitiesOfBundle($entity_type, $bundle)) {
       $fields['moderation_state']->addConstraint('ModerationState', []);
     }
   }
@@ -318,21 +345,23 @@ class EntityTypeInfo {
    *
    * @see hook_form_alter()
    */
-  public function bundleFormAlter(array &$form, FormStateInterface $form_state, $form_id) {
-    if ($this->moderationInfo->isRevisionableBundleForm($form_state->getFormObject())) {
-      /* @var \Drupal\Core\Config\Entity\ConfigEntityTypeInterface $bundle */
-      $bundle = $form_state->getFormObject()->getEntity();
-
-      $this->entityTypeManager->getHandler($bundle->getEntityType()->getBundleOf(), 'moderation')->enforceRevisionsBundleFormAlter($form, $form_state, $form_id);
+  public function formAlter(array &$form, FormStateInterface $form_state, $form_id) {
+    $form_object = $form_state->getFormObject();
+    if ($form_object instanceof BundleEntityFormBase) {
+      $type = $form_object->getEntity()->getEntityType();
+      if ($this->moderationInfo->canModerateEntitiesOfEntityType($type)) {
+        $this->entityTypeManager->getHandler($type->getBundleOf(), 'moderation')->enforceRevisionsBundleFormAlter($form, $form_state, $form_id);
+      }
     }
-    elseif ($this->moderationInfo->isModeratedEntityForm($form_state->getFormObject())) {
-      /* @var \Drupal\Core\Entity\ContentEntityInterface $entity */
-      $entity = $form_state->getFormObject()->getEntity();
-
-      $this->entityTypeManager->getHandler($entity->getEntityTypeId(), 'moderation')->enforceRevisionsEntityFormAlter($form, $form_state, $form_id);
-
-      // Submit handler to redirect to the latest version, if available.
-      $form['actions']['submit']['#submit'][] = [EntityTypeInfo::class, 'bundleFormRedirect'];
+    elseif ($form_object instanceof ContentEntityFormInterface) {
+      $entity = $form_object->getEntity();
+      if ($this->moderationInfo->isModeratedEntity($entity)) {
+        $this->entityTypeManager
+          ->getHandler($entity->getEntityTypeId(), 'moderation')
+          ->enforceRevisionsEntityFormAlter($form, $form_state, $form_id);
+        // Submit handler to redirect to the latest version, if available.
+        $form['actions']['submit']['#submit'][] = [EntityTypeInfo::class, 'bundleFormRedirect'];
+      }
     }
   }
 
@@ -356,6 +385,23 @@ class EntityTypeInfo {
       $entity_type_id = $entity->getEntityTypeId();
       $form_state->setRedirect("entity.$entity_type_id.latest_version", [$entity_type_id => $entity->id()]);
     }
+  }
+
+  /**
+   * Filters entity type lists to return only revisionable entity types.
+   *
+   * @param EntityTypeInterface[] $entity_types
+   *   The master entity type list filter.
+   *
+   * @return \Drupal\Core\Config\Entity\ConfigEntityTypeInterface[]
+   *   An array of revisionable entity types which are configuration entities.
+   */
+  protected function filterNonRevisionableEntityTypes(array $entity_types) {
+    return array_filter($entity_types, function (EntityTypeInterface $type) use ($entity_types) {
+      return ($type instanceof ConfigEntityTypeInterface)
+      && ($bundle_of = $type->get('bundle_of'))
+      && $entity_types[$bundle_of]->isRevisionable();
+    });
   }
 
 }

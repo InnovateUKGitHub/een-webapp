@@ -127,7 +127,7 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
   public function revisionShow($node_revision) {
     $node = $this->entityManager()->getStorage('node')->loadRevision($node_revision);
     $node = $this->entityManager()->getTranslationFromContext($node);
-    $node_view_controller = new NodeViewController($this->entityManager, $this->renderer);
+    $node_view_controller = new NodeViewController($this->entityManager, $this->renderer, $this->currentUser());
     $page = $node_view_controller->view($node);
     unset($page['nodes'][$node->id()]['#cache']);
     return $page;
@@ -285,7 +285,7 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
   /**
    * Gets a list of node revision IDs for a specific node.
    *
-   * @param \Drupal\node\NodeInterface
+   * @param \Drupal\node\NodeInterface $node
    *   The node entity.
    * @param \Drupal\node\NodeStorageInterface $node_storage
    *   The node storage handler.

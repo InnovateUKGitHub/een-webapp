@@ -51,8 +51,8 @@ class ExpressionOfInterestForm extends AbstractForm
         $form = [
             'description' => [
                 '#type'                => 'textarea',
-                '#title'               => t('Short description of your organisation, activities, products and services'),
-                '#description'         => t('This is your pitch: remember to include your unique selling points (USP) and why someone would want to do business with you'),
+                '#title'               => $this->t('Short description of your organisation, activities, products and services'),
+                '#description'         => $this->t('This is your pitch: remember to include your unique selling points (USP) and why someone would want to do business with you'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#required'            => true,
@@ -67,8 +67,8 @@ class ExpressionOfInterestForm extends AbstractForm
             ],
             'interest'    => [
                 '#type'                => 'textarea',
-                '#title'               => t('What interests you about this opportunity and what do you expect of that organisation?'),
-                '#description'         => t('Tell us why you are a good fit for this opportunity, and why you think you\'re the right people for this partnership'),
+                '#title'               => $this->t('What interests you about this opportunity and what do you expect of that organisation?'),
+                '#description'         => $this->t('Tell us why you are a good fit for this opportunity, and why you think you\'re the right people for this partnership'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#required'            => true,
@@ -83,8 +83,8 @@ class ExpressionOfInterestForm extends AbstractForm
             ],
             'more'        => [
                 '#type'                => 'textarea',
-                '#title'               => t('Is there anything further you would like to know about this opportunity?'),
-                '#description'         => t('If there\'s anything additional, or commercially sensitive you\'d like to know about this opportunity, please let us know'),
+                '#title'               => $this->t('Is there anything further you would like to know about this opportunity?'),
+                '#description'         => $this->t('If there\'s anything additional, or commercially sensitive you\'d like to know about this opportunity, please let us know'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#attributes'          => [
@@ -98,7 +98,7 @@ class ExpressionOfInterestForm extends AbstractForm
             ],
             'email'       => [
                 '#type'          => 'textfield',
-                '#title'         => t('Your Email'),
+                '#title'         => $this->t('Your Email'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [
@@ -108,7 +108,7 @@ class ExpressionOfInterestForm extends AbstractForm
             ],
             'phone'       => [
                 '#type'          => 'textfield',
-                '#title'         => t('Phone number'),
+                '#title'         => $this->t('Phone number'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [
@@ -144,8 +144,8 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
-        parent::checkRequireField($form_state, 'description', t('A short description of your organisation is required to complete your application.'));
-        parent::checkRequireField($form_state, 'interest', t('Details of your interest in this opportunity are required to complete your application.'));
+        parent::checkRequireField($form_state, 'description', $this->t('A short description of your organisation is required to complete your application.'));
+        parent::checkRequireField($form_state, 'interest', $this->t('Details of your interest in this opportunity are required to complete your application.'));
     }
 
     /**

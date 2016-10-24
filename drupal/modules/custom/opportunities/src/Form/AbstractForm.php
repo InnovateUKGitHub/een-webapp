@@ -67,7 +67,7 @@ abstract class AbstractForm extends FormBase
                     'email',
                     [
                         'key'  => 'edit-email',
-                        'text' => t('An email address or phone number is required to complete your application.'),
+                        'text' => $this->t('An email address or phone number is required to complete your application.'),
                     ]
                 );
             }
@@ -106,8 +106,8 @@ abstract class AbstractForm extends FormBase
                     $field,
                     [
                         'key'          => 'edit-' . str_replace('_', '-', $field),
-                        'text'         => t('This is required to complete your application.'),
-                        'general_text' => ($message !== '' ? $message : t('This is required to complete your application.')),
+                        'text'         => $this->t('This is required to complete your application.'),
+                        'general_text' => ($message !== '' ? $message : $this->t('This is required to complete your application.')),
                     ]
                 );
             }

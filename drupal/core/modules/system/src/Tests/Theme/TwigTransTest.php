@@ -49,7 +49,7 @@ class TwigTransTest extends WebTestBase {
 
     // Setup test_theme.
     \Drupal::service('theme_handler')->install(array('test_theme'));
-    $this->config('system.theme')->set('default', 'test_theme')->save();
+    \Drupal::service('theme_handler')->setDefault('test_theme');
 
     // Create and log in as admin.
     $this->adminUser = $this->drupalCreateUser(array(
@@ -229,7 +229,7 @@ class TwigTransTest extends WebTestBase {
    * @param string $langcode
    *   The langcode of the specified language.
    *
-   * @return string|FALSE
+   * @return string|false
    *   The .po contents for the specified language or FALSE if none exists.
    */
   protected function poFileContents($langcode) {

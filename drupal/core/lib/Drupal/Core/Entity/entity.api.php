@@ -893,9 +893,9 @@ function hook_ENTITY_TYPE_storage_load(array $entities) {
  * @see hook_ENTITY_TYPE_presave()
  */
 function hook_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
- if ($entity instanceof ContentEntityInterface && $entity->isTranslatable()) {
-   $route_match = \Drupal::routeMatch();
-   \Drupal::service('content_translation.synchronizer')->synchronizeFields($entity, $entity->language()->getId(), $route_match->getParameter('source_langcode'));
+  if ($entity instanceof ContentEntityInterface && $entity->isTranslatable()) {
+    $route_match = \Drupal::routeMatch();
+    \Drupal::service('content_translation.synchronizer')->synchronizeFields($entity, $entity->language()->getId(), $route_match->getParameter('source_langcode'));
   }
 }
 
@@ -1845,7 +1845,8 @@ function hook_entity_operation_alter(array &$operations, \Drupal\Core\Entity\Ent
  *
  * @param string $operation
  *   The operation to be performed. See
- *   \Drupal\Core\Access\AccessibleInterface::access() for possible values.
+ *   \Drupal\Core\Entity\EntityAccessControlHandlerInterface::fieldAccess()
+ *   for possible values.
  * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
  *   The field definition.
  * @param \Drupal\Core\Session\AccountInterface $account
@@ -1856,6 +1857,8 @@ function hook_entity_operation_alter(array &$operations, \Drupal\Core\Entity\Ent
  *
  * @return \Drupal\Core\Access\AccessResultInterface
  *   The access result.
+ *
+ * @see \Drupal\Core\Entity\EntityAccessControlHandlerInterface::fieldAccess()
  */
 function hook_entity_field_access($operation, \Drupal\Core\Field\FieldDefinitionInterface $field_definition, \Drupal\Core\Session\AccountInterface $account, \Drupal\Core\Field\FieldItemListInterface $items = NULL) {
   if ($field_definition->getName() == 'field_of_interest' && $operation == 'edit') {

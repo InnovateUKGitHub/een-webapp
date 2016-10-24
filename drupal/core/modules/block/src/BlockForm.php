@@ -180,6 +180,13 @@ class BlockForm extends EntityForm {
       );
     }
 
+    // Hidden weight setting.
+    $weight = $entity->isNew() ? $this->getRequest()->query->get('weight', 0) : $entity->getWeight();
+    $form['weight'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $weight,
+    );
+
     // Region settings.
     $entity_region = $entity->getRegion();
     $region = $entity->isNew() ? $this->getRequest()->query->get('region', $entity_region) : $entity_region;
@@ -188,7 +195,7 @@ class BlockForm extends EntityForm {
       '#title' => $this->t('Region'),
       '#description' => $this->t('Select the region where this block should be displayed.'),
       '#default_value' => $region,
-      '#required' => TRUE,
+      '#empty_value' => BlockInterface::BLOCK_REGION_NONE,
       '#options' => system_region_list($theme, REGIONS_VISIBLE),
       '#prefix' => '<div id="edit-block-region-wrapper">',
       '#suffix' => '</div>',
@@ -294,6 +301,7 @@ class BlockForm extends EntityForm {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
 
+    $form_state->setValue('weight', (int) $form_state->getValue('weight'));
     // The Block Entity form puts all block plugin form elements in the
     // settings form element, so just pass that to the block for validation.
     $this->getPluginForm($this->entity->getPlugin())->validateConfigurationForm($form['settings'], SubformState::createForSubform($form['settings'], $form, $form_state));
@@ -315,7 +323,7 @@ class BlockForm extends EntityForm {
       // However, certain form elements may return it as 0/1. Cast here to
       // ensure the data is in the expected type.
       if (array_key_exists('negate', $values)) {
-        $values['negate'] = (bool) $values['negate'];
+        $form_state->setValue(['visibility', $condition_id, 'negate'], (bool) $values['negate']);
       }
 
       // Allow the condition to validate the form.

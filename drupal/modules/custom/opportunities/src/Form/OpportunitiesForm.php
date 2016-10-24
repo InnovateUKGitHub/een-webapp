@@ -48,18 +48,18 @@ class OpportunitiesForm extends AbstractForm
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $types = [
-            'BO' => t('to buy from'),
-            'BR' => t('to sell to'),
-            'TR' => t('that needs my tech/expertise'),
-            'TO' => t('with tech/expertise that I need'),
-            'RD' => t('to collaborate with'),
+            'BO' => $this->t('to buy from'),
+            'BR' => $this->t('to sell to'),
+            'TR' => $this->t('that needs my tech/expertise'),
+            'TO' => $this->t('with tech/expertise that I need'),
+            'RD' => $this->t('to collaborate with'),
         ];
         $countries = $this->service->getCountryList();
 
         $form = [
             'search'           => [
                 '#type'       => 'textfield',
-                '#title'      => t('Search an opportunity'),
+                '#title'      => $this->t('Search an opportunity'),
                 '#attributes' => [
                     'ng-model' => 'data.search',
                     'ng-change' => 'queryKeyUp()',
@@ -74,7 +74,7 @@ class OpportunitiesForm extends AbstractForm
             ],
             'opportunity_type' => [
                 '#type'    => 'checkboxes',
-                '#title'   => t('I\'m looking for a partner&hellip;'),
+                '#title'   => $this->t('I\'m looking for a partner&hellip;'),
                 '#options' => $types,
                 '#attributes' => [
                     'tabindex' => '0',
@@ -83,7 +83,7 @@ class OpportunitiesForm extends AbstractForm
             ],
             'country'          => [
                 '#type'       => 'checkboxes',
-                '#title'      => t('Country of origin'),
+                '#title'      => $this->t('Country of origin'),
                 '#options'    => $countries,
                 '#attributes' => [
                     'tabindex' => '0',

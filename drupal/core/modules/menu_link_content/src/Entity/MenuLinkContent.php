@@ -117,7 +117,9 @@ class MenuLinkContent extends ContentEntityBase implements MenuLinkContentInterf
    * {@inheritdoc}
    */
   public function getParentId() {
-    return $this->get('parent')->value;
+    // Cast the parent ID to a string, only an empty string means no parent,
+    // NULL keeps the existing parent.
+    return (string) $this->get('parent')->value;
   }
 
   /**
@@ -331,7 +333,7 @@ class MenuLinkContent extends ContentEntityBase implements MenuLinkContentInterf
         'type' => 'boolean',
         'weight' => 0,
       ))
-    ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', array(
         'settings' => array('display_label' => TRUE),
         'weight' => 0,
       ));

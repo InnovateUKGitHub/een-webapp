@@ -185,11 +185,17 @@ class MigrateExecutable implements MigrateExecutableInterface {
     }
     catch (RequirementsException $e) {
       $this->message->display(
-        $this->t('Migration @id did not meet the requirements. @message @requirements', array(
-          '@id' => $this->migration->id(),
-          '@message' => $e->getMessage(),
-          '@requirements' => $e->getRequirementsString(),
-        )), 'error');
+        $this->t(
+          'Migration @id did not meet the requirements. @message @requirements',
+          array(
+            '@id' => $this->migration->id(),
+            '@message' => $e->getMessage(),
+            '@requirements' => $e->getRequirementsString(),
+          )
+        ),
+        'error'
+      );
+
       return MigrationInterface::RESULT_FAILED;
     }
 
@@ -255,9 +261,6 @@ class MigrateExecutable implements MigrateExecutableInterface {
           $this->migration->getIdMap()->saveIdMapping($row, array(), MigrateIdMapInterface::STATUS_FAILED);
           $this->handleException($e);
         }
-      }
-      if ($high_water_property = $this->migration->getHighWaterProperty()) {
-        $this->migration->saveHighWater($row->getSourceProperty($high_water_property['name']));
       }
 
       // Reset row properties.
@@ -347,10 +350,6 @@ class MigrateExecutable implements MigrateExecutableInterface {
         $this->migration->clearInterruptionResult();
         break;
       }
-    }
-    // If rollback completed successfully, reset the high water mark.
-    if ($return == MigrationInterface::RESULT_COMPLETED) {
-      $this->migration->saveHighWater(NULL);
     }
 
     // Notify modules that rollback attempt was complete.
@@ -476,30 +475,44 @@ class MigrateExecutable implements MigrateExecutableInterface {
     }
     if ($pct_memory > $threshold) {
       $this->message->display(
-        $this->t('Memory usage is @usage (@pct% of limit @limit), reclaiming memory.',
-          array('@pct' => round($pct_memory * 100),
-                '@usage' => $this->formatSize($usage),
-                '@limit' => $this->formatSize($this->memoryLimit))),
-        'warning');
+        $this->t(
+          'Memory usage is @usage (@pct% of limit @limit), reclaiming memory.',
+          array(
+            '@pct' => round($pct_memory * 100),
+            '@usage' => $this->formatSize($usage),
+            '@limit' => $this->formatSize($this->memoryLimit),
+          )
+        ),
+        'warning'
+      );
       $usage = $this->attemptMemoryReclaim();
       $pct_memory = $usage / $this->memoryLimit;
       // Use a lower threshold - we don't want to be in a situation where we keep
       // coming back here and trimming a tiny amount
       if ($pct_memory > (0.90 * $threshold)) {
         $this->message->display(
-          $this->t('Memory usage is now @usage (@pct% of limit @limit), not enough reclaimed, starting new batch',
-            array('@pct' => round($pct_memory * 100),
-                  '@usage' => $this->formatSize($usage),
-                  '@limit' => $this->formatSize($this->memoryLimit))),
-          'warning');
+          $this->t(
+            'Memory usage is now @usage (@pct% of limit @limit), not enough reclaimed, starting new batch',
+            array(
+              '@pct' => round($pct_memory * 100),
+              '@usage' => $this->formatSize($usage),
+              '@limit' => $this->formatSize($this->memoryLimit),
+            )
+          ),
+          'warning'
+        );
         return TRUE;
       }
       else {
         $this->message->display(
-          $this->t('Memory usage is now @usage (@pct% of limit @limit), reclaimed enough, continuing',
-            array('@pct' => round($pct_memory * 100),
-                  '@usage' => $this->formatSize($usage),
-                  '@limit' => $this->formatSize($this->memoryLimit))),
+          $this->t(
+            'Memory usage is now @usage (@pct% of limit @limit), reclaimed enough, continuing',
+            array(
+              '@pct' => round($pct_memory * 100),
+              '@usage' => $this->formatSize($usage),
+              '@limit' => $this->formatSize($this->memoryLimit),
+            )
+          ),
           'warning');
         return FALSE;
       }

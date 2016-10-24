@@ -3,6 +3,7 @@
 namespace Drupal\content_moderation;
 
 use Drupal\content_moderation\Entity\ContentModerationState;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -10,11 +11,12 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\content_moderation\Form\EntityModerationForm;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines a class for reacting to entity events.
  */
-class EntityOperations {
+class EntityOperations implements ContainerInjectionInterface {
 
   /**
    * The Moderation Information service.
@@ -64,6 +66,18 @@ class EntityOperations {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('content_moderation.moderation_information'),
+      $container->get('entity_type.manager'),
+      $container->get('form_builder'),
+      $container->get('content_moderation.revision_tracker')
+    );
+  }
+
+  /**
    * Determines the default moderation state on load for an entity.
    *
    * This method is only applicable when an entity is loaded that has
@@ -96,7 +110,7 @@ class EntityOperations {
    *   The entity being saved.
    */
   public function entityPresave(EntityInterface $entity) {
-    if (!$this->moderationInfo->isModeratableEntity($entity)) {
+    if (!$this->moderationInfo->isModeratedEntity($entity)) {
       return;
     }
     if ($entity->moderation_state->target_id) {
@@ -125,11 +139,10 @@ class EntityOperations {
    * @see hook_entity_insert()
    */
   public function entityInsert(EntityInterface $entity) {
-    if (!$this->moderationInfo->isModeratableEntity($entity)) {
-      return;
+    if ($this->moderationInfo->isModeratedEntity($entity)) {
+      $this->updateOrCreateFromEntity($entity);
+      $this->setLatestRevision($entity);
     }
-    $this->updateOrCreateFromEntity($entity);
-    $this->setLatestRevision($entity);
   }
 
   /**
@@ -141,11 +154,10 @@ class EntityOperations {
    * @see hook_entity_update()
    */
   public function entityUpdate(EntityInterface $entity) {
-    if (!$this->moderationInfo->isModeratableEntity($entity)) {
-      return;
+    if ($this->moderationInfo->isModeratedEntity($entity)) {
+      $this->updateOrCreateFromEntity($entity);
+      $this->setLatestRevision($entity);
     }
-    $this->updateOrCreateFromEntity($entity);
-    $this->setLatestRevision($entity);
   }
 
   /**
@@ -227,7 +239,7 @@ class EntityOperations {
    * @see EntityFieldManagerInterface::getExtraFields()
    */
   public function entityView(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
-    if (!$this->moderationInfo->isModeratableEntity($entity)) {
+    if (!$this->moderationInfo->isModeratedEntity($entity)) {
       return;
     }
     if (!$this->moderationInfo->isLatestRevision($entity)) {

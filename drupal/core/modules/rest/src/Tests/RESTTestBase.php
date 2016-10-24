@@ -115,15 +115,15 @@ abstract class RESTTestBase extends WebTestBase {
         );
         break;
 
-        case 'HEAD':
-          $curl_options = array(
-            CURLOPT_HTTPGET => FALSE,
-            CURLOPT_CUSTOMREQUEST => 'HEAD',
-            CURLOPT_URL => $url,
-            CURLOPT_NOBODY => TRUE,
-            CURLOPT_HTTPHEADER => array('Accept: ' . $mime_type),
-          );
-          break;
+      case 'HEAD':
+        $curl_options = array(
+          CURLOPT_HTTPGET => FALSE,
+          CURLOPT_CUSTOMREQUEST => 'HEAD',
+          CURLOPT_URL => $url,
+          CURLOPT_NOBODY => TRUE,
+          CURLOPT_HTTPHEADER => array('Accept: ' . $mime_type),
+        );
+        break;
 
       case 'POST':
         $curl_options = array(
@@ -270,15 +270,6 @@ abstract class RESTTestBase extends WebTestBase {
           'vid' => 'tags',
           'name' => $this->randomMachineName(),
         ];
-      case 'block':
-        // Block placements depend on themes, ensure Bartik is installed.
-        $this->container->get('theme_installer')->install(['bartik']);
-        return [
-          'id' => strtolower($this->randomMachineName(8)),
-          'plugin' => 'system_powered_by_block',
-          'theme' => 'bartik',
-          'region' => 'header',
-        ];
       default:
         if ($this->isConfigEntity($entity_type_id)) {
           return $this->configEntityValues($entity_type_id);
@@ -290,7 +281,7 @@ abstract class RESTTestBase extends WebTestBase {
   /**
    * Enables the REST service interface for a specific entity type.
    *
-   * @param string|FALSE $resource_type
+   * @param string|false $resource_type
    *   The resource type that should get REST API enabled or FALSE to disable all
    *   resource types.
    * @param string $method
@@ -449,7 +440,7 @@ abstract class RESTTestBase extends WebTestBase {
    * @param string $location_url
    *   The URL returned in the Location header.
    *
-   * @return \Drupal\Core\Entity\Entity|FALSE.
+   * @return \Drupal\Core\Entity\Entity|false
    *   The entity or FALSE if there is no matching entity.
    */
   protected function loadEntityFromLocationHeader($location_url) {

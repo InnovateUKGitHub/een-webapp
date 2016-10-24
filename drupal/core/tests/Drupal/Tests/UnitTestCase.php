@@ -9,7 +9,6 @@ use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 
-include __DIR__ . '/../../../includes/bootstrap.inc';
 
 /**
  * Provides a base class and helpers for Drupal unit tests.

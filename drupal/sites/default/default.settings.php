@@ -144,11 +144,6 @@
  * @code
  *   'prefix' => 'main_',
  * @endcode
- *
- * Per-table prefixes are deprecated as of Drupal 8.2, and will be removed in
- * Drupal 9.0. After that, only a single prefix for all tables will be
- * supported.
- *
  * To provide prefixes for specific tables, set 'prefix' as an array.
  * The array's keys are the table names and the values are the prefixes.
  * The 'default' element is mandatory and holds the prefix for any tables
@@ -672,7 +667,7 @@ if ($settings['hash_salt']) {
 /**
  * Load services definition file.
  */
-# $settings['container_yamls'][] = __DIR__ . '/services.yml';
+$settings['container_yamls'][] = __DIR__ . '/services.yml';
 
 /**
  * Override the default service container class.

@@ -79,8 +79,8 @@ class RendererBubblingTest extends RendererTestBase {
     $bin = $this->randomMachineName();
 
     $this->setUpRequest();
-    $this->memoryCache = new MemoryBackend();
-    $custom_cache = new MemoryBackend();
+    $this->memoryCache = new MemoryBackend('render');
+    $custom_cache = new MemoryBackend($bin);
 
     $this->cacheFactory->expects($this->atLeastOnce())
       ->method('get')
@@ -326,9 +326,9 @@ class RendererBubblingTest extends RendererTestBase {
           ],
           'grandgrandchild' => [
             '#access_callback' => function () use (&$current_user_role) {
-                // Only role C can access this subtree.
-                return $current_user_role === 'C';
-              },
+              // Only role C can access this subtree.
+              return $current_user_role === 'C';
+            },
             '#cache' => [
               'contexts' => ['bar'],
               'tags' => ['d'],

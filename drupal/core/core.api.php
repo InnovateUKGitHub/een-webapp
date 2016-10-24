@@ -1692,7 +1692,11 @@
  *     // Create a $form API array.
  *     $form['phone_number'] = array(
  *       '#type' => 'tel',
- *       '#title' => $this->t('Your phone number')
+ *       '#title' => $this->t('Your phone number'),
+ *     );
+ *     $form['save'] = array(
+ *       '#type' => 'submit',
+ *       '#value' => $this->t('Save'),
  *     );
  *     return $form;
  *   }
@@ -2047,7 +2051,7 @@ function hook_mail_alter(&$message) {
  *   An array of parameters supplied by the caller of
  *   MailManagerInterface->mail().
  *
- * @see \Drupal\Core\Mail\MailManagerInterface->mail()
+ * @see \Drupal\Core\Mail\MailManagerInterface::mail()
  */
 function hook_mail($key, &$message, $params) {
   $account = $params['account'];
