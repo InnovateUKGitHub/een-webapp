@@ -15,7 +15,7 @@ serviceRoot=$htdocs/drupal/modules/custom/elastic_search/config/install
 drupalRoot=$htdocs/drupal/sites
 drupalSettings=$htdocs/drupal/sites/default/settings.php
 
-cp $serviceRoot/elastic_search.default.settings.yml $serviceRoot/elastic_search.settings.yml
+cp $htdocs/build/templates/drupal/elastic_search.default.settings.yml $serviceRoot/elastic_search.settings.yml
 sed -i -e "s/HOSTNAME_SERVICE/$hostnameapi/g" $serviceRoot/elastic_search.settings.yml
 
 cp $drupalRoot/default/default.settings.php $drupalSettings
@@ -40,8 +40,10 @@ if [ ! -z "$databaseChanges" ] || [ ! -z "$forceCompile" ];then
     echo "updating database"
 
     $htdocs/db/setup.sh
+    # Uninstall and reinstall module due to configuration on install
+    $htdocs/bin/drush pm-uninstall  elastic_search opportunities events -y
+    $htdocs/bin/drush pm-enable     opportunities events elastic_search -y
     $htdocs/bin/drush cr
-    $htdocs/bin/drush en een_common opportunities events elastic_search twig_extensions -y
 
     mkdir -p $htdocs/db/update
     cp -r $htdocs/db/init/* $htdocs/db/update
