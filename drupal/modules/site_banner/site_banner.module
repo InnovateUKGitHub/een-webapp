@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Site banner module.
+ */
+function site_banner_page_attachments_alter(array &$page)
+{
+    $page['#attached']['library'][] = 'site_banner/site-banner.print-css';
+    $page['#attached']['library'][] = 'site_banner/site-banner.screen-css';
+}
+
+function site_banner_page_top(array &$page_top) {
+    $banner_text = "This is a prototype";
+
+    $page_top['site_banner'] = array(
+      array(
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#attributes' => array(
+          'id' => 'siteBannerHeaderBanner',
+          'class' => array(
+            'toolbar',
+            'clearfix',
+            'toolbar-processed',
+            'overlay-displace-top',
+          ),
+        ),
+        '#value' => $banner_text,
+        '#weight' => -100,
+      ),
+      array(
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#attributes' => array(
+          'id' => 'siteBannerFooterBanner',
+          'class' => array(
+            'toolbar',
+            'clearfix',
+            'toolbar-processed',
+            'overlay-displace-top',
+          ),
+        ),
+        '#value' => $banner_text,
+        '#weight' => -100,
+      ),
+    );
+}
+
+?>

@@ -1,0 +1,13 @@
+name: Site Banner
+type: module
+description: Adds a permanent banner to the top and bottom of all pages on a Drupal site.
+package: User Interface
+# core: 8.x
+libraries:
+  - site_banner/site-banner.print-css
+  - site_banner/site-banner.screen-css
+# Information added by Drupal.org packaging script on 2016-01-18
+version: '8.x-1.x-dev'
+core: '8.x'
+project: 'site_banner'
+datestamp: 1453128543
