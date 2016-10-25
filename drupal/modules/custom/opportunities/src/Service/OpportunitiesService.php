@@ -71,7 +71,7 @@ class OpportunitiesService
         $countries = $request->query->get(self::COUNTRY);
 
         if (is_array($countries) && current($countries) == 'anywhere') {
-            $countries = null;
+            $countries = array_keys($this->getCountryList());
         }
         if (is_array($countries) && current($countries) == 'europe') {
             $countries = $this->getEuropeCountryCode();

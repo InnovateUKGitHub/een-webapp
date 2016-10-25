@@ -27,7 +27,7 @@ class OpportunitiesExploreForm extends AbstractForm
     /**
      * @param ContainerInterface $container
      *
-     * @return OpportunitiesForm
+     * @return OpportunitiesExploreForm
      */
     public static function create(ContainerInterface $container)
     {

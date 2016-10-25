@@ -37,10 +37,6 @@ jQuery(function () {
         country = checkboxes;
       }
 
-      if (country && country[0] === 'anywhere') {
-        country[0] = '';
-      }
-
       return $.ajax({
         url: 'opportunities/_count',
         data: {
@@ -50,7 +46,7 @@ jQuery(function () {
         }
       }).then(function (data) {
         $('.sb-results').html('<span>'+data.total + '</span> opportunities found');
-        
+
         if(country == ''){
             var str = $.param({ search: search, opportunity_type: opportunity_type });
         } else {
