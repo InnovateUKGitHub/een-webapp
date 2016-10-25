@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\elastic_search\Form;
+namespace Drupal\een_common\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\events\Service\EventsService;

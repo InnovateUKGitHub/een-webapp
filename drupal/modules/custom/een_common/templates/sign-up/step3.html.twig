@@ -1,8 +1,13 @@
 <div class="grid-row">
     <div class="column-full">
         <div class="form-heading header-secondary">
-            <h1 class="heading-large" tabindex="0">Thank you for applying for this project</h1>
-            <p>To complete your project application please create an account</p>
+            {% if type == 'opportunities' %}
+                <h1 class="heading-large" tabindex="0">Thank you for applying for this project</h1>
+                <p>To complete your project application please create an account</p>
+            {% else %}
+                <h1 class="heading-large" tabindex="0">Thank you for registering for this event</h1>
+                <p>To complete your registration please create an account</p>
+            {% endif %}
         </div>
     </div>
 

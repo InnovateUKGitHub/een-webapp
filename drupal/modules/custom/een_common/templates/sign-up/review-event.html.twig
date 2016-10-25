@@ -1,25 +1,17 @@
 <div class="grid-row">
     <div class="column-full">
         <div class="header-secondary header-secondary">
-            <h1 tabindex="0" class="heading-large">Check your answers before completing your application</h1>
+            <h1 tabindex="0" class="heading-large">Check your answers before completing your registration</h1>
         </div>
-        <h2 tabindex="0" class="heading-medium">Opportunity application</h2>
+        <h2 tabindex="0" class="heading-medium">Event Registration</h2>
         <hr/>
-    </div>
-    <div class="row no-margin">
-        <div class="column-one-third">
-            <p class="sh-bold no-margin">Opportunity ID:</p>
-        </div>
-        <div class="column-two-thirds with-cta">
-            <div><p>{{ form.profile_id }}</p></div>
-        </div>
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p class="sh-bold">Opportunity title:</p>
+            <p class="sh-bold no-margin">Title:</p>
         </div>
         <div class="column-two-thirds with-cta">
-            <div><p>{{ form.profile_title }}</p></div>
+            <div><p>{{ form.title }}</p></div>
         </div>
         <div class="column-full">
             <hr/>
@@ -27,59 +19,21 @@
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p class="sh-bold">Short description of your organisation, activities, products and services:</p>
+            <p class="sh-bold">{{ 'Please tell us about your food specificity if you have some' }}</p>
         </div>
         <div class="column-two-thirds with-cta">
             <div>
-                <p>{{ form.description }}</p>
+                <p>{{ form.allergies }}</p>
                 <form class="hidden">
-                    <div class="js-form-item form-item js-form-type-texteare form-item-description js-form-item-description">
+                    <div class="js-form-item form-item js-form-type-textearea form-item-allergies js-form-item-allergies">
                         <span class="error-message"></span>
-                        <textarea class="form-control form-textarea required" name="description" rows="5" cols="60">{{ form.description }}</textarea>
+                        <textarea class="form-control form-textarea required" name="allergies" rows="5" cols="60">{{ form.allergies }}</textarea>
                     </div>
                 </form>
             </div>
             <p>
-                <a href="#" class="edit-eoi" tabindex="0">Edit <span class="sr-only">the short description of your organisation, activities, products and services:</span></a>
+                <a href="#" class="edit-eoi" tabindex="0">Edit <span class="sr-only">the food:</span></a>
                 <a href="#" class="hidden update-eoi" tabindex="0">Update <span class="sr-only">your changes</span></a>
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="column-one-third">
-            <p class="sh-bold">What interests you about this opportunity and what do you expect of that organisation?
-            </p>
-        </div>
-        <div class="column-two-thirds with-cta">
-            <div>
-                <p>{{ form.interest }}</p>
-                <form class="hidden">
-                    <div class="js-form-item form-item js-form-type-texteare form-item-interest js-form-item-interest">
-                        <span class="error-message"></span>
-                        <textarea class="form-control form-textarea required" name="interest" rows="5" cols="60">{{ form.interest }}</textarea>
-                    </div>
-                </form>
-            </div>
-            <p>
-                <a href="#" class="edit-eoi" tabindex="0">Edit <span class="sr-only">what interests you about this opportunity and what do you expect of that organisation?</span></a>
-                <a href="#" class="hidden update-eoi" tabindex="0">Update <span class="sr-only">your changes</span></a>
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="column-one-third">
-            <p class="sh-bold">Is there anything further you would like to know about this opportunity?</p>
-        </div>
-        <div class="column-two-thirds with-cta">
-            <div>
-                <p>{{ form.more }}</p>
-                <form class="hidden">
-                    <textarea class="form-control form-textarea" name="more" rows="5" cols="60">{{ form.more }}</textarea>
-                </form>
-            </div>
-            <p>
-                <a href="#" class="edit-eoi">Edit<span class="sr-only">anything further you would like to know about this opportunity?</span></a>
-                <a href="#" class="hidden update-eoi">Update <span class="sr-only">your changes</span></a>
             </p>
         </div>
     </div>
@@ -110,7 +64,7 @@
                     <p>Yes - please send me emails when there is a new blog post and newsletter</p>
                 {% endif %}
             </div>
-            <p><a href="{{ url('opportunities.eoi.step1', {'profileId': form.profile_id}) }}">Change <span class="sr-only">details about you</span></a></p>
+            <p><a href="{{ url('sign-up.step1', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about you</span></a></p>
         </div>
         <div class="column-full">
             <hr>
@@ -128,7 +82,7 @@
                 <p><strong class="label company-url sh-bold">Company URL:</strong><span>{{ form.website }}</span></p>
                 <p><strong class="label telephone-number sh-bold">Telephone number:</strong><span>{{ form.company_phone }}</span></p>
             </div>
-            <p><a href="{{ url('opportunities.eoi.step2', {'profileId': form.profile_id}) }}">Change <span class="sr-only">details about your company</span></a></p>
+            <p><a href="{{ url('sign-up.step2', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about your company</span></a></p>
         </div>
         <div class="column-full">
             <hr>
@@ -149,7 +103,7 @@
                     <abbr class="post-code" itemprop="post-code" title="SN13 8PN">{{ form.postcode }}</abbr>
                 </div>
             </div>
-            <p><a href="{{ url('opportunities.eoi.step3', {'profileId': form.profile_id}) }}">Change <span class="sr-only">your address</span></a></p>
+            <p><a href="{{ url('sign-up.step3', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">your address</span></a></p>
         </div>
         <div class="column-full">
             <hr>
@@ -159,11 +113,11 @@
     <!-- Send application -->
     <div class="row">
         <div class="column-two-thirds">
-            <h2 class="heading-medium">Now send your application</h2>
+            <h2 class="heading-medium">Now send your registration</h2>
             <div>
-                <p>By submitting this application I confirm that the details provided are correct and that, as per the privacy policy, my personal information will not be shared.</p>
+                <p>By submitting this registration I confirm that the details provided are correct and that, as per the privacy policy, my personal information will not be shared.</p>
             </div>
-            <p><a href="{{ url('opportunities.eoi.complete', {'profileId': form.profile_id}) }}" class="button js-spb-click" tabindex="0" role="button">Complete your application</a></p>
+            <p><a href="{{ url('sign-up.complete', {'id': form.id, 'type': type}) }}" class="button js-spb-click" tabindex="0" role="button">Complete your registration</a></p>
         </div>
         <div class="column-one-third">
 

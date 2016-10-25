@@ -3,7 +3,9 @@ namespace Drupal\events\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Session\SessionManagerInterface;
+use Drupal\Core\Url;
 use Drupal\events\Form\EmailVerificationForm;
+use Drupal\events\Form\EventForm;
 use Drupal\events\Service\EventsService;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -82,13 +84,15 @@ class EventController extends ControllerBase
         $page = $request->query->get(self::PAGE_NUMBER, 1);
         $results = $this->service->get($eventId);
 
+        $form = \Drupal::formBuilder()->getForm(EventForm::class);
         $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);
         $formEmail['id']['#value'] = $eventId;
 
-        $this->checkSession($token);
+        $this->checkSession($form, $token, $eventId);
 
         return [
             '#theme'      => 'events_details',
+            '#form'       => $form,
             '#form_email' => $formEmail,
             '#event'      => $results,
             '#page'       => $page,
@@ -99,14 +103,29 @@ class EventController extends ControllerBase
     }
 
     /**
+     * @param array  $form
      * @param string $token
+     * @param string $eventId
      */
-    private function checkSession($token)
+    private function checkSession(&$form, $token, $eventId)
     {
         $emailSession = $this->session->get('email');
         $tokenSession = $this->session->get('token');
 
         if ($token != null && $token === $tokenSession) {
+
+            $this->clearSession();
+
+            $form['email']['#value'] = $emailSession;
+            $form['email']['#attributes']['disabled'] = 'disabled';
+
+            $form['#action'] = Url::fromRoute(
+                'events.details',
+                [
+                    'eventId' => $eventId,
+                    'token'   => $token,
+                ]
+            )->toString();
 
             $contact = $this->service->createLead($emailSession);
 
@@ -114,12 +133,40 @@ class EventController extends ControllerBase
             $this->session->set('type', $contact['Contact_Status__c']);
 
             if ($contact['Contact_Status__c'] !== 'Lead') {
-                // Todo redirect to thank you page if not lead
                 $this->setSession($contact);
             }
         } else {
+            $this->disableForm($form);
             $this->session->set('isLoggedIn', false);
         }
+    }
+
+    /**
+     * Delete all the information stored in session
+     */
+    private function clearSession()
+    {
+        $this->session->delete('email-verification');
+        $this->session->delete('allergies');
+
+        $this->session->delete('step1');
+        $this->session->delete('firstname');
+        $this->session->delete('lastname');
+        $this->session->delete('contact_email');
+        $this->session->delete('contact_phone');
+        $this->session->delete('newsletter');
+
+        $this->session->delete('step2');
+        $this->session->delete('company_name');
+        $this->session->delete('company_number');
+        $this->session->delete('website');
+        $this->session->delete('company_phone');
+
+        $this->session->delete('step3');
+        $this->session->delete('postcode');
+        $this->session->delete('addressone');
+        $this->session->delete('addresstwo');
+        $this->session->delete('city');
     }
 
     /**
@@ -137,12 +184,25 @@ class EventController extends ControllerBase
         $this->session->set('step2', true);
         $this->session->set('company_name', $contact['Account']['Name']);
         $this->session->set('company_number', $contact['Account']['Company_Registration_Number__c']);
-        $this->session->set('website', $contact['Account']['Website']);
-        $this->session->set('company_phone', $contact['Account']['Phone']);
+        if (isset($contact['Account']['Website'])) {
+            $this->session->set('website', $contact['Account']['Website']);
+        }
+        if (isset($contact['Account']['Phone'])) {
+            $this->session->set('company_phone', $contact['Account']['Phone']);
+        }
 
         $this->session->set('step3', true);
         $this->session->set('postcode', $contact['MailingPostalCode']);
         $this->session->set('addressone', $contact['MailingStreet']);
         $this->session->set('city', $contact['MailingCity']);
+    }
+
+    /**
+     * @param array $form
+     */
+    private function disableForm(&$form)
+    {
+        $form['allergies']['#attributes']['disabled'] = 'disabled';
+        $form['actions']['submit']['#attributes']['disabled'] = 'disabled';
     }
 }

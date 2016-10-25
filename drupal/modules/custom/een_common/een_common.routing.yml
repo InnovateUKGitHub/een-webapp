@@ -4,3 +4,52 @@ een.contact:
    _controller: '\Drupal\een_common\Controller\ContactController::index'
  requirements:
    _permission: 'access content'
+
+sign-up.step1:
+ path: '/sign-up/{type}/{id}/step1'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SignUpController::step1'
+ requirements:
+   _permission: 'access content'
+
+sign-up.step2:
+ path: '/sign-up/{type}/{id}/step2'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SignUpController::step2'
+ requirements:
+   _permission: 'access content'
+
+sign-up.step3:
+ path: '/sign-up/{type}/{id}/step3'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SignUpController::step3'
+ requirements:
+   _permission: 'access content'
+
+sign-up.review:
+ path: '/sign-up/{type}/{id}/review'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SignUpController::review'
+ requirements:
+   _permission: 'access content'
+
+sign-up.complete:
+ path: '/sign-up/{type}/{id}/complete'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SignUpController::complete'
+ requirements:
+   _permission: 'access content'
+
+sign-up.update:
+ path: '/sign-up/update/{field}'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SignUpController::update'
+ requirements:
+   _permission: 'access content'
+
+sign-up.companies:
+ path: '/sign-up/companies'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SignUpController::companies'
+ requirements:
+   _permission: 'access content'

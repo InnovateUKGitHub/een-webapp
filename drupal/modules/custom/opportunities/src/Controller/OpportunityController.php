@@ -155,7 +155,7 @@ class OpportunityController extends ControllerBase
      */
     private function clearSession()
     {
-        $this->session->delete('eoi');
+        $this->session->delete('email-verification');
         $this->session->delete('description');
         $this->session->delete('interest');
         $this->session->delete('more');

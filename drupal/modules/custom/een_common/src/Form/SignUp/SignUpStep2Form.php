@@ -1,14 +1,13 @@
 <?php
-namespace Drupal\opportunities\Form\ExpressionOfInterest;
+namespace Drupal\een_common\Form\SignUp;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\opportunities\Controller\OpportunityController;
 use Drupal\opportunities\Form\AbstractForm;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class SignUpStep3Form extends AbstractForm
+class SignUpStep2Form extends AbstractForm
 {
     /**
      * @var PrivateTempStore
@@ -16,7 +15,7 @@ class SignUpStep3Form extends AbstractForm
     private $session;
 
     /**
-     * SignUpStep3Form constructor.
+     * SignUpStep2Form constructor.
      *
      * @param PrivateTempStore $session
      */
@@ -28,7 +27,7 @@ class SignUpStep3Form extends AbstractForm
     /**
      * @param ContainerInterface $container
      *
-     * @return SignUpStep3Form
+     * @return SignUpStep2Form
      */
     public static function create(ContainerInterface $container)
     {
@@ -49,77 +48,69 @@ class SignUpStep3Form extends AbstractForm
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $form = [
-            'postcode'       => [
+            'company_name'   => [
                 '#type'          => 'textfield',
-                '#title'         => t('Enter your postcode'),
+                '#title'         => t('Company Name'),
                 '#label_display' => 'before',
-                '#required'       => true,
-                '#required_error' => [
-                    'key'          => 'edit-postcode',
-                    'text'         => t('This is required to complete your application.'),
-                    'general_text' => t('The postcode is required to complete your application.'),
-                ],
                 '#attributes'    => [
-                    'class' => [
-                        'form-control',
+                    'class'       => [
+                        'form-control ch_search',
                     ],
-                    'autocomplete' => [
-                        'shipping postal-code'
+                    'placeholder' => [
+                        'Your company\'s name',
+                    ],
+                    'id'          => [
+                        'ch_search',
                     ],
                 ],
             ],
-            'addressone'       => [
-                '#type'          => 'textfield',
-                '#title'         => t('Address Line 1'),
-                '#label_display' => 'before',
-                '#required'       => true,
-                '#required_error' => [
-                    'key'          => 'edit-addressone',
-                    'text'         => t('This is required to complete your application.'),
-                    'general_text' => t('The address is required to complete your application.'),
-                ],
-                '#attributes'    => [
+            'search'         => [
+                '#type'                     => 'html_tag',
+                '#title'                    => t('Search Companies House'),
+                '#label_display'            => 'before',
+                '#executes_submit_callback' => false,
+                '#value'                    => 'Search Companies House',
+                '#tag'                      => 'button',
+                '#attributes'               => [
                     'class' => [
                         'form-control',
                     ],
-                    'autocomplete' => [
-                        'shipping address-line1'
+                    'id'    => [
+                        'ch-search-trigger',
                     ],
                 ],
             ],
-            'addresstwo'       => [
+            'company_number' => [
                 '#type'          => 'textfield',
-                '#title'         => t('Address Line 2'),
+                '#title'         => t('Company number'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [
                         'form-control',
                     ],
-                    'autocomplete' => [
-                        'shipping address-line2'
-                    ],
                 ],
             ],
-            'city'       => [
+            'website'        => [
                 '#type'          => 'textfield',
-                '#title'         => t('Town/City'),
+                '#title'         => t('Website'),
                 '#label_display' => 'before',
-                '#required'       => true,
-                '#required_error' => [
-                    'key'          => 'edit-city',
-                    'text'         => t('This is required to complete your application.'),
-                    'general_text' => t('The city is required to complete your application.'),
-                ],
                 '#attributes'    => [
                     'class' => [
                         'form-control',
                     ],
-                    'autocomplete' => [
-                        'shipping locality'
+                ],
+            ],
+            'company_phone'  => [
+                '#type'          => 'textfield',
+                '#title'         => t('Company switchboard phone number'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
                     ],
                 ],
             ],
-            'actions'     => [
+            'actions'        => [
                 '#type'  => 'actions',
                 'submit' => [
                     '#type'        => 'submit',
@@ -127,7 +118,7 @@ class SignUpStep3Form extends AbstractForm
                     '#button_type' => 'primary',
                 ],
             ],
-            '#method'     => Request::METHOD_POST,
+            '#method'        => Request::METHOD_POST,
         ];
         $form_state->setCached(false);
 
@@ -140,16 +131,17 @@ class SignUpStep3Form extends AbstractForm
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $form_state->setRedirect(
-            'opportunities.eoi.review',
+            'sign-up.step3',
             [
-                'profileId' => $this->session->get('id'),
+                'id'   => $this->session->get('id'),
+                'type' => $this->session->get('type'),
             ]
         );
 
-        $this->session->set('step3', true);
-        $this->session->set('postcode', $form_state->getValue('postcode'));
-        $this->session->set('addressone', $form_state->getValue('addressone'));
-        $this->session->set('addresstwo', $form_state->getValue('addresstwo'));
-        $this->session->set('city', $form_state->getValue('city'));
+        $this->session->set('step2', true);
+        $this->session->set('company_name', $form_state->getValue('company_name'));
+        $this->session->set('company_number', $form_state->getValue('company_number'));
+        $this->session->set('website', $form_state->getValue('website'));
+        $this->session->set('company_phone', $form_state->getValue('company_phone'));
     }
 }

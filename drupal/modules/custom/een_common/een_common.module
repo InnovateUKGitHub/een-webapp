@@ -2,11 +2,62 @@
 function een_common_theme()
 {
     return [
-        'contact_form' => [
+        'contact_form'     => [
             'variables' => [
-                'form'  => null,
+                'form' => null,
             ],
             'template'  => 'contact-form',
+        ],
+
+        // Sign Up Forms
+        'sign_up_step1'    => [
+            'variables' => [
+                'form' => null,
+                'type' => null,
+            ],
+            'template'  => 'sign-up/step1',
+        ],
+        'sign_up_step2'    => [
+            'variables' => [
+                'form' => null,
+                'type' => null,
+            ],
+            'template'  => 'sign-up/step2',
+        ],
+        'sign_up_step3'    => [
+            'variables' => [
+                'form' => null,
+                'type' => null,
+            ],
+            'template'  => 'sign-up/step3',
+        ],
+        'sign_up_review'   => [
+            'variables' => [
+                'form' => null,
+                'type' => null,
+            ],
+            'template'  => 'sign-up/review',
+        ],
+        'sign_up_review_event'   => [
+            'variables' => [
+                'form' => null,
+                'type' => null,
+            ],
+            'template'  => 'sign-up/review-event',
+        ],
+        'sign_up_complete' => [
+            'variables' => [
+                'form' => null,
+                'type' => null,
+            ],
+            'template'  => 'sign-up/complete',
+        ],
+        'sign_up_complete_event' => [
+            'variables' => [
+                'form' => null,
+                'type' => null,
+            ],
+            'template'  => 'sign-up/complete-event',
         ],
     ];
 }

@@ -1,6 +1,6 @@
 jQuery(function () {
     var $ = jQuery,
-        url = '/opportunities/eoi/companies',
+        url = '/sign-up/companies',
         $searchResultsContainer = $('.companies-house-list'),
         $searchTrigger = $("#ch-search-trigger"),
         $searchField = $('#ch_search');

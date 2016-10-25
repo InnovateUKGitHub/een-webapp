@@ -2,7 +2,7 @@ jQuery(function () {
     var $ = jQuery,
         eoiLiveEdit = $('.edit-eoi'),
         eoiLiveUpdate = $('.update-eoi'),
-        url = '/opportunities/eoi/update/';
+        url = '/sign-up/update/';
 
     /* Display text area on edit click */
     eoiLiveEdit.click(function (e) {

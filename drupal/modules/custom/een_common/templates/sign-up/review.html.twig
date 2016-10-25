@@ -1,0 +1,175 @@
+<div class="grid-row">
+    <div class="column-full">
+        <div class="header-secondary header-secondary">
+            <h1 tabindex="0" class="heading-large">Check your answers before completing your application</h1>
+        </div>
+        <h2 tabindex="0" class="heading-medium">Opportunity application</h2>
+        <hr/>
+    </div>
+    <div class="row no-margin">
+        <div class="column-one-third">
+            <p class="sh-bold no-margin">Opportunity ID:</p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div><p>{{ form.id }}</p></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p class="sh-bold">Opportunity title:</p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div><p>{{ form.title }}</p></div>
+        </div>
+        <div class="column-full">
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p class="sh-bold">Short description of your organisation, activities, products and services:</p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div>
+                <p>{{ form.description }}</p>
+                <form class="hidden">
+                    <div class="js-form-item form-item js-form-type-textearea form-item-description js-form-item-description">
+                        <span class="error-message"></span>
+                        <textarea class="form-control form-textarea required" name="description" rows="5" cols="60">{{ form.description }}</textarea>
+                    </div>
+                </form>
+            </div>
+            <p>
+                <a href="#" class="edit-eoi" tabindex="0">Edit <span class="sr-only">the short description of your organisation, activities, products and services:</span></a>
+                <a href="#" class="hidden update-eoi" tabindex="0">Update <span class="sr-only">your changes</span></a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p class="sh-bold">What interests you about this opportunity and what do you expect of that organisation?
+            </p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div>
+                <p>{{ form.interest }}</p>
+                <form class="hidden">
+                    <div class="js-form-item form-item js-form-type-texteare form-item-interest js-form-item-interest">
+                        <span class="error-message"></span>
+                        <textarea class="form-control form-textarea required" name="interest" rows="5" cols="60">{{ form.interest }}</textarea>
+                    </div>
+                </form>
+            </div>
+            <p>
+                <a href="#" class="edit-eoi" tabindex="0">Edit <span class="sr-only">what interests you about this opportunity and what do you expect of that organisation?</span></a>
+                <a href="#" class="hidden update-eoi" tabindex="0">Update <span class="sr-only">your changes</span></a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p class="sh-bold">Is there anything further you would like to know about this opportunity?</p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div>
+                <p>{{ form.more }}</p>
+                <form class="hidden">
+                    <textarea class="form-control form-textarea" name="more" rows="5" cols="60">{{ form.more }}</textarea>
+                </form>
+            </div>
+            <p>
+                <a href="#" class="edit-eoi">Edit<span class="sr-only">anything further you would like to know about this opportunity?</span></a>
+                <a href="#" class="hidden update-eoi">Update <span class="sr-only">your changes</span></a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Account details -->
+    <div class="column-full">
+        <h2 class="heading-medium" tabindex="0">Your account details</h2>
+        <hr/>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p class="sh-bold">About you</p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div>
+                <p class="no-margin">
+                    <strong class="label your-name sh-bold">Your name:</strong><span>{{ form.firstname }} {{ form.lastname }}</span>
+                </p>
+                <p class="no-margin">
+                    <strong class="label your-email sh-bold">Your email address:</strong><span>{{ form.contact_email }}</span>
+                </p>
+                <p class="no-margin">
+                    <strong class="label your-contact sh-bold">Contact number:</strong><span>{{ form.contact_phone }}</span>
+                </p>
+                {% if form.newsletter is empty %}
+                    <p>No - please don't send me emails when there is a new blog post and newsletter</p>
+                {% else %}
+                    <p>Yes - please send me emails when there is a new blog post and newsletter</p>
+                {% endif %}
+            </div>
+            <p><a href="{{ url('sign-up.step1', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about you</span></a></p>
+        </div>
+        <div class="column-full">
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-one-third">
+            <p class="sh-bold">Your company</p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div>
+                {% if form.company_name %}
+                   <p><strong class="label company-name sh-bold">Company name:</strong><span>{{ form.company_name }}</span></p>
+                {% endif %}
+                <p><strong class="label company-url sh-bold">Company URL:</strong><span>{{ form.website }}</span></p>
+                <p><strong class="label telephone-number sh-bold">Telephone number:</strong><span>{{ form.company_phone }}</span></p>
+            </div>
+            <p><a href="{{ url('sign-up.step2', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about your company</span></a></p>
+        </div>
+        <div class="column-full">
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column-one-third">
+            <p class="sh-bold">Your address</p>
+        </div>
+        <div class="column-two-thirds with-cta">
+            <div class="vcard">
+                <div class="adr" itemprop="address" itemscope="itemscope"
+                     itemtype="http://data-vocabulary.org/Address/">
+                    <span class="street-address-one" itemprop="street-address-one">{{ form.addressone }}</span>
+                    <span class="street-address-two" itemprop="street-address-two">{{ form.addresstwo }}</span>
+                    <span class="city" itemprop="locality">{{ form.city }}</span>
+                    <abbr class="post-code" itemprop="post-code" title="SN13 8PN">{{ form.postcode }}</abbr>
+                </div>
+            </div>
+            <p><a href="{{ url('sign-up.step3', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">your address</span></a></p>
+        </div>
+        <div class="column-full">
+            <hr>
+        </div>
+    </div>
+
+    <!-- Send application -->
+    <div class="row">
+        <div class="column-two-thirds">
+            <h2 class="heading-medium">Now send your application</h2>
+            <div>
+                <p>By submitting this application I confirm that the details provided are correct and that, as per the privacy policy, my personal information will not be shared.</p>
+            </div>
+            <p><a href="{{ url('sign-up.complete', {'id': form.id, 'type': type}) }}" class="button js-spb-click" tabindex="0" role="button">Complete your application</a></p>
+        </div>
+        <div class="column-one-third">
+
+        </div>
+        <div class="column-full">
+            <hr>
+        </div>
+    </div>
+</div>

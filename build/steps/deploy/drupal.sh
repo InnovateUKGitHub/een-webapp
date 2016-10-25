@@ -41,8 +41,8 @@ if [ ! -z "$databaseChanges" ] || [ ! -z "$forceCompile" ];then
 
     $htdocs/db/setup.sh
     # Uninstall and reinstall module due to configuration on install
-    $htdocs/bin/drush pm-uninstall  elastic_search opportunities events -y
-    $htdocs/bin/drush pm-enable     opportunities events elastic_search -y
+    $htdocs/bin/drush pm-uninstall  elastic_search opportunities events een_common -y
+    $htdocs/bin/drush pm-enable     opportunities events een_common elastic_search -y
     $htdocs/bin/drush cr
 
     mkdir -p $htdocs/db/update

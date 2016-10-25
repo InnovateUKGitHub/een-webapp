@@ -3,8 +3,12 @@
         <div class="status-summary">
             <div class="column-two-thirds">
                 <p><i class="fa fa-info-circle" aria-hidden="true"></i>
-                    {{ 'Thank you for verifying your email address <span class="bold-small">%s</span>, you are now register to the event'|format(email)|t }}
+                    {{ 'Thank you for verifying your email address '|t }}
+                    <span class="bold-small">{{ email }}</span>
                 </p>
+            </div>
+            <div class="column-one-third">
+                <a tabindex="0" class="button-brand js-continue-focus" href="#register" title="Register to this event">{{ 'Continue with registration'|t }}</a>
             </div>
         </div>
     {% endif %}
@@ -68,8 +72,8 @@
             <p></p>
             <h3 class="heading-medium" id="direction">{{ 'Directions'|t }}</h3>
             <p></p>
+            <div id="navstop"></div>
         </div>
-        <div id="navstop"></div>
     </div>
     <hr/>
     <div class="grid-row">
@@ -77,11 +81,29 @@
             <h3 class="heading-medium single-header-one-col" id="register">{{ 'Register for the event'|t }}</h3>
         </div>
         <div class="column-two-thirds">
-            <div class="verify-email">
-                {{ form_email }}
-                <p>{{ 'To register for this event we need to validate your email. You will be sent a 6 digit confirmation email containing a verfication code. Simply copy this into the field below to continue.'|t }}</p>
+            {% if token == false %}
+                <div class="verify-email">
+                    {{ form_email }}
+                    <p>{{ 'To register for this event we need to validate your email. You will be sent a 6 digit confirmation email containing a verfication code. Simply copy this into the field below to continue.'|t }}</p>
+                    <hr />
+                </div>
+                <div class="transp">
+            {% endif %}
+            <form action="{{ form['#action'] }}" method="{{ form['#method'] }}" class="form-opportunities">
+
+                {#Required hidden field for drupal form#}
+                {{ form.form_build_id }}
+                {{ form.form_id }}
+
+                <div class="form-section">
+                    {{ form.allergies }}
+                </div>
                 <hr />
-            </div>
+                {{ form.actions }}
+            </form>
+            {% if token is not null %}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endif %}

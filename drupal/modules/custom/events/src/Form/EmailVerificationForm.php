@@ -4,7 +4,7 @@ namespace Drupal\events\Form;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class EmailVerificationForm extends \Drupal\elastic_search\Form\EmailVerificationForm
+class EmailVerificationForm extends \Drupal\een_common\Form\EmailVerificationForm
 {
     /**
      * @param ContainerInterface $container

@@ -69,36 +69,6 @@ function opportunities_theme()
             ],
             'template'  => 'opportunities-details',
         ],
-        'opportunities_sign_up_step1'    => [
-            'variables' => [
-                'form' => null,
-            ],
-            'template'  => 'opportunities-sign-up/step1',
-        ],
-        'opportunities_sign_up_step2'    => [
-            'variables' => [
-                'form' => null,
-            ],
-            'template'  => 'opportunities-sign-up/step2',
-        ],
-        'opportunities_sign_up_step3'    => [
-            'variables' => [
-                'form' => null,
-            ],
-            'template'  => 'opportunities-sign-up/step3',
-        ],
-        'opportunities_sign_up_review'   => [
-            'variables' => [
-                'form' => null,
-            ],
-            'template'  => 'opportunities-sign-up/review',
-        ],
-        'opportunities_sign_up_complete' => [
-            'variables' => [
-                'form' => null,
-            ],
-            'template'  => 'opportunities-sign-up/complete',
-        ],
         'opportunities_search_temp'      => [
             'variables' => [
                 'form'             => null,

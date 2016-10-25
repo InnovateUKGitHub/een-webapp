@@ -41,8 +41,22 @@
                             {{ row._source.country }}
                         {% endif %}
                     </p>
-                    <p>
-                        {{ row._source.summary|raw }}
+                    <p class="description">
+                        {% if row._source.summary %}
+                            {{ row._source.summary|truncate(240, true)|raw }}
+                        {% else %}
+                            {{ row._source.description|truncate(240, true)|raw }}
+                        {% endif %}
+
+                        {% if row._source.type == 'merlin' or row._source.type == 'eventBrite' %}
+                            <a href="{{ row._source.url }}" target="_blank">
+                                {{ 'more' }}
+                            </a>
+                        {% else %}
+                            <a href="{{ url('events.details', {'eventId': row._id}) }}">
+                                {{ 'more' }}
+                            </a>
+                        {% endif %}
                     </p>
                 </div>
 

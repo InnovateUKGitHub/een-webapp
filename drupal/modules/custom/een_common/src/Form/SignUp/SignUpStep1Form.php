@@ -1,8 +1,7 @@
 <?php
-namespace Drupal\opportunities\Form\ExpressionOfInterest;
+namespace Drupal\een_common\Form\SignUp;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\opportunities\Controller\OpportunityController;
 use Drupal\opportunities\Form\AbstractForm;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -50,7 +49,7 @@ class SignUpStep1Form extends AbstractForm
     {
         $types = [
             'BP' => t('Blog Post'),
-            'C' => t('Consultation'),
+            'C'  => t('Consultation'),
             'UK' => t('UK Newsletter'),
             'EE' => t('East of England'),
             'L'  => t('London'),
@@ -68,89 +67,89 @@ class SignUpStep1Form extends AbstractForm
 
         $form = [
             'firstname'     => [
-                '#type'          => 'textfield',
-                '#title'         => t('First name'),
-                '#label_display' => 'before',
-                '#required'      => true,
+                '#type'           => 'textfield',
+                '#title'          => t('First name'),
+                '#label_display'  => 'before',
+                '#required'       => true,
                 '#required_error' => [
                     'key'          => 'edit-firstname',
                     'text'         => t('This is required to complete your application.'),
                     'general_text' => t('The first name is required to complete your application.'),
                 ],
-                '#attributes'    => [
-                    'class' => [
+                '#attributes'     => [
+                    'class'        => [
                         'form-control',
                     ],
                     'autocomplete' => [
-                        'given-name'
+                        'given-name',
                     ],
                 ],
-                
+
             ],
             'lastname'      => [
-                '#type'          => 'textfield',
-                '#title'         => t('Last name'),
-                '#label_display' => 'before',
-                '#required'      => true,
+                '#type'           => 'textfield',
+                '#title'          => t('Last name'),
+                '#label_display'  => 'before',
+                '#required'       => true,
                 '#required_error' => [
                     'key'          => 'edit-lastname',
                     'text'         => t('This is required to complete your application.'),
                     'general_text' => t('The last name is required to complete your application.'),
                 ],
-                '#attributes'    => [
-                    'class' => [
+                '#attributes'     => [
+                    'class'        => [
                         'form-control',
                     ],
                     'autocomplete' => [
-                        'family-name'
+                        'family-name',
                     ],
                 ],
             ],
             'contact_email' => [
-                '#type'          => 'email',
-                '#title'         => t('Email'),
-                '#label_display' => 'before',
-                '#required'      => true,
+                '#type'           => 'email',
+                '#title'          => t('Email'),
+                '#label_display'  => 'before',
+                '#required'       => true,
                 '#required_error' => [
                     'key'          => 'edit-contact-email',
                     'text'         => t('This is required to complete your application.'),
                     'general_text' => t('The email is required to complete your application.'),
                 ],
-                '#attributes'    => [
-                    'class' => [
+                '#attributes'     => [
+                    'class'        => [
                         'form-control',
                     ],
                     'autocomplete' => [
-                        'email'
+                        'email',
                     ],
                 ],
             ],
             'contact_phone' => [
-                '#type'          => 'number',
-                '#title'         => t('Contact telephone number'),
-                '#label_display' => 'before',
-                '#required'      => true,
+                '#type'           => 'number',
+                '#title'          => t('Contact telephone number'),
+                '#label_display'  => 'before',
+                '#required'       => true,
                 '#required_error' => [
                     'key'          => 'edit-contact-phone',
                     'text'         => t('This is required to complete your application.'),
                     'general_text' => t('The telephone number is required to complete your application.'),
                 ],
-                '#attributes'    => [
-                    'class' => [
+                '#attributes'     => [
+                    'class'        => [
                         'form-control',
                     ],
                     'autocomplete' => [
-                        'tel'
+                        'tel',
                     ],
                 ],
             ],
             'newsletter'    => [
                 '#type'    => 'checkboxes',
                 '#title'   => t('<span tabindex="0">Please send me emails when there is a new:</span>'),
-                '#options' => $types
+                '#options' => $types,
             ],
-            
-            'actions'       => [
+
+            'actions' => [
                 '#type'  => 'actions',
                 'submit' => [
                     '#type'        => 'submit',
@@ -158,7 +157,7 @@ class SignUpStep1Form extends AbstractForm
                     '#button_type' => 'primary',
                 ],
             ],
-            '#method'       => Request::METHOD_POST,
+            '#method' => Request::METHOD_POST,
         ];
         $form_state->setCached(false);
 
@@ -174,7 +173,7 @@ class SignUpStep1Form extends AbstractForm
             $form_state->setErrorByName(
                 'contact_email',
                 [
-                    'key'  => 'edit-contact-email',
+                    'key'          => 'edit-contact-email',
                     'text'         => t('This is required to complete your application.'),
                     'general_text' => t('The email is required to complete your application.'),
                 ]
@@ -188,9 +187,10 @@ class SignUpStep1Form extends AbstractForm
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $form_state->setRedirect(
-            'opportunities.eoi.step2',
+            'sign-up.step2',
             [
-                'profileId' => $this->session->get('id'),
+                'id'   => $this->session->get('id'),
+                'type' => $this->session->get('type'),
             ]
         );
 

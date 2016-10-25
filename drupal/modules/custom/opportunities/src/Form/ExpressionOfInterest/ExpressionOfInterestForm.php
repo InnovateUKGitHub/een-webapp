@@ -2,7 +2,6 @@
 namespace Drupal\opportunities\Form\ExpressionOfInterest;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\opportunities\Controller\OpportunityController;
 use Drupal\opportunities\Form\AbstractForm;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -155,21 +154,24 @@ class ExpressionOfInterestForm extends AbstractForm
     {
         if ($this->session->get('type') === 'Client') {
             $form_state->setRedirect(
-                'opportunities.eoi.review',
+                'sign-up.review',
                 [
-                    'profileId' => $this->session->get('id'),
+                    'id'   => $this->session->get('id'),
+                    'type' => 'opportunities',
                 ]
             );
         } else {
             $form_state->setRedirect(
-                'opportunities.eoi.step1',
+                'sign-up.step1',
                 [
-                    'profileId' => $this->session->get('id'),
+                    'id'   => $this->session->get('id'),
+                    'type' => 'opportunities',
                 ]
             );
         }
 
-        $this->session->set('eoi', true);
+        $this->session->set('email-verification', true);
+        $this->session->set('type', 'opportunities');
         $this->session->set('description', $form_state->getValue('description'));
         $this->session->set('interest', $form_state->getValue('interest'));
         $this->session->set('more', $form_state->getValue('more'));
