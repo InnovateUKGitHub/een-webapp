@@ -29,120 +29,119 @@ class CompaniesHouseForm extends AbstractForm
         $types = [
             'UK' => t('UK Newsletter'),
             'EE' => t('East of England'),
-            'L' => t('London'),
-            'M' => t('Midlands'),
+            'L'  => t('London'),
+            'M'  => t('Midlands'),
             'NE' => t('North England'),
             'NI' => t('Northern Ireland'),
             'SE' => t('South East England'),
             'SW' => t('South West England'),
-            'W' => t('Wales'),
+            'W'  => t('Wales'),
         ];
         $radio = [
             'UK' => t('UK Newsletter'),
             'EE' => t('East of England'),
         ];
-        
+
         $form = [
             'company_name' => [
-                '#type'                => 'textfield',
-                '#title'               => t('Company Name'),
-                '#label_display'       => 'before',
-                '#attributes'          => [
-                    'class' => [
+                '#type'          => 'textfield',
+                '#title'         => t('Company Name'),
+                '#label_display' => 'before',
+                '#attributes'    => [
+                    'class'       => [
                         'form-control ch_search',
                     ],
                     'placeholder' => [
                         'Your company\'s name',
                     ],
-                    'id' => [
-                        'ch_search'
-                    ]
+                    'id'          => [
+                        'ch_search',
+                    ],
                 ],
             ],
-            'newsletter' => [
+            'newsletter'   => [
                 '#type'    => 'checkboxes',
                 '#title'   => t('Please send me emails when there is a new:'),
                 '#options' => $types,
             ],
-            
+
             'radiobutton' => [
-                '#type'    => 'radios',
-                '#title'   => t('Please send me emails when there is a new:'),
-                '#options' => $radio,
+                '#type'       => 'radios',
+                '#title'      => t('Please send me emails when there is a new:'),
+                '#options'    => $radio,
                 '#attributes' => [
                     'class' => [
                         'radio-buttons',
-                    ]
+                    ],
                 ],
             ],
-            
-            'firstname'       => [
+
+            'firstname' => [
                 '#type'          => 'textfield',
                 '#title'         => t('Fisrt name'),
                 '#label_display' => 'before',
-                '#required' => TRUE,
-                '#attributes'    => [
-                    'class' => [
-                        'form-control',
-                    ]
-                ],
-            ],
-            
-            'lastname'       => [
-                '#type'          => 'textfield',
-                '#title'         => t('Last name'),
-                '#label_display' => 'before',
-                '#required' => TRUE,
-                '#attributes'    => [
-                    'class' => [
-                        'form-control',
-                    ]
-                ],
-            ],
-            
-            'email'       => [
-                '#type'          => 'textfield',
-                '#title'         => t('Email'),
-                '#label_display' => 'before',
-                '#required' => TRUE,
-                '#attributes'    => [
-                    'class' => [
-                        'form-control',
-                    ]
-                ],
-            ],
-            
-            'phone'       => [
-                '#type'          => 'textfield',
-                '#title'         => t('Contact telephone number'),
-                '#label_display' => 'before',
-                '#required' => TRUE,
-                '#attributes'    => [
-                    'class' => [
-                        'form-control',
-                    ]
-                ],
-            ],
-            
-            'search'       => [
-                '#type'          => 'html_tag',
-                '#title'         => t('Search Companies House'),
-                '#label_display' => 'before',
-                '#executes_submit_callback' => false,
-                '#value' => 'Search Companies House',
-                '#tag' => 'button',
+                '#required'      => true,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
                     ],
-                    'id' => [
-                        'ch-search-trigger',
-                    ]
                 ],
             ],
-            
-            
-            'companynumber'       => [
+
+            'lastname' => [
+                '#type'          => 'textfield',
+                '#title'         => t('Last name'),
+                '#label_display' => 'before',
+                '#required'      => true,
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ],
+                ],
+            ],
+
+            'email' => [
+                '#type'          => 'textfield',
+                '#title'         => t('Email'),
+                '#label_display' => 'before',
+                '#required'      => true,
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ],
+                ],
+            ],
+
+            'phone' => [
+                '#type'          => 'textfield',
+                '#title'         => t('Contact telephone number'),
+                '#label_display' => 'before',
+                '#required'      => true,
+                '#attributes'    => [
+                    'class' => [
+                        'form-control',
+                    ],
+                ],
+            ],
+
+            'search' => [
+                '#type'                     => 'html_tag',
+                '#title'                    => t('Search Companies House'),
+                '#label_display'            => 'before',
+                '#executes_submit_callback' => false,
+                '#value'                    => 'Search Companies House',
+                '#tag'                      => 'button',
+                '#attributes'               => [
+                    'class' => [
+                        'form-control',
+                    ],
+                    'id'    => [
+                        'ch-search-trigger',
+                    ],
+                ],
+            ],
+
+            'companynumber' => [
                 '#type'          => 'textfield',
                 '#title'         => t('Company number'),
                 '#label_display' => 'before',
@@ -152,110 +151,109 @@ class CompaniesHouseForm extends AbstractForm
                     ],
                 ],
             ],
-            
+
             'nocompanynumber' => [
-                '#type'    => 'checkbox',
-                '#title'   => t('I do not have a company number'),
+                '#type'  => 'checkbox',
+                '#title' => t('I do not have a company number'),
             ],
-            
-            'website'       => [
+
+            'website' => [
                 '#type'          => 'textfield',
                 '#title'         => t('Website URL'),
                 '#label_display' => 'before',
-                '#required' => TRUE,
+                '#required'      => true,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
                 ],
             ],
-            
-            'companytel'       => [
+
+            'companytel' => [
                 '#type'          => 'textfield',
                 '#title'         => t('Company telephone number'),
                 '#label_display' => 'before',
-                '#required' => TRUE,
+                '#required'      => true,
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
                 ],
             ],
-            'postcode'       => [
+            'postcode'   => [
                 '#type'          => 'textfield',
                 '#title'         => t('Enter your postcode'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
                 ],
             ],
-            'addressone'       => [
+            'addressone' => [
                 '#type'          => 'textfield',
                 '#title'         => t('Address Line 1'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
                 ],
             ],
-            
-            'addresstwo'       => [
+
+            'addresstwo' => [
                 '#type'          => 'textfield',
                 '#title'         => t('Address Line 2'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
                 ],
             ],
-            
-            'city'       => [
+
+            'city' => [
                 '#type'          => 'textfield',
                 '#title'         => t('Town/City'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
                 ],
             ],
-            
-            'county'       => [
+
+            'county' => [
                 '#type'          => 'textfield',
                 '#title'         => t('County'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class' => [
                         'form-control',
-                    ]
+                    ],
                 ],
             ],
-            
-            'actions'     => [
-                '#type'  => 'actions',
-                '#attributes'    => [
+
+            'actions' => [
+                '#type'       => 'actions',
+                '#attributes' => [
                     'id' => [
                         'ch_search_pp',
                     ],
                 ],
-                
-                
+
                 'submit' => [
                     '#type'        => 'button',
                     '#value'       => $this->t('Continue'),
                     '#button_type' => 'primary',
-                    '#method' => 'append',
-                    '#url' => '/opportunities-tempajax',
+                    '#method'      => 'append',
+                    '#url'         => '/opportunities-tempajax',
                     '#ajax'        => [
                         'callback' => 'Drupal\opportunities\Controller\OpportunitiesController::tempajax',
                     ],
                 ],
             ],
-            '#method'     => Request::METHOD_POST,
+            '#method' => Request::METHOD_POST,
         ];
         $form_state->setCached(false);
 

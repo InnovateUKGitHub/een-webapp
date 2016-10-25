@@ -139,7 +139,7 @@ class SignUpController extends ControllerBase
             'title'            => $title,
             'reference_number' => $this->session->get('reference_number'),
 
-            'allergies'        => $this->session->get('allergies'),
+            'dietary'     => $this->session->get('dietary'),
             'description' => $this->session->get('description'),
             'interest'    => $this->session->get('interest'),
             'more'        => $this->session->get('more'),
@@ -306,7 +306,16 @@ class SignUpController extends ControllerBase
         $results = $this->service->get($type, $id);
         $form = $this->getSession($id, $results['_source']['title']);
 
-        $this->service->convertLead($form);
+        $user = $this->service->convertLead($form);
+
+        if ($type === 'events') {
+            $data = [
+                'contact' => $user['Id'],
+                'event'   => $id,
+                'dietary' => $form['dietary'],
+            ];
+            $this->service->registerToEvent($data);
+        }
 
         return [
             '#theme' => $type == 'opportunities' ? 'sign_up_complete' : 'sign_up_complete_event',

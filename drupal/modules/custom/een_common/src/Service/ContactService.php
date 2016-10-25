@@ -90,4 +90,14 @@ class ContactService
 
         return $this->service->sendRequest();
     }
+
+    public function registerToEvent($data)
+    {
+        $this->service
+            ->setUrl('contact/event')
+            ->setMethod(Request::METHOD_POST)
+            ->setBody($data);
+
+        return $this->service->sendRequest();
+    }
 }

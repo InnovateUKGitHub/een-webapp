@@ -56,7 +56,7 @@ class OpportunitiesServiceTest extends UnitTestCase
                     ],
                 ],
             ],
-            'country' => [
+            'country'          => [
                 'FR' => [
                     '#attributes' => [
                         'checked' => 'checked',

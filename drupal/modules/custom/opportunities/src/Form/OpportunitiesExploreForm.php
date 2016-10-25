@@ -1,7 +1,6 @@
 <?php
 namespace Drupal\opportunities\Form;
 
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -54,130 +53,123 @@ class OpportunitiesExploreForm extends AbstractForm
             'TO' => t('with technology or expertise that I need'),
             'RD' => t('to collaborate with'),
         ];
-        
+
         $typesAccessibility = [
-            '' => t('Select &hellip;'),
+            ''   => t('Select &hellip;'),
             'BO' => t('to buy from'),
             'BR' => t('to sell to'),
             'TR' => t('that needs my technology or expertise'),
             'TO' => t('with technology or expertise that I need'),
             'RD' => t('to collaborate with'),
         ];
-        
-        
+
         $countries = $this->service->getCountryList();
 
         $countryChoices = [
             'anywhere' => t('anywhere in the world'),
-            'europe' => t('in europe'),
-            '' => t('specific countries')
+            'europe'   => t('in europe'),
+            ''         => t('specific countries'),
         ];
-        
+
         $countryChoicesAccessibility = [
-            '' => t('Select &hellip;'),
+            ''         => t('Select &hellip;'),
             'anywhere' => t('anywhere in the world'),
-            'europe' => t('in europe')
+            'europe'   => t('in europe'),
         ];
-        
 
         $form = [
-            'search'           => [
+            'search' => [
                 '#type'       => 'hidden',
                 '#title'      => t('Search an opportunity'),
                 '#attributes' => [
-                    'class' => [
+                    'class'       => [
                         'form-control',
                     ],
                     'placeholder' => [
                         'E.g. medical component distribution',
                     ],
-                    'id' => [
-                        'search'
-                    ]
+                    'id'          => [
+                        'search',
+                    ],
                 ],
             ],
-            
+
             'opportunity_type_hidden' => [
-                '#type'    => 'select',
-                '#title'   => t('Choose a partnership type &hellip;'),
-                '#options' => $typesAccessibility,
+                '#type'       => 'select',
+                '#title'      => t('Choose a partnership type &hellip;'),
+                '#options'    => $typesAccessibility,
                 '#attributes' => [
-                    'class' => [
+                    'class'      => [
                         'form-types sr-only form-control hidden-select-forms',
                     ],
-                    'tabindex' => [
-                        "0"
+                    'tabindex'   => [
+                        "0",
                     ],
                     'aria-label' => [
-                        "Choose a partnership type"
+                        "Choose a partnership type",
                     ],
-                ]
+                ],
             ],
-            
+
             'opportunity_type' => [
-                '#type'    => 'radios',
-                '#title'   => t('Choose a partnership type &hellip;'),
-                '#options' => $types,
+                '#type'       => 'radios',
+                '#title'      => t('Choose a partnership type &hellip;'),
+                '#options'    => $types,
                 '#attributes' => [
                     'aria-hidden' => [
-                        "true"
+                        "true",
                     ],
-                    'class' => [
+                    'class'       => [
                         'form-types',
                     ],
-                ]
+                ],
             ],
-            
+
             'country_choice_hidden' => [
-                '#type'    => 'select',
-                '#title'   => t('Where &hellip;'),
-                '#options' => $countryChoicesAccessibility,
+                '#type'       => 'select',
+                '#title'      => t('Where &hellip;'),
+                '#options'    => $countryChoicesAccessibility,
                 '#attributes' => [
-                    'tabindex' => [
-                        "0"
+                    'tabindex'   => [
+                        "0",
                     ],
-                    'class' => [
+                    'class'      => [
                         'form-countries sr-only form-control hidden-select-forms',
                     ],
                     'aria-label' => [
-                        "Choose a location"
+                        "Choose a location",
                     ],
-                ]
+                ],
             ],
-            
 
             'country_choice' => [
-                '#type'    => 'radios',
-                '#title'   => t('Where &hellip;'),
-                '#options' => $countryChoices,
+                '#type'       => 'radios',
+                '#title'      => t('Where &hellip;'),
+                '#options'    => $countryChoices,
                 '#attributes' => [
                     'aria-hidden' => [
-                        "true"
+                        "true",
                     ],
-                    'class' => [
+                    'class'       => [
                         'form-countries',
                     ],
-                ]
+                ],
             ],
-            
-            
-            
-            
 
-            'country'          => [
+            'country' => [
                 '#type'       => 'select',
                 '#title'      => t('Country of origin'),
                 '#options'    => $countries,
                 '#attributes' => [
-                    'class' => [
+                    'class'            => [
                         'chosen-select chosen-select-multiple form-countries-all',
                     ],
                     'data-placeholder' => 'Choose your countries',
-                    'multiple' => true,
-                    'tabindex' => 8,
+                    'multiple'         => true,
+                    'tabindex'         => 8,
                 ],
             ],
-            'actions'          => [
+            'actions' => [
                 '#type'  => 'actions',
                 'submit' => [
                     '#type'        => 'submit',
@@ -186,10 +178,10 @@ class OpportunitiesExploreForm extends AbstractForm
                 ],
             ],
 
-            '#method'          => Request::METHOD_POST,
-            '#attributes'      => [
+            '#method'     => Request::METHOD_POST,
+            '#attributes' => [
                 'ng-submit' => "submit()",
-                'class' => [
+                'class'     => [
                     'explore-form',
                 ],
             ],

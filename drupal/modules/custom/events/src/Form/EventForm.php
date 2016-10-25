@@ -48,7 +48,7 @@ class EventForm extends AbstractForm
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $form = [
-            'allergies' => [
+            'dietary' => [
                 '#type'                => 'textarea',
                 '#title'               => $this->t('Please tell us about your food specificity if you have some'),
                 '#description'         => $this->t('This is your allergies, preferences, etc...'),
@@ -64,7 +64,7 @@ class EventForm extends AbstractForm
                     ],
                 ],
             ],
-            'email'       => [
+            'email'   => [
                 '#type'          => 'textfield',
                 '#title'         => $this->t('Your Email'),
                 '#label_display' => 'before',
@@ -74,7 +74,7 @@ class EventForm extends AbstractForm
                     ],
                 ],
             ],
-            'actions'     => [
+            'actions' => [
                 '#type'  => 'actions',
                 'submit' => [
                     '#type'        => 'submit',
@@ -82,7 +82,7 @@ class EventForm extends AbstractForm
                     '#button_type' => 'primary',
                 ],
             ],
-            '#method'     => Request::METHOD_POST,
+            '#method' => Request::METHOD_POST,
         ];
         $form_state->setCached(false);
 
@@ -121,6 +121,6 @@ class EventForm extends AbstractForm
 
         $this->session->set('email-verification', true);
         $this->session->set('type', 'events');
-        $this->session->set('allergies', $form_state->getValue('allergies'));
+        $this->session->set('dietary', $form_state->getValue('dietary'));
     }
 }

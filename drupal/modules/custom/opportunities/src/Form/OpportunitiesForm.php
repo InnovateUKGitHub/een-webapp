@@ -1,7 +1,6 @@
 <?php
 namespace Drupal\opportunities\Form;
 
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -61,10 +60,10 @@ class OpportunitiesForm extends AbstractForm
                 '#type'       => 'textfield',
                 '#title'      => $this->t('Search an opportunity'),
                 '#attributes' => [
-                    'ng-model' => 'data.search',
-                    'ng-change' => 'queryKeyUp()',
-                    'tabindex' => '0',
-                    'class' => [
+                    'ng-model'    => 'data.search',
+                    'ng-change'   => 'queryKeyUp()',
+                    'tabindex'    => '0',
+                    'class'       => [
                         'form-control',
                     ],
                     'placeholder' => [
@@ -73,13 +72,13 @@ class OpportunitiesForm extends AbstractForm
                 ],
             ],
             'opportunity_type' => [
-                '#type'    => 'checkboxes',
-                '#title'   => $this->t('I\'m looking for a partner&hellip;'),
-                '#options' => $types,
+                '#type'       => 'checkboxes',
+                '#title'      => $this->t('I\'m looking for a partner&hellip;'),
+                '#options'    => $types,
                 '#attributes' => [
                     'tabindex' => '0',
-                    'ng-click' => 'selectOppCheckbox($event)'
-                ]
+                    'ng-click' => 'selectOppCheckbox($event)',
+                ],
             ],
             'country'          => [
                 '#type'       => 'checkboxes',
@@ -88,7 +87,7 @@ class OpportunitiesForm extends AbstractForm
                 '#attributes' => [
                     'tabindex' => '0',
                     'ng-click' => 'selectCountryCheckbox($event)',
-                    'class' => [
+                    'class'    => [
                         'accordion-container',
                     ],
                 ],
@@ -103,7 +102,7 @@ class OpportunitiesForm extends AbstractForm
             ],
             '#method'          => Request::METHOD_POST,
             '#attributes'      => [
-                'tabindex' => '0',
+                'tabindex'  => '0',
                 'ng-submit' => "submit()",
             ],
         ];

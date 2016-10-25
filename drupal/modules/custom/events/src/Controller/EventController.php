@@ -147,7 +147,11 @@ class EventController extends ControllerBase
     private function clearSession()
     {
         $this->session->delete('email-verification');
-        $this->session->delete('allergies');
+        $this->session->delete('dietary');
+        $this->session->delete('description');
+        $this->session->delete('interest');
+        $this->session->delete('more');
+        $this->session->delete('phone');
 
         $this->session->delete('step1');
         $this->session->delete('firstname');
@@ -179,7 +183,9 @@ class EventController extends ControllerBase
         $this->session->set('lastname', $contact['LastName']);
         $this->session->set('contact_email', $contact['Email']);
         $this->session->set('contact_phone', $contact['MobilePhone']);
-        $this->session->set('newsletter', $contact['Email_Newsletter__c']);
+        if ($contact['Email_Newsletter__c']) {
+            $this->session->set('newsletter', $contact['Email_Newsletter__c']);
+        }
 
         $this->session->set('step2', true);
         $this->session->set('company_name', $contact['Account']['Name']);
@@ -202,7 +208,7 @@ class EventController extends ControllerBase
      */
     private function disableForm(&$form)
     {
-        $form['allergies']['#attributes']['disabled'] = 'disabled';
+        $form['dietary']['#attributes']['disabled'] = 'disabled';
         $form['actions']['submit']['#attributes']['disabled'] = 'disabled';
     }
 }
