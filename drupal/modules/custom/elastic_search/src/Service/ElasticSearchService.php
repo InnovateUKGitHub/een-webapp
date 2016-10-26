@@ -161,7 +161,9 @@ class ElasticSearchService
             case Response::STATUS_CODE_404:
                 throw new NotFoundHttpException($error['detail']);
             case Response::STATUS_CODE_422:
-                return ['error' => $error['validation_messages']];
+                if (isset($error['validation_messages'])) {
+                    return ['error' => $error['validation_messages']];
+                }
         }
 
         // Return standard error message if no error type known
