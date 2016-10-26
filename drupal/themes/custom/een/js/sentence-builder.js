@@ -47,15 +47,27 @@ jQuery(function () {
       }).then(function (data) {
         $('.sb-results').html('<span>'+data.total + '</span> opportunities found');
 
-        if(country == ''){
-            var str = $.param({ search: search, opportunity_type: opportunity_type });
+          var params = {};
+
+          if (search) {
+              params.search = search;
+          }
+          if (opportunity_type && opportunity_type[0] !== undefined) {
+              params.opportunity_type = opportunity_type;
         } else {
-            var str = $.param({ search: search, opportunity_type: opportunity_type, country: country });
-        };
-        
-        var url = '/opportunities#!/page/1?'+str;
-        $('.js-sb-view-results').attr('href', url);
-        
+              var list = [];
+              $('.explore-form input[name="opportunity_type"]').each(function (index) {
+                  list[index] = $(this).val();
+              });
+              params.opportunity_type = list;
+          }
+          if (country && country[0] !== undefined) {
+              params.country = country;
+          } else {
+              params.country = ['anywhere'];
+          }
+          console.log(params);
+          $('.js-sb-view-results').attr('href', '/opportunities#!/page/1?' + $.param(params));
       });
     };
 
