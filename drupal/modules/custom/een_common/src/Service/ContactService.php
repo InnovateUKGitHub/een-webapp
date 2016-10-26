@@ -91,10 +91,30 @@ class ContactService
         return $this->service->sendRequest();
     }
 
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
     public function registerToEvent($data)
     {
         $this->service
             ->setUrl('contact/event')
+            ->setMethod(Request::METHOD_POST)
+            ->setBody($data);
+
+        return $this->service->sendRequest();
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    public function submitEoi($data)
+    {
+        $this->service
+            ->setUrl('eoi')
             ->setMethod(Request::METHOD_POST)
             ->setBody($data);
 
