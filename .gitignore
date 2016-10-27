@@ -27,7 +27,7 @@ cache/
 /drupal/core/composer.lock
 /drupal/core/vendor
 /drupal/vendor
-drupal/modules/custom/elastic_search/config/install/elastic_search.settings.yml
+drupal/modules/custom/service_connection/config/install/service_connection.settings.yml
 html-coverage/
 drupal/themes/custom/een/dist
 /drupal/nbproject/private/

@@ -3,22 +3,22 @@
 namespace Drupal\events\Service;
 
 use Drupal\Core\Url;
-use Drupal\elastic_search\Service\ElasticSearchService;
+use Drupal\service_connection\Service\HttpService;
 use Zend\Http\Request;
 
 class EventsService
 {
     /**
-     * @var ElasticSearchService
+     * @var HttpService
      */
     private $service;
 
     /**
      * EventsService constructor.
      *
-     * @param ElasticSearchService $service
+     * @param HttpService $service
      */
-    public function __construct(ElasticSearchService $service)
+    public function __construct(HttpService $service)
     {
         $this->service = $service;
     }
@@ -46,11 +46,7 @@ class EventsService
             ];
         }
 
-        $this->service
-            ->setUrl('events')
-            ->setBody($params);
-
-        $results = $this->service->sendRequest();
+        $results = $this->service->execute(Request::METHOD_POST, 'events', $params);
 
         if (array_key_exists('error', $results)) {
             if (is_array($results['error'])) {
@@ -73,11 +69,7 @@ class EventsService
      */
     public function get($eventId)
     {
-        $this->service
-            ->setUrl('events/' . urlencode($eventId))
-            ->setMethod(Request::METHOD_GET);
-
-        $results = $this->service->sendRequest();
+        $results = $this->service->execute(Request::METHOD_GET, 'events/' . urlencode($eventId));
 
         if (array_key_exists('error', $results)) {
             drupal_set_message($results['error'], 'error');
@@ -107,13 +99,8 @@ class EventsService
                 )->toString(),
         ];
 
-        $this->service
-            ->setUrl('email-verification')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody($params);
-
         try {
-            $this->service->sendRequest();
+            $this->service->execute(Request::METHOD_POST, 'email-verification', $params);
         } catch (\Exception $e) {
             drupal_set_message('There was a problem while sending the email, please try later.', 'error');
         }
@@ -126,11 +113,6 @@ class EventsService
      */
     public function createLead($email)
     {
-        $this->service
-            ->setUrl('lead')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody(['email' => $email]);
-
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_POST, 'lead', ['email' => $email]);
     }
 }

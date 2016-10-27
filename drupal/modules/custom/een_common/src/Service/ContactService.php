@@ -2,22 +2,22 @@
 
 namespace Drupal\een_common\Service;
 
-use Drupal\elastic_search\Service\ElasticSearchService;
+use Drupal\service_connection\Service\HttpService;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContactService
 {
     /**
-     * @var ElasticSearchService
+     * @var HttpService
      */
     private $service;
 
     /**
      * ContactService constructor.
      *
-     * @param ElasticSearchService $service
+     * @param HttpService $service
      */
-    public function __construct(ElasticSearchService $service)
+    public function __construct(HttpService $service)
     {
         $this->service = $service;
     }
@@ -29,12 +29,7 @@ class ContactService
      */
     public function createLead($email)
     {
-        $this->service
-            ->setUrl('lead')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody(['email' => $email]);
-
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_POST, 'lead', ['email' => $email]);
     }
 
     /**
@@ -44,12 +39,7 @@ class ContactService
      */
     public function convertLead($data)
     {
-        $this->service
-            ->setUrl('contact')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody($data);
-
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_POST, 'contact', $data);
     }
 
     /**
@@ -60,11 +50,7 @@ class ContactService
      */
     public function get($type, $id)
     {
-        $this->service
-            ->setUrl(urlencode($type) . '/' . urlencode($id))
-            ->setMethod(Request::METHOD_GET);
-
-        $results = $this->service->sendRequest();
+        $results = $this->service->execute(Request::METHOD_GET, urlencode($type) . '/' . urlencode($id));
 
         if (array_key_exists('error', $results)) {
             drupal_set_message($results['error'], 'error');
@@ -81,23 +67,35 @@ class ContactService
      */
     public function getCompaniesList($search)
     {
-        $this->service->setServer('https://api.companieshouse.gov.uk/');
         $this->service
-            ->setUrl('search/companies')
-            ->setMethod(Request::METHOD_GET)
-            ->setQueryParams(['q' => $search])
+            ->setServer('https://api.companieshouse.gov.uk/')
             ->setBasicAuth('7orha_oflH8yLjXTboak_oUDkvhnuOhpQWJhwirD');
 
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_GET, 'search/companies', ['q' => $search]);
     }
 
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
     public function registerToEvent($data)
     {
+        return $this->service->execute(Request::METHOD_POST, 'contact/event', $data);
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    public function submitEoi($data)
+    {
         $this->service
-            ->setUrl('contact/event')
+            ->setUrl('eoi')
             ->setMethod(Request::METHOD_POST)
             ->setBody($data);
 
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_POST, 'eoi', $data);
     }
 }

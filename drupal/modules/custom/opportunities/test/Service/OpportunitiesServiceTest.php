@@ -1,7 +1,7 @@
 <?php
 namespace Drupal\opportunities\Test\Service;
 
-use Drupal\elastic_search\Service\ElasticSearchService;
+use Drupal\service_connection\Service\HttpService;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class OpportunitiesServiceTest extends UnitTestCase
 {
-    /** @var ElasticSearchService|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var HttpService|\PHPUnit_Framework_MockObject_MockObject */
     private $mockService;
     /** @var OpportunitiesService */
     private $service;
@@ -19,31 +19,27 @@ class OpportunitiesServiceTest extends UnitTestCase
     public function testSearch()
     {
         $this->mockService->expects(self::once())
-            ->method('setUrl')
-            ->with('opportunities')
-            ->willReturn($this->mockService);
-        $this->mockService->expects(self::once())
-            ->method('setMethod')
-            ->with('POST')
-            ->willReturn($this->mockService);
-        $this->mockService->expects(self::once())
-            ->method('setBody')
-            ->with([
-                'from'             => 0,
-                'size'             => 10,
-                'search'           => 'H2020',
-                'opportunity_type' => ['BO'],
-                'country'          => ['FR'],
-                'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
-                'type'             => 1,
-            ])
-            ->willReturn($this->mockService);
-        $this->mockService->expects(self::once())
-            ->method('sendRequest')
+            ->method('execute')
+            ->with(
+                Request::METHOD_POST,
+                'opportunities',
+                [
+                    'from'             => 0,
+                    'size'             => 10,
+                    'search'           => 'H2020',
+                    'opportunity_type' => ['BO'],
+                    'country'          => ['FR'],
+                    'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
+                    'type'             => 1,
+                ]
+            )
             ->willReturn(['total' => 0]);
 
         $form = [];
-        self::assertEquals(['total' => 0, 'results' => []], $this->service->search($form, 'H2020', ['BO'], ['FR'], 1, 10));
+        self::assertEquals(
+            ['total' => 0, 'results' => []],
+            $this->service->search($form, 'H2020', ['BO'], ['FR'], 1, 10)
+        );
 
         self::assertEquals([
             'search'           => [
@@ -69,15 +65,8 @@ class OpportunitiesServiceTest extends UnitTestCase
     public function testGet()
     {
         $this->mockService->expects(self::once())
-            ->method('setUrl')
-            ->with('opportunities/1')
-            ->willReturn($this->mockService);
-        $this->mockService->expects(self::once())
-            ->method('setMethod')
-            ->with(Request::METHOD_GET)
-            ->willReturn($this->mockService);
-        $this->mockService->expects(self::once())
-            ->method('sendRequest')
+            ->method('execute')
+            ->with(Request::METHOD_GET, 'opportunities/1')
             ->willReturn(['success' => true]);
 
         self::assertEquals(['success' => true], $this->service->get(1));
@@ -85,7 +74,7 @@ class OpportunitiesServiceTest extends UnitTestCase
 
     protected function Setup()
     {
-        $this->mockService = self::getMock(ElasticSearchService::class, [], [], '', false);
+        $this->mockService = self::getMock(HttpService::class, [], [], '', false);
         $this->service = new OpportunitiesService($this->mockService);
 
         parent::setUp();

@@ -1,12 +1,12 @@
 <?php
-namespace Drupal\elastic_search\Service;
+namespace Drupal\service_connection\Service;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Zend\Http\Client;
 use Zend\Http\Request;
 use Zend\Http\Response;
 
-class ElasticSearchService
+class HttpService
 {
     const SERVICE_ERROR_MSG = 'Cannot connect to elastic search.';
     /** @var string */
@@ -23,7 +23,7 @@ class ElasticSearchService
      */
     public function __construct()
     {
-        $config = \Drupal::config('elastic_search.settings');
+        $config = \Drupal::config('service_connection.settings');
         $this->server = $config->get('server');
         $this->client = new Client(null, ['timeout' => 30]);
         $this->client->setHeaders([
@@ -129,16 +129,34 @@ class ElasticSearchService
         return $this;
     }
 
-    public function setBasicAuth($auth)
+    /**
+     * @param string $user
+     * @param string $password
+     */
+    public function setBasicAuth($user, $password = null)
     {
-        $this->client->setAuth($auth, null);
+        $this->client->setAuth($user, $password);
     }
 
     /**
-     * @return array
+     * @param string $method
+     * @param string $path
+     * @param array  $body
+     *
+     * @return array|mixed
      */
-    public function sendRequest()
+    public function execute($method, $path, $body = [])
     {
+        $this->setMethod($method);
+        $this->setUrl($path);
+
+        if ($method === Request::METHOD_POST && !empty($body)) {
+            $this->setBody($body);
+        }
+        if ($method === Request::METHOD_GET && !empty($body)) {
+            $this->setQueryParams($body);
+        }
+
         $response = $this->client->send();
         if (!$response->isSuccess()) {
             // Throw correct error if applicable
@@ -161,7 +179,9 @@ class ElasticSearchService
             case Response::STATUS_CODE_404:
                 throw new NotFoundHttpException($error['detail']);
             case Response::STATUS_CODE_422:
-                return ['error' => $error['validation_messages']];
+                if (isset($error['validation_messages'])) {
+                    return ['error' => $error['validation_messages']];
+                }
         }
 
         // Return standard error message if no error type known

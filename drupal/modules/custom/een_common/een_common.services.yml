@@ -1,4 +1,4 @@
 services:
   contact.service:
       class: Drupal\een_common\Service\ContactService
-      arguments: ['@elastic_search.connection']
+      arguments: ['@service_connection.connection']

@@ -3,7 +3,7 @@
 namespace Drupal\opportunities\Service;
 
 use Drupal\Core\Url;
-use Drupal\elastic_search\Service\ElasticSearchService;
+use Drupal\service_connection\Service\HttpService;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,16 +17,16 @@ class OpportunitiesService
     const COUNTRY = 'country';
 
     /**
-     * @var ElasticSearchService
+     * @var HttpService
      */
     private $service;
 
     /**
      * OpportunitiesController constructor.
      *
-     * @param ElasticSearchService $service
+     * @param HttpService $service
      */
-    public function __construct(ElasticSearchService $service)
+    public function __construct(HttpService $service)
     {
         $this->service = $service;
     }
@@ -47,12 +47,7 @@ class OpportunitiesService
             'count'            => true,
         ];
 
-        $this->service
-            ->setUrl('opportunities')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody($params);
-
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_POST, 'opportunities', $params);
     }
 
     /**
@@ -147,12 +142,7 @@ class OpportunitiesService
             ];
         }
 
-        $this->service
-            ->setUrl('opportunities')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody($params);
-
-        $results = $this->service->sendRequest();
+        $results = $this->service->execute(Request::METHOD_POST, 'opportunities', $params);
 
         if (array_key_exists('error', $results)) {
             if (is_array($results['error'])) {
@@ -232,11 +222,7 @@ class OpportunitiesService
      */
     public function get($profileId)
     {
-        $this->service
-            ->setUrl('opportunities/' . urlencode($profileId))
-            ->setMethod(Request::METHOD_GET);
-
-        $results = $this->service->sendRequest();
+        $results = $this->service->execute(Request::METHOD_GET, 'opportunities/' . urlencode($profileId));
 
         if (array_key_exists('error', $results)) {
             drupal_set_message($results['error'], 'error');
@@ -251,11 +237,7 @@ class OpportunitiesService
      */
     public function getCountryList()
     {
-        $this->service
-            ->setUrl('countries')
-            ->setMethod(Request::METHOD_GET);
-
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_GET, 'countries');
     }
 
     /**
@@ -278,13 +260,8 @@ class OpportunitiesService
                 )->toString(),
         ];
 
-        $this->service
-            ->setUrl('email-verification')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody($params);
-
         try {
-            $this->service->sendRequest();
+            $this->service->execute(Request::METHOD_POST, 'email-verification', $params);
         } catch (\Exception $e) {
             drupal_set_message('There was a problem while sending the email, please try later.', 'error');
         }
@@ -297,12 +274,7 @@ class OpportunitiesService
      */
     public function createLead($email)
     {
-        $this->service
-            ->setUrl('lead')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody(['email' => $email]);
-
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_POST, 'lead', ['email' => $email]);
     }
 
     /**
@@ -312,11 +284,6 @@ class OpportunitiesService
      */
     public function convertLead($data)
     {
-        $this->service
-            ->setUrl('contact')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody($data);
-
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_POST, 'contact', $data);
     }
 }
