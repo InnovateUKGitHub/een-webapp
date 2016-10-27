@@ -11,12 +11,12 @@ set -e
 cd $htdocs/drupal
 
 echo "Coping drupal configuration files"
-serviceRoot=$htdocs/drupal/modules/custom/elastic_search/config/install
+serviceRoot=$htdocs/drupal/modules/custom/service_connection/config/install
 drupalRoot=$htdocs/drupal/sites
 drupalSettings=$htdocs/drupal/sites/default/settings.php
 
-cp $htdocs/build/templates/drupal/elastic_search.default.settings.yml $serviceRoot/elastic_search.settings.yml
-sed -i -e "s/HOSTNAME_SERVICE/$hostnameapi/g" $serviceRoot/elastic_search.settings.yml
+cp $htdocs/build/templates/drupal/service_connection.default.settings.yml $serviceRoot/service_connection.settings.yml
+sed -i -e "s/HOSTNAME_SERVICE/$hostnameapi/g" $serviceRoot/service_connection.settings.yml
 
 cp $drupalRoot/default/default.settings.php $drupalSettings
 cp $drupalRoot/example.settings.local.php $drupalRoot/default/settings.local.php
@@ -41,8 +41,8 @@ if [ ! -z "$databaseChanges" ] || [ ! -z "$forceCompile" ];then
 
     $htdocs/db/setup.sh
     # Uninstall and reinstall module due to configuration on install
-    $htdocs/bin/drush pm-uninstall  elastic_search opportunities events een_common -y
-    $htdocs/bin/drush pm-enable     opportunities events een_common elastic_search -y
+    $htdocs/bin/drush pm-uninstall  service_connection opportunities events een_common -y
+    $htdocs/bin/drush pm-enable     opportunities events een_common service_connection -y
     $htdocs/bin/drush cr
 
     mkdir -p $htdocs/db/update

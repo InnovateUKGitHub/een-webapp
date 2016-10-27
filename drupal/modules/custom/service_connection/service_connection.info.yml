@@ -1,0 +1,5 @@
+name: Communication with Service Layer
+description: This module is use to connect and request information to the service api.
+core: 8.x
+package: Searches
+type: module

@@ -10,14 +10,14 @@
 >
     <testsuites>
         <testsuite name="Modules">
-            <directory>modules/custom/elastic_search/test</directory>
             <directory>modules/custom/opportunities/test</directory>
+            <directory>modules/custom/service_connection/test</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhintitelist="true">
-            <directory suffix=".php">modules/custom/elastic_search/src</directory>
             <directory suffix=".php">modules/custom/opportunities/src</directory>
+            <directory suffix=".php">modules/custom/service_connection/src</directory>
         </whitelist>
     </filter>
 </phpunit>

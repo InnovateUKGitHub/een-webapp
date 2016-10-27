@@ -1,7 +1,7 @@
 <?php
 namespace Drupal\opportunities\Test\Service;
 
-use Drupal\elastic_search\Service\ElasticSearchService;
+use Drupal\service_connection\Service\HttpService;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class OpportunitiesServiceTest extends UnitTestCase
 {
-    /** @var ElasticSearchService|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var HttpService|\PHPUnit_Framework_MockObject_MockObject */
     private $mockService;
     /** @var OpportunitiesService */
     private $service;
@@ -74,7 +74,7 @@ class OpportunitiesServiceTest extends UnitTestCase
 
     protected function Setup()
     {
-        $this->mockService = self::getMock(ElasticSearchService::class, [], [], '', false);
+        $this->mockService = self::getMock(HttpService::class, [], [], '', false);
         $this->service = new OpportunitiesService($this->mockService);
 
         parent::setUp();

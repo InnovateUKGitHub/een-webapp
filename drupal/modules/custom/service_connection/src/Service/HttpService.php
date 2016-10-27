@@ -1,12 +1,12 @@
 <?php
-namespace Drupal\elastic_search\Service;
+namespace Drupal\service_connection\Service;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Zend\Http\Client;
 use Zend\Http\Request;
 use Zend\Http\Response;
 
-class ElasticSearchService
+class HttpService
 {
     const SERVICE_ERROR_MSG = 'Cannot connect to elastic search.';
     /** @var string */
@@ -23,7 +23,7 @@ class ElasticSearchService
      */
     public function __construct()
     {
-        $config = \Drupal::config('elastic_search.settings');
+        $config = \Drupal::config('service_connection.settings');
         $this->server = $config->get('server');
         $this->client = new Client(null, ['timeout' => 30]);
         $this->client->setHeaders([

@@ -1,4 +1,4 @@
 services:
   opportunities.service:
       class: Drupal\opportunities\Service\OpportunitiesService
-      arguments: ['@elastic_search.connection']
+      arguments: ['@service_connection.connection']

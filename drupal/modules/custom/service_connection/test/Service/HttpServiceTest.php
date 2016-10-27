@@ -1,8 +1,8 @@
 <?php
-namespace Drupal\elastic_search\Test\Service;
+namespace Drupal\service_connection\Test\Service;
 
 use Drupal\Core\Config\ImmutableConfig;
-use Drupal\elastic_search\Service\ElasticSearchService;
+use Drupal\service_connection\Service\HttpService;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Zend\Http\Client;
@@ -10,21 +10,21 @@ use Zend\Http\Request;
 use Zend\Http\Response;
 
 /**
- * @covers Drupal\elastic_search\Service\ElasticSearchService
+ * @covers \Drupal\service_connection\Service\HttpService
  */
-class ElasticSearchServiceTest extends UnitTestCase
+class HttpServiceTest extends UnitTestCase
 {
     public function testSuccess()
     {
-        $service = new ElasticSearchService();
+        $service = new HttpService();
 
-        self::assertInstanceOf(ElasticSearchService::class, $service->setQueryParams(['type' => 'A Type']));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setSearchFrom(0));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setSearchSize(10));
+        self::assertInstanceOf(HttpService::class, $service->setQueryParams(['type' => 'A Type']));
+        self::assertInstanceOf(HttpService::class, $service->setSearchFrom(0));
+        self::assertInstanceOf(HttpService::class, $service->setSearchSize(10));
 
         $clientMock = self::getMock(Client::class, [], [], '', false);
         $responseMock = self::getMock(Response::class, [], [], '', false);
-        self::assertInstanceOf(ElasticSearchService::class, $service->setClient($clientMock));
+        self::assertInstanceOf(HttpService::class, $service->setClient($clientMock));
 
         $clientMock->expects(self::once())
             ->method('send')
@@ -48,15 +48,15 @@ class ElasticSearchServiceTest extends UnitTestCase
      */
     public function testError404()
     {
-        $service = new ElasticSearchService();
+        $service = new HttpService();
 
-        self::assertInstanceOf(ElasticSearchService::class, $service->setQueryParams(['type' => 'A Type']));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setSearchFrom(0));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setSearchSize(10));
+        self::assertInstanceOf(HttpService::class, $service->setQueryParams(['type' => 'A Type']));
+        self::assertInstanceOf(HttpService::class, $service->setSearchFrom(0));
+        self::assertInstanceOf(HttpService::class, $service->setSearchSize(10));
 
         $clientMock = self::getMock(Client::class, [], [], '', false);
         $responseMock = self::getMock(Response::class, [], [], '', false);
-        self::assertInstanceOf(ElasticSearchService::class, $service->setClient($clientMock));
+        self::assertInstanceOf(HttpService::class, $service->setClient($clientMock));
 
         $clientMock->expects(self::once())
             ->method('send')
@@ -76,15 +76,15 @@ class ElasticSearchServiceTest extends UnitTestCase
 
     public function testError422()
     {
-        $service = new ElasticSearchService();
+        $service = new HttpService();
 
-        self::assertInstanceOf(ElasticSearchService::class, $service->setQueryParams(['type' => 'A Type']));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setSearchFrom(0));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setSearchSize(10));
+        self::assertInstanceOf(HttpService::class, $service->setQueryParams(['type' => 'A Type']));
+        self::assertInstanceOf(HttpService::class, $service->setSearchFrom(0));
+        self::assertInstanceOf(HttpService::class, $service->setSearchSize(10));
 
         $clientMock = self::getMock(Client::class, [], [], '', false);
         $responseMock = self::getMock(Response::class, [], [], '', false);
-        self::assertInstanceOf(ElasticSearchService::class, $service->setClient($clientMock));
+        self::assertInstanceOf(HttpService::class, $service->setClient($clientMock));
 
         $clientMock->expects(self::once())
             ->method('send')
@@ -107,15 +107,15 @@ class ElasticSearchServiceTest extends UnitTestCase
 
     public function testError500()
     {
-        $service = new ElasticSearchService();
+        $service = new HttpService();
 
-        self::assertInstanceOf(ElasticSearchService::class, $service->setQueryParams(['type' => 'A Type']));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setSearchFrom(0));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setSearchSize(10));
+        self::assertInstanceOf(HttpService::class, $service->setQueryParams(['type' => 'A Type']));
+        self::assertInstanceOf(HttpService::class, $service->setSearchFrom(0));
+        self::assertInstanceOf(HttpService::class, $service->setSearchSize(10));
 
         $clientMock = self::getMock(Client::class, [], [], '', false);
         $responseMock = self::getMock(Response::class, [], [], '', false);
-        self::assertInstanceOf(ElasticSearchService::class, $service->setClient($clientMock));
+        self::assertInstanceOf(HttpService::class, $service->setClient($clientMock));
 
         $clientMock->expects(self::once())
             ->method('send')
@@ -148,7 +148,7 @@ class ElasticSearchServiceTest extends UnitTestCase
             ->willReturn($configMock);
         $configMock->expects(self::at(0))
             ->method('get')
-            ->with('elastic_search.settings')
+            ->with('service_connection.settings')
             ->willReturn($configMock);
         $configMock->expects(self::at(1))
             ->method('get')

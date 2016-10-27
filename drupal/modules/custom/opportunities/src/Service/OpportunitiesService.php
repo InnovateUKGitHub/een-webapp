@@ -3,7 +3,7 @@
 namespace Drupal\opportunities\Service;
 
 use Drupal\Core\Url;
-use Drupal\elastic_search\Service\ElasticSearchService;
+use Drupal\service_connection\Service\HttpService;
 use Drupal\opportunities\Form\OpportunitiesForm;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,16 +17,16 @@ class OpportunitiesService
     const COUNTRY = 'country';
 
     /**
-     * @var ElasticSearchService
+     * @var HttpService
      */
     private $service;
 
     /**
      * OpportunitiesController constructor.
      *
-     * @param ElasticSearchService $service
+     * @param HttpService $service
      */
-    public function __construct(ElasticSearchService $service)
+    public function __construct(HttpService $service)
     {
         $this->service = $service;
     }

@@ -7,7 +7,7 @@
         "composer/installers": "^1.0.21",
         "wikimedia/composer-merge-plugin": "~1.3",
         "zendframework/zend-http": "^2.5",
-        "twig/extensions": "^1.3"
+        "twig/extensions": "^1.4"
     },
     "replace": {
         "drupal/core": "~8.2"
@@ -36,8 +36,10 @@
         "psr-4": {
             "Drupal\\Core\\Composer\\": "core/lib/Drupal/Core/Composer",
             "Drupal\\Tests\\": "core/tests/Drupal/Tests",
-            "Drupal\\elastic_search\\": "modules/custom/elastic_search/src",
-            "Drupal\\opportunities\\": "modules/custom/opportunities/src"
+            "Drupal\\een_common\\": "modules/custom/een_common/src",
+            "Drupal\\events\\": "modules/custom/events/src",
+            "Drupal\\opportunities\\": "modules/custom/opportunities/src",
+            "Drupal\\service_connection\\": "modules/custom/service_connection/src"
         }
     },
     "scripts": {

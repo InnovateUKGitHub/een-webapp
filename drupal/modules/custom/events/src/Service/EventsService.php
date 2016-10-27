@@ -3,22 +3,22 @@
 namespace Drupal\events\Service;
 
 use Drupal\Core\Url;
-use Drupal\elastic_search\Service\ElasticSearchService;
+use Drupal\service_connection\Service\HttpService;
 use Zend\Http\Request;
 
 class EventsService
 {
     /**
-     * @var ElasticSearchService
+     * @var HttpService
      */
     private $service;
 
     /**
      * EventsService constructor.
      *
-     * @param ElasticSearchService $service
+     * @param HttpService $service
      */
-    public function __construct(ElasticSearchService $service)
+    public function __construct(HttpService $service)
     {
         $this->service = $service;
     }

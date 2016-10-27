@@ -1,4 +1,4 @@
 services:
   events.service:
       class: Drupal\events\Service\EventsService
-      arguments: ['@elastic_search.connection']
+      arguments: ['@service_connection.connection']

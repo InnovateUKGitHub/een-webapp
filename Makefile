@@ -49,10 +49,10 @@ clear-cache:
 	@sh -c "cd drupal && $(DRUSH) cr"
 
 install-module:
-	@sh -c "cd drupal && $(DRUSH) pm-enable elastic_search een_common opportunities events -y"
+	@sh -c "cd drupal && $(DRUSH) pm-enable service_connection een_common opportunities events -y"
 
 delete-module:
-	@sh -c "cd drupal && $(DRUSH) pm-uninstall een_common opportunities events elastic_search -y"
+	@sh -c "cd drupal && $(DRUSH) pm-uninstall een_common opportunities events service_connection -y"
 
 install-dependencies:
 	@echo "Installing dependencies..."
