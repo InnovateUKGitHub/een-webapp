@@ -29,12 +29,7 @@ class ContactService
      */
     public function createLead($email)
     {
-        $this->service
-            ->setUrl('lead')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody(['email' => $email]);
-
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_POST, 'lead', ['email' => $email]);
     }
 
     /**
@@ -44,12 +39,7 @@ class ContactService
      */
     public function convertLead($data)
     {
-        $this->service
-            ->setUrl('contact')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody($data);
-
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_POST, 'contact', $data);
     }
 
     /**
@@ -60,11 +50,7 @@ class ContactService
      */
     public function get($type, $id)
     {
-        $this->service
-            ->setUrl(urlencode($type) . '/' . urlencode($id))
-            ->setMethod(Request::METHOD_GET);
-
-        $results = $this->service->sendRequest();
+        $results = $this->service->execute(Request::METHOD_GET, urlencode($type) . '/' . urlencode($id));
 
         if (array_key_exists('error', $results)) {
             drupal_set_message($results['error'], 'error');
@@ -81,14 +67,11 @@ class ContactService
      */
     public function getCompaniesList($search)
     {
-        $this->service->setServer('https://api.companieshouse.gov.uk/');
         $this->service
-            ->setUrl('search/companies')
-            ->setMethod(Request::METHOD_GET)
-            ->setQueryParams(['q' => $search])
+            ->setServer('https://api.companieshouse.gov.uk/')
             ->setBasicAuth('7orha_oflH8yLjXTboak_oUDkvhnuOhpQWJhwirD');
 
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_GET, 'search/companies', ['q' => $search]);
     }
 
     /**
@@ -98,12 +81,7 @@ class ContactService
      */
     public function registerToEvent($data)
     {
-        $this->service
-            ->setUrl('contact/event')
-            ->setMethod(Request::METHOD_POST)
-            ->setBody($data);
-
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_POST, 'contact/event', $data);
     }
 
     /**
@@ -118,6 +96,6 @@ class ContactService
             ->setMethod(Request::METHOD_POST)
             ->setBody($data);
 
-        return $this->service->sendRequest();
+        return $this->service->execute(Request::METHOD_POST, 'eoi', $data);
     }
 }

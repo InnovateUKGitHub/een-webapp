@@ -18,10 +18,7 @@ class ElasticSearchServiceTest extends UnitTestCase
     {
         $service = new ElasticSearchService();
 
-        self::assertInstanceOf(ElasticSearchService::class, $service->setMethod(Request::METHOD_POST));
         self::assertInstanceOf(ElasticSearchService::class, $service->setQueryParams(['type' => 'A Type']));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setUrl('/search'));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setBody(['search' => 'A Search']));
         self::assertInstanceOf(ElasticSearchService::class, $service->setSearchFrom(0));
         self::assertInstanceOf(ElasticSearchService::class, $service->setSearchSize(10));
 
@@ -39,7 +36,10 @@ class ElasticSearchServiceTest extends UnitTestCase
             ->method('getBody')
             ->willReturn('{"success": true}');
 
-        self::assertEquals(['success' => true], $service->sendRequest());
+        self::assertEquals(
+            ['success' => true],
+            $service->execute(Request::METHOD_POST, '/search', ['search' => 'A Search'])
+        );
     }
 
     /**
@@ -50,10 +50,7 @@ class ElasticSearchServiceTest extends UnitTestCase
     {
         $service = new ElasticSearchService();
 
-        self::assertInstanceOf(ElasticSearchService::class, $service->setMethod(Request::METHOD_POST));
         self::assertInstanceOf(ElasticSearchService::class, $service->setQueryParams(['type' => 'A Type']));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setUrl('/search'));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setBody(['search' => 'A Search']));
         self::assertInstanceOf(ElasticSearchService::class, $service->setSearchFrom(0));
         self::assertInstanceOf(ElasticSearchService::class, $service->setSearchSize(10));
 
@@ -74,17 +71,14 @@ class ElasticSearchServiceTest extends UnitTestCase
             ->method('getBody')
             ->willReturn('{"detail": "Not Found"}');
 
-        $service->sendRequest();
+        $service->execute(Request::METHOD_POST, '/search', ['search' => 'A Search']);
     }
 
     public function testError422()
     {
         $service = new ElasticSearchService();
 
-        self::assertInstanceOf(ElasticSearchService::class, $service->setMethod(Request::METHOD_POST));
         self::assertInstanceOf(ElasticSearchService::class, $service->setQueryParams(['type' => 'A Type']));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setUrl('/search'));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setBody(['search' => 'A Search']));
         self::assertInstanceOf(ElasticSearchService::class, $service->setSearchFrom(0));
         self::assertInstanceOf(ElasticSearchService::class, $service->setSearchSize(10));
 
@@ -105,17 +99,17 @@ class ElasticSearchServiceTest extends UnitTestCase
             ->method('getBody')
             ->willReturn('{"validation_messages": "An error as occurred"}');
 
-        self::assertEquals(['error' => 'An error as occurred'], $service->sendRequest());
+        self::assertEquals(
+            ['error' => 'An error as occurred'],
+            $service->execute(Request::METHOD_POST, '/search', ['search' => 'A Search'])
+        );
     }
 
     public function testError500()
     {
         $service = new ElasticSearchService();
 
-        self::assertInstanceOf(ElasticSearchService::class, $service->setMethod(Request::METHOD_POST));
         self::assertInstanceOf(ElasticSearchService::class, $service->setQueryParams(['type' => 'A Type']));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setUrl('/search'));
-        self::assertInstanceOf(ElasticSearchService::class, $service->setBody(['search' => 'A Search']));
         self::assertInstanceOf(ElasticSearchService::class, $service->setSearchFrom(0));
         self::assertInstanceOf(ElasticSearchService::class, $service->setSearchSize(10));
 
@@ -136,7 +130,10 @@ class ElasticSearchServiceTest extends UnitTestCase
             ->method('getBody')
             ->willReturn('{"detail": "An error as occurred"}');
 
-        self::assertEquals(['error' => 'An error as occurred'], $service->sendRequest());
+        self::assertEquals(
+            ['error' => 'An error as occurred'],
+            $service->execute(Request::METHOD_POST, '/search', ['search' => 'A Search'])
+        );
     }
 
     protected function Setup()

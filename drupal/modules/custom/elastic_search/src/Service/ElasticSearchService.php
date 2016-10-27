@@ -129,16 +129,34 @@ class ElasticSearchService
         return $this;
     }
 
-    public function setBasicAuth($auth)
+    /**
+     * @param string $user
+     * @param string $password
+     */
+    public function setBasicAuth($user, $password = null)
     {
-        $this->client->setAuth($auth, null);
+        $this->client->setAuth($user, $password);
     }
 
     /**
-     * @return array
+     * @param string $method
+     * @param string $path
+     * @param array  $body
+     *
+     * @return array|mixed
      */
-    public function sendRequest()
+    public function execute($method, $path, $body = [])
     {
+        $this->setMethod($method);
+        $this->setUrl($path);
+
+        if ($method === Request::METHOD_POST && !empty($body)) {
+            $this->setBody($body);
+        }
+        if ($method === Request::METHOD_GET && !empty($body)) {
+            $this->setQueryParams($body);
+        }
+
         $response = $this->client->send();
         if (!$response->isSuccess()) {
             // Throw correct error if applicable
