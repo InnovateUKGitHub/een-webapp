@@ -198,9 +198,15 @@ class EventController extends ControllerBase
         }
 
         $this->session->set('step3', true);
-        $this->session->set('postcode', $contact['MailingPostalCode']);
-        $this->session->set('addressone', $contact['MailingStreet']);
-        $this->session->set('city', $contact['MailingCity']);
+        if (isset($contact['MailingPostalCode'])) {
+            $this->session->set('postcode', $contact['MailingPostalCode']);
+        }
+        if (isset($contact['MailingStreet'])) {
+            $this->session->set('addressone', $contact['MailingStreet']);
+        }
+        if (isset($contact['MailingCity'])) {
+            $this->session->set('city', $contact['MailingCity']);
+        }
     }
 
     /**
