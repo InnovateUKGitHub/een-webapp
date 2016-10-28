@@ -8,7 +8,7 @@ EEN is a website available [here][1] and this is the source code of the projects
 Installation
 ------------
 
-In order to install the project locally and some awesome development you will need to clone all the necessary project on your machine
+In order to install the project locally and some awesome development you will need to clone all the necessary projects onto your machine
 
 - Vagrant Box: ``git clone https://devops.innovateuk.org/code-repository/scm/een/een-vagrant.git``
 - Service Layer: ``git clone https://devops.innovateuk.org/code-repository/scm/een/een-service.git``
@@ -18,15 +18,15 @@ In order to install the project locally and some awesome development you will ne
 Documentation
 -------------
 
-The documentation of each project is available on each project repository
+The documentation of each project is available in each project repository
 
 
-The [Vagrant project][2] will build a virtual machine on the developer computer ready to use and hosting the website
+The [Vagrant project][2] will build a virtual machine on the developer computer ready to use and host the website
 
 
 The [Service Layer project][3] is a bridge between the drupal application and the external tools (Salesforce/Merlin/etc.)
 
-The [Integration project][4] is a test suite who is testing that the website pages are displayed correctly
+The [Integration project][4] is a test suite to test that the website pages are displayed correctly
 
 Drupal (See below)
 
@@ -40,24 +40,24 @@ The Drupal project use [Drupal][9] version 8.2
 An EEN Theme is available [here][10].
 All the javascript, sass and templates are in the code source
 In order to compile the js and sass files we used a gulp manager.
-To run all the required step you can simply execute ``gulp`` in the root folder of this project.
+To run all the required steps you can simply execute ``gulp`` in the root folder of this project.
 This will compile the file into a dist folder to make it available to the website
 
 * Custom Modules
-The following module have been create to handle the project requirements:
-    - events: This module is responsible to retrieve and display the een events
-    - opportunities: This module is responsible to retrieve and display the een opportunities
-    - service_communication: This module management the communication with external api and service layer
-    - een_common: This module handles the shared component use by the different module
+The following module have been created to handle the project requirements:
+    - events: This module is responsible for retrieving and displaying the een events
+    - opportunities: This module is responsible for retrieving and displaying the een opportunities
+    - service_communication: This module management insures communication with external api and service layer
+    - een_common: This module handles the shared component used by the different modules
 
 * Modules
-This is the list of module installed on the drupal project:
+This is the list of modules installed on the drupal project:
     - site_banner
     - twig_extensions
 
 * Database
 The full dump of the database is loaded on the deployment if any changes has been made to it.
-It is planned to use a migration tool in the future when the website will be live and modification to the schema or data wants to be made.
+It is planned to be used a migration tool in the future when the website will be live and modification to the schema or data wants to be made.
 
 Deployment information
 ----------------------
@@ -73,7 +73,7 @@ A [jenkins file][7] is use to define the steps of deployment below:
 - Remote Deploy: Deploy the project to selected environment - here integration_v3
 - Integration Test: Run the integration test suite
 
-If one of the step above fail for any reason, the deployment would stop.
+If one of the steps above fail for any reason, the deployment will stop.
 
 All the deployment script are present inside this project under the [build][8] folder
 
@@ -94,8 +94,8 @@ Here are most important:
 Git Information
 ---------------
 
-At the moment we using git flow to version the work we have done.
-Nothing as been release to master as develop is our main branch and that we do not have a live environment.
+At the moment we are using git flow to version the work we have done.
+Nothing has been released to master as develop is our main branch and that we do not have a live environment.
 
 Here is a quick help to use git flow:
 ```
