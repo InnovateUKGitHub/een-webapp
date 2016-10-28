@@ -12,7 +12,7 @@ In order to install the project locally and some awesome development you will ne
 
 - Vagrant Box: ``git clone https://devops.innovateuk.org/code-repository/scm/een/een-vagrant.git``
 - Service Layer: ``git clone https://devops.innovateuk.org/code-repository/scm/een/een-service.git``
-- Drupal: ``git clone https://devops.innovateuk.org/code-repository/scm/een/een.git``
+- Drupal: ``git clone https://devops.innovateuk.org/code-repository/scm/een/een-webapp.git een``
 - Integration: ``git clone https://devops.innovateuk.org/code-repository/scm/een/een-integration.git``
 
 Documentation
