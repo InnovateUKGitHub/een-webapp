@@ -10,12 +10,16 @@
 >
     <testsuites>
         <testsuite name="Modules">
+            <directory>modules/custom/een_common/test</directory>
+            <directory>modules/custom/events/test</directory>
             <directory>modules/custom/opportunities/test</directory>
             <directory>modules/custom/service_connection/test</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhintitelist="true">
+            <directory suffix=".php">modules/custom/een_common/src</directory>
+            <directory suffix=".php">modules/custom/events/src</directory>
             <directory suffix=".php">modules/custom/opportunities/src</directory>
             <directory suffix=".php">modules/custom/service_connection/src</directory>
         </whitelist>
