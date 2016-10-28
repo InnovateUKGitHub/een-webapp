@@ -91,6 +91,18 @@ Here are most important:
 - make export-sql: Export all the database to a file
 - make update-entity: Update the database in case of wrong schema
 
+Git Information
+---------------
+
+At the moment we using git flow to version the work we have done.
+Nothing as been release to master as develop is our main branch and that we do not have a live environment.
+
+Here is a quick help to use git flow:
+```
+git flow feature start FEATURE_NAME # This create a new feature branch
+git flow feature finish             # This release the feature branch to develop
+```
+
 Links
 -----
 
