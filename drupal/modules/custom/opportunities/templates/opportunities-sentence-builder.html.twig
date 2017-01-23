@@ -48,14 +48,14 @@
                 <div class="row row-bordered" ng-show="!meta.searched"
                      ng-class="{ transp: meta.paging || meta.searching }">
                     <h3 class="results-list-heading-item" tabindex="0">
-                        <a href=""
+                        <a href="/opportunities/{{row.id}}"
                            id="opportunity-link">
                             {{ row.title|raw }}
                         </a>
                     </h3>
 
                     <p class="description">{{ row.summary| truncate(240, true) | raw }} <a
-                                href="">more</a>
+                                href="/opportunities/{{row.id}}">more</a>
                     </p>
 
                     <p class="meta-inline font-small">
