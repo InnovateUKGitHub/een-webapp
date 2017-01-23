@@ -60,7 +60,7 @@ class OpportunitiesExploreForm extends AbstractForm
             'BR' => t('to sell to'),
             'TR' => t('that needs my technology or expertise'),
             'TO' => t('with technology or expertise that I need'),
-            'RD' => t('to collaborate with'),
+            'RD' => t('to collaborate with or co-develop with'),
         ];
 
         $countries = $this->service->getCountryList();

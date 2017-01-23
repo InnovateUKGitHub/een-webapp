@@ -51,14 +51,14 @@ class OpportunitiesForm extends AbstractForm
             'BR' => $this->t('to sell to'),
             'TR' => $this->t('that needs my tech/expertise'),
             'TO' => $this->t('with tech/expertise that I need'),
-            'RD' => $this->t('to collaborate with'),
+            'RD' => $this->t('to collaborate with/co-develop with'),
         ];
         $countries = $this->service->getCountryList();
 
         $form = [
             'search'           => [
                 '#type'       => 'textfield',
-                '#title'      => $this->t('Search an opportunity'),
+                '#title'      => $this->t('Contains keywords...'),
                 '#attributes' => [
                     'ng-model'    => 'data.search',
                     'ng-change'   => 'queryKeyUp()',

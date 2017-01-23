@@ -135,7 +135,7 @@
     <div class="grid-row">
         <div class="column-one-third">
             <h3 class="heading-medium single-header-one-col"
-                id="express_your_interest" tabindex="0">{{ 'Contact this company'|t }}</h3>
+                id="express_your_interest" tabindex="0">{{ 'Register your interest'|t }}</h3>
         </div>
         <div class="column-two-thirds">
 
@@ -143,13 +143,29 @@
                 <h3 tabindex="0">How it works</h3>
                 <div class="step-container">
                     <ul class="progressbar">
-                        <li class="active step1" tabindex="0"><span>Submit your application to EEN</span></li>
-                        <li class="step2" tabindex="0"><span>Later, EEN sends applications to client</span></li>
-                        <li class="step3" tabindex="0"><span>Then, the client selects winning application(s)</span></li>
+                        <li class="active step1" tabindex="0"><span>Tell us about your business</span></li>
+                        <li class="step2" tabindex="0"><span>We collate submissions</span></li>
+                        <li class="step3" tabindex="0"><span>Finally, client selects winning partner(s)</span></li>
                     </ul>
                 </div>
             </div>
-
+            <a class="what-value" tabindex="0"><span class="q-styled">?</span>What value does EEN add?</a>
+            <div class="een-value">
+                <p tabindex="0">EEN help you find the right partner, rather than you going it alone.</p>
+                <p tabindex="0">Our role is to review and collate the most suitable submissions, 
+                    and then send them to the client who posted the opportunity.
+                    We consult with you, and the client, to make the process professional and easy.</p>
+                <p tabindex="0">These are live opportunities. Your registration of interest on 
+                    the site is just like a professional approach to a business at a networking event.
+                    To stand the best chance of success, make your submission really sing. 
+                    Sell why the client who posted the opportunity should work with you. 
+                    Excite them. Ask questions. Try and avoid copy and pasting words from elsewhere.</p>
+                <p tabindex="0">Once the client has chosen their partner, we'll introduce them 
+                    over email and keep in touch with both parties to see how it's going. 
+                    Sometimes things progress quickly. Sometimes because of changing 
+                    priorities for either party, things progress slowly, but you never
+                    know - your next big business break could start right here.</p>
+            </div>
             {% if token == false %}
                 <div class="verify-email">
                     {{ form_email }}

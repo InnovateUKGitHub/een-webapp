@@ -18,7 +18,9 @@ jQuery(function () {
         $(this).closest('.js-form-type-textarea').find('div[id$="--description"]').toggleClass('show');
     });    
     
-    
+    $( ".what-value" ).click(function() {
+        $( ".een-value" ).slideToggle("slow");
+    });
   
     
     
