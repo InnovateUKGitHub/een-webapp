@@ -21,7 +21,7 @@
                 </p>
             </div>
             <div class="column-one-third">
-                <a tabindex="0" class="button-brand js-continue-focus" href="#express_your_interest" title="Apply for this opportunity">{{ 'Continue with application'|t }}</a>
+                <a tabindex="0" class="button-brand js-continue-focus" href="#express_your_interest" title="Apply for this opportunity">{{ 'Continue with submission'|t }}</a>
             </div>
         </div>
         
@@ -159,10 +159,17 @@
                 </div>
                 <div class="transp">
             {% endif %}
-                
-                
+
+
             
                 <form action="{{ form['#action'] }}" method="{{ form['#method'] }}" class="form-opportunities">
+
+                    {% if token == true %}
+                        <div class="verify-email verify-email-complete">
+                            <p>Thank you for verifying your email address</p>
+                            {{ form.email }}
+                        </div>
+                    {% endif %}
 
                     {#Required hidden field for drupal form#}
                     {{ form.form_build_id }}
@@ -177,7 +184,9 @@
                     <div class="form-section">
                         {{ form.more }}
                     </div>
-                    {{ form.email }}
+                    {% if token == false %}
+                        {{ form.email }}
+                    {% endif %}
                     <div class="eoi-phone-number">
                         {{ form.phoneStatus }}
                         {{ form.phone }}

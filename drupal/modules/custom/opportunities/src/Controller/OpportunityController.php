@@ -88,6 +88,7 @@ class OpportunityController extends ControllerBase
 
         $results = $this->service->get($profileId);
 
+
         $form = \Drupal::formBuilder()->getForm(ExpressionOfInterestForm::class);
         $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);
         $formEmail['id']['#value'] = $profileId;
@@ -121,7 +122,12 @@ class OpportunityController extends ControllerBase
         $emailSession = $this->session->get('email');
         $tokenSession = $this->session->get('token');
 
+
+
+
         if ($token != null && $token === $tokenSession) {
+
+
 
             $this->clearSession();
 
@@ -137,6 +143,8 @@ class OpportunityController extends ControllerBase
             )->toString();
 
             $contact = $this->service->createLead($emailSession);
+
+
 
             $this->session->set('isLoggedIn', true);
             $this->session->set('type', $contact['Contact_Status__c']);
