@@ -49,7 +49,7 @@ jQuery(function () {
     
     if($('.accordion-content').length){
         var panel = $('.accordion-content');
-            panel.before('<a role="button" tabindex="0" class="accordion-toggle" href="#" aria-label="Toggle checkboxes"> Newsletter </a>');
+            panel.before('<a role="button" tabindex="0" class="accordion-toggle" href="#" aria-label="Toggle checkboxes"> Newsletters (choose) </a>');
             panel.hide();
 
         var toggle = $('.accordion-toggle');

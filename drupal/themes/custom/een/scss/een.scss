@@ -336,6 +336,19 @@ input,textarea,select,button,#global-header input:focus {
        }
     }
 }
+.form-item-email.form-disabled {
+    .form-label {
+        position:absolute;
+        text-indent:-5000px;
+    }
+    .form-control {
+         outline:solid 3px $focus;
+    }
+    .form-text {
+        background:#fff url('../img/green-tick.png') no-repeat 390px center;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 1020px) { 
     .verify-email {
         .form-actions {
@@ -758,6 +771,10 @@ form[data-drupal-selector="opportunity-search-form"] {
     border-bottom:2px solid #DDDDDD;
     margin:0;
     padding:14px 0;
+    &.latest {
+        padding:40px 0 150px 0;
+        margin-top:30px;
+    }
 
     .results-list-heading-item {
        span {
