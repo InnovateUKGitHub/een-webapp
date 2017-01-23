@@ -34,3 +34,52 @@
 
     </div>
 </div>
+
+
+<div class="results-list">
+    <div class="grid-row">
+        <div class="column-one-third">
+            <h3 class="heading-medium single-header-one-col">Latest opportunities</h3>
+        </div>
+        <div class="column-two-thirds">
+
+            {% for row in results %}
+
+                <div class="row row-bordered" ng-show="!meta.searched"
+                     ng-class="{ transp: meta.paging || meta.searching }">
+                    <h3 class="results-list-heading-item" tabindex="0">
+                        <a href="/opportunities/{{row.id}}"
+                           id="opportunity-link">
+                            {{ row.title|raw }}
+                        </a>
+                    </h3>
+
+                    <p class="description">{{ row.summary| truncate(240, true) | raw }} <a
+                                href="/opportunities/{{row.id}}">more</a>
+                    </p>
+
+                    <p class="meta-inline font-small">
+                        {# lastupdated #}
+                        {% if row.date|date('U') > '-5 days'|date('U') %}
+                            {{ row.date|time_diff }} |
+                        {% endif %}
+
+
+                        {# Country of origin #}
+                        {% set flag = row.country_code|lower %}
+                        {% if flag == 'uk' %}
+                            {% set flag = 'gb' %}
+                        {% endif %}
+                        <span class="flag-icon flag-icon-{{ flag }}"></span>
+                        {{ row.country }}
+                    </p>
+                </div>
+
+            {% endfor %}
+
+            <a href="/opportunities" class="button button--primary">View all opportunities</a>
+
+        </div>
+    </div>
+</div>
+

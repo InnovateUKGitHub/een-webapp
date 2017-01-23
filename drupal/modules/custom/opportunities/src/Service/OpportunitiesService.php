@@ -55,12 +55,12 @@ class OpportunitiesService
      *
      * @return array
      */
-    public function getOpportunities(Request $request)
+    public function getOpportunities(Request $request, $resultsPerPage = self::DEFAULT_RESULT_PER_PAGE)
     {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesForm::class);
 
         $page = $request->query->get(self::PAGE_NUMBER, 1);
-        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
+        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, $resultsPerPage);
         $search = $request->query->get(self::SEARCH);
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
         $countries = $request->query->get(self::COUNTRY);

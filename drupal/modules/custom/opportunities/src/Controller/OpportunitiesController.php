@@ -168,12 +168,16 @@ class OpportunitiesController extends ControllerBase
     /**
      * @return array
      */
-    public function exploreOpportunities()
+    public function exploreOpportunities(Request $request)
     {
         $form = \Drupal::formBuilder()->getForm(OpportunitiesExploreForm::class);
 
+        $data = $this->service->getOpportunities($request, $resultsPerPage = 5);
+
+
         return [
             '#form'  => $form,
+            '#results'          => $data['results'],
             '#theme' => 'explore_opportunities',
             '#route' => 'opportunities.explore',
         ];
