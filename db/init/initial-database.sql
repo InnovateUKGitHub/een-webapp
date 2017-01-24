@@ -2009,7 +2009,8 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 set autocommit=0;
-INSERT INTO `users` VALUES (0,'24707d29-e45b-42ad-b9a7-a338b531cb72','en'),(1,'%%DB_USER_KEY2','en');
+
+INSERT INTO `users` VALUES (0,'24707d29-e45b-42ad-b9a7-a338b531cb72','en'),(1,'%%DB_USER_KEY2%%','en');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;
