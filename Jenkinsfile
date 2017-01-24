@@ -22,6 +22,7 @@ node {
     
     stage 'Package'
     sh "./build/steps/compile/package.sh"
+    sh "./build/steps/deploy/credentials.sh"	
     
     def deployMethod = "rsync" //@todo load from base.properties (tarball / rsync)
     
