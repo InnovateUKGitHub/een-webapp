@@ -6,6 +6,10 @@ git checkout https://devops.innovateuk.org/code-repository/projects/EEN/repos/ee
 cp -pr /tmp/een-config/een-webapp/build $htdocs/build
 
 rm -rf /tmp/een-config
+. /etc/environment
+
+. $htdocs/build/properties/base.properties
+. $htdocs/build/properties/$APPLICATION_ENV.properties
 
 drupalDevSettings=$htdocs/build/templates/drupal/settings.development_vagrant.php
 drupalIntegrationSettings=$htdocs/build/templates/drupal/settings.integration.php
