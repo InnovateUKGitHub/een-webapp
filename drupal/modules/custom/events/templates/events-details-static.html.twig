@@ -1,0 +1,164 @@
+    {% if token %}
+        <div class="status-summary">
+            <div class="column-two-thirds">
+                <p><i class="fa fa-info-circle" aria-hidden="true"></i>
+                    {{ 'Thank you for verifying your email address '|t }}
+                    <span class="bold-small">{{ email }}</span>
+                </p>
+            </div>
+            <div class="column-one-third">
+                <a tabindex="0" class="button-brand js-continue-focus" href="#register" title="Register to this event">{{ 'Continue with registration'|t }}</a>
+            </div>
+        </div>
+    {% endif %}
+    <div>
+        <div>
+            <a class="back-link"
+               href="{{ url('events.search', {'page': page}) }}">
+                {{ '&lt; &nbsp;Back to search results'|t }}
+            </a>
+        </div>
+        <div class="content-heading event-heading">
+            <h1>{{ 'Event'|t }}</h1>
+            <h2 class="heading-large">Food & Drink Company Mission to Poland</h2>
+            <h3 class="heading-medium">Make the most of an exclusive opportunity to grow your food & drink, agriculture or packaging business by meeting Polish companies and establishing new relationships.</h3>
+
+
+            <div class="meta">
+                <div class="meta-data">
+                    <p>
+                        <span class="flag-icon flag-icon-pl"></span>
+                        Krakow, Poland
+                    </p>
+                </div>
+                <br />
+                <div class="status-summary">
+                    <div class="meta-data">
+                        <p>{{ 'A delegate registration fee of <span class="bold-small">&pound;100 +VAT</span> will apply. Delegates must cover the cost for flight, accommodation, evening meals and other travel on the mission'|format(event._source.fee)|t }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-row grid-row-1 event-details">
+        <div class="column-one-third sticky-nav-container">
+
+            <div class="date">
+                <p class="meta-inline font-small">
+                    <span class="day">20th - 23th</span>
+                    <span class="month-year">
+                        <span>March</span>
+                        <span>2017</span>
+                    </span>
+                </p>
+            </div>
+
+            <div class="contents-list sticky-sidebar">
+                <h3 class="heading-medium sticky-sidebar-header">{{ 'Contents'|t }}</h3>
+                <ul class="sticky-sidebar-content">
+                    <li><a href="#information">{{ 'Event Information'|t }}</a></li>
+                    <li><a href="#programme">{{ 'Programme'|t }}</a></li>
+                    <li><a href="#direction">{{ 'Directions'|t }}</a></li>
+                    <li><a href="#booking">{{ 'Booking form'|t }}</a></li>
+                </ul>
+
+                <a class="button-brand" href="#register">{{ 'Register for this event'|t }}</a>
+            </div>
+        </div>
+        <div class="column-two-thirds contents-text-block">
+            <img alt="Event details" src="/themes/custom/een/img/event-details.jpg" class="full-width" />
+            <p>Enterprise Europe Network is running a company mission to Poland ( Poznan & Krakow) from 26 - 29 September 2016 for ambitious and innovative companies involved in the food & drink sector. The Network will organise B2B meetings and company visits for your business, as well as providing the pre- and post-mission support you need to make your visit a success.</p>
+            <p>Delegates will begin their itinerary in Poznan, taking in a company visit before visiting the renowned POLAGRA food fair, taking in the fair and making the most of B2B meetings with international companies. The group will then move on to Krakow, for two more sets of B2B meetings, a company visit and workshop, arming you with the cultural knowledge necessary to take on the Polish Market and an overview of the fantastic support available on the ground.</p>
+
+            <h3 class="heading-medium" id="information">{{ 'Why Poland?'|t }}</h3>
+            <ul class="bullets">
+                <li>Poland has experienced uninterrupted growth since 1992</li>
+                <ul>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                    <li>Lorem ipsum dolor sit amet.</li>
+                    <li>Consectetur adipiscing elit.</li>
+                </ul>
+                <li>Poland has the largest retail market in the Central and Eastern Europe region</li>
+                <li>Growing middle class hungry for premium UK food & drink products</li>
+                <li>Regular budget flights connecting the UK with many major Polish cities</li>
+            </ul>
+
+            <h3 class="heading-medium" id="programme">Programme</h3>
+            <div class="programme-item">
+                <div class="column-one-quarter">
+                    <span class="calendar"></span>
+                    <span class="day">23rd</span> 
+                    <span class="month">September</span>
+                    <span class="year">2016</span>
+                </div>
+                <div class="column-three-quarter">
+                    <p>Day 1 - Monday</p>
+                    <p>AM: Depart UK </p>
+                    <p>PM: Company Visit</p>
+                </div>
+            </div>    
+            <div class="programme-item">
+                <div class="column-one-quarter">
+                    <span class="calendar"></span>
+                    <span class="day">24th</span> 
+                    <span class="month">September</span>
+                    <span class="year">2016</span>
+                </div>
+                <div class="column-three-quarter">
+                    <p>Day 1 - Monday</p>
+                    <p>AM: Depart UK </p>
+                    <p>PM: Company Visit</p>
+                </div>
+            </div>    
+            <div class="programme-item">
+                <div class="column-one-quarter">
+                    <span class="calendar"></span>
+                    <span class="day">25th</span> 
+                    <span class="month">September</span>
+                    <span class="year">2016</span>
+                </div>
+                <div class="column-three-quarter">
+                    <p>Day 1 - Monday</p>
+                    <p>AM: Depart UK </p>
+                    <p>PM: Company Visit</p>
+                </div>
+            </div>
+            <div class="programme-item">
+                <div class="column-one-quarter">
+                    <span class="calendar"></span>
+                    <span class="day">26th</span> 
+                    <span class="month">September</span>
+                    <span class="year">2016</span>
+                </div>
+                <div class="column-three-quarter">
+                    <p>Day 1 - Monday</p>
+                    <p>AM: Depart UK </p>
+                    <p>PM: Company Visit</p>
+                </div>
+            </div>    
+            
+
+            <h3 class="heading-medium" id="direction">Where is the event being held?</h3>
+            
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24101.730390307926!2d18.507926676058418!3d51.72059790138734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471aef97634e8dcd%3A0xb62c56fcdfa36d7a!2zS3LEhWvDs3csIFBvbGFuZA!5e0!3m2!1sen!2suk!4v1486048239607" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <h3 class="sr-only" tabindex="0"><span>event address is</span> Krąków 15, 98-290 Krąków, Poland</h3>
+            <div id="navstop"></div>
+        </div>
+    </div>
+    <hr/>
+    <div class="grid-row">
+        <div class="column-one-third">
+            <h3 class="heading-medium single-header-one-col" id="register">{{ 'Register for the event'|t }}</h3>
+        </div>
+        <div class="column-two-thirds" id="booking">
+            <div class="verify-email">
+                {{ form_email }}
+                <p>{{ 'To register for this event we need to validate your email. You will be sent a 6 digit confirmation email containing a verfication code. Simply copy this into the field below to continue.'|t }}</p>
+            </div>
+            <form action="{{ form['#action'] }}" method="{{ form['#method'] }}" class="form-opportunities">
+                {{ form.actions }}
+            </form>
+        </div>
+    </div>
+
+

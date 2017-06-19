@@ -1,0 +1,63 @@
+id: merlin_events_soap
+label: SOAP service providing events.
+migration_group: een_events
+source:
+  plugin: url
+  data_fetcher_plugin: http # Ignored - SoapClient does the fetching.
+  data_parser_plugin: merlin_soap
+  urls: http://een.ec.europa.eu/tools/services/podv6/QueryService.svc?singleWsdl
+  function: GetEvents
+  parameters:
+    Username: UK00774
+    Password: c9a0974cb8ba283ea6e31ca3683f9ebf
+    StartDateAfter: 20170104
+    StartDateBefore: 
+    Countries: 
+    EventTypes:
+    OrganisationCountryName:
+    OrganisationIdentifier:
+    OrganisationName: 
+  response_type: object
+  item_selector: event
+  fields:
+    -
+      name: machine_name
+      label: 'Unique event identifier'
+      selector: eventTitleField
+    -
+      name: event_title
+      label: 'Event Title'
+      selector: eventTitleField
+    -
+      name: event_body
+      label: 'Event Body'
+      selector: descriptionField
+    - 
+      name: event_start_date
+      label: 'Event Start Date'
+      selector: eventStartDateField
+    -
+      name: event_end_date
+      label: 'Event End Date'
+      selector: eventEndDateField
+  ids:
+    machine_name:
+      type: string
+process:
+  id: machine_name
+  title: event_title
+  type: 
+    plugin: default_value
+    default_value: event
+  body: event_body
+  field_event_type:
+    plugin: default_value
+    default_value: imported
+  'field_event_date/value': event_start_date
+  'field_event_date/end_value': event_end_date
+  field_event_import_source:
+    plugin: default_value
+    default_value: Merlin
+destination:
+  plugin: entity:node
+migration_dependencies: {}

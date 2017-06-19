@@ -1,9 +1,9 @@
-<div class="grid-row">
+<div class="grid-row check-answers">
     <div class="column-full">
         <div class="header-secondary header-secondary">
-            <h1 tabindex="0" class="heading-large">Check your answers before completing your application</h1>
+            <h1 tabindex="0" class="heading-large heading-large-mobile">Check your answers before completing your submission</h1>
         </div>
-        <h2 tabindex="0" class="heading-medium">Opportunity application</h2>
+        <h2 tabindex="0" class="heading-medium">Opportunity submission</h2>
         <hr/>
     </div>
     <div class="row no-margin">
@@ -35,7 +35,7 @@
                 <form class="hidden">
                     <div class="js-form-item form-item js-form-type-textearea form-item-description js-form-item-description">
                         <span class="error-message"></span>
-                        <textarea class="form-control form-textarea required" name="description" rows="5" cols="60">{{ form.description }}</textarea>
+                        <textarea class="form-control textarea-max-length form-textarea required" name="description" rows="5" cols="60">{{ form.description }}</textarea>
                     </div>
                 </form>
             </div>
@@ -56,7 +56,7 @@
                 <form class="hidden">
                     <div class="js-form-item form-item js-form-type-texteare form-item-interest js-form-item-interest">
                         <span class="error-message"></span>
-                        <textarea class="form-control form-textarea required" name="interest" rows="5" cols="60">{{ form.interest }}</textarea>
+                        <textarea class="form-control textarea-max-length form-textarea required" name="interest" rows="5" cols="60">{{ form.interest }}</textarea>
                     </div>
                 </form>
             </div>
@@ -74,7 +74,7 @@
             <div>
                 <p>{{ form.more }}</p>
                 <form class="hidden">
-                    <textarea class="form-control form-textarea" name="more" rows="5" cols="60">{{ form.more }}</textarea>
+                    <textarea class="form-control textarea-max-length form-textarea" name="more" rows="5" cols="60">{{ form.more }}</textarea>
                 </form>
             </div>
             <p>
@@ -86,7 +86,7 @@
 
     <!-- Account details -->
     <div class="column-full">
-        <h2 class="heading-medium" tabindex="0">Your account details</h2>
+        <h2 class="heading-medium" tabindex="0">Your account details (not shared as part of your submission)</h2>
         <hr/>
     </div>
     <div class="row">
@@ -110,7 +110,7 @@
                     <p>Yes - please send me emails when there is a new blog post and newsletter</p>
                 {% endif %}
             </div>
-            <p><a href="{{ url('sign-up.step1', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about you</span></a></p>
+            <p><a href="{{ url('sign-up.steps', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about you</span></a></p>
         </div>
         <div class="column-full">
             <hr>
@@ -118,17 +118,17 @@
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p class="sh-bold">Your company</p>
+            <p class="sh-bold">Company information</p>
         </div>
         <div class="column-two-thirds with-cta">
             <div>
                 {% if form.company_name %}
                    <p><strong class="label company-name sh-bold">Company name:</strong><span>{{ form.company_name }}</span></p>
                 {% endif %}
-                <p><strong class="label company-url sh-bold">Company URL:</strong><span>{{ form.website }}</span></p>
+                <p><strong class="label company-url sh-bold">Company website:</strong><span>{{ form.website }}</span></p>
                 <p><strong class="label telephone-number sh-bold">Telephone number:</strong><span>{{ form.company_phone }}</span></p>
             </div>
-            <p><a href="{{ url('sign-up.step2', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about your company</span></a></p>
+            <p><a href="{{ url('sign-up.steps', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about your company</span></a></p>
         </div>
         <div class="column-full">
             <hr>
@@ -137,9 +137,23 @@
 
     <div class="row">
         <div class="column-one-third">
-            <p class="sh-bold">Your address</p>
+            <p class="sh-bold">Registered address</p>
         </div>
         <div class="column-two-thirds with-cta">
+            <div class="vcard">
+                <div class="adr" itemprop="address" itemscope="itemscope"
+                     itemtype="http://data-vocabulary.org/Address/">
+                    <span class="street-address-one" itemprop="street-address-one">{{ form.addressone_registered }}</span>
+                    <span class="street-address-two" itemprop="street-address-two">{{ form.addresstwo_registered }}</span>
+                    <span class="city" itemprop="locality">{{ form.city_registered }}</span>
+                    <abbr class="post-code" itemprop="post-code" title="SN13 8PN">{{ form.postcode_registered }}</abbr>
+                </div>
+            </div>
+        </div> 
+        <div class="column-one-third correspondence">
+            <strong class="sh-bold">Correspondence address</strong>
+        </div>
+        <div class="column-two-thirds with-cta">        
             <div class="vcard">
                 <div class="adr" itemprop="address" itemscope="itemscope"
                      itemtype="http://data-vocabulary.org/Address/">
@@ -149,7 +163,9 @@
                     <abbr class="post-code" itemprop="post-code" title="SN13 8PN">{{ form.postcode }}</abbr>
                 </div>
             </div>
-            <p><a href="{{ url('sign-up.step3', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">your address</span></a></p>
+
+
+            <p><a href="{{ url('sign-up.steps', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">your address</span></a></p>
         </div>
         <div class="column-full">
             <hr>
@@ -159,17 +175,14 @@
     <!-- Send application -->
     <div class="row">
         <div class="column-two-thirds">
-            <h2 class="heading-medium">Now send your application</h2>
+            <h2 class="heading-medium">We'll be in touch within two working days</h2>
             <div>
-                <p>By submitting this application I confirm that the details provided are correct and that, as per the privacy policy, my personal information will not be shared.</p>
+                <p>Don't worry, we won't share any of your personal details with the client.</p>
             </div>
-            <p><a href="{{ url('sign-up.complete', {'id': form.id, 'type': type}) }}" class="button js-spb-click" tabindex="0" role="button">Complete your application</a></p>
+            <p><a href="{{ url('sign-up.complete', {'id': form.id, 'type': type}) }}" class="button js-spb-click" tabindex="0" role="button">Complete your submission</a></p>
         </div>
         <div class="column-one-third">
 
-        </div>
-        <div class="column-full">
-            <hr>
         </div>
     </div>
 </div>

@@ -86,6 +86,7 @@ class OpportunityControllerTest extends UnitTestCase
             [
                 '#theme',
                 '#form_email',
+                '#form_login',
                 '#form',
                 '#opportunity',
                 '#search',

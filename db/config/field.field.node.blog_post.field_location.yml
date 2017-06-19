@@ -1,0 +1,21 @@
+uuid: cfc5175f-6c99-404c-95ec-cfa1e4759284
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location
+    - node.type.blog_post
+  module:
+    - geolocation
+id: node.blog_post.field_location
+field_name: field_location
+entity_type: node
+bundle: blog_post
+label: 'Location Override'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

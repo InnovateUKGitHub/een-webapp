@@ -1,0 +1,34 @@
+uuid: 5bcc18af-457a-4a83-ab81-700112f850aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.homepage_popup_video.field_y
+    - node.type.homepage_popup_video
+  module:
+    - user
+    - video_embed_field
+id: node.homepage_popup_video.default
+targetEntityType: node
+bundle: homepage_popup_video
+mode: default
+content:
+  field_y:
+    weight: 101
+    label: above
+    settings:
+      responsive: true
+      width: 854
+      height: 480
+      autoplay: true
+    third_party_settings: {  }
+    type: video_embed_field_video
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

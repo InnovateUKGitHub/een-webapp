@@ -6,6 +6,7 @@ use Drupal\Core\Session\SessionManagerInterface;
 use Drupal\Core\Url;
 use Drupal\opportunities\Form\ExpressionOfInterest\EmailVerificationForm;
 use Drupal\opportunities\Form\ExpressionOfInterest\ExpressionOfInterestForm;
+use Drupal\een_common\Form\SignInForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -93,11 +94,14 @@ class OpportunityController extends ControllerBase
         $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);
         $formEmail['id']['#value'] = $profileId;
 
+        $formLogin = \Drupal::formBuilder()->getForm(SignInForm::class);
+
         $this->checkSession($form, $token, $profileId);
 
         return [
             '#theme'            => 'opportunities_details',
             '#form_email'       => $formEmail,
+            '#form_login'       => $formLogin,
             '#form'             => $form,
             '#opportunity'      => $results,
             '#search'           => $search,
@@ -179,6 +183,7 @@ class OpportunityController extends ControllerBase
         $this->session->delete('step2');
         $this->session->delete('company_name');
         $this->session->delete('company_number');
+        $this->session->delete('no_company_number');
         $this->session->delete('website');
         $this->session->delete('company_phone');
 
@@ -267,10 +272,9 @@ It's on Enterprise Europe Network's website, the world's largest business suppor
     public function ajax($profileId, Request $request)
     {
         $email = $request->query->get(self::EMAIL);
-        $token = bin2hex(random_bytes(50));
+        $token =  mt_rand(100000, 999999);
         $this->session->set('email', $email);
         $this->session->set('token', $token);
-
         $this->service->verifyEmail(
             $email,
             $token,

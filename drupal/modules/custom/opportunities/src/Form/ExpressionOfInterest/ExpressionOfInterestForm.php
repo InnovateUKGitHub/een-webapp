@@ -57,7 +57,7 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#required'            => true,
                 '#attributes'          => [
                     'class'       => [
-                        'form-control',
+                        'form-control textarea-max-length',
                     ],
                     'placeholder' => [
                         '',
@@ -73,10 +73,13 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#required'            => true,
                 '#attributes'          => [
                     'class'       => [
-                        'form-control',
+                        'form-control textarea-max-length',
                     ],
                     'placeholder' => [
                         '',
+                    ],
+                    'maxlength' => [
+                        600
                     ],
                 ],
             ],
@@ -88,15 +91,18 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#label_display'       => 'before',
                 '#attributes'          => [
                     'class'       => [
-                        'form-control',
+                        'form-control textarea-max-length',
                     ],
                     'placeholder' => [
                         '',
                     ],
+                    'maxlength' => [
+                        600
+                    ],
                 ],
             ],
             'email'       => [
-                '#type'          => 'textfield',
+                '#type'          => 'hidden',
                 '#title'         => $this->t('Your Email'),
                 '#label_display' => 'before',
                 '#attributes'    => [
@@ -125,10 +131,16 @@ class ExpressionOfInterestForm extends AbstractForm
             ],
             'actions'     => [
                 '#type'  => 'actions',
+
                 'submit' => [
                     '#type'        => 'submit',
-                    '#value'       => $this->t('Submit your application'),
+                    '#value'       => $this->t('Save and continue'),
                     '#button_type' => 'primary',
+                    '#attributes' => [
+                        'class' => [
+                            'edit-continue save-and-continue',
+                        ],
+                    ],
                 ],
             ],
             '#method'     => Request::METHOD_POST,
@@ -162,7 +174,7 @@ class ExpressionOfInterestForm extends AbstractForm
             );
         } else {
             $form_state->setRedirect(
-                'sign-up.step1',
+                'sign-up.steps',
                 [
                     'id'   => $this->session->get('id'),
                     'type' => 'opportunities',

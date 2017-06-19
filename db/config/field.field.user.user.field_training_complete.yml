@@ -1,0 +1,24 @@
+uuid: e6234504-9304-4b2f-9d44-906cb5fc7a00
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_training_complete
+  module:
+    - user
+id: user.user.field_training_complete
+field_name: field_training_complete
+entity_type: user
+bundle: user
+label: 'Training Complete'
+description: 'Select this field when the user has completed the training.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

@@ -1,0 +1,20 @@
+uuid: c507fbd0-5125-4ff6-ae6c-8681ea527da8
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.recent_partnership
+  module:
+    - user
+id: node.recent_partnership.teaser
+targetEntityType: node
+bundle: recent_partnership
+mode: teaser
+content:
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+hidden:
+  field_partnership: true

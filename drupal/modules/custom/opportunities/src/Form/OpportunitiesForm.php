@@ -51,12 +51,17 @@ class OpportunitiesForm extends AbstractForm
             'BR' => $this->t('to sell to'),
             'TR' => $this->t('that needs my tech/expertise'),
             'TO' => $this->t('with tech/expertise that I need'),
-            'RD' => $this->t('to collaborate with/co-develop with'),
+            'RDR' => $this->t('to collaborate with/co-develop with'),
         ];
-        $countries = $this->service->getCountryList();
+
+        $regions = array();
+        $regions['europe'] = 'Europe';
+        $regions['anywhere'] = 'Anywhere in the world';
+
+        $countries = array_merge($regions, $this->service->getCountryList());
 
         $form = [
-            'search'           => [
+           /* 'search'           => [
                 '#type'       => 'textfield',
                 '#title'      => $this->t('Contains keywords...'),
                 '#attributes' => [
@@ -70,16 +75,18 @@ class OpportunitiesForm extends AbstractForm
                         'E.g. medical component distribution',
                     ],
                 ],
-            ],
+            ],*/
+
             'opportunity_type' => [
                 '#type'       => 'checkboxes',
-                '#title'      => $this->t('I\'m looking for a partner&hellip;'),
+                '#title'      => $this->t('I’m looking for a partner...'),
                 '#options'    => $types,
                 '#attributes' => [
                     'tabindex' => '0',
                     'ng-click' => 'selectOppCheckbox($event)',
                 ],
             ],
+
             'country'          => [
                 '#type'       => 'checkboxes',
                 '#title'      => $this->t('Country of origin'),
@@ -88,7 +95,7 @@ class OpportunitiesForm extends AbstractForm
                     'tabindex' => '0',
                     'ng-click' => 'selectCountryCheckbox($event)',
                     'class'    => [
-                        'accordion-container',
+                        'accordion-container parent-country-regions',
                     ],
                 ],
             ],

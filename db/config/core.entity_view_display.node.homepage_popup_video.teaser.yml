@@ -1,0 +1,19 @@
+uuid: ddbc39e7-40e7-4547-aec0-e9c72279c664
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.homepage_popup_video
+  module:
+    - user
+id: node.homepage_popup_video.teaser
+targetEntityType: node
+bundle: homepage_popup_video
+mode: teaser
+content:
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+hidden: {  }

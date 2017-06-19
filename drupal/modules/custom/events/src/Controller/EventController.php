@@ -102,6 +102,29 @@ class EventController extends ControllerBase
         ];
     }
 
+
+    /**
+     * @param string  $eventId
+     * @param string  $token
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function staticEvent()
+    {
+
+        $form = \Drupal::formBuilder()->getForm(EventForm::class);
+        $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);
+
+        return [
+            '#form'       => $form,
+            '#form_email' => $formEmail,
+            '#theme'      => 'events_static_details',
+            '#route'      => 'events.staticevent',
+        ];
+    }
+
+
     /**
      * @param array  $form
      * @param string $token

@@ -65,11 +65,6 @@
 <div ng-app="een">
     <main role="main" id="content" ng-controller="MainCtrl">
         <a id="main-content" title="Main content"  tabindex="-1"></a>{# link is in html.html.twig #}
-
-        
-
-        {{ page.breadcrumb }}
-
         {{ page.highlighted }}
 
         <div class="layout-content">
@@ -87,27 +82,12 @@
                 {{ page.sidebar_second }}
             </aside>
         {% endif %}
-
+        
     </main>
 </div>
-
-<footer role="contentinfo" class="group js-footer" id="footer">
-    <div class="footer-wrapper">
-        <div class="footer-meta">
-            <img src="/themes/custom/een/img/EEN-Logo-Main.png" alt="EEN Logo Footer"/>
-            {% if page.footer_first or page.footer_second or page.footer_third or page.footer_fourth %}
-                <div class="footer-meta-inner">
-                    {{ page.footer_first }}
-                    {{ page.footer_second }}
-                    {{ page.footer_third }}
-                    {{ page.footer_fourth }}
-                </div>
-            {% endif %}
-            {% if page.footer_fifth %}
-                <div class="copyright">
-                    {{ page.footer_fifth }}
-                </div>
-            {% endif %}
-        </div>
+<div class="contact-us-block">
+    <div class="wrapper">
+        <h4>Please <a href="/contact-us">contact us</a> to let us help your business</h4>
     </div>
-</footer>
+</div>    
+{% include '/themes/custom/een/templates/layout/footer.html.twig' %}

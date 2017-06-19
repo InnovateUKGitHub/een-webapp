@@ -1,0 +1,41 @@
+uuid: fc061140-1323-4f11-b97e-522409968d0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.blog_post.body
+    - node.type.blog_post
+  module:
+    - text
+    - user
+id: node.blog_post.teaser
+targetEntityType: node
+bundle: blog_post
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+  workbench_moderation_control:
+    weight: -20
+hidden:
+  comment: true
+  field_blog_lede: true
+  field_copyrighted_image: true
+  field_full_width_quote: true
+  field_location: true
+  field_meta_tags: true
+  field_persona: true
+  field_pull_promo: true
+  field_secondary_image: true
+  field_tags: true
+  field_yoast_seo: true

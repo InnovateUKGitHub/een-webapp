@@ -1,0 +1,103 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 26, 2017, 2:19:32 PM
+    Author     : jasongoodenough
+*/
+.alert-banner {
+    background: black;
+    display: none;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 900;
+    color:#fff;
+    .container {
+        max-width:960px;
+        margin:0 auto;
+        > div {
+            border-top:solid 1px #0f6ca4;
+            margin-top:10px;
+        }
+        .alert-content {
+            position:relative;
+            .views-element-container {
+                display: inline-block;
+                width: 85%;
+                @media (max-width:640px) {
+                    width: 60%;
+                }    
+            }
+        }
+    }
+    .close-alert {
+        background:none;
+        border:none;
+        color:#b2d9f1;
+        cursor: pointer;
+        position:absolute;
+        top:0;
+        right:0;
+        font-size:16px;
+        @media (max-width:640px) {
+            font-size: 14px;
+        }
+        margin-top:10px;
+        z-index: 999;
+        &:hover {
+            color: $cta;
+        } 
+    }
+    .news-icon {
+        background:#0f6ca4;
+        float:left;
+        margin-right:15px;
+        text-align:center;
+        .fa {
+            font-size:30px;
+            padding:23px 15px 60px 15px;
+            @media (max-width:1020px){
+                padding-bottom:30px;
+            }    
+        }
+    }
+    .views-field-title {
+        font-size:16px;
+        font-weight:600;
+        margin-top:10px;
+        color:#b2d9f1;
+        @media (max-width:640px) {
+            font-size: 14px;
+        }
+        
+    }
+    .views-field-field-link {
+        a {
+            color: #ffffff;
+            font-size: 22px;
+            @media (max-width:640px) {
+                font-size: 18px;
+            }
+            &:after {
+                content:"\f054";
+                display: inline-block;
+                font-family: FontAwesome;
+                font-size: 22px;
+                height:22px;
+                margin-left: 8px;
+                width:22px;   
+            }   
+            &:hover {
+                color: $cta;
+            } 
+        }
+    }
+    p {
+        font-size:20px;
+        color:#fff;
+    }
+}

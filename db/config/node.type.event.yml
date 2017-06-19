@@ -1,0 +1,26 @@
+uuid: 549798c4-e476-4fb5-a162-35f3d6c14b03
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - workbench_moderation
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+  workbench_moderation:
+    enabled: true
+    allowed_moderation_states:
+      - published
+      - archived
+      - draft
+      - needs_review
+    default_moderation_state: draft
+name: Event
+type: event
+description: 'Events content type'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

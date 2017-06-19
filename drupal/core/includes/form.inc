@@ -452,11 +452,7 @@ function template_preprocess_form_element(&$variables) {
   $variables['disabled'] = !empty($element['#attributes']['disabled']) ? $element['#attributes']['disabled'] : NULL;
 
   // Suppress error messages.
-    if (!empty($element['#errors'])) {
-        $variables['errors'] = $element['#errors'];
-    } else {
-        $variables['errors'] = null;
-    }
+  $variables['errors'] = NULL;
 
   // If #title is not set, we don't display any label.
   if (!isset($element['#title'])) {
@@ -514,8 +510,6 @@ function template_preprocess_form_element_label(&$variables) {
   if (isset($element['#title']) && $element['#title'] !== '') {
     $variables['title'] = ['#markup' => $element['#title']];
   }
-
-  $variables['attributes'] = array();
 
   // Pass elements title_display to template.
   $variables['title_display'] = $element['#title_display'];

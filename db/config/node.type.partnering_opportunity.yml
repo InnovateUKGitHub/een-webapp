@@ -1,0 +1,27 @@
+uuid: bf8b8c8c-c7d0-44b8-92d0-6f5201f206aa
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - workbench_moderation
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  workbench_moderation:
+    enabled: true
+    allowed_moderation_states:
+      - published
+      - archived
+      - draft
+      - needs_review
+    default_moderation_state: draft
+name: 'Partnering Opportunity'
+type: partnering_opportunity
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

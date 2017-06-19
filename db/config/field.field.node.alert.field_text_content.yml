@@ -1,0 +1,21 @@
+uuid: 663aeb3a-4112-4ab6-b994-878299b2d684
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_text_content
+    - node.type.alert
+  module:
+    - text
+id: node.alert.field_text_content
+field_name: field_text_content
+entity_type: node
+bundle: alert
+label: 'Text content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

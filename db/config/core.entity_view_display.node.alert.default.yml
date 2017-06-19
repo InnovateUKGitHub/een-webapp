@@ -1,0 +1,43 @@
+uuid: c79f2777-192d-4a3d-ac4a-1ea9d733d450
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.alert.field_content_type
+    - field.field.node.alert.field_link
+    - field.field.node.alert.field_text_content
+    - node.type.alert
+  module:
+    - link
+    - user
+id: node.alert.default
+targetEntityType: node
+bundle: alert
+mode: default
+content:
+  field_content_type:
+    weight: 101
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_link:
+    weight: 103
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+hidden:
+  field_text_content: true

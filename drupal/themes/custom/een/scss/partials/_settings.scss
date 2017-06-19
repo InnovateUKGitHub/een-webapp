@@ -1,0 +1,126 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 21, 2017, 3:33:51 PM
+    Author     : jasongoodenough
+*/
+
+body {
+    font-family: $font_family;
+    color:#4A4A4A;
+}
+html, body, button, input, table, td, th, p, h1, h2, h3, h4, h5, li, p, label, input, small, a, legend, textarea
+.form-label,
+.font-xsmall, .font-small, .font-medium, .font-large, .form-control {
+    font-family: $font_family;
+    color:#4A4A4A;
+}
+
+hr {
+    clear:both;
+    margin:20px 0;
+}
+.home h1 {
+    display:none;
+}
+.header-secondary {
+    h1 {
+        letter-spacing: -0.3px;
+    }
+}
+p { 
+    @extend .font-small;
+}
+a {
+    text-decoration: none;
+    &:link {
+        color:$cta;
+    }
+    &:visited {
+        color:$cta;
+    }
+}
+.button-brand {
+    @include button($light-blue);
+    font-weight: 600;
+}
+
+.button {
+    @include button($light-blue);
+    padding: 14px 14px;
+    font-weight: 600;
+    white-space:inherit;
+}
+.mobile-only {
+    display:none;
+}
+.no-margin {
+    margin:0;
+}
+.no-border {
+    border:none;
+}
+.no-pad {
+    padding:0;
+}
+.bullets {
+    li {
+        line-height:1.8em;
+    }
+    ul {
+        list-style: square;
+        padding-left:28px;
+    }
+}
+.bullets {
+    list-style:outside;
+    margin-bottom:20px;
+    li {
+        margin:0 0 0 28px;
+    }
+}
+.form-label, .form-label-bold {
+    color:inherit;
+}
+.sr-only {
+    width:1px;
+    height:1px;
+    border:0 none;
+    clip:rect(0px, 0px, 0px, 0px);
+    position:absolute;
+    overflow:hidden;
+    margin:-1px;
+    padding:0;
+}
+.text-label {
+    width:160px;
+    font-size:19px;
+    display:inline-block;
+}
+.wrapper {
+    max-width:960px;
+    margin:0 auto;
+    @media (min-width: 621px) and (max-width: 1020px) {
+        margin:0 30px;
+    }
+    @media (max-width: 620px) {
+        margin:0 15px;
+    }
+}
+.no-pad-right {
+    padding-right:0;
+}
+@mixin sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+

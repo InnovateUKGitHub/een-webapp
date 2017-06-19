@@ -8,6 +8,9 @@ node {
     def projectName = sho('basename `git config --get remote.origin.url | grep -o "devops.innovateuk.org.*"` | tee .out')
     projectName = projectName.substring(0, projectName.lastIndexOf('.'))
     
+    // clone credentials repo and inject into codebase
+    sh "./build/steps/compile/credentials.sh"	
+    
     stage 'Npm'
     sh "./build/steps/compile/npm.sh"
     
@@ -18,11 +21,10 @@ node {
     sh "./build/steps/compile/composer.sh"
     
     stage 'Unit Tests'
-    sh "./build/steps/test/phpunit.sh"
+    sh "./build/steps/compile/phpunit.sh"
     
     stage 'Package'
     sh "./build/steps/compile/package.sh"
-    sh "./build/steps/deploy/credentials.sh"	
     
     def deployMethod = "rsync" //@todo load from base.properties (tarball / rsync)
     
@@ -33,33 +35,63 @@ node {
         archive "${packageName}.tar.gz"
     } 
     
-    remoteDeploy('integration_v3', packageName, deployMethod, false)
-    // remoteDeploy('stage_brumear', packageName, deployMethod, true)
+    //remoteDeploy('integration_v3', packageName, deployMethod, false, false, false)
+    remoteDeploy('stage_een_aws', packageName, deployMethod, true, false, false)
     
-    // if (env.BRANCH_NAME == ("master")) {
-    //     remoteDeploy('production_degore', packageName, deployMethod, true)
-    // }
+    if (env.BRANCH_NAME == ("master")) {
+        remoteDeploy('production_een_aws', packageName, deployMethod, true, false, false)
+    }
 }
      
-def remoteDeploy(String targetEnvironment, String packageName, String deployMethod, Boolean requireInput) {
+def remoteDeploy(String targetEnvironment, String packageName, String deployMethod, Boolean requireInput, Boolean updateAmi, Boolean tests) {
    
     stage "Upload to: ${targetEnvironment}"
     
+    deploy = false
     if (requireInput) {
+        try {
+            timeout(time: 120, unit: 'SECONDS') {
         input "Deploy to ${targetEnvironment}?"
-    }
-    
-    if (deployMethod == ("tarball")) {
-        sh "./build/steps/deploy/upload-by-package.sh ${targetEnvironment} ${packageName}"
+                deploy = true
+            }
+        } catch(err) {
+            deploy = false
+        }
     } else {
-        sh "./build/steps/deploy/upload-by-rsync.sh ${targetEnvironment} ${packageName}"
+        deploy = true
     }
     
-    stage "Deploy to: ${targetEnvironment}"
-    sh "./build/steps/deploy/remote-deploy.sh ${targetEnvironment} ${packageName} ${deployMethod}"
+    if (deploy == true) {
+        if (deployMethod == ("tarball")) {
+            sh "./build/steps/deploy/upload-by-package.sh ${targetEnvironment} ${packageName}"
+        } else {
+            sh "./build/steps/deploy/upload-by-rsync.sh ${targetEnvironment} ${packageName}"
+        }
 
-    stage "Integration tests: ${targetEnvironment}"
-    build job: 'een-integration-tests', parameters: [[$class: 'StringParameterValue', name: 'APPLICATION_ENV', value: "${targetEnvironment}"]]
+        stage "Deploy to: ${targetEnvironment}"
+        try {
+            timeout(time: 10, unit: 'SECONDS') {
+                rebuildDatabase = input message: 'Rebuild Database?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'yes']]
+            }
+        } catch (err) {
+            rebuildDatabase = false
+        }
+        try {
+            timeout(time: 10, unit: 'SECONDS') {
+                reloadConfiguration = input message: 'Reload Drupal config?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'yes']]
+            }
+        } catch (err) {
+            reloadConfiguration = false
+        }
+        sh "./build/steps/deploy/deploy-on-remote.sh ${targetEnvironment} ${packageName} ${deployMethod} ${rebuildDatabase} ${reloadConfiguration}"
+        
+        stage "Integration tests: ${targetEnvironment}"
+        build job: 'een-integration-tests', parameters: [[$class: 'StringParameterValue', name: 'APPLICATION_ENV', value: "${targetEnvironment}"]]
+
+        if (updateAmi) {
+            sh "./build/steps/post-build/update-ami.sh ${targetEnvironment} ${packageName}"
+        }
+    }
 }
 
 // sh-out - return the output from an sh command    

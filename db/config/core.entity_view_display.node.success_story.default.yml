@@ -1,0 +1,133 @@
+uuid: 21e3bb1a-3041-4555-8726-c27a274372cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.success_story.body
+    - field.field.node.success_story.field_copyrighted_image
+    - field.field.node.success_story.field_full_width_quote
+    - field.field.node.success_story.field_hero_stats
+    - field.field.node.success_story.field_location
+    - field.field.node.success_story.field_meta_tags
+    - field.field.node.success_story.field_persona
+    - field.field.node.success_story.field_tags
+    - field.field.node.success_story.field_yoast_seo
+    - image.style.image_crop_style
+    - node.type.success_story
+  module:
+    - een_custom_fields
+    - field_formatter_class
+    - field_group
+    - options
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_body_content:
+      children:
+        - body
+        - field_tags
+        - field_full_width_quote
+      parent_name: ''
+      weight: 6
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: body-content
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: body-content
+    group_featured_image:
+      children:
+        - field_hero_stats
+        - field_copyrighted_image
+      parent_name: ''
+      weight: 5
+      format_type: html_element
+      format_settings:
+        label: promo-image
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: promo-image
+      label: promo-image
+    group_lede_:
+      children: {  }
+      parent_name: ''
+      weight: 4
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: blog-lede
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'lede '
+id: node.success_story.default
+targetEntityType: node
+bundle: success_story
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 7
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+  field_copyrighted_image:
+    weight: 6
+    label: visually_hidden
+    settings:
+      image_style: image_crop_style
+      image_link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: copyrighted-image
+    type: copyright_image
+  field_hero_stats:
+    weight: 5
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: hero-stats
+    type: text_default
+  field_persona:
+    weight: 2
+    label: visually_hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: written-for
+    type: list_default
+  links:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+  workbench_moderation_control:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_full_width_quote: true
+  field_location: true
+  field_meta_tags: true
+  field_tags: true
+  field_yoast_seo: true

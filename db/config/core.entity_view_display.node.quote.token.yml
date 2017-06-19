@@ -1,0 +1,47 @@
+uuid: 36c5a644-7c30-47e0-b6aa-99d7f81ae5c7
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.quote.body
+    - field.field.node.quote.field_image
+    - field.field.node.quote.field_meta_tags
+    - field.field.node.quote.field_quote_author
+    - field.field.node.quote.field_quote_company
+    - field.field.node.quote.field_yoast_seo
+    - node.type.quote
+  module:
+    - text
+    - user
+id: node.quote.token
+targetEntityType: node
+bundle: quote
+mode: token
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  field_quote_author:
+    weight: 105
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_quote_company:
+    weight: 106
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+hidden:
+  field_image: true
+  field_meta_tags: true
+  field_yoast_seo: true
+  links: true
+  sharethis: true

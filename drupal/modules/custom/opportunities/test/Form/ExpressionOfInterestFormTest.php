@@ -68,7 +68,7 @@ class ExpressionOfInterestFormTest extends UnitTestCase
         $formArray = $this->form->buildForm($formArray, $formState);
 
         $this->form->submitForm($formArray, $formState);
-        $this->assertEquals('sign-up.step1', $formState->getRedirect()->getRouteName());
+        $this->assertEquals('sign-up.steps', $formState->getRedirect()->getRouteName());
     }
 
     protected function setup()

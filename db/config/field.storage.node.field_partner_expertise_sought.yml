@@ -1,0 +1,19 @@
+uuid: 1cbda1d4-5e74-45dd-89f1-3e0c23a403af
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_partner_expertise_sought
+field_name: field_partner_expertise_sought
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

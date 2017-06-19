@@ -1,0 +1,118 @@
+{% set params = {} %}
+{% if search %}
+    {% set params = params|merge({'search': search}) %}
+{% endif %}
+{% if opportunity_type %}
+    {% set params = params|merge({'opportunity_type': opportunity_type}) %}
+{% endif %}
+{% if country %}
+    {% set params = params|merge({'country': country}) %}
+{% endif %}
+<div class="content-heading not-bordered">
+    <h1 tabindex="0">{{ 'Partnering Opportunities'|t }}</h1>
+</div>
+
+<div class="grid-row search-panel">
+    <div class="column-fullwidth">
+        <div class="column-full">
+            <a class="button default-button open-search">Start your search</a>
+            <div class="search-container search-keywords-within-results" id="auto-2">
+                <div id="form-container">
+
+                    <form tabindex="0" ng-submit="submit()" data-drupal-selector="opportunity-super-search-form" action="/search-opportunities" method="POST" id="opportunity-super-search-form" accept-charset="UTF-8">
+                        <div class="js-form-item form-item js-form-type-textfield form-item-search js-form-item-search">
+                            <label for="edit-search" class="form-label">Search by keyword <span class="suggestion-labels">e.g.  battery, engineering, biofuels</span></label>
+                            <span class="error-message"> </span>
+                            <input  ng-model="data.search" ng-change="queryKeyUp()" tabindex="0" class="form-control form-text" placeholder="E.g. medical component distribution" data-drupal-selector="edit-search" type="text" id="edit-search" value="" size="60" maxlength="128" />
+                        </div>
+                        <input  data-drupal-selector="form-e-t6fe07qrvndnedqtkomo4xg06-y9owmnzs57da2eo" type="hidden" name="form_build_id" value="form-E-T6fe07qrVndnEDqtkOMo4xG06-y9OwmNZs57Da2eo" />
+                        <input  data-drupal-selector="edit-opportunity-super-search-form-form-token" type="hidden" name="form_token" value="8ZhLfsD9AT3NyLV9vpKju7Z5HRZ6GUvc5GVui-vU7Iw" />
+                        <input  data-drupal-selector="edit-opportunity-super-search-form" type="hidden" name="form_id" value="opportunity_super_search_form" />
+                        <!--<div class="ss-submit form-actions js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions">
+                            <input  data-drupal-selector="edit-submit" type="submit" id="edit-submit" name="op" value="Search" class="button button--primary js-form-submit form-submit" />
+                        </div>-->
+                    </form>
+
+                </div>
+                <p class="sb-results-wrapper ss-results-wrapper"><span tabindex="0" class="sb-results" aria-live="assertive"></span></p>
+            </div>
+            <a href="#" class="text-link"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email me new opportunities</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="grid-row">
+    <div class="column-one-third">
+        <!--<div class="filter-container">
+            <div class="mobile-only">
+                <p>You can use the filters to show only results that match your interests</p>
+                <a class="button">Filter results</a>
+            </div>    
+        </div>-->
+    </div>
+    <div class="column-two-thirds" aria-live="assertive">
+        <div class="results-list">
+            <div class="contents-text-block">
+                <h3 tabindex="0" class="sr-only">The search results below each have a summary which you may find useful
+                    in determining if the opportunity is what you’re looking for.</h3>
+            </div>
+            <div class="row row-bordered" ng-show="meta.searched" ng-repeat="row in results" ng-cloak
+                 ng-class="{ transp: meta.searching }">
+                <h3 class="results-list-heading-item" tabindex="0">
+                    <a ng-href="/opportunities/{[{row.id}]}" ng-bind-html="row.title | unsafe">
+                        {[{ row.title }]}</span>
+                    </a>
+                </h3>
+
+                <p class="description" ng-bind-html="row.summary | cut:true:80:'... ':row.id | unsafe">
+                    {[{ row.summary }]}
+                </p>
+
+                <p class="meta-inline font-small">
+                    {# lastupdated #}
+                    {[{ row.date }]}
+
+                    <span ng-class="getFlagClass(row.country_code)" role="presentation"></span>
+                    <span class="sr-only">Country of origin </span>{[{ row.country }]}
+                </p>
+            </div>
+
+            {% for row in results|slice(0, 5) %}
+
+                <div class="row row-bordered" ng-show="!meta.searched"
+                     ng-class="{ transp: meta.paging || meta.searching }">
+                    <h3 class="results-list-heading-item" tabindex="0">
+                        <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">
+                            {{ row.title|raw }}
+                        </a>
+                    </h3>
+
+                    <p class="description">
+                        {{ row.summary| truncate(120, true) | raw }}
+                    </p>
+
+                    <p class="meta-inline font-small">
+                        {# lastupdated #}
+                        {% if row.date|date('U') > '-5 days'|date('U') %}
+                            {{ row.date|time_diff }} |
+                        {% endif %}
+
+
+                        {# Country of origin #}
+                        {% set flag = row.country_code|lower %}
+                        {% if flag == 'uk' %}
+                            {% set flag = 'gb' %}
+                        {% endif %}
+                        <span class="flag-icon flag-icon-{{ flag }}"></span>
+                        {{ row.country }}
+                        <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}" class="read-more">Read more <i class="fa fa-external-link-square" aria-hidden="true"></i></a>
+                    </p>
+                </div>
+
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>

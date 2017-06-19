@@ -1,0 +1,22 @@
+uuid: 0bc72880-9994-4752-8ef2-5a190f18cc6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.partnering_opportunity
+  module:
+    - text
+id: node.partnering_opportunity.body
+field_name: body
+entity_type: node
+bundle: partnering_opportunity
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

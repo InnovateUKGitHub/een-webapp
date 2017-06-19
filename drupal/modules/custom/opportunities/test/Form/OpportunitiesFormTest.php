@@ -28,6 +28,10 @@ class OpportunitiesFormTest extends UnitTestCase
 
     public function testBuildForm()
     {
+        $this->mockService->expects(self::any())
+            ->method('getCountryList')
+            ->willReturn([]);
+
         $form = new OpportunitiesForm($this->mockService);
 
         $formArray = [];

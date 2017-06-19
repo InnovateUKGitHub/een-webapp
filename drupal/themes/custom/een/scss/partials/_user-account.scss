@@ -1,0 +1,195 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 26, 2017, 4:24:53 PM
+    Author     : jasongoodenough
+*/
+
+
+// user loggin page (/user/1)
+
+.user-account {
+    .content-heading {
+        padding-bottom:10px;
+        a {
+            font-size:18px;
+            span {
+                color:#4a4a4a;
+            }
+        }
+    }
+    strong {
+        font-weight:600;
+    }
+    .content-heading {
+        h3 {
+            font-size:24px;
+            font-weight:600;
+        }
+    }
+    .profile-details {
+        background:#f5fafd;
+        margin-top:18px;
+        padding:10px 28px 0 28px;
+        li {
+            border-bottom:solid 1px #eaf5fb;
+            overflow:hidden;
+            padding:18px 0;
+            > span {
+                width:40px;
+                height:65px;
+                line-height:65px;
+                font-size:24px;
+                display:inline-block;
+                float:left;
+                text-align:center;
+                margin:5px 24px 0 0;
+                background:#e0f0fa;
+            }
+            .fa {
+                color:$cta;
+            }
+            p {
+                line-height:1.2em;
+                margin:0;
+            }
+            strong {
+                width:180px;
+                display:inline-block;
+            }
+            &:last-child {
+                border:none;
+                strong {
+                    height:64px;
+                    float:left;
+                }
+            }
+        }
+    }
+    .op-alerts {
+        li {
+            min-height:120px;
+            border:solid 1px #e0f0fa;
+            padding:14px;
+            margin-bottom:14px;
+            background:rgba(224,240,250,0.3);
+        }
+        h3 {
+            width:80%;
+            float:left;
+            margin-bottom:20px;
+            a {
+                width:60%;
+                display:inline-block;
+                span {
+                    font-weight:600;
+                }
+            }
+        }
+        .alert-type {
+            width:20%;
+            float:right;
+            a {
+                width:65%;
+                height:50px;
+                line-height:50px;
+                display:inline-block;
+                position:relative;
+                float:left;
+                &:first-child {
+                    width:35%;
+                }
+            }
+        }
+        .rss {
+            text-transform:uppercase;
+            &::before {
+                font-family:FontAwesome;
+                float:left;
+                content:"\f09e";
+                margin:-2px 5px 0 0;
+                color:#000;
+            }
+            
+        }
+        .delete {
+            text-align:center;
+            &::before {
+                width:1px;
+                height:50px;
+                content:" ";
+                position:absolute;
+                top:0;
+                left:0;
+                background:#e0f0fa;
+            }
+        }
+        form {
+            width:100%;
+            overflow:hidden;
+            legend {
+                display:inline-block;
+                float:left;
+                font-weight:600;
+                margin-right:20px;
+            }
+            .multiple-choice {
+                display:inline-block;
+            }
+            label {
+                padding:0 5px;
+            }
+        }
+    }
+    .events-list {
+        li {
+            height:83px;
+            border:solid 1px #e0f0fa;
+            background:rgba(224,240,250,0.3);
+        }
+        .date {
+            width:25%;
+            float:left;
+            font-size:16px;
+            border-right:solid 1px #e0f0fa;
+            .fa {
+                float:left;
+                padding:8px 10px 15px 10px;
+                margin:16px;
+                color:$cta;
+                background:#e0f0fa;
+            }
+            span {
+                font-size:18px;
+                line-height:16px;
+                display:block;
+                font-weight:600;
+                margin:16px 0 3px 0;
+            }
+        }
+        .event-info {
+            width:auto;
+            float:left;
+            padding:14px 25px;
+            h3 {
+                font-size:18px;
+                font-weight:600;
+                margin-bottom:2px;
+            }
+            p {
+                font-size:18px;
+                line-height:16px;
+                margin:0;
+            }
+        }
+        .cta {
+            width:14%;
+            float:right;
+            text-align:center;
+            padding-top:16px;
+        }
+    }
+}

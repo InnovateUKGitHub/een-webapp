@@ -1,0 +1,91 @@
+uuid: 9e6309c9-71c2-472e-8e11-4526666cb17d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.partnering_opportunity.body
+    - field.field.node.partnering_opportunity.field_advantages_and_innovations
+    - field.field.node.partnering_opportunity.field_country_of_origin
+    - field.field.node.partnering_opportunity.field_development_stage
+    - field.field.node.partnering_opportunity.field_intellectual_property
+    - field.field.node.partnering_opportunity.field_location
+    - field.field.node.partnering_opportunity.field_opportunity_id
+    - field.field.node.partnering_opportunity.field_opportunity_images
+    - field.field.node.partnering_opportunity.field_partner_expertise_sought
+    - node.type.partnering_opportunity
+  module:
+    - geolocation
+    - image
+    - text
+    - user
+id: node.partnering_opportunity.default
+targetEntityType: node
+bundle: partnering_opportunity
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  field_advantages_and_innovations:
+    weight: 105
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_country_of_origin:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_development_stage:
+    weight: 106
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_intellectual_property:
+    weight: 107
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location:
+    weight: 109
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
+  field_opportunity_id:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_opportunity_images:
+    weight: 108
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_partner_expertise_sought:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+  workbench_moderation_control:
+    weight: -20
+hidden: {  }

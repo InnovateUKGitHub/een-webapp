@@ -1,0 +1,25 @@
+uuid: 6be80586-9668-45d9-8c7f-1c8620b78d60
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.recent_partnership.field_partnership
+    - node.type.recent_partnership
+  module:
+    - user
+id: node.recent_partnership.default
+targetEntityType: node
+bundle: recent_partnership
+mode: default
+content:
+  field_partnership:
+    weight: 101
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  sharethis:
+    weight: 10
+hidden:
+  links: true

@@ -1,81 +1,248 @@
+{% set params = {} %}
+{% if search %}
+    {% set params = params|merge({'search': search}) %}
+{% endif %}
+{% if date_from %}
+    {% set params = params|merge({'date_from': date_from}) %}
+{% endif %}
+{% if date_to %}
+    {% set params = params|merge({'date_to': date_to}) %}
+{% endif %}
+{% if country %}
+    {% set params = params|merge({'country': country}) %}
+{% endif %}
+
 <div class="content-heading">
-    <h1>{{ 'Events'|t }}</h1>
-    <h2 class="heading-large">{{ 'List of the upcoming events'|t }}</h2>
+    <h1 tabindex="0">{{ 'Events'|t }}</h1>
+    <h2 class="heading-xlarge events-search" tabindex="0">{{ 'Search events near you'|t }}</h2>
+    <h3>{{ 'Our events could be your first step to finding new international business opportunities'|t }}</h3>
 </div>
 
-<div class="row">
-    {% if results is not null %}
-        {% if total > 0 %}
-            <div class="row">
-                <h3 class="heading-xlarge">{{ total }} <span class="font-xsmall">{{ 'events '|t }}</span></h3>
+<div class="grid-row">
+    <div class="column-one-third">
+        <div class="filter-container">
+            <div class="mobile-only">
+                <p>You can use the filters to show only results that match your interests</p>
+                <a class="button filter-results">Narrow search reults</a>
             </div>
-            {% for row in results %}
-                <div class="row row-bordered">
-                    <h3>
-                        {% if row._source.type == 'merlin' or row._source.type == 'eventBrite' %}
-                            <a rel="external" href="{{ row._source.url }}" target="_blank">
-                                {{ row._source.title }}
-                            </a>
-                        {% else %}
-                            <a href="{{ url('events.details', {'eventId': row._id}) }}">
-                                {{ row._source.title }}
-                            </a>
-                        {% endif %}
-                    </h3>
-                    <p class="meta-inline font-small">
-                        {# Start and End date #}
-                        {% if row._source.start_date|date("d-m-Y") != row._source.end_date|date("d-m-Y") %}
-                            {{ row._source.start_date|date("d-m-Y") }} |
-                            {{ row._source.end_date|date("d-m-Y") }}
-                        {% else %}
-                            {{ row._source.start_date|date("d-m-Y") }}
-                        {% endif %}
-                        {# Country of origin #}
-                        {% if row._source.country_code is not empty %}
-                            |
-                            {% set flag = row._source.country_code|lower %}
-                            {% if flag == 'uk' %}
-                                {% set flag = 'gb' %}
-                            {% endif %}
-                            <span class="flag-icon flag-icon-{{ flag }}"></span>
-                            {{ row._source.country }}
-                        {% endif %}
-                    </p>
-                    <p class="description">
-                        {% if row._source.summary %}
-                            {{ row._source.summary|truncate(240, true)|raw }}
-                        {% else %}
-                            {{ row._source.description|truncate(240, true)|raw }}
-                        {% endif %}
+            <h3 class="filter-heading">Filter your results</h3>
+            {{ form }}
+        </div>
+    </div>
+    <div class="column-two-thirds" aria-live="assertive">
 
-                        {% if row._source.type == 'merlin' or row._source.type == 'eventBrite' %}
-                            <a href="{{ row._source.url }}" target="_blank">
-                                {{ 'more' }}
-                            </a>
-                        {% else %}
-                            <a href="{{ url('events.details', {'eventId': row._id}) }}">
-                                {{ 'more' }}
-                            </a>
-                        {% endif %}
+        <div class="row">
+            <h3 class="heading-medium featured-events-heading">
+                {{ 'Featured events'|t }}
+            </h3>
+        </div>
+
+        <div class="results-list">
+            <div class="row row-bordered">
+
+                <div class="meta-left">
+                    <span class="calendar"></span>
+                    <p class="meta-inline font-small">
+                        <span class="day">20th </span>-
+                        <span class="day">23th</span>
+                        <br/>
+                        <span class="month-year">
+                            <span>March</span>
+                            <br/>
+                            <span>2017</span>
+                        </span>
                     </p>
+                </div>
+                <div class="event-list-element">
+                    <h3 class="results-list-heading-item" tabindex="0">
+                        <a href="{{ url('events.staticevent') }}">
+                            {{ 'Food & Drink Company Mission to Poland'|t }}
+                        </a>
+                    </h3>
+
+                    <p class="description">
+                        {{ 'Make the most of an exclusive opportunity to grow your food & drink, agriculture or packaging business by meeting Polish companies and establishing new relationships...'|t }}
+
+                        <a href="{{ url('events.staticevent') }}">
+                            {{ 'more'|t }}
+                        </a>
+                    </p>
+
+                    <p class="meta-inline font-small">
+                        <span class="flag-icon flag-icon-pl"></span>
+                        Poland, Krakow
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h3 class="heading-medium upcoming-events-heading">
+                {{ 'Upcoming events'|t }}
+            </h3>
+        </div>
+
+        <div class="results-list">
+
+           <div class="row row-bordered" ng-show="meta.searched" ng-repeat="row in results" ng-cloak
+                 ng-class="{ transp: meta.searching }">
+
+                <div class="meta-left">
+                    <span class="calendar"></span>    
+                    <p class="meta-inline font-small" ng-if="row.start_date == row.end_date">
+                        <span class="day" ng-bind-html="row.start_date | date : 'dd' | getEventDay | unsafe">{[{ row.start_date }]}</span>
+                        <br/>
+                        <span class="month-year">
+                            <span>{[{ row.start_date | date : 'MMMM' }]}</span><br/>
+                            <span>{[{ row.start_date | date : 'yyyy' }]}</span>
+                        </span>
+                    </p>
+                    <p class="meta-inline font-small" ng-if="row.start_date != row.end_date">
+                        
+                        <span class="day" ng-bind-html="row.start_date | date : 'dd' | getEventDay | unsafe">
+                            {[{ row.start_date }]}
+                        </span> -
+                        <span class="day" ng-bind-html="row.end_date | date : 'dd' | getEventDay | unsafe">
+                            {[{ row.end_date }]}
+                        </span>
+                        <br/>
+                        <span class="month-year">
+                            <span>{[{ row.start_date | date : 'MMMM' }]}</span><br/>
+                            <span ng-if="(row.start_date | date : 'MMMM') != (row.end_date | date : 'MMMM')">
+                                {[{ row.end_date | date : 'MMMM' }]}<br/>
+                            </span>
+                            <span>{[{ row.start_date | date : 'yyyy' }]}</span><br/>
+                            <span ng-if="(row.start_date | date : 'yyyy') != (row.end_date | date : 'yyyy')">
+                                {[{ row.end_date | date : 'yyyy' }]}<br/>
+                            </span>
+                        </span>
+                    </p>
+                </div>
+                <div class="event-list-element">
+                    <h3 class="results-list-heading-item" tabindex="0">
+                        <a ng-href="/events/{[{row.id}]}" ng-if="row.type == 'salesForce'" id="event-link"
+                           ng-bind-html="row.title | unsafe">
+                            {[{ row.title }]}
+                        </a>
+                        <a ng-href="{[{row.url}]}" ng-if="row.type != 'salesForce'" rel="external" id="event-link"
+                           ng-bind-html="row.title | unsafe">
+                            {[{ row.title }]}
+                        </a>
+                    </h3>
+
+                    <p class="description" ng-bind-html="row.description | cut:true:240:'... ':row.type:row.url:row.id | unsafe">
+                        {[{ row.description }]}
+                    </p>
+
+                    <p class="meta-inline font-small" ng-if="row.country && row.city">
+                        <span ng-class="getFlagClass(row.country_code)" role="presentation"></span>
+                        {[{ row.country }]}, {[{ row.city }]}
+                    </p>
+                    <p class="meta-inline font-small" ng-if="row.country && row.city == null">
+                        <span ng-class="getFlagClass(row.country_code)" role="presentation"></span>
+                        {[{ row.country }]}
+                    </p>
+                    <p class="meta-inline font-small" ng-if="row.country == null && row.city">
+                        <span ng-class="getFlagClass(row.country_code)" role="presentation"></span>
+                        {[{ row.city }]}
+                    </p>
+                </div>
+            </div>
+
+            {% for row in results %}
+
+                <div class="row row-bordered" ng-show="!meta.searched"
+                     ng-class="{ transp: meta.paging || meta.searching }">
+
+                    <div class="meta-left">
+                        <span class="calendar"></span>
+                        <p class="meta-inline font-small">
+
+                            {% if row.start_date|date("d-m-Y") != row.end_date|date("d-m-Y") %}
+
+                                <span class="day">{{ row.start_date|date("dS") }} </span>-
+                                <span class="day">{{ row.end_date|date("dS") }}</span>
+                                <br/>
+                                <span class="month-year">
+                                    <span>{{ row.start_date|date("F") }}</span><br/>
+                                    {% if row.start_date|date("F") != row.end_date|date("F") %}
+                                        <span>{{ row.end_date|date("F") }}</span><br/>
+                                    {% endif %}
+
+                                    <span>{{ row.start_date|date("Y") }}</span><br/>
+                                    {% if row.start_date|date("Y") != row.end_date|date("Y") %}
+                                        <span>{{ row.end_date|date("Y") }}</span><br/>
+                                    {% endif %}
+                                </span>
+
+                            {% else %}
+
+                                <span class="day">{{ row.start_date|date("dS") }}</span>
+                                <br/>
+                                <span class="month-year">
+                                    <span>{{ row.start_date|date("F") }}</span><br/>
+                                    <span>{{ row.start_date|date("Y") }}</span>
+                                </span>
+
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="event-list-element">
+                        <h3 class="results-list-heading-item" tabindex="0">
+                            {% if row.type == 'merlin' or row.type == 'eventBrite' %}
+                                <a rel="external" href="{{ row.url }}" target="_blank">
+                                    {{ row.title }}
+                                </a>
+                            {% else %}
+                                <a href="{{ url('events.details', {'eventId': row.id}) }}">
+                                    {{ row.title }}
+                                </a>
+                            {% endif %}
+                        </h3>
+
+                        <p class="description">
+                            {{ row.description|truncate(240, true)|raw }}
+
+                            {% if row.type == 'merlin' or row.type == 'eventBrite' %}
+                                <a href="{{ row.url }}" target="_blank">
+                                    {{ 'more'|t }}
+                                </a>
+                            {% else %}
+                                <a href="{{ url('events.details', {'eventId': row.id}) }}">
+                                    {{ 'more'|t }}
+                                </a>
+                            {% endif %}
+                        </p>
+
+                        <p class="meta-inline font-small">
+                            {# Country of origin #}
+                            {% if row.country_code is not empty %}
+                                {% set flag = row.country_code|lower %}
+                                {% if flag == 'uk' %}
+                                    {% set flag = 'gb' %}
+                                {% endif %}
+                                <span class="flag-icon flag-icon-{{ flag }}"></span>
+                                {{ row.country }}, {{ row.city }}
+                            {% endif %}
+                        </p>
+
+                    </div>
                 </div>
 
             {% endfor %}
+        </div>
 
-            {% include 'themes/custom/een/templates/navigation/pagination.html.twig'
-            with {
-            'route': route,
-            'page': page,
-            'resultPerPage': resultPerPage,
-            'pageTotal': pageTotal
-            } only %}
+        {% include 'themes/custom/een/templates/navigation/pagination.html.twig'
+        with {
+        'route': route,
+        'params': params,
+        'page': page,
+        'resultPerPage': resultPerPage,
+        'pageTotal': pageTotal,
+        'ajax': true
+        } only %}
 
-        {% else %}
-            {{ 'No Results found'|t }}
-        {% endif %}
-    {% endif %}
+    </div>
+
 </div>
-
-
-
-

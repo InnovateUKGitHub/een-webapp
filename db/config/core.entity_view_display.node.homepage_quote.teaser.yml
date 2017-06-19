@@ -1,0 +1,20 @@
+uuid: 92815d30-4a52-4755-abe2-10423d85ccac
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.homepage_quote
+  module:
+    - user
+id: node.homepage_quote.teaser
+targetEntityType: node
+bundle: homepage_quote
+mode: teaser
+content:
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+hidden:
+  field_quote: true

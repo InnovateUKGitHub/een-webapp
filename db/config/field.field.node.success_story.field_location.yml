@@ -1,0 +1,21 @@
+uuid: 4c2c6216-b9e7-4478-a92b-8829367972ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location
+    - node.type.success_story
+  module:
+    - geolocation
+id: node.success_story.field_location
+field_name: field_location
+entity_type: node
+bundle: success_story
+label: 'Location Override'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

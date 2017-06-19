@@ -1,0 +1,26 @@
+uuid: 12cd29cc-7daf-427e-8c9f-5455f386eb1d
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - workbench_moderation
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+  workbench_moderation:
+    enabled: true
+    allowed_moderation_states:
+      - published
+      - archived
+      - draft
+      - needs_review
+    default_moderation_state: draft
+name: 'News Article'
+type: news
+description: 'News Article'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: true

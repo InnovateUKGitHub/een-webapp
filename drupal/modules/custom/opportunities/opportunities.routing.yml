@@ -6,7 +6,7 @@ opportunities.search.count:
    _permission: 'access content'
 
 opportunities.search:
- path: '/opportunities'
+ path: '/partnering-opportunities'
  defaults:
    _controller: '\Drupal\opportunities\Controller\OpportunitiesController::index'
  requirements:
@@ -45,5 +45,26 @@ opportunities.explore:
  path: '/explore-opportunities'
  defaults:
    _controller: '\Drupal\opportunities\Controller\OpportunitiesController::exploreOpportunities'
+ requirements:
+   _permission: 'access content'
+
+opportunities.super-search:
+ path: '/search-opportunities'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::searchOpportunities'
+ requirements:
+   _permission: 'access content'
+
+opportunities.autosuggest:
+ path: '/search/autosuggest'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::autosuggestOpportunities'
+ requirements:
+   _permission: 'access content'
+
+opportunities.widget:
+ path: '/opportunities/widget'
+ defaults:
+   _controller: '\Drupal\opportunities\Controller\OpportunitiesController::widget'
  requirements:
    _permission: 'access content'

@@ -5,6 +5,13 @@ events.search:
  requirements:
    _permission: 'access content'
 
+events.search.ajax:
+ path: '/events/_ajax'
+ defaults:
+   _controller: '\Drupal\events\Controller\EventsController::ajax'
+ requirements:
+   _permission: 'access content'
+
 events.details:
  path: '/events/{eventId}/{token}'
  defaults:
@@ -12,3 +19,11 @@ events.details:
    token: null
  requirements:
    _permission: 'access content'
+
+events.staticevent:
+    path: '/event/1'
+    defaults:
+      _controller: '\Drupal\events\Controller\EventController::staticEvent'
+      token: null
+    requirements:
+      _permission: 'access content'

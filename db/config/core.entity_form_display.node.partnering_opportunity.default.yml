@@ -1,0 +1,156 @@
+uuid: 3cc1f48c-eb35-4ef7-8d9d-a59b9fa6d153
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.partnering_opportunity.body
+    - field.field.node.partnering_opportunity.field_advantages_and_innovations
+    - field.field.node.partnering_opportunity.field_country_of_origin
+    - field.field.node.partnering_opportunity.field_development_stage
+    - field.field.node.partnering_opportunity.field_intellectual_property
+    - field.field.node.partnering_opportunity.field_location
+    - field.field.node.partnering_opportunity.field_opportunity_id
+    - field.field.node.partnering_opportunity.field_opportunity_images
+    - field.field.node.partnering_opportunity.field_partner_expertise_sought
+    - image.style.thumbnail
+    - node.type.partnering_opportunity
+  module:
+    - geolocation
+    - image
+    - path
+    - text
+    - workbench_moderation
+id: node.partnering_opportunity.default
+targetEntityType: node
+bundle: partnering_opportunity
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 31
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  field_advantages_and_innovations:
+    weight: 35
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_country_of_origin:
+    weight: 32
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_development_stage:
+    weight: 36
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_intellectual_property:
+    weight: 37
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location:
+    weight: 39
+    settings:
+      default_longitude: '0.1278'
+      default_latitude: '51.5074'
+      auto_client_location: '1'
+      auto_client_location_marker: '1'
+      allow_override_map_settings: 1
+      google_map_settings:
+        height: 400px
+        width: 100%
+        type: ROADMAP
+        zoom: '10'
+        maxZoom: 18
+        minZoom: 0
+        mapTypeControl: 1
+        streetViewControl: 1
+        zoomControl: 1
+        scrollwheel: 1
+        gestureHandling: auto
+        draggable: 1
+        style: ''
+        info_auto_display: 1
+        marker_icon_path: ''
+        disableAutoPan: 1
+        rotateControl: 0
+        fullscreenControl: 0
+        preferScrollingToZooming: 0
+        disableDoubleClickZoom: 0
+      populate_address_field: ''
+      target_address_field: null
+      explicite_actions_address_field: ''
+    third_party_settings: {  }
+    type: geolocation_googlegeocoder
+  field_opportunity_id:
+    weight: 33
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_opportunity_images:
+    weight: 38
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_partner_expertise_sought:
+    weight: 34
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  path:
+    type: path
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 15
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

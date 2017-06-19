@@ -1,0 +1,10 @@
+uuid: fd9dfce8-f206-4fe3-81c3-1600f9e494ca
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.news_homepage
+label: 'news homepage'
+targetEntityType: node
+cache: true

@@ -5,6 +5,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Drupal\opportunities\Form\MultiOpportunitiesForm;
 use Drupal\opportunities\Form\OpportunitiesExploreForm;
+use Drupal\opportunities\Form\SuperSearchForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -103,6 +104,7 @@ class OpportunitiesController extends ControllerBase
             '#pageTotal'        => $data['pageTotal'],
             '#page'             => $data['page'],
             '#resultPerPage'    => $data['resultPerPage'],
+            '#form2'            => 'aaaaa',
             '#route'            => 'opportunities.search',
         ];
     }
@@ -120,10 +122,7 @@ class OpportunitiesController extends ControllerBase
             return new JsonResponse(
                 [
                     'redirect' => true,
-                    'url'      => Url::fromRoute(
-                        'opportunities.details',
-                        ['profileId' => $data['id']]
-                    ),
+                    'url'      => '/opportunities/'.$data['id'],
                 ]
             );
         }
@@ -139,6 +138,7 @@ class OpportunitiesController extends ControllerBase
                 'pageTotal'        => $data['pageTotal'],
                 'total'            => $data['total'],
                 'results'          => $data['results'],
+                'aggregations'     => $data['aggregations'],
             ]
         );
     }
@@ -180,6 +180,78 @@ class OpportunitiesController extends ControllerBase
             '#results'          => $data['results'],
             '#theme' => 'explore_opportunities',
             '#route' => 'opportunities.explore',
+        ];
+    }
+
+
+    /**
+     * @return array
+     */
+    public function searchOpportunities(Request $request)
+    {
+        $form = \Drupal::formBuilder()->getForm(SuperSearchForm::class);
+
+        $data = $this->service->getOpportunities($request, $resultsPerPage = 5);
+
+
+        return [
+            '#form'     => $form,
+            '#results'  => $data['results'],
+            '#theme'    => 'super_search_opportunities',
+            '#route'    => 'opportunities.search-opportunities',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function autosuggestOpportunities(Request $request)
+    {
+        $results = $this->service->autosuggest($request->get('term'));
+
+        $suggestions = array();
+        foreach($results as $result){
+            $suggestions[] = [ 'id' => $result['key'], 'value' => $result['key'], 'label' => $result['key']];
+        }
+
+        $response = [];
+        $response['suggestions'] = $suggestions;
+
+        return new JsonResponse(
+            $suggestions
+        );
+
+    }
+
+    /**
+     * @return array
+     */
+    public function widget(Request $request)
+    {
+        $data = $this->service->getOpportunities($request);
+
+        $form2 = \Drupal::formBuilder()->getForm(SuperSearchForm::class);
+
+        if (isset($data['redirect']) && $data['redirect'] === true) {
+            return $this->redirect(
+                'opportunities.details',
+                ['profileId' => $data['id']]
+            );
+        }
+
+        return [
+            '#theme'            => 'opportunities_widget',
+            '#form'             => $data['form'],
+            '#search'           => $data['search'],
+            '#opportunity_type' => $data['opportunity_type'],
+            '#country'          => $data['country'],
+            '#results'          => $data['results'],
+            '#total'            => $data['total'],
+            '#pageTotal'        => $data['pageTotal'],
+            '#page'             => $data['page'],
+            '#resultPerPage'    => $data['resultPerPage'],
+            '#form2'            => 'aaaaa',
+            '#route'            => 'opportunities.widget',
         ];
     }
 

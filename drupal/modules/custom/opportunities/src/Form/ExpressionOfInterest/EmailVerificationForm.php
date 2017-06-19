@@ -24,11 +24,13 @@ class EmailVerificationForm extends \Drupal\een_common\Form\EmailVerificationFor
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        $this->submit(
+        $submission = $this->submit(
             $form_state,
             'Thank you, please check your email to verify you want to apply for a project.'
         );
 
-        $this->service->verifyEmail($this->email, $this->token, $this->id);
+        if($submission){
+            $this->service->verifyEmail($this->email, $this->token, $this->id);
+        }
     }
 }

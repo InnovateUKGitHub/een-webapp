@@ -1,0 +1,101 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 24, 2017, 11:24:39 AM
+    Author     : jasongoodenough
+*/
+
+.success-story  {
+    .written-for {
+        font-size:16px;
+        font-weight:600;
+        margin:0 0 20px 0;
+        div {
+            display:inline-block;
+            font-weight:600;
+            color:$cta;
+        }
+        div:first-of-type {
+            color:#9b9b9b;
+        }
+    }
+    h1 {
+        font-size:36px;
+        font-weight:600;
+    }
+    .promo-image {
+        position:relative;
+        padding:0 0 0 240px;
+    }
+    .sharethis-wrapper {
+        margin-bottom:40px;
+    }
+    .hero-stats {
+        position:absolute;
+        top:0;
+        left:0;
+        div {
+            width:100%;
+            max-width:190px;
+            text-align:center;
+            background:#cde1ec;
+            padding:20px;
+            margin-bottom:14px;
+            &:first-child {
+                border-top:solid 5px $cta;
+            }
+        }
+        h2 {
+            font-size:70px;
+            font-weight:600;
+            line-height:40px;
+            margin-top:20px;
+        }
+        h3 {
+            font-size:50px;
+            font-weight:600;
+            line-height:30px;
+            margin-top:20px;
+        }
+        h4 {
+            font-size:36px;
+            font-weight:600;
+            line-height:20px;
+            margin-top:20px;
+        }
+        h5 {
+            font-size:28px;
+            font-weight:600;
+            line-height:20px;
+            margin-top:20px;
+        }
+        h6 {
+            font-size:26px;
+            font-weight:600;
+            line-height:20px;
+            margin-top:20px;
+        }
+        p {
+            font-size:24px;
+            font-weight:600;
+            margin-bottom:5px;
+        }
+    }
+    .body-content {
+        > div {
+            padding:0 0 0 240px;
+            @media (max-width: 1366px) {
+                padding:0 100px;
+            } 
+            @media (max-width: 1201px) {
+                padding:0 80px;
+            }
+            @media (max-width: 640px) {
+                padding:0;
+            }
+        }
+    }
+}

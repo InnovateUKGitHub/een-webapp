@@ -1,0 +1,22 @@
+uuid: 2ba695ab-178f-48cb-890d-f75826814f68
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.success_story
+id: node.success_story.status
+field_name: status
+entity_type: node
+bundle: success_story
+label: 'Publishing status'
+description: 'A boolean indicating whether the node is published.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,25 @@
+uuid: 1015cfd2-6efb-4d6f-bab0-278a9d515b35
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_y
+    - node.type.homepage_popup_video
+  module:
+    - video_embed_field
+id: node.homepage_popup_video.field_y
+field_name: field_y
+entity_type: node
+bundle: homepage_popup_video
+label: 'Youtube video'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_providers:
+    youtube: youtube
+    vimeo: '0'
+    youtube_playlist: '0'
+field_type: video_embed_field

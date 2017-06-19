@@ -1,0 +1,21 @@
+uuid: 48fb7ef3-0446-499d-a2bb-cbf9e065157d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_quote_company
+field_name: field_quote_company
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

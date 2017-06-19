@@ -1,0 +1,34 @@
+uuid: 6306c622-acd5-4461-82d7-61a1b362f147
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_our_work
+    - node.type.blog_post
+    - node.type.event
+    - node.type.news
+    - node.type.our_work
+    - node.type.success_story
+id: node.our_work.field_our_work
+field_name: field_our_work
+entity_type: node
+bundle: our_work
+label: 'Our work'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      blog_post: blog_post
+      event: event
+      news: news
+      success_story: success_story
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: blog_post
+field_type: entity_reference

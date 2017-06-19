@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_body
+    - message.template.new_content_default
+id: message.new_content_default.mail_body
+targetEntityType: message
+bundle: new_content_default
+mode: mail_body
+content:
+  partial_1:
+    weight: 0
+hidden:
+  partial_0: true

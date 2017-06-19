@@ -8,8 +8,65 @@ function een_common_theme()
             ],
             'template'  => 'contact-form',
         ],
+        'article_page1'     => [
+            'variables' => [
+                'form' => null,
+            ],
+            'template'  => 'article-page1',
+        ],
+        'article_page2'     => [
+            'variables' => [
+                'form' => null,
+            ],
+            'template'  => 'article-page2',
+        ],
+        'article_page3'     => [
+            'variables' => [
+                'form' => null,
+            ],
+            'template'  => 'article-page3',
+        ],
+        'article_page4'     => [
+            'variables' => [
+                'form' => null,
+            ],
+            'template'  => 'article-page4',
+        ],
+        'success_story'     => [
+            'variables' => [
+                'form' => null,
+            ],
+            'template'  => 'success-story',
+        ],
+        'case_study_1'     => [
+            'variables' => [
+                'form' => null,
+            ],
+            'template'  => 'case-study-1',
+        ],
+        'case_study_2'     => [
+            'variables' => [
+                'form' => null,
+            ],
+            'template'  => 'case-study-2',
+        ],
+        'case_study_3'     => [
+            'variables' => [
+                'form' => null,
+            ],
+            'template'  => 'case-study-3',
+        ],
 
         // Sign Up Forms
+
+
+        'sign_up_steps'    => [
+            'variables' => [
+                'form' => null,
+                'type' => null,
+            ],
+            'template'  => 'sign-up/steps',
+        ],
         'sign_up_step1'    => [
             'variables' => [
                 'form' => null,
@@ -60,4 +117,33 @@ function een_common_theme()
             'template'  => 'sign-up/complete-event',
         ],
     ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function een_common_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  /**
+  * Alter form values
+  * remove the javascript that hides the summary
+  * sets the description of the summary field, so that editors know what to do with it
+  */
+  if (isset($form['body']['widget'][0]['summary']['#attached'])) {
+      unset($form['body']['widget'][0]['summary']['#attached']);
+      $form['body']['widget'][0]['summary']['#description'] = "Field limited to 150 characters for better Google ranking";
+      $form['body']['widget'][0]['summary']['#maxlength'] = 150;
+  }
+  // Set the max length of the Title to 55 and add help text
+  $form['title']['widget'][0]['value']['#maxlength'] = 70;
+  $form['title']['widget'][0]['#suffix'] = '<div class="help-text">Field limited to 70 characters for better Google ranking</div>';
+  
+  // If there's an uploaded image then show the crop window by default
+  if(isset($form['field_copyrighted_image']['widget'][0]['#crop_preview_image_style'])) {
+    $form['field_copyrighted_image']['widget'][0]['#show_crop_area'] = 1;
+  }
+  
+  // Limit the quote field to 300 characters
+  if (isset($form['field_pull_promo'])) {
+    $form['field_pull_promo']['widget'][0]['value']['#maxlength'] = 300;
+  }
 }

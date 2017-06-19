@@ -1,0 +1,21 @@
+uuid: 589462e3-1baf-4fcf-ae3d-67de70baf111
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_persona
+    - node.type.success_story
+  module:
+    - options
+id: node.success_story.field_persona
+field_name: field_persona
+entity_type: node
+bundle: success_story
+label: 'This page is written for'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

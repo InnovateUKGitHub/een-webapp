@@ -1,0 +1,10 @@
+uuid: eeac7dcb-4679-433d-8807-06ccd5b22735
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.mini_success_story
+label: 'mini success story'
+targetEntityType: node
+cache: true

@@ -1,0 +1,72 @@
+uuid: 1a65fdab-ccc0-4eaa-a36a-b2cbe5ecc33c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.quote.body
+    - field.field.node.quote.field_image
+    - field.field.node.quote.field_meta_tags
+    - field.field.node.quote.field_quote_author
+    - field.field.node.quote.field_quote_company
+    - field.field.node.quote.field_yoast_seo
+    - node.type.quote
+  module:
+    - image
+    - metatag
+    - text
+    - user
+    - yoast_seo
+id: node.quote.default
+targetEntityType: node
+bundle: quote
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  field_image:
+    weight: 102
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_meta_tags:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+  field_quote_author:
+    weight: 105
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_quote_company:
+    weight: 106
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_yoast_seo:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: yoastseo_formatter
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,39 @@
+uuid: a0d89547-90a4-40b7-bce3-adc46e7f28fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.success_story.body
+    - node.type.success_story
+  module:
+    - text
+    - user
+id: node.success_story.teaser
+targetEntityType: node
+bundle: success_story
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+  workbench_moderation_control:
+    weight: -20
+hidden:
+  field_blog_lede: true
+  field_copyrighted_image: true
+  field_full_width_quote: true
+  field_hero_stats: true
+  field_location: true
+  field_meta_tags: true
+  field_persona: true
+  field_tags: true
+  field_yoast_seo: true

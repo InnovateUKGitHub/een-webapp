@@ -1,0 +1,22 @@
+uuid: acefd313-3fc0-41e9-aafa-ba7af326bbba
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.homepage_popup_video
+id: node.homepage_popup_video.promote
+field_name: promote
+entity_type: node
+bundle: homepage_popup_video
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

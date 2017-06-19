@@ -1,0 +1,21 @@
+uuid: 283c6e30-5f09-483b-abb8-1c2673742735
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_full_width_quote
+    - node.type.success_story
+  module:
+    - text
+id: node.success_story.field_full_width_quote
+field_name: field_full_width_quote
+entity_type: node
+bundle: success_story
+label: 'Full Width Quote'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

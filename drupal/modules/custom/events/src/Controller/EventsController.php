@@ -4,17 +4,11 @@ namespace Drupal\events\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\events\Service\EventsService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class EventsController extends ControllerBase
 {
-    const PAGE_NUMBER = 'page';
-
-    const RESULT_PER_PAGE = 'resultPerPage';
-    const DEFAULT_RESULT_PER_PAGE = 10;
-
-    const SEARCH = 'search';
-
     /**
      * @var EventsService
      */
@@ -23,7 +17,7 @@ class EventsController extends ControllerBase
     /**
      * EventsController constructor.
      *
-     * @param EventsService $service
+     * @param EventsService|object $service
      */
     public function __construct(EventsService $service)
     {
@@ -47,20 +41,48 @@ class EventsController extends ControllerBase
      */
     public function index(Request $request)
     {
-
-        $page = $request->query->get(self::PAGE_NUMBER, 1);
-        $resultPerPage = $request->query->get(self::RESULT_PER_PAGE, self::DEFAULT_RESULT_PER_PAGE);
-
-        $results = $this->service->search($page, $resultPerPage);
+        $data = $this->service->getEvents($request);
 
         return [
             '#theme'         => 'events_search',
-            '#results'       => isset($results['results']) ? $results['results'] : null,
-            '#total'         => isset($results['total']) ? $results['total'] : null,
-            '#pageTotal'     => isset($results['results']) ? (int)ceil($results['total'] / $resultPerPage) : null,
-            '#page'          => $page,
-            '#resultPerPage' => $resultPerPage,
             '#route'         => 'events.search',
+            '#form'          => $data['form'],
+            '#search'        => $data['search'],
+            '#date_type'     => $data['date_type'],
+            '#date_from'     => $data['date_from'],
+            '#date_to'       => $data['date_to'],
+            '#country'       => $data['country'],
+            '#page'          => $data['page'],
+            '#resultPerPage' => $data['resultPerPage'],
+            '#pageTotal'     => $data['pageTotal'],
+            '#total'         => $data['total'],
+            '#results'       => $data['results'],
         ];
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function ajax(Request $request)
+    {
+        $data = $this->service->getEvents($request);
+
+        return new JsonResponse(
+            [
+                'route'         => 'events.search',
+                'search'        => $data['search'],
+                'date_type'     => $data['date_type'],
+                'date_from'     => $data['date_from'],
+                'date_to'       => $data['date_to'],
+                'country'       => $data['country'],
+                'page'          => $data['page'],
+                'resultPerPage' => $data['resultPerPage'],
+                'pageTotal'     => $data['pageTotal'],
+                'total'         => $data['total'],
+                'results'       => $data['results'],
+            ]
+        );
     }
 }

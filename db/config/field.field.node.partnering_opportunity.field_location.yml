@@ -1,0 +1,21 @@
+uuid: 5cf5579e-8d6e-42a6-878b-88057b1e43fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location
+    - node.type.partnering_opportunity
+  module:
+    - geolocation
+id: node.partnering_opportunity.field_location
+field_name: field_location
+entity_type: node
+bundle: partnering_opportunity
+label: 'Location Override'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

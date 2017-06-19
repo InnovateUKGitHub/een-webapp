@@ -1,0 +1,37 @@
+uuid: bbeee88e-8a3a-4173-b916-302fb72839db
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.background_video.field_mp4_video
+    - node.type.background_video
+  module:
+    - user
+    - video
+id: node.background_video.default
+targetEntityType: node
+bundle: background_video
+mode: default
+content:
+  field_mp4_video:
+    weight: 101
+    label: above
+    settings:
+      width: '854'
+      height: '480'
+      autoplay: true
+      controls: true
+      loop: false
+      muted: false
+      preload: none
+    third_party_settings: {  }
+    type: video_player_list
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

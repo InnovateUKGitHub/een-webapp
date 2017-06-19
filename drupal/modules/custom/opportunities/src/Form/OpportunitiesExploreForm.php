@@ -51,7 +51,7 @@ class OpportunitiesExploreForm extends AbstractForm
             'BR' => t('to sell to'),
             'TR' => t('that needs my technology or expertise'),
             'TO' => t('with technology or expertise that I need'),
-            'RD' => t('to collaborate with'),
+            'RDR' => t('to collaborate with/co-develop with'),
         ];
 
         $typesAccessibility = [
@@ -60,7 +60,7 @@ class OpportunitiesExploreForm extends AbstractForm
             'BR' => t('to sell to'),
             'TR' => t('that needs my technology or expertise'),
             'TO' => t('with technology or expertise that I need'),
-            'RD' => t('to collaborate with or co-develop with'),
+            'RDR' => t('to collaborate with or co-develop with'),
         ];
 
         $countries = $this->service->getCountryList();

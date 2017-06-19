@@ -1,0 +1,15 @@
+uuid: 931b27c0-ff78-4aba-8919-95ecac01c391
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+name: image_crop_style
+label: 'Image crop style'
+effects:
+  aebfcf4c-5260-472a-83f6-9c75308e912e:
+    uuid: aebfcf4c-5260-472a-83f6-9c75308e912e
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: landscape_16_9

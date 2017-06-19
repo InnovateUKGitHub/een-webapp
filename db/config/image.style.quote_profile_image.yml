@@ -1,0 +1,14 @@
+uuid: ee21488c-fbf3-4fb6-85e8-f1a5f3597539
+langcode: en
+status: true
+dependencies: {  }
+name: quote_profile_image
+label: 'Quote Profile Image  (71x71)'
+effects:
+  cc334a76-5e82-4479-a6bf-86324a62aea5:
+    uuid: cc334a76-5e82-4479-a6bf-86324a62aea5
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 71
+      height: 71

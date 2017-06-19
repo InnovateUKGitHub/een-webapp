@@ -1,0 +1,35 @@
+uuid: 1f809148-e4c7-4508-858a-eccfe9af30e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.background_video.field_mp4_video
+    - node.type.background_video
+  module:
+    - field_formatter_class
+    - user
+    - video
+id: node.background_video.token
+targetEntityType: node
+bundle: background_video
+mode: token
+content:
+  field_mp4_video:
+    weight: 0
+    label: hidden
+    settings:
+      width: '854'
+      height: '480'
+      autoplay: true
+      loop: true
+      muted: true
+      preload: none
+      controls: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    type: video_player_list
+hidden:
+  links: true
+  sharethis: true

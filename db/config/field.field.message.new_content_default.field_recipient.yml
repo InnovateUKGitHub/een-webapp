@@ -1,0 +1,30 @@
+uuid: fd8806fa-4d34-4570-b998-d3cc66a5cba6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_recipient
+    - message.template.new_content_default
+_core:
+  default_config_hash: DRQTiyFqLQPdyJECbasDYIGuAQU7IOx9oMuPRx5Rd7o
+id: message.new_content_default.field_recipient
+field_name: field_recipient
+entity_type: message
+bundle: new_content_default
+label: Recipient
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: false
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

@@ -1,0 +1,3 @@
+server: 'ELASTICSEARCHPROTO://ELASTICSEARCHHOSTNAME/'
+_core:
+  default_config_hash: Wndx606QetisycNlJqbG8lMrVE3ItR1szfEcGWwGiHk

@@ -8,7 +8,8 @@
                 </p>
             </div>
             <div class="column-one-third">
-                <a tabindex="0" class="button-brand js-continue-focus" href="#register" title="Register to this event">{{ 'Continue with registration'|t }}</a>
+                <a tabindex="0" class="button-brand js-continue-focus" href="#register"
+                   title="Register to this event">{{ 'Continue with registration'|t }}</a>
             </div>
         </div>
     {% endif %}
@@ -19,33 +20,63 @@
                 {{ '&lt; &nbsp;Back to search results'|t }}
             </a>
         </div>
-        <div class="content-heading">
+        <div class="content-heading event-heading">
             <h1>{{ 'Event'|t }}</h1>
             <h2 class="heading-large">{{ event._source.title }}</h2>
             <h3 class="heading-medium">{{ event._source.summary|raw }}</h3>
             <div class="meta">
-                {% if event._source.country_code is not empty %}
-                    <div class="meta-data">
-                        <p>
-                            {% set flag = event._source.country_code|lower %}
-                            {% if flag == 'uk' %}
-                                {% set flag = 'gb' %}
-                            {% endif %}
-                            <span class="flag-icon flag-icon-{{ flag }}"></span>
-                            {{ event._source.country }}
-                        </p>
-                    </div>
-                {% endif %}
+                <div class="meta-data">
+                    <p>
+                        {% set flag = event._source.country_code|lower %}
+                        {% if flag == 'uk' or flag == '' %}
+                            {% set flag = 'gb' %}
+                        {% endif %}
+                        <span class="flag-icon flag-icon-{{ flag }}"></span>
+                        {{ event._source.country }}
+                    </p>
+                </div>
                 {% if event._source.fee is not empty and event._source.fee != 0 %}
-                    <div class="meta-data">
-                        <p>{{ 'A delegate registration fee of <span class="bold-small">£%d +VAT</span> will apply. Delegates must cover the cost for flight, accommodation, evening meals and other travel on the mission'|format(event._source.fee)|t }}</p>
+                    <br/>
+                    <div class="status-summary">
+                        <div class="meta-data">
+                            <p>{{ 'A delegate registration fee of <span class="bold-small">£%d +VAT</span> will apply. Delegates must cover the cost for flight, accommodation, evening meals and other travel on the mission'|format(event._source.fee)|t }}</p>
+                        </div>
                     </div>
                 {% endif %}
             </div>
         </div>
     </div>
-    <div class="grid-row grid-row-1">
+    <div class="grid-row grid-row-1 event-details">
         <div class="column-one-third sticky-nav-container">
+
+            <div class="date">
+                <p class="meta-inline font-small">
+                    {% if event._source.start_date|date("d-m-Y") != event._source.end_date|date("d-m-Y") %}
+
+                        <span class="day">{{ event._source.start_date|date("dS") }} </span>-
+                        <span class="day">{{ event._source.end_date|date("dS") }}</span><br/>
+                        <span class="month-year">
+                            <span>{{ event._source.start_date|date("F") }}</span>
+                            {% if event._source.start_date|date("F") != event._source.end_date|date("F") %}
+                                <span>{{ event._source.end_date|date("F") }}</span>
+                            {% endif %}
+                            <span>{{ event._source.start_date|date("Y") }}</span>
+                            {% if event._source.start_date|date("Y") != row.end_date|date("Y") %}
+                                <span>{{ event._source.end_date|date("Y") }}</span>
+                            {% endif %}
+                        </span>
+
+                    {% else %}
+
+                        <span class="day">{{ event._source.start_date|date("dS") }}</span><br/>
+                        <span class="month-year">
+                            <span>{{ event._source.start_date|date("F") }}</span>
+                            <span>{{ event._source.start_date|date("Y") }}</span>
+                        </span>
+
+                    {% endif %}
+                </p>
+            </div>
 
             <div class="contents-list sticky-sidebar">
                 <h3 class="heading-medium sticky-sidebar-header">{{ 'Contents'|t }}</h3>
@@ -60,7 +91,6 @@
             </div>
         </div>
         <div class="column-two-thirds contents-text-block">
-            <h3 class="heading-medium" id="information">{{ 'Event Information'|t }}</h3>
             <p>
                 {% if event._source.description %}
                     {{ event._source.description|raw }}
@@ -80,29 +110,29 @@
         <div class="column-one-third">
             <h3 class="heading-medium single-header-one-col" id="register">{{ 'Register for the event'|t }}</h3>
         </div>
-        <div class="column-two-thirds">
+        <div class="column-two-thirds" id="booking">
             {% if token == false %}
-                <div class="verify-email">
-                    {{ form_email }}
-                    <p>{{ 'To register for this event we need to validate your email. You will be sent a 6 digit confirmation email containing a verfication code. Simply copy this into the field below to continue.'|t }}</p>
-                    <hr />
-                </div>
-                <div class="transp">
-            {% endif %}
-            <form action="{{ form['#action'] }}" method="{{ form['#method'] }}" class="form-opportunities">
+            <div class="verify-email">
+                {{ form_email }}
+                <p>{{ 'To register for this event we need to validate your email. You will be sent a 6 digit confirmation email containing a verfication code. Simply copy this into the field below to continue.'|t }}</p>
+                <hr/>
+            </div>
+            <div class="transp">
+                {% endif %}
+                <form action="{{ form['#action'] }}" method="{{ form['#method'] }}" class="form-opportunities">
 
-                {#Required hidden field for drupal form#}
-                {{ form.form_build_id }}
-                {{ form.form_id }}
+                    {#Required hidden field for drupal form#}
+                    {{ form.form_build_id }}
+                    {{ form.form_id }}
 
-                <div class="form-section">
-                    {{ form.dietary }}
-                </div>
-                <hr />
-                {{ form.actions }}
-            </form>
-            {% if token is not null %}
-                </div>
+                    <div class="form-section">
+                        {{ form.dietary }}
+                    </div>
+                    <hr/>
+                    {{ form.actions }}
+                </form>
+                {% if token is not null %}
+            </div>
             {% endif %}
         </div>
     </div>

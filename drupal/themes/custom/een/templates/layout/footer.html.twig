@@ -1,0 +1,20 @@
+<footer role="contentinfo" class="group js-footer" id="footer">
+    <div class="footer-wrapper-top">
+        <div class="footer-container">
+            <img src="/themes/custom/een/img/EEN-Logo-Main.png" alt="EEN Logo Footer"/>
+        </div>
+    </div>
+    <div class="footer-wrapper-bottom">
+        <div class="footer-container">
+            {% if page.footer_first or page.footer_second or page.footer_third or page.footer_fourth %}
+                {{ page.footer_first }}
+                {{ page.footer_second }}
+                {{ page.footer_third }}
+                {{ page.footer_fourth }}
+            {% endif %}
+            <div class="copyright">
+                Copyright &copy; {{ "now"|date("Y") }} Crown copyright | All Rights Reserved
+            </div>
+        </div>
+    </div>    
+</footer>

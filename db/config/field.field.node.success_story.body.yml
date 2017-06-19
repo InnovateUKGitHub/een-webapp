@@ -1,0 +1,22 @@
+uuid: a8fe4293-bb71-45ce-b425-8f85682bb5f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.success_story
+  module:
+    - text
+id: node.success_story.body
+field_name: body
+entity_type: node
+bundle: success_story
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

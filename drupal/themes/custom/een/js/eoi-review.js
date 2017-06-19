@@ -40,11 +40,4 @@ jQuery(function () {
 
     });
 
-    /* Disable form on submit when verifying the email */
-    $(document).on('submit', '#email-verification-form', function () {
-        $('input[type=submit]', this).attr('disabled', 'disabled');
-        $(this).bind('submit', function (e) {
-            e.preventDefault();
-        });
-    });
 });

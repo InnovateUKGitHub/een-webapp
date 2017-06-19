@@ -1,0 +1,53 @@
+uuid: 2606b6b3-7cee-47b8-abe5-7362399f044a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.event.body
+    - field.field.node.event.field_copyrighted_image
+    - field.field.node.event.field_event_date
+    - field.field.node.event.field_event_import_source
+    - field.field.node.event.field_event_price
+    - field.field.node.event.field_event_type
+    - field.field.node.event.field_event_url
+    - field.field.node.event.field_location
+    - field.field.node.event.field_meta_tags
+    - field.field.node.event.field_yoast_seo
+    - image.style.large
+    - node.type.event
+  module:
+    - een_custom_fields
+    - field_formatter_class
+    - user
+id: node.event.token
+targetEntityType: node
+bundle: event
+mode: token
+content:
+  field_copyrighted_image:
+    weight: 105
+    label: above
+    settings:
+      image_style: large
+      image_link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    type: copyright_image
+  sharethis:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  field_event_date: true
+  field_event_import_source: true
+  field_event_price: true
+  field_event_type: true
+  field_event_url: true
+  field_location: true
+  field_meta_tags: true
+  field_yoast_seo: true
+  links: true
+  workbench_moderation_control: true

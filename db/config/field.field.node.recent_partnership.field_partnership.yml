@@ -1,0 +1,28 @@
+uuid: 279fd9e9-4253-402a-a493-0c0e1f4682fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_partnership
+    - node.type.recent_partnership
+    - node.type.success_story
+id: node.recent_partnership.field_partnership
+field_name: field_partnership
+entity_type: node
+bundle: recent_partnership
+label: Partnership
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      success_story: success_story
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,30 @@
+uuid: efb2c8f6-ed26-4223-824f-c93cb3f5d7dc
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - image
+    - node
+id: node.field_opportunity_images
+field_name: field_opportunity_images
+entity_type: node
+type: image
+settings:
+  uri_scheme: s3
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  target_type: file
+  display_field: false
+  display_default: false
+module: image
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

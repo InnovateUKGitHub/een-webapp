@@ -117,11 +117,12 @@ class SignUpStep1Form extends AbstractForm
                 ],
                 '#attributes'     => [
                     'class'        => [
-                        'form-control',
+                        'form-control disabled-input',
                     ],
                     'autocomplete' => [
                         'email',
                     ],
+                    'readonly' => true,
                 ],
             ],
             'contact_phone' => [
@@ -145,7 +146,7 @@ class SignUpStep1Form extends AbstractForm
             ],
             'newsletter'    => [
                 '#type'    => 'checkboxes',
-                '#title'   => t('<span tabindex="0">Please send me emails when there is a new:</span>'),
+                '#title'   => t('<span tabindex="0">Sign up for the latest:</span>'),
                 '#options' => $types,
             ],
 

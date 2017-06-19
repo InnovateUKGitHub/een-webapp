@@ -3,7 +3,8 @@
     ServerAdmin sysadmin@aerian.com
     ServerName %HOSTNAME%
     ServerAlias www.%HOSTNAME%
-        
+    ServerAlias %HOSTNAMEADMIN%
+    
     AliasMatch ^/v(\d+)\.(\d+)(\.(\d+))*/(.*) %DOCROOT%/$5
 
     DocumentRoot %DOCROOT%   

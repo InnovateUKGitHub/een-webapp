@@ -39,7 +39,7 @@ class MultiOpportunitiesForm extends AbstractForm
             ],
             'opportunity_type' => [
                 '#type'    => 'checkboxes',
-                '#title'   => t('I want to...'),
+                '#title'   => t('I’m looking for a partner...'),
                 '#options' => $types,
             ],
             'actions'          => [

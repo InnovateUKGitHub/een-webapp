@@ -1,0 +1,30 @@
+<?php 
+use Drupal\Core\Database\Database;
+/**
+ * update copyright image field to add copyright owner
+ */
+function een_custom_fields_update_8001() {
+
+    // Update Copyrightimageitem
+    $columnSpec = array(
+        'type' => 'varchar',
+        'description' => "Copyright owner",
+        'length' => 1024,
+        'not null' => FALSE,
+    ); 
+    $schema = Database::getConnection()->schema();
+    $schema->addField('node__field_copyrighted_image', 'field_copyrighted_image_copyright_owner', $columnSpec);
+}
+
+function een_custom_fields_update_8002() {
+
+    // Update Copyrightimageitem
+    $columnSpec = array(
+        'type' => 'varchar',
+        'description' => "Copyright owner",
+        'length' => 1024,
+        'not null' => FALSE,
+    ); 
+    $schema = Database::getConnection()->schema();
+    $schema->addField('node_revision__field_copyrighted_image', 'field_copyrighted_image_copyright_owner', $columnSpec);
+}

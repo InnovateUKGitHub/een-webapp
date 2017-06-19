@@ -1,0 +1,14 @@
+uuid: a789b05c-e244-483e-9985-7d839bcc81ec
+langcode: en
+status: true
+dependencies: {  }
+name: latest_index
+label: latest-index
+effects:
+  4f738fb0-7ca2-4c4e-9a29-0d18bb9aa846:
+    uuid: 4f738fb0-7ca2-4c4e-9a29-0d18bb9aa846
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 260
+      height: 222

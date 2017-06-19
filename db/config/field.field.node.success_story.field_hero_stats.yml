@@ -1,0 +1,22 @@
+uuid: 5ef41c12-3918-4d66-8993-7a1a3b3150c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_stats
+    - node.type.success_story
+  module:
+    - text
+id: node.success_story.field_hero_stats
+field_name: field_hero_stats
+entity_type: node
+bundle: success_story
+label: 'Hero Stats'
+description: 'Use the summary field for the title and the main field for the detail.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

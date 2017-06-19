@@ -7,7 +7,9 @@ use Drupal\Core\Url;
 use Drupal\een_common\Form\SignUp\SignUpStep1Form;
 use Drupal\een_common\Form\SignUp\SignUpStep2Form;
 use Drupal\een_common\Form\SignUp\SignUpStep3Form;
+use Drupal\een_common\Form\SignUp\SignUpStepsForm;
 use Drupal\een_common\Service\ContactService;
+use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,20 +34,29 @@ class SignUpController extends ControllerBase
      * @var ContactService
      */
     private $service;
+    
+    /**
+     *
+     * @var OpportunitiesService
+     */
+    private $oppService;
 
     /**
      * SignUpController constructor.
      *
+     * @param OpportunitiesService    $oppService
      * @param ContactService          $service
      * @param PrivateTempStore        $session
      * @param SessionManagerInterface $sessionManager
      */
     public function __construct(
+        OpportunitiesService $oppService,
         ContactService $service,
         PrivateTempStore $session,
         SessionManagerInterface $sessionManager
     )
     {
+        $this->oppService = $oppService;
         $this->service = $service;
         $this->session = $session;
         $this->sessionManager = $sessionManager;
@@ -65,6 +76,7 @@ class SignUpController extends ControllerBase
     public static function create(ContainerInterface $container)
     {
         return new self(
+            $container->get('opportunities.service'),
             $container->get('contact.service'),
             $container->get('user.private_tempstore')->get('SESSION_ANONYMOUS'),
             $container->get('session_manager')
@@ -154,15 +166,90 @@ class SignUpController extends ControllerBase
 
             'company_name'   => $this->session->get('company_name'),
             'company_number' => $this->session->get('company_number'),
+            'no_company_number'  => $this->session->get('no_company_number'),
             'website'        => $this->session->get('website'),
             'company_phone'  => $this->session->get('company_phone'),
+
+
+            'alternative_address'   => $this->session->get('alternative_address'),
+            'company_registered'   => $this->session->get('company_registered'),
 
             'postcode'   => $this->session->get('postcode'),
             'addressone' => $this->session->get('addressone'),
             'addresstwo' => $this->session->get('addresstwo'),
             'city'       => $this->session->get('city'),
+            'region'     => $this->session->get('region'),
+
+            'postcode_registered'   => $this->session->get('postcode_registered'),
+            'addressone_registered' => $this->session->get('addressone_registered'),
+            'addresstwo_registered' => $this->session->get('addresstwo_registered'),
+            'city_registered'       => $this->session->get('city_registered'),
+            'region_registered'     => $this->session->get('region_registered'),
         ];
     }
+
+
+
+    public function steps($type, $id, Request $request)
+    {
+
+
+
+
+        $this->isLoggedIn();
+        if (($redirect = $this->isStepValid('email-verification', $type . '.details', $type, $this->session->get('token'))) !== null) {
+            return $redirect;
+        }
+
+        $form = \Drupal::formBuilder()->getForm(SignUpStepsForm::class);
+        $form['#action'] = Url::fromRoute('sign-up.steps', ['id' => $id, 'type' => $type])->toString();
+
+        if ($request->isMethod(Request::METHOD_GET)) {
+            $form['firstname']['#value'] = $this->session->get('firstname');
+            $form['lastname']['#value'] = $this->session->get('lastname');
+
+            $form['contact_email']['#value'] = $this->session->get('contact_email');
+            if (empty($form['contact_email']['#value'])) {
+                $form['contact_email']['#value'] = $this->session->get('email');
+            }
+            $form['contact_phone']['#value'] = $this->session->get('contact_phone');
+            if (empty($form['contact_phone']['#value'])) {
+                $form['contact_phone']['#value'] = $this->session->get('phone');
+            }
+
+            $form['company_registered']['#value'] = $this->session->get('company_registered');
+            $form['company_name']['#value'] = $this->session->get('company_name');
+            $form['company_number']['#value'] = $this->session->get('company_number');
+            $form['no_company_number']['#return_value'] = $this->session->get('no_company_number');
+            $form['website']['#value'] = $this->session->get('website');
+            $form['company_phone']['#value'] = $this->session->get('company_phone');
+
+            $form['alternative_address']['#value'] = $this->session->get('alternative_address');
+            $form['postcode']['#value'] = $this->session->get('postcode');
+            $form['addressone']['#value'] = $this->session->get('addressone');
+            $form['addresstwo']['#value'] = $this->session->get('addresstwo');
+            $form['city']['#value'] = $this->session->get('city');
+
+            $form['postcode_registered']['#value'] = $this->session->get('postcode_registered');
+            $form['addressone_registered']['#value'] = $this->session->get('addressone_registered');
+            $form['addresstwo_registered']['#value'] = $this->session->get('addresstwo_registered');
+            $form['city_registered']['#value'] = $this->session->get('city_registered');
+
+            $this->addCheckboxAttributes($form, $this->session->get('company_registered'), 'company_registered');
+            $this->addCheckboxAttributes($form, $this->session->get('newsletter'), 'newsletter');
+            $this->addCheckboxAttributes($form, $this->session->get('radiobutton'), 'radiobutton');
+            $this->addCheckboxAttributes($form, $this->session->get('alternative_address'), 'alternative_address');
+
+        }
+
+        return [
+            '#theme' => 'sign_up_steps',
+            '#form'  => $form,
+            '#type'  => $type,
+        ];
+    }
+
+
 
     /**
      * @param string  $type
@@ -225,6 +312,7 @@ class SignUpController extends ControllerBase
         if ($request->isMethod(Request::METHOD_GET)) {
             $form['company_name']['#value'] = $this->session->get('company_name');
             $form['company_number']['#value'] = $this->session->get('company_number');
+            $form['no_company_number']['#return_value'] = $this->session->get('no_company_number');
             $form['website']['#value'] = $this->session->get('website');
             $form['company_phone']['#value'] = $this->session->get('company_phone');
         }
@@ -277,7 +365,7 @@ class SignUpController extends ControllerBase
     {
         $this->isLoggedIn();
         if (($redirect = $this->isStepValid('step3', $type . '.step3', $id)) !== null) {
-            return $redirect;
+          return $redirect;
         }
 
         $results = $this->service->get($type, $id);
@@ -289,7 +377,7 @@ class SignUpController extends ControllerBase
             '#type'  => $type,
         ];
     }
-
+    
     /**
      * @param string $type
      * @param string $id
@@ -324,7 +412,12 @@ class SignUpController extends ControllerBase
                 'interest'    => $form['interest'],
                 'more'        => $form['more'],
             ];
+
             $this->service->submitEoi($data);
+            // Send email to EEN team to inform of Expression of Interest
+            $token =  mt_rand(100000, 999999);
+            $this->oppService->sendNotificationEmail('contact@enterprise-europe.co.uk', $token, $id, $form);
+            $this->oppService->sendNotificationEmail($form['email'], $token, $id, $form);
         }
 
         return [

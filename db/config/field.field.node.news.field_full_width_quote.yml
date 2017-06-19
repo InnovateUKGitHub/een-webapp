@@ -1,0 +1,21 @@
+uuid: 1fac9981-cd22-4f10-b521-67c78405a2c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_full_width_quote
+    - node.type.news
+  module:
+    - text
+id: node.news.field_full_width_quote
+field_name: field_full_width_quote
+entity_type: node
+bundle: news
+label: 'Full Width Quote'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

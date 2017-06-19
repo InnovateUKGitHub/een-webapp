@@ -1,0 +1,222 @@
+.latest {
+    header {
+        h1 {
+            font-size:24px;
+            color:#9b9b9b;
+        }
+        .heading-large {
+            font-size:48px;
+            font-weight:600;
+            margin-top:10px;
+            @media (max-width: 640px) {
+                font-size:28px;
+            }
+        }
+        p {
+            width:75%;
+            font-size:24px;
+            @media (max-width: 640px) {
+                width:100%;
+                font-size:18px;
+            }
+        }
+    }
+    .node__meta {
+        p {
+            margin:0;
+            color:#9b9b9b;
+        }
+        .author-name {
+            color:$cta;
+        }
+    }
+    #block-een-page-title {
+        h1 {
+            font-size:24px;
+            font-weight:600;
+            border-bottom:solid 1px #ddd;
+            padding-bottom:10px;
+            margin-bottom:30px;
+        }
+    }
+    .column-two-thirds {
+        .latest-item {
+            min-height:120px;
+            position:relative;
+            overflow:hidden;
+            border-bottom:solid 1px #ddd;
+            margin-bottom:16px;
+            @media (max-width: 640px) { 
+                padding:0;
+            }
+            header {
+                padding:0 16px 0 25%;
+                @media (max-width: 640px) { 
+                    padding:147px 0 0 0;
+                    h2 {
+                        font-size:18px;
+                        font-weight:600;
+                    }
+                    p {
+                        display:none;
+                        &.mobile-only {
+                            display:block;
+                        }
+                    }
+                    span {
+                        font-weight:400;
+                        display:block;
+                    }
+                }
+                .node__meta span {
+                    font-size:16px;
+                }
+            }
+                
+            .node--type-blog-post {
+                margin:0;
+            }
+            .views-field-title {
+                a {
+                    font-size:18px;
+                    font-weight:600;
+                }
+            }
+            .body-content {
+                div {
+                    padding:0;
+                }
+                .latest-content h2 {
+                    font-size: 19px;
+                }
+            }
+            .node__content {
+                padding:0 0 0 25%;
+                @media (max-width:992px){
+                    padding:0 0 0 40%;
+                }
+                @media (max-width:640px){
+                    padding:0;
+                }
+            }
+            // tablet
+            @media (min-width:641px) and (max-width: 992px) {
+                header,.node__content {
+                    padding:0;
+                }
+                .node__content .blog-image,.node__content .promo-image {
+                    position:static;
+                }
+            }
+            .latest-content {
+                font-size:16px;
+            }
+            .copyrighted-image {
+                a {
+                    display:block;
+                }
+            }
+            .blog-image,.promo-image {
+                position:absolute;
+                top:0;
+                left:0;
+                @media (max-width:640px) {
+                    position:absolute;
+                    top:16px;
+                    right:auto;
+                    left:0;
+                    padding:0;
+                }
+                img {
+                    max-width:140px;
+                }
+            }
+            p {
+                font-size:16px;
+            }
+            .tags {
+                p {
+                    display:none;
+                }
+                div a {
+                    float:left;
+                    background:#fff;
+                }
+                div:first-of-type a {
+                    color:#fff;
+                    background:$cta;
+                }
+                
+            }
+            // first promo
+            &:first-child {
+                min-height:248px;
+                border:none;
+                margin-bottom:30px;
+                padding-right:45%;
+                background:#eff7fc;
+                @media ( max-width:992px ) {
+                    padding:0;
+                }
+                .node__content {
+                    padding:0;
+                }
+                header {
+                    padding:16px 0 8px 16px;
+                    @media ( max-width:992px ) {
+                        padding-top:255px;
+                        p {
+                            margin-bottom:0;
+                        }
+                    }
+                    h2 {
+                        font-size:24px;
+                        font-weight:600;
+                    }
+                }
+                .body-content {
+                    padding:0 0 0 16px;
+                    @media ( max-width:992px ) {
+                        padding:0 15px 15px 15px;
+                    }    
+                }
+                .blog-image,.promo-image {
+                    position:absolute;
+                    top:16px;
+                    right:16px;
+                    left:auto;
+                    padding:0;
+                    @media ( max-width:992px ) {
+                        width:100%;
+                        text-align:center;
+                        right:auto;
+                        left:auto;
+                    }
+                    a {
+                        width:100%;
+                        height:100%;
+                        display:block;
+                    }
+                    img {
+                        max-width:254px;
+                        @media ( max-width:992px ) {
+                            width:auto;
+                            max-width:none;
+                            height:222px;
+                        }
+                    }
+                }
+                .tags div {
+                    a {
+                        background:#eff7fc;
+                    }
+                    &:first-of-type {
+                        a {
+                            background:$cta;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

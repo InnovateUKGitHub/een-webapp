@@ -1,0 +1,32 @@
+domain: 'https://beta.enterprise-europe.co.uk/'
+domains_option: 1
+domains_list: ''
+eu_only: false
+exclude_paths: "/admin\r\n/admin/*\r\n/batch\r\n/node/add*\r\n/node/*/*\r\n/user/*/*"
+export:
+  folder: custom
+langcode: en
+popup_agreed:
+  value: '<h2>Thank you for accepting cookies</h2><p>You can now hide this message or find out more about cookies.</p>'
+  format: restricted_html
+popup_agree_button_message: 'OK, I agree'
+popup_agreed_enabled: true
+popup_bg_hex: d5e8f3
+popup_clicking_confirmation: true
+popup_delay: 1
+popup_disagree_button_message: 'No, give me more info'
+popup_enabled: true
+popup_find_more_button_message: 'More info'
+popup_height: null
+popup_hide_agreed: true
+popup_hide_button_message: Hide
+popup_info:
+  value: '<h2>We use cookies on this site to enhance your user experience</h2>'
+  format: restricted_html
+popup_link: 'http://vagrant.een.co.uk/cookies'
+popup_link_new_window: true
+popup_position: true
+popup_text_hex: '333333'
+popup_width: 100%
+_core:
+  default_config_hash: kfXrsolOPAF-91bVNi2WkyMavN4TSaqPeL_A466DYwU

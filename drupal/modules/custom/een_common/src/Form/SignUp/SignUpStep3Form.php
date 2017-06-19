@@ -6,6 +6,7 @@ use Drupal\opportunities\Form\AbstractForm;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Zend\Diactoros\Response\JsonResponse;
 
 class SignUpStep3Form extends AbstractForm
 {
@@ -69,7 +70,7 @@ class SignUpStep3Form extends AbstractForm
             ],
             'addressone' => [
                 '#type'           => 'textfield',
-                '#title'          => t('Address Line 1'),
+                '#title'          => t('Address line 1'),
                 '#label_display'  => 'before',
                 '#required'       => true,
                 '#required_error' => [
@@ -88,7 +89,7 @@ class SignUpStep3Form extends AbstractForm
             ],
             'addresstwo' => [
                 '#type'          => 'textfield',
-                '#title'         => t('Address Line 2'),
+                '#title'         => t('Address line 2'),
                 '#label_display' => 'before',
                 '#attributes'    => [
                     'class'        => [
@@ -151,5 +152,25 @@ class SignUpStep3Form extends AbstractForm
         $this->session->set('addressone', $form_state->getValue('addressone'));
         $this->session->set('addresstwo', $form_state->getValue('addresstwo'));
         $this->session->set('city', $form_state->getValue('city'));
+
+
+        try {
+            $postcode = json_decode(file_get_contents('https://api.postcodes.io/postcodes/'.$form_state->getValue('postcode')), true);
+
+            if($postcode['status'] == 200){
+
+                if($postcode['result']['region'] = 'Yorkshire and The Humber' || $postcode['result']['region'] = 'North West' || $postcode['result']['region'] = 'North East'){
+                    $postcode['result']['region'] = 'North';
+                }
+                if(!$postcode['result']['region']) {
+                    $postcode['result']['region'] = $postcode['result']['country'];
+                }
+
+                $this->session->set('region', $postcode['result']['region']);
+            }
+        } catch (Exception $e) {
+
+        }
+
     }
 }

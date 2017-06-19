@@ -1,0 +1,29 @@
+uuid: d5e0e8e1-d1b2-4632-a1a3-df7247695c82
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.our_work.field_our_work
+    - node.type.our_work
+  module:
+    - field_formatter_class
+    - user
+id: node.our_work.default
+targetEntityType: node
+bundle: our_work
+mode: default
+content:
+  field_our_work:
+    weight: 101
+    label: hidden
+    settings:
+      view_mode: token
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: column-one-half
+    type: entity_reference_entity_view
+  sharethis:
+    weight: 10
+hidden:
+  links: true

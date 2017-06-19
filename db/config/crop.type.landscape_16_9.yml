@@ -1,0 +1,12 @@
+uuid: 3aef69ea-b93f-46ab-a77a-fe0ae8f601fd
+langcode: en
+status: true
+dependencies: {  }
+label: 'landscape 16:9'
+id: landscape_16_9
+description: ''
+aspect_ratio: '16:9'
+soft_limit_width: null
+soft_limit_height: null
+hard_limit_width: null
+hard_limit_height: null

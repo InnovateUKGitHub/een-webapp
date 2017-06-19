@@ -1,0 +1,7 @@
+name: EEN Custom Fields
+type: module
+description: Adds field plugin implementations for EEN.
+package: EEN
+dependencies: 
+  - image_widget_crop
+core: 8.x

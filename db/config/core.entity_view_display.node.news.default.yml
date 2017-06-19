@@ -1,0 +1,92 @@
+uuid: 99b2047a-7ada-45e3-8ed9-12edf47911bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.news.body
+    - field.field.node.news.field_copyrighted_image
+    - field.field.node.news.field_full_width_quote
+    - field.field.node.news.field_location
+    - field.field.node.news.field_meta_tags
+    - field.field.node.news.field_persona
+    - field.field.node.news.field_tags
+    - field.field.node.news.field_yoast_seo
+    - image.style.image_crop_style
+    - node.type.news
+  module:
+    - een_custom_fields
+    - geolocation
+    - metatag
+    - options
+    - text
+    - user
+    - yoast_seo
+id: node.news.default
+targetEntityType: node
+bundle: news
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  field_copyrighted_image:
+    weight: 103
+    label: above
+    settings:
+      image_style: image_crop_style
+      image_link: ''
+    third_party_settings: {  }
+    type: copyright_image
+  field_full_width_quote:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_location:
+    weight: 107
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
+  field_meta_tags:
+    weight: 105
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+  field_persona:
+    weight: 108
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_tags:
+    weight: 102
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_yoast_seo:
+    weight: 106
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: yoastseo_formatter
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  workbench_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

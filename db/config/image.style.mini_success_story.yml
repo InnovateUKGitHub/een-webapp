@@ -1,0 +1,14 @@
+uuid: 18d71a4f-6e85-4271-84de-d7623950f44b
+langcode: en
+status: true
+dependencies: {  }
+name: mini_success_story
+label: 'mini success story'
+effects:
+  e357014f-f241-4858-b7af-f8245b55f7a5:
+    uuid: e357014f-f241-4858-b7af-f8245b55f7a5
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 312
+      height: 150
