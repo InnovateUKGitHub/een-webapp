@@ -1,0 +1,21 @@
+uuid: 5771173a-2155-4da6-93da-4303b301e1d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_persona
+    - node.type.blog_post
+  module:
+    - options
+id: node.blog_post.field_persona
+field_name: field_persona
+entity_type: node
+bundle: blog_post
+label: 'This page is written for'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

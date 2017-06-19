@@ -11,37 +11,84 @@
 
 <div class="content-heading">
     <h1 tabindex="0">{{ 'Partnering opportunities'|t }}</h1>
-    <h2 class="heading-large" tabindex="0">{{ 'Find a business to partner with, globally'|t }}</h2>
+    <h2 class="heading-large" tabindex="0">{{ 'Live global partnering opportunities'|t }}</h2>
     <h3>{{ 'Search for SME and academic partners to manufacture, distribute, co-develop and supply your products, ideas and business.'|t }}</h3>
+
+    <div class="how-it-works">
+        <p class="js-toggle-handle toggle-handle">
+            How it works
+            <a class="js-toggle-state toggle-state state--state-closed">Expand</a>
+            <a class="js-toggle-state toggle-state state--state-open hide">Hide information</a>
+        </p>
+        <div class="js-toggle-content toggle-content">
+            <ol>
+                <li><span class="number">1</span> <span class="step">Search our global partnership database to find relevant opportunities</span></li>
+                <li><span class="number">2</span> <span class="step">Express your interest by telling us about your company</span></li>
+                <li><span class="number">3</span> <span class="step">We collate responses and introduce matched partners to each other</span></li>
+            </ol>
+        </div>
+        <div class="clearfix"></div>
+    </div>
 </div>
 
+
+
 <div class="grid-row">
+    <div class="column-fullwidth">
+        <div class="column-full">
+            <div class="search-container search-keywords-within-results" id="auto-2">
+                <div id="form-container">
+
+                    <form tabindex="0" ng-submit="submit()" data-drupal-selector="opportunity-super-search-form" action="/search-opportunities" method="POST" id="opportunity-super-search-form" accept-charset="UTF-8">
+                        <div class="js-form-item form-item js-form-type-textfield form-item-search js-form-item-search">
+                            <label for="edit-search" class="form-label">Search by keyword <span class="suggestion-labels">e.g.  battery, engineering, biofuels</span></label>
+                            <span class="error-message"> </span>
+                            <input  ng-model="data.search" ng-change="queryKeyUp()" tabindex="0" class="form-control form-text" placeholder="E.g. medical component distribution" data-drupal-selector="edit-search" type="text" id="edit-search" value="" size="60" maxlength="128" />
+                        </div>
+                        <input  data-drupal-selector="form-e-t6fe07qrvndnedqtkomo4xg06-y9owmnzs57da2eo" type="hidden" name="form_build_id" value="form-E-T6fe07qrVndnEDqtkOMo4xG06-y9OwmNZs57Da2eo" />
+                        <input  data-drupal-selector="edit-opportunity-super-search-form-form-token" type="hidden" name="form_token" value="8ZhLfsD9AT3NyLV9vpKju7Z5HRZ6GUvc5GVui-vU7Iw" />
+                        <input  data-drupal-selector="edit-opportunity-super-search-form" type="hidden" name="form_id" value="opportunity_super_search_form" />
+                        <div class="ss-submit form-actions js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions">
+                            <input  data-drupal-selector="edit-submit" type="submit" id="edit-submit" name="op" value="Search" class="button button--primary js-form-submit form-submit" />
+                        </div>
+                    </form>
+                </div>
+                <p class="sb-results-wrapper ss-results-wrapper">
+                    <span tabindex="0" class="sb-results" aria-live="assertive"><span>{{ total|number_format(0, '.', ',') }}</span> total opportunities</span>
+                </p>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="grid-row js-opportunities-list initial-no-vis">
     <div class="column-one-third">
         <div class="filter-container">
+            <div class="mobile-only">
+                <p>You can use the filters to show only results that match your interests</p>
+                <a class="button filter-results">Filter results</a>
+            </div>
+            <h3 class="filter-heading">Filter your results</h3>
             {{ form }}
         </div>
     </div>
-    <div class="column-two-thirds"  aria-live="assertive">
-        <div class="row" ng-show="meta.searched" ng-cloak ng-class="{ transp: meta.searching }">
-            <h3 class="heading-xlarge results-list-heading" tabindex="0" aria-live="assertive">
-                {[{ data.total | number }]}
-                <span class="font-xsmall">
+    <div class="column-two-thirds" aria-live="assertive">
+        <div class="row ss-row" ng-show="meta.searched" ng-cloak ng-class="{ transp: meta.searching }">
+            <h3 class="results-list-heading" tabindex="0" aria-live="assertive">
+                {[{ data.total | number }]} <span class="sr-only">opportunities</span>
                     <ng-pluralize count="data.total"
                                   when="{'0': 'opportunities found', 'one': 'opportunity found','other': 'opportunities found'}"/>
-                </span>
             </h3>
         </div>
 
-        <div class="row" ng-show="!meta.searched" ng-class="{ transp: meta.searching }">
-            <h3 class="heading-xlarge gov uk results-list-heading" tabindex="0">{{ total|number_format(0, '.', ',') }}
-                <span class="font-xsmall">{{ 'opportunities '|t }}</span></h3>
+        <div class="row ss-row" ng-show="!meta.searched" ng-class="{ transp: meta.searching }">
+            <h3 class="gov uk results-list-heading" tabindex="0">{{ total|number_format(0, '.', ',') }}  {{ 'opportunities '|t }}</h3>
         </div>
 
         <div class="results-list">
-            <h4 tabindex="0" class="list-subtext">Get updates to this list 
-                <a href="#" class="follow-list" tabindex="0"><i class="fa fa-envelope" aria-hidden="true"></i> Email<span tabindex="0" class="sr-only">Receive email updates on this search</span></a> 
-                <a href="#" class="follow-list" tabindex="0"><i class="fa fa-rss" aria-hidden="true"></i> RSS<span tabindex="0" class="sr-only">Receive RSS updates on this search</span></a>
-            </h4>
+
             <div class="contents-text-block">
                 <h3 tabindex="0" class="sr-only">The search results below each have a summary which you may find useful
                     in determining if the opportunity is what you’re looking for.</h3>
@@ -49,12 +96,12 @@
             <div class="row row-bordered" ng-show="meta.searched" ng-repeat="row in results" ng-cloak
                  ng-class="{ transp: meta.searching }">
                 <h3 class="results-list-heading-item" tabindex="0">
-                    <a ng-href="/opportunities/{[{row.id}]}" id="opportunity-link" ng-bind-html="row.title | unsafe">
+                    <a ng-href="/opportunities/{[{row.id}]}" ng-bind-html="row.title | unsafe">
                         {[{ row.title }]}</span>
                     </a>
                 </h3>
 
-                <p class="description" ng-bind-html="row.summary | cut:true:247:'... ':row.id | unsafe">
+                <p class="description" ng-bind-html="row.summary | cut:true:240:'... ':row.id | unsafe">
                     {[{ row.summary }]}
                 </p>
 
@@ -72,13 +119,13 @@
                 <div class="row row-bordered" ng-show="!meta.searched"
                      ng-class="{ transp: meta.paging || meta.searching }">
                     <h3 class="results-list-heading-item" tabindex="0">
-                        <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}"
-                           id="opportunity-link">
+                        <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">
                             {{ row.title|raw }}
                         </a>
                     </h3>
 
-                    <p class="description">{{ row.summary| truncate(240, true) | raw }} <a
+                    <p class="description">
+                        {{ row.summary| truncate(240, true) | raw }} <a
                                 href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">more</a>
                     </p>
 
@@ -98,10 +145,17 @@
                         {{ row.country }}
                     </p>
                 </div>
-
             {% endfor %}
         </div>
-
+        <div class="cta-block">
+            <div>
+                <p>The right partner not here?</p>
+                <p>Get in touch and we'll help you post a partnering opportunity</p>
+            </div>
+            <div>
+                <a href="/contact-us" class="btn">Create an opportunity</a>
+            </div>
+        </div>
         {% include 'themes/custom/een/templates/navigation/pagination.html.twig'
         with {
         'route': route,
@@ -113,5 +167,5 @@
         } only %}
 
     </div>
-    
+
 </div>

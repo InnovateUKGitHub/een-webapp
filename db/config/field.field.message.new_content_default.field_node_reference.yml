@@ -1,0 +1,30 @@
+uuid: de217511-f576-4cb1-8c07-05343769d849
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_node_reference
+    - message.template.new_content_default
+    - node.type.page
+_core:
+  default_config_hash: Osm1d7xagPxmORV0WIm1-PfJQJ2MPo2zgfM03r0bEOs
+id: message.new_content_default.field_node_reference
+field_name: field_node_reference
+entity_type: message
+bundle: new_content_default
+label: 'Node Reference'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      page: page
+    sort:
+      field: _none
+    auto_create: null
+    auto_create_bundle: null
+field_type: entity_reference

@@ -1,0 +1,11 @@
+name: EEN Notifications Module
+description: Defines notification triggers and mailouts.
+package: EEN
+type: module
+version: 1.0
+core: 8.x
+dependencies:
+ - message
+ - message_notify
+ - workbench
+ - workbench_moderation

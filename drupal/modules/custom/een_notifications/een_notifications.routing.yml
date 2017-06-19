@@ -1,0 +1,8 @@
+een_notifications.module_settings:
+  path: '/admin/config/system/een-notifications'
+  defaults:
+    _title: 'EEN Notifications'
+    _description: 'EEN Notifications Settings'
+    _form: '\Drupal\een_notifications\Form\eenNotificationsSettingsForm'
+  requirements:
+    _permission: 'access administration pages'

@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the quote shortcode.
+ *
+ * Available variables:
+ * - class: Class string.
+ * - author: The author.
+ * - text: The quoted text.
+ */
+#}
+<blockquote class="inline-quote">
+    <span class="{{ class }}">
+      {{ text | raw }}
+    </span>
+    {% if author %}
+    {# TODO: Make translatable #}
+        <span class="quote-author">{{ author | trans }} </span>
+    {% endif %}
+</blockquote>

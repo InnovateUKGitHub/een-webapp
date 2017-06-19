@@ -30,14 +30,14 @@ class OpportunitiesServiceTest extends UnitTestCase
                     'opportunity_type' => ['BO'],
                     'country'          => ['FR'],
                     'source'           => ['type', 'title', 'summary', 'date', 'country', 'country_code'],
-                    'type'             => 1,
+                    'type'             => 1
                 ]
             )
-            ->willReturn(['total' => 0]);
+            ->willReturn(['total' => 0, 'aggregations' => null]);
 
         $form = [];
         self::assertEquals(
-            ['total' => 0, 'results' => []],
+            ['total' => 0, 'results' => [], 'aggregations' => null],
             $this->service->search($form, 'H2020', ['BO'], ['FR'], 1, 10)
         );
 

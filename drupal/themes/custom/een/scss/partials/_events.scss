@@ -1,0 +1,237 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 2, 2017, 2:54:26 PM
+    Author     : jasongoodenough
+*/
+.event-heading h3 {
+    width: 100%;
+}
+.event-details {
+    margin-top: 30px;
+    h3.heading-medium,b {
+        font-size:24px;
+        font-weight:600;
+        margin-bottom:20px;
+    }
+    .day {
+        font-size:48px;
+    }
+    .month-year {
+        margin-top:3px;
+        font-size:24px;
+    }
+    .meta-inline .month-year {
+        span {
+            font-size:24px;
+        }
+    }
+    .contents-list {
+        h3 {
+            font-weight:400;
+            margin-bottom:4px;
+        }
+    }
+}
+
+input.verify-my-email {
+    min-height:38px;
+    padding:7px 20px;
+}
+#verify-code {
+    padding:9px 20px;
+}
+.programme-item {
+    overflow:hidden;
+    border:solid 1px #e0f0f9;
+    padding:20px;
+    margin-bottom:10px;
+    background:#f5fafd;
+    .column-one-quarter {
+        padding:0;
+    }
+    .column-three-quarter {
+        p {
+            font-size:16px;
+        }
+    }
+    .calendar {
+        width:36px;
+        height:68px;
+        position:relative;
+        display:inline-block;
+        float:left;
+        margin-right:10px;
+        background:#e0f0fa;
+        &:after {
+            font-size:24px;
+            position:absolute;
+            top:3px;
+            left:6px;
+            font-family: FontAwesome;
+            content: '\f133';
+            color:$cta;
+        }
+    }
+    .day {
+        font-size:24px;
+        font-weight:600;
+    }
+    .month {
+        line-height:1.3em;
+        display:block;
+        font-size:16px;
+        position:relative;
+        top:-4px;
+    }
+    .year {
+        line-height:1.3em;
+        display:block;
+        font-size:16px;
+        position:relative;
+        top:-4px;
+    }
+    p {
+        margin:0;
+        &:first-child {
+            margin-top:6px;
+            color:#006ba6;
+        }
+    }
+}
+
+@media (max-width:640px) {
+    // Events Index page
+    .events-index {
+        .featured-events-heading {
+            font-size:24px;
+            font-weight:600;
+        } 
+        .results-list {
+            .meta-left,.event-list-element {
+                width:100%;
+            }
+        }
+        .results-list-heading-item {
+            font-size:18px;
+        }
+    }
+    // Events Details page
+    .event-details {
+        p,li {
+            font-size:18px;
+        }
+    }
+    .event-detail {
+        .event-heading {
+            .heading-large {
+                font-size:36px;
+            }
+            .heading-medium {
+                margin-bottom:30px;
+            }
+        }
+        h3.heading-medium {
+            font-size:24px;
+            padding-right:20%;
+        }
+        .status-summary {
+            border-left:0;
+            padding:14px;
+            p {
+                padding:0;
+                color:$cta;
+            }
+        }
+        .contents-list {
+            .button-brand {
+                margin-bottom:30px;
+            }
+        }
+    }
+    .programme-item {
+        .calendar {
+            width:68px;
+            height:65px;
+            text-align:center;
+            &:after {
+                font-size:36px;
+                line-height:65px;
+                position:static;
+            }
+        }
+        p {
+            &:first-child {
+                font-size:18px;
+            }
+        }
+        .column-three-quarter {
+            border-top:solid 1px #e0f0f9;
+            padding-top:18px;
+            margin-top:18px;
+        }
+    }
+    .verify-email {
+        form .form-label {
+            font-size:18px;
+        }
+        #edit-token {
+            width:100%;
+        }
+        .form-actions input.button {
+            height:44px;
+            font-size:16px;
+            border:solid 1px $cta;
+            box-shadow:none;
+            color:$cta;
+            background:#fff;
+        }
+        p {
+            font-size:18px;
+            margin-bottom:200px;
+        }
+    }
+    #email-verification-form {
+        position:relative;
+        .form-no-label {
+            position:absolute;
+            top:300px;
+            border-top:solid #9b9b9b;
+            padding-top:20px;
+        } 
+    }
+}
+@media (min-width:480px) and (max-width:640px) {
+    #email-verification-form .form-no-label {
+        top:250px;
+    }
+    .verify-email {
+        p {
+            margin-bottom:170px;
+        }
+    }
+}    
+@media (min-width:641px) and (max-width:992px) {
+    .programme-item {
+        .column-one-quarter {
+            width:50%;
+        }
+        .column-three-quarter {
+            width:50%;
+        }
+    }
+    .verify-email {
+        .form-email,.form-actions {
+            width:48%;
+        }
+        .form-email {
+            margin-right:2%;
+        }
+        .form-actions {
+            margin-left:2%;
+        }
+    }
+}    

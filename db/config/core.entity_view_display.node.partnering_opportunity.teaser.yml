@@ -1,0 +1,38 @@
+uuid: 287cb3af-aa49-49a7-8ac6-7b7a2d41f90d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.partnering_opportunity.body
+    - node.type.partnering_opportunity
+  module:
+    - text
+    - user
+id: node.partnering_opportunity.teaser
+targetEntityType: node
+bundle: partnering_opportunity
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+  workbench_moderation_control:
+    weight: -20
+hidden:
+  field_advantages_and_innovations: true
+  field_country_of_origin: true
+  field_development_stage: true
+  field_intellectual_property: true
+  field_location: true
+  field_opportunity_id: true
+  field_opportunity_images: true
+  field_partner_expertise_sought: true

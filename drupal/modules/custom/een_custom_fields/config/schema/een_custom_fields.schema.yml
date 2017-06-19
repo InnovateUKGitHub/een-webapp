@@ -1,0 +1,46 @@
+field.storage_settings.een_copyright_image:
+  type: field.storage_settings.file
+  label: 'Image settings'
+  mapping:
+    default_image:
+      type: field_default_image
+      label: 'Default value'
+
+field.field_settings.een_copyright_image:
+  type: base_file_field_field_settings
+  label: 'Image settings'
+  mapping:
+    copyright:
+      type: string
+      label: 'Source'
+    max_resolution:
+      type: string
+      label: 'Maximum image resolution'
+    min_resolution:
+      type: string
+      label: 'Minimum image resolution'
+    alt_field:
+      type: boolean
+      label: 'Enable Alt field'
+    alt_field_required:
+      type: boolean
+      label: 'Alt field required'
+    title_field:
+      type: boolean
+      label: 'Enable Title field'
+    title_field_required:
+      type: boolean
+      label: 'Title field required'
+    copyright_field:
+      type: boolean
+      label: 'Enable Copyright field'
+    default_image:
+      type: field_default_image
+      label: 'Default value'
+    copyright_owner:
+      type: string
+      label: 'Copyright Owner'
+
+field.value.een_copyright_image:
+  type: field_default_image
+  label: 'Default value'

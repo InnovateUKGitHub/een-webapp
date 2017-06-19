@@ -1,0 +1,32 @@
+uuid: 0f16f490-0747-4bcc-896d-5470e5b4d70a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.homepage_popup_video.field_y
+    - node.type.homepage_popup_video
+  module:
+    - user
+    - video_embed_field
+id: node.homepage_popup_video.token
+targetEntityType: node
+bundle: homepage_popup_video
+mode: token
+content:
+  field_y:
+    type: video_embed_field_colorbox
+    weight: 0
+    label: hidden
+    settings:
+      image_style: ''
+      link_image_to: ''
+      responsive: true
+      width: 854
+      height: 480
+      autoplay: true
+      modal_max_width: 854
+    third_party_settings: {  }
+hidden:
+  links: true
+  sharethis: true

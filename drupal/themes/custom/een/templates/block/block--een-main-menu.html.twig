@@ -34,14 +34,16 @@
 {% set heading_id = attributes.id ~ '-menu'|clean_id %}
 <nav role="navigation" id="proposition-menu" aria-labelledby="{{ heading_id }}"{{ attributes|without('role', 'aria-labelledby') }}>
     
-    <a href="#proposition-links" class="js-header-toggle menu" title="navigation burger"></a>
+    <a href="#proposition-links" class="js-header-toggle menu" title="navigation burger">
+        <span class="sr-only">Burger Icon - Mobile Navigation</span>
+    </a>
     
     {# Label. If not displayed, we still provide it for screen readers. #}
     {% if not configuration.label_display %}
         {% set title_attributes = title_attributes.addClass('visually-hidden') %}
     {% endif %}
     {{ title_prefix }}
-    <h2 id="{{ heading_id }}" {{ title_attributes }}>{{ configuration.label }}</h2>
+    <p id="{{ heading_id }}" {{ title_attributes }}>{{ configuration.label }}</p>
     {{ title_suffix }}
 
     {# Menu. #}

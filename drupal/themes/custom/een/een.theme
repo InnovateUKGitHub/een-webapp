@@ -1,0 +1,37 @@
+<?php
+/**
+ * @file
+ *
+ * Place your custom PHP code in this file.
+ */
+
+// $path = $request->getPathInfo();
+
+function een_preprocess_page(&$variables) {
+
+}
+
+function een_preprocess_node(&$variables) {
+
+}
+
+function een_preprocess(array &$variables)
+{
+    $variables['quote_on_opportunity'] = views_embed_view('quote_on_opportunity', 'default');
+    $variables['events_on_homepage'] = views_embed_view('events_on_homepage', 'default');
+    $variables['news_on_homepage'] = views_embed_view('news_on_homepage', 'default');
+    $variables['our_work'] = views_embed_view('our_work', 'default');
+    $variables['recent_partnership'] = views_embed_view('recent_partnership', 'default');
+    $variables['homepage_video'] = views_embed_view('homepage_video', 'default');
+    $variables['homepage_quote'] = views_embed_view('homepage_quote', 'default');
+    $variables['homepage_popup_video'] = views_embed_view('homepage_popup_video', 'default');
+}
+function een_theme_suggestions_page_alter(array &$suggestions, array $variables)
+{
+    if (($node = \Drupal::routeMatch()
+            ->getParameter('node')) && is_object($node)
+    ) {
+        $content_type = $node->bundle();
+        $suggestions[] = 'page__' . $content_type;
+    }
+}

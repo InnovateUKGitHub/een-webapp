@@ -1,0 +1,20 @@
+uuid: b54ba1fe-3ca5-43b5-a357-e1debc7334a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.background_video
+  module:
+    - user
+id: node.background_video.teaser
+targetEntityType: node
+bundle: background_video
+mode: teaser
+content:
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+hidden:
+  field_mp4_video: true

@@ -1,0 +1,10 @@
+type: module
+name: EEN Opportunity Import
+description: 'Imports opportunities from Merlin into Drupal using the Migrate API'
+package: EEN
+core: 8.x
+dependencies:
+  - drupal:migrate (>=8.2)
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
+  - een_event_import:een_event_import

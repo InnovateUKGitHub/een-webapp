@@ -1,0 +1,21 @@
+uuid: 99f8f119-a5e9-4363-a6a7-a803880f02b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_import_source
+    - node.type.event
+id: node.event.field_event_import_source
+field_name: field_event_import_source
+entity_type: node
+bundle: event
+label: 'Event Import Source'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: Drupal
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -11,7 +11,7 @@ set -a
 APPLICATION_ENV=$1
 PACKAGE=$2
 
-. build/steps/deploy/load-env-vars.sh
+. build/steps/utilities/load-env-vars.sh
 
 if [ "$aws_cf_stack" = "" ] ; then
     # integration_v2 needs to use it's internal IP
@@ -20,10 +20,10 @@ if [ "$aws_cf_stack" = "" ] ; then
     fi
     HOSTS="$ip"
 else
-   HOSTS=`build/steps/deploy/lookup-ec2-ips.sh $aws_cli_profile $aws_cf_stack`
+   HOSTS=`build/steps/utilities/lookup-ec2-ips.sh $aws_cli_profile $aws_cf_stack`
 fi
 
-USER="jenkins"
+USER=$sshuser
 
 # trim off commit sha -072fcbc
 FOLDER=${PACKAGE:0:${#PACKAGE}-8}

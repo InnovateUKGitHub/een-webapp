@@ -47,7 +47,8 @@ jQuery(function () {
         $('.block-label.indented').wrapAll($('<div class="accordion-content"/>'));
     }
     
-    if($('.accordion-content').length){
+    if($('#edit-newsletter--wrapper .accordion-content').length){
+
         var panel = $('.accordion-content');
             panel.before('<a role="button" tabindex="0" class="accordion-toggle" href="#" aria-label="Toggle checkboxes"> Newsletters (choose) </a>');
             panel.hide();
@@ -63,16 +64,54 @@ jQuery(function () {
                  $(toggle).toggleClass('visible', $(this).is(':visible'));
             });
         });
-        $(document).on('focus', '.accordion-toggle', function(e){
-            e.preventDefault();
-            var accordionContent = $(this).next(panel);
-
-            //Expand or collapse this panel
-            $(accordionContent).slideToggle('slow', function(){
-                 $(toggle).toggleClass('visible', $(this).is(':visible'));
-            });
-        });
     }
-  
-  
+
+    $('#email-verification-form').on('submit', function(e) {
+
+        if(!$('#edit-token').val()){
+            var data = $("#email-verification-form :input").serializeArray();
+            $.get('/opportunities/' + data[1].value + '/_ajax', 'email=' + data[0].value);
+
+            $('.js-form-item-emailverification, .js-rp-message, #edit-submit--2').hide();
+            $('.email-verification-sent').fadeIn('fast');
+
+            $('#edit-token').removeClass('disabled').attr('disabled', false);
+            $('#verify-code').removeClass('is-disabled').attr('disabled', false);
+            e.preventDefault();
+        }
+
+    });
+
+    $('.js-not-received').on('click', function(e){
+
+        $('.email-verification-sent').hide();
+        $('.js-form-item-emailverification, .js-rp-message, #edit-submit--2').show();
+
+        e.preventDefault();
+    })
+
+
+    $('.js-login-type').on('change', 'input', function(e){
+        var id = $(this).val();
+        $('.login-types').hide();
+        $('#'+id).show();
+    });
+
+    $('#edit-token').after('<input type="submit" id="verify-code" disabled class="button button--primary js-form-submit form-submit is-disabled" value="Continue"/>')
+
+
+    var p = $('.js-rp-message').detach();
+    $('.js-form-item-emailverification').after(p);
+
+    var a = $('#edit-actions--2').detach();
+    $('.js-form-item-emailverification').after(a);
+
+
+
+    $('#een-login-form').on('submit', function(e) {
+        e.preventDefault();
+        $('#login').html('<p>Login method not available at this time.');
+    });
+
+
 });

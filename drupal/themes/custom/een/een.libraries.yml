@@ -6,6 +6,9 @@ global-styling:
       dist/css/een.css: {}
   js:
     dist/js/bundle.js: {}
+    js/jquery.autocomplete.min.js: {}
+    /libraries/videobackground/jquery.videobackground.js: {}
     # js/dist/bundle.js.map: {}
   dependencies:
     - core/jquery
+    - core/jquery.ui.datepicker

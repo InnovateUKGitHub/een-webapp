@@ -1,0 +1,22 @@
+uuid: e155db73-7d91-4cfb-b071-33fa47529596
+langcode: en
+status: true
+dependencies:
+  module:
+    - message
+    - user
+_core:
+  default_config_hash: qiXginnLbOMXw4d0US2x0potygNb-_ncnWHnEktpfRM
+id: message.field_recipient
+field_name: field_recipient
+entity_type: message
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

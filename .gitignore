@@ -8,6 +8,11 @@
 atlassian-ide-plugin.xml
 
 ##############
+## NETBEANS ##
+##############
+nbproject/
+
+##############
 ##  CONFIG  ##
 ##############
 logs/apache_access.log
@@ -34,3 +39,9 @@ drupal/themes/custom/een/dist
 compiled/
 db/update/
 /nbproject/private/
+
+##############
+##    MAC   ##
+##############
+.DS_Store
+

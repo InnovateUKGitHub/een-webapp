@@ -1,0 +1,19 @@
+uuid: 614bc506-3227-4420-adf3-5b8cc34f3418
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_advantages_and_innovations
+field_name: field_advantages_and_innovations
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

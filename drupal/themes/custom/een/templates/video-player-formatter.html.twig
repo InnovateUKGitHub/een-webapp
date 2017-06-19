@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a formatted video field.
+ *
+ * Available variables:
+ * - items: A collection of videos.
+ * - player_attributes: Player options including the following:
+ *   - width: The width of the video (if known).
+ *   - height: The height of the video (if known).
+ *   - autoplay: Autoplay on or off
+ *
+ * @ingroup themeable
+ */
+#}
+<video preload="{{ player_attributes.preload }}" {{ player_attributes.controls ? 'controls' : '' }} style="width:1920px;height:{{ player_attributes.height }}px;" {{ player_attributes.autoplay ? 'autoplay' : '' }} {{ player_attributes.loop ? 'loop' : '' }} {{ player_attributes.muted ? 'muted' : '' }}>
+  <!--{% for user in items %}
+    <source src="{{ user }}"/>
+  {% endfor %}-->
+</video>
+
+<span id="data-vids" data-vids="{% for user in items %} {{ user }} {% if users > 1 and not loop.last %} * {% endif %} {% endfor %}"></span> 

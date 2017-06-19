@@ -1,0 +1,14 @@
+uuid: d6f28d08-4832-4f12-b169-10310e648e2e
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 9Tq-9vF-3Qei7HF1C7AeCivEILazxZCtpGDBQvYZcos
+id: een_events
+label: 'Event Imports'
+description: 'Event imports from various sources'
+source_type: 'External API''s'
+module: null
+shared_configuration:
+  source:
+    key: default

@@ -77,3 +77,8 @@ body.adminimal-menu.overlay {
   margin-top: 30px!important;
   margin-bottom: 30px!important;
 }
+
+
+.user-logged-in .toolbar-processed {
+    display:none!important;
+}

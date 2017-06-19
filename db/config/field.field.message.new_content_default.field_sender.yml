@@ -1,0 +1,30 @@
+uuid: 8cee64a5-7f3e-44a8-9c82-a6d519fcadb8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_sender
+    - message.template.new_content_default
+_core:
+  default_config_hash: hy8VNnz9P_dMw74YOnycxqesscVC2Gzr3PLi8dWLJCI
+id: message.new_content_default.field_sender
+field_name: field_sender
+entity_type: message
+bundle: new_content_default
+label: Sender
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: false
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

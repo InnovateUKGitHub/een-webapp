@@ -1,0 +1,21 @@
+uuid: 52748568-7b20-4b9b-8682-f2175c69f61d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location
+    - node.type.news
+  module:
+    - geolocation
+id: node.news.field_location
+field_name: field_location
+entity_type: node
+bundle: news
+label: 'Location Override'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

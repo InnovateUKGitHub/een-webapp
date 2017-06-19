@@ -1,0 +1,19 @@
+uuid: 236e0b4e-de1c-45cd-b860-5524a6058a3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_country_of_origin
+    - node.type.partnering_opportunity
+id: node.partnering_opportunity.field_country_of_origin
+field_name: field_country_of_origin
+entity_type: node
+bundle: partnering_opportunity
+label: 'Country of Origin'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

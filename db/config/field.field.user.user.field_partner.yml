@@ -1,0 +1,21 @@
+uuid: 54f2042c-03b9-422e-8f44-ff53e6215283
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_partner
+  module:
+    - options
+    - user
+id: user.user.field_partner
+field_name: field_partner
+entity_type: user
+bundle: user
+label: Partner
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

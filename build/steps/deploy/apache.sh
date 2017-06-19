@@ -17,6 +17,7 @@ vhostDest=/etc/apache2/sites-available/$appid.conf
 cp VirtualHost $vhostDest
 
 sed -i "s@%APPLICATION_ENV%@$APPLICATION_ENV@" $vhostDest
+sed -i "s@%HOSTNAMEADMIN%@$hostnameadmin@" $vhostDest
 sed -i "s@%HOSTNAME%@$hostname@" $vhostDest
 sed -i "s@%HTDOCS%@$htdocs@" $vhostDest
 sed -i "s@%DOCROOT%@$docroot@" $vhostDest
@@ -56,12 +57,14 @@ if [ "$letsencrypt" = "yes" ] || [ -f "$certpath.crt" ]; then
         # generate a letsencrypt certificate
         cert="/etc/letsencrypt/live/$hostname/fullchain.pem"
         key="/etc/letsencrypt/live/$hostname/privkey.pem"
+        csr="/etc/letsencrypt/live/$hostname/chain.pem"
 
         if [ -f $cert ] ; then
             echo "letsencrypt certificate for $hostname and www.$hostname already exists at: $cert"
         else
             echo "Creating letsencrypt certificate for $hostname and www.$hostname"
-            letsencrypt --authenticator webroot --installer apache certonly -w $docroot -d $hostname -d www.$hostname --agree-tos --email sysadmin@aerian.com
+            #letsencrypt --authenticator webroot --installer apache certonly -w $docroot -d $hostname -d www.$hostname --agree-tos --email sysadmin@aerian.com
+            letsencrypt --authenticator webroot --installer apache certonly -w $docroot -d $hostname --agree-tos --email sysadmin@aerian.com
         fi
     fi
 
@@ -77,11 +80,13 @@ if [ "$letsencrypt" = "yes" ] || [ -f "$certpath.crt" ]; then
 
     sed -i "s@%IP%@$ip@" $vhostDestSSL
     sed -i "s@%APPLICATION_ENV%@$APPLICATION_ENV@" $vhostDestSSL
+    sed -i "s@%HOSTNAMEADMIN%@$hostnameadmin@" $vhostDestSSL
     sed -i "s@%HOSTNAME%@$hostname@" $vhostDestSSL
     sed -i "s@%HTDOCS%@$htdocs@" $vhostDestSSL
     sed -i "s@%DOCROOT%@$docroot@" $vhostDestSSL
     sed -i "s@%CERT%@$cert@" $vhostDestSSL
     sed -i "s@%KEY%@$key@" $vhostDestSSL
+    sed -i "s@%CSR%@$csr@" $vhostDestSSL
             
     # revert certain vhost directives for apache 2.2
     if [ "$apacheversion" = "2.2" ]; then

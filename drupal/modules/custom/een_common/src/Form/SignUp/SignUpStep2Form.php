@@ -52,6 +52,7 @@ class SignUpStep2Form extends AbstractForm
                 '#type'          => 'textfield',
                 '#title'         => t('Company Name'),
                 '#label_display' => 'before',
+                '#required'       => true,
                 '#attributes'    => [
                     'class'       => [
                         'form-control ch_search',
@@ -80,6 +81,17 @@ class SignUpStep2Form extends AbstractForm
                     ],
                 ],
             ],
+
+            'no_company_number' => [
+                '#type'  => 'checkbox',
+                '#title' => t('I do not have a company number'),
+                '#attributes'               => [
+                    'class' => [
+                        'no_company_number',
+                    ],
+                ],
+            ],
+
             'company_number' => [
                 '#type'          => 'textfield',
                 '#title'         => t('Company number'),
@@ -141,6 +153,7 @@ class SignUpStep2Form extends AbstractForm
         $this->session->set('step2', true);
         $this->session->set('company_name', $form_state->getValue('company_name'));
         $this->session->set('company_number', $form_state->getValue('company_number'));
+        $this->session->set('no_company_number', $form_state->getValue('no_company_number'));
         $this->session->set('website', $form_state->getValue('website'));
         $this->session->set('company_phone', $form_state->getValue('company_phone'));
     }

@@ -32,19 +32,42 @@
     <title>{{ head_title|safe_join(' | ') }}</title>
     <css-placeholder token="{{ placeholder_token|raw }}">
     <js-placeholder token="{{ placeholder_token|raw }}">
-</head>
+
+    <script>(function(n,t,i,r){var u,f;n[i]=n[i]||{},n[i].initial={accountCode:"AERIA11119",host:"AERIA11119.pcapredict.com"},n[i].on=n[i].on||function(){(n[i].onq=n[i].onq||[]).push(arguments)},u=t.createElement("script"),u.async=!0,u.src=r,f=t.getElementsByTagName("script")[0],f.parentNode.insertBefore(u,f)})(window,document,"pca","//AERIA11119.pcapredict.com/js/sensor.js")</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-M7ZLSX');</script>
+    <!-- End Google Tag Manager -->
+
+
+    </head>
 <body{{ attributes }}>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M7ZLSX"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 {#
   Keyboard navigation/accessibility link to main content section in
   page.html.twig.
 #}
-<a href="#main-content" class="visually-hidden focusable">
+<a tabindex="0" href="#main-content" class="visually-hidden focusable">
     {% if skip_text is not null %}
         {{ skip_text }}
     {% else %}
         {{ 'Skip to main content'|t }}
     {% endif %}
 </a>
+
+<div class="sneaky-peak">
+    <p>This website prototype works like our <a href="https://www.enterprise-europe.co.uk">existing site.</a> Feedback very welcome via icon bottom right of screen</p>
+</div>
+
 {{ page_top }}
 {{ page }}
 {{ page_bottom }}

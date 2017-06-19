@@ -1,0 +1,16 @@
+name: Workbench Access
+type: module
+description: Hierarchical access control module.
+# core: 8.x
+package: Workbench
+
+dependencies:
+  - node
+  - taxonomy
+  - options
+
+# Information added by Drupal.org packaging script on 2017-03-12
+version: '8.x-1.0-alpha3'
+core: '8.x'
+project: 'workbench_access'
+datestamp: 1489345686

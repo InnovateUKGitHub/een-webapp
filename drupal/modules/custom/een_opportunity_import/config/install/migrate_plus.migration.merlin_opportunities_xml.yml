@@ -1,0 +1,72 @@
+id: merlin_opportunities_xml
+label: REST service providing opportunities.
+migration_group: een_opportunities
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: merlin_xml
+  urls: http://een.ec.europa.eu/tools/services/podv6/QueryService.svc/GetProfiles?u=UK00774&p=c9a0974cb8ba283ea6e31ca3683f9ebf&sa=20170310
+  item_selector: /pod/profile
+  fields:
+    -
+      name: machine_name
+      label: 'Unique opportunity identifier'
+      selector: reference/external
+    -
+      name: opportunity_title
+      label: 'Opportunity Title'
+      selector: content/title
+    -
+      name: opportunity_body
+      label: 'Opportunity Body'
+      selector: content/description
+    -
+      name: country_of_origin
+      label: 'Country of Origin'
+      selector: company/country/label
+    - 
+      name: opportunity_created_date
+      label: 'Opportunity Created Date'
+      selector: datum/submit
+    -
+      name: opportunity_deadline_date
+      label: 'Opportunity Deadline Date'
+      selector: datum/deadline
+    -
+      name: opportunity_expertise_sought
+      label: 'Expertise Sought'
+      selector: cooperation/partner/area
+    - 
+      name: opportunity_ipr
+      label: 'Intellectual Property Rights'
+      selector: cooperation/ipr/status
+    -
+      name: opportunity_advantages
+      label: 'Advantages and Innovations'
+      selector: cooperation/plusvalue
+    -
+      name: opportunity_stage
+      label: 'Development Stage'
+      selector: cooperation/stagedev/stage
+  ids:
+    machine_name:
+      type: string
+process:
+  id: machine_name
+  title: opportunity_title
+  type: 
+    plugin: default_value
+    default_value: partnering_opportunity
+  body: opportunity_body
+  field_event_type:
+    plugin: default_value
+    default_value: imported
+  field_country_of_origin: country_of_origin
+  field_opportunity_id: machine_name
+  field_partner_expertise_sought: opportunity_expertise_sought
+  field_intellectual_property: opportunity_ipr
+  field_advantages_and_innovations: opportunity_advantages
+  field_development_stage: opportunity_stage
+destination:
+  plugin: entity:node
+migration_dependencies: {}

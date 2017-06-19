@@ -1,0 +1,28 @@
+uuid: 8e6c3cea-23ee-4d37-aa3a-8949e7f950c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.homepage_quote.field_quote
+    - node.type.homepage_quote
+  module:
+    - field_formatter_class
+    - user
+id: node.homepage_quote.default
+targetEntityType: node
+bundle: homepage_quote
+mode: default
+content:
+  field_quote:
+    weight: 101
+    label: hidden
+    settings:
+      view_mode: token
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    type: entity_reference_entity_view
+hidden:
+  links: true
+  sharethis: true

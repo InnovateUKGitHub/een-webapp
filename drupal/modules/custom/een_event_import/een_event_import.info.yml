@@ -1,0 +1,9 @@
+type: module
+name: EEN Event Import
+description: 'Imports events from various sources into Drupal using the Migrate API'
+package: EEN
+core: 8.x
+dependencies:
+  - drupal:migrate (>=8.2)
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools

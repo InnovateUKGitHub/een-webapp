@@ -106,7 +106,7 @@ $settings['rebuild_access'] = FALSE;
  */
 $settings['skip_permissions_hardening'] = TRUE;
 
-error_reporting(-1);
-$conf['error_level'] = 2;
-ini_set('display_errors', true);
-ini_set('display_startup_errors', true);
+error_reporting(0);
+$conf['error_level'] = 1;
+ini_set('display_errors', false);
+ini_set('display_startup_errors', false);

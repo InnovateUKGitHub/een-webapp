@@ -244,7 +244,7 @@
  *   );
  * @endcode
  */
-$config_directories = array();
+# $config_directories = array();
 
 /**
  * Settings:
@@ -749,6 +749,9 @@ $settings['file_scan_ignore_directories'] = [
  *
  * Keep this code block at the end of this file to take full effect.
  */
-if (file_exists(__DIR__ . '/settings.local.php')) {
-    include __DIR__ . '/settings.local.php';
+#
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+    include $app_root . '/' . $site_path . '/settings.local.php';
 }
+
+$config_directories['sync'] = '../db/config';

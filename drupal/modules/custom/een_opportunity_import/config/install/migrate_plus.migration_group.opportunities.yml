@@ -1,0 +1,7 @@
+id: een_opportunities
+label: Opportunity Imports
+description: Opportunity imports from various sources
+source_type: External API's
+shared_configuration:
+  source:
+    key: default

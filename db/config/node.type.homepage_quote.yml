@@ -1,0 +1,17 @@
+uuid: 3df37e61-fd5e-478a-9a1f-634135138d2d
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Home Page banner quote'
+type: homepage_quote
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

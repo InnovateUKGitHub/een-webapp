@@ -1,0 +1,19 @@
+uuid: 2c4e8d66-920e-4d1e-909a-996a2bb45693
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_quote_company
+    - node.type.quote
+id: node.quote.field_quote_company
+field_name: field_quote_company
+entity_type: node
+bundle: quote
+label: 'Quote Company'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

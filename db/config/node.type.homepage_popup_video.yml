@@ -1,0 +1,17 @@
+uuid: dab55240-026f-4304-bfe5-3eec3078aaf9
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Home Page popup video'
+type: homepage_popup_video
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

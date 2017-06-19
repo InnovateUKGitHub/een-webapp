@@ -1,0 +1,83 @@
+<div class="content-heading">
+    <h1>{{ 'Partnering opportunities'|t }}</h1>
+    <h2 tabindex="0" class="heading-large">{{ 'Find a business to partner with, globally'|t }}</h2>
+    <h3 tabindex="0">{{ 'Search for SME and academic partners to manufacture, distribute, co-develop and supply your products, ideas and business.'|t }}</h3>
+
+
+    <div class="how-it-works">
+        <p class="js-toggle-handle toggle-handle">
+            How it works
+            <a class="js-toggle-state toggle-state state--state-closed">Expand</a>
+            <a class="js-toggle-state toggle-state state--state-open hide">Hide information</a>
+        </p>
+        <div class="js-toggle-content toggle-content">
+            <ol>
+                <li><span class="number">1</span> <span class="step">Search our global partnership database to find relevant opportunities</span></li>
+                <li><span class="number">2</span> <span class="step">Express your interest by telling us about your company</span></li>
+                <li><span class="number">3</span> <span class="step">We collate responses and introduce matched partners to each other</span></li>
+            </ol>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+
+<div class="grid-row">
+    <div class="column-fullwidth">
+        <div class="column-full">
+            <div class="search-container" id="auto-1">
+                {{ form }}
+                <p class="sb-results-wrapper ss-results-wrapper"><span tabindex="0" class="sb-results" aria-live="assertive"></span></p>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="results-list latest">
+    <div class="grid-row">
+        <div class="column-one-third">
+            <h3 class="heading-medium single-header-one-col">Latest opportunities</h3>
+        </div>
+        <div class="column-two-thirds">
+
+            {% for row in results %}
+
+                <div class="row row-bordered" ng-show="!meta.searched"
+                     ng-class="{ transp: meta.paging || meta.searching }">
+                    <h3 class="results-list-heading-item" tabindex="0">
+                        <a href="/opportunities/{{row.id}}">
+                            {{ row.title|raw }}
+                        </a>
+                    </h3>
+
+                    <p class="description">{{ row.summary| truncate(240, true) | raw }} <a
+                                href="/opportunities/{{row.id}}">more</a>
+                    </p>
+
+                    <p class="meta-inline font-small">
+                        {# lastupdated #}
+                        {% if row.date|date('U') > '-5 days'|date('U') %}
+                            {{ row.date|time_diff }} |
+                        {% endif %}
+
+
+                        {# Country of origin #}
+                        {% set flag = row.country_code|lower %}
+                        {% if flag == 'uk' %}
+                            {% set flag = 'gb' %}
+                        {% endif %}
+                        <span class="flag-icon flag-icon-{{ flag }}"></span>
+                        {{ row.country }}
+                    </p>
+                </div>
+
+            {% endfor %}
+
+            <a href="/opportunities" class="button button--primary">View all opportunities</a>
+
+        </div>
+    </div>
+</div>
+

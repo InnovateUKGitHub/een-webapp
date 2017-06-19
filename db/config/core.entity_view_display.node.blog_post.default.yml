@@ -1,0 +1,162 @@
+uuid: 746a86a0-9495-4cd4-9079-db977a4fea24
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.comment.comment.default
+    - field.field.node.blog_post.body
+    - field.field.node.blog_post.comment
+    - field.field.node.blog_post.field_copyrighted_image
+    - field.field.node.blog_post.field_full_width_quote
+    - field.field.node.blog_post.field_location
+    - field.field.node.blog_post.field_meta_tags
+    - field.field.node.blog_post.field_persona
+    - field.field.node.blog_post.field_tags
+    - field.field.node.blog_post.field_yoast_seo
+    - image.style.image_crop_style
+    - node.type.blog_post
+  module:
+    - comment
+    - een_custom_fields
+    - field_formatter_class
+    - field_group
+    - metatag
+    - options
+    - text
+    - user
+    - yoast_seo
+third_party_settings:
+  field_group:
+    group_header:
+      children: {  }
+      parent_name: ''
+      weight: 0
+      format_type: html_element
+      format_settings:
+        label: blog-lede
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: blog-lede
+      label: blog-lede
+    group_blog_feature_image:
+      children:
+        - field_copyrighted_image
+      parent_name: ''
+      weight: 2
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: blog-image
+        element: figure
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: blog-feature-image
+    group_body_content:
+      children:
+        - body
+        - field_tags
+        - field_meta_tags
+        - comment
+      parent_name: ''
+      weight: 4
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: body-content
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: body-content
+id: node.blog_post.default
+targetEntityType: node
+bundle: blog_post
+mode: default
+content:
+  body:
+    type: text_default
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+  comment:
+    weight: 6
+    label: visually_hidden
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    type: comment_default
+  field_copyrighted_image:
+    weight: 2
+    label: visually_hidden
+    settings:
+      image_style: image_crop_style
+      image_link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: copyrighted-image
+    type: copyright_image
+  field_full_width_quote:
+    weight: 8
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: full-width-quote
+    type: text_default
+  field_meta_tags:
+    weight: 5
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+  field_persona:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: full-width-quote
+    type: list_default
+  field_tags:
+    weight: 4
+    label: hidden
+    settings:
+      link: true
+    third_party_settings:
+      field_formatter_class:
+        class: tags
+    type: entity_reference_label
+  field_yoast_seo:
+    weight: 5
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: yoastseo_formatter
+  links:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  workbench_moderation_control:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_location: true

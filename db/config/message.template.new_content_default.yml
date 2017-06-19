@@ -1,0 +1,22 @@
+uuid: 4fae25b5-22e3-4ce9-b15f-d3c55be1db38
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: aybrDUEKfisteyJWQvrUG3Syx9a72JXWv5kwTCXWMCM
+template: new_content_default
+label: new_content_default
+description: 'Default notification message for new content'
+text:
+  -
+    value: "<p>New content has been added to EEN</p>\r\n"
+    format: basic_html
+  -
+    value: "<p>Hi There,</p>\r\n\r\n<p>This is a notification that a new piece of content called [message:node-title] has been added to EEN.</p>\r\n\r\n<p>You can view the new content here: [message:node-url]</p>\r\n\r\n<p>Regards</p>\r\n\r\n<p>EEN</p>\r\n"
+    format: basic_html
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

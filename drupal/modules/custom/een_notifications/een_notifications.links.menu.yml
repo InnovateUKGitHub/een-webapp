@@ -1,0 +1,6 @@
+een_notifictaions.module_settings:
+  title: 'EEN Notifications'
+  parent: system.admin_config_system
+  description: 'EEN Notifications Settings.'
+  route_name: een_notifications.module_settings
+  weight: -20

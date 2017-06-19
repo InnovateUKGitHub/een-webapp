@@ -1,0 +1,7 @@
+id: een_events
+label: Event Imports
+description: Event imports from various sources
+source_type: External API's
+shared_configuration:
+  source:
+    key: default

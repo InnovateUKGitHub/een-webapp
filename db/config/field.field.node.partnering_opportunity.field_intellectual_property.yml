@@ -1,0 +1,19 @@
+uuid: 361669b4-9262-4c85-b47d-0ce751d925c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_intellectual_property
+    - node.type.partnering_opportunity
+id: node.partnering_opportunity.field_intellectual_property
+field_name: field_intellectual_property
+entity_type: node
+bundle: partnering_opportunity
+label: 'Intellectual Property Rights'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

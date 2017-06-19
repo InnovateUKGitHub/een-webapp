@@ -1,0 +1,56 @@
+uuid: 6d6dd8b9-0a64-412f-8f02-be08aab7fdb3
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.success_story.body
+    - field.field.node.success_story.field_copyrighted_image
+    - field.field.node.success_story.field_full_width_quote
+    - field.field.node.success_story.field_hero_stats
+    - field.field.node.success_story.field_location
+    - field.field.node.success_story.field_meta_tags
+    - field.field.node.success_story.field_persona
+    - field.field.node.success_story.field_tags
+    - field.field.node.success_story.field_yoast_seo
+    - image.style.large
+    - node.type.success_story
+  module:
+    - een_custom_fields
+    - field_formatter_class
+    - user
+id: node.success_story.token
+targetEntityType: node
+bundle: success_story
+mode: token
+content:
+  field_copyrighted_image:
+    weight: 102
+    label: visually_hidden
+    settings:
+      image_style: large
+      image_link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: copyrighted-image
+    type: copyright_image
+  field_tags:
+    weight: 105
+    label: hidden
+    settings:
+      link: true
+    third_party_settings:
+      field_formatter_class:
+        class: tags
+    type: entity_reference_label
+hidden:
+  body: true
+  field_full_width_quote: true
+  field_hero_stats: true
+  field_location: true
+  field_meta_tags: true
+  field_persona: true
+  field_yoast_seo: true
+  links: true
+  sharethis: true
+  workbench_moderation_control: true

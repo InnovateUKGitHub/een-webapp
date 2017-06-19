@@ -1,0 +1,47 @@
+<?php
+
+use Drupal\node\Entity\Node;
+use Drupal\message\Entity\Message;
+
+/**
+ * @file
+ * Custom notifications for the EEN project
+ */
+
+/**
+ * Implements hook_node_insert().
+ */
+function een_notifications_node_insert(Node $node) {
+  if(_een_notifications_check_enabled()) {
+    $message = Message::create(['template' => 'new_content_default', 'uid' => $node->get('uid')]);
+    $message->set('field_node_reference', $node);
+    $message->set('field_recipient', \Drupal::currentUser()->id());
+    $message->set('field_sender', \Drupal::currentUser()->id());
+    $message->save();
+    _een_notifications_send_message($message);
+  }
+}
+
+/**
+ * Wrapper for message_notify
+ * 
+ * @param type $message
+ */
+function _een_notifications_send_message($message) {
+  \Drupal::service('message_notify.sender')->send($message, ['mail' => 'andrew.clark@innovateuk.gov.uk'], 'email');
+}
+
+/**
+ * Helper function to check if notifications are enabled
+ * 
+ * @return boolean
+ */
+function _een_notifications_check_enabled() {
+  $config = \Drupal::config('een_notifications.settings');
+  if($config->get('enable_notifications') === 1) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}

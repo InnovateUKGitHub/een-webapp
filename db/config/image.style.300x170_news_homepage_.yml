@@ -1,0 +1,14 @@
+uuid: 17eb1e3c-a492-41a7-9ab5-9a490d861ea5
+langcode: en
+status: true
+dependencies: {  }
+name: 300x170_news_homepage_
+label: '300x170 (news homepage)'
+effects:
+  9e2a304a-bf8d-4db8-a61c-9d324bdb3d98:
+    uuid: 9e2a304a-bf8d-4db8-a61c-9d324bdb3d98
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 300
+      height: 170

@@ -5,14 +5,4 @@
 #
 ####################################
 
-cd $htdocs
-
-sqldir=$htdocs/db/delta
-
-# run database deltas?
-if [ -d $sqldir ]; then
-
-    #TODO Update db with new value
-    echo "Updating Database"
-
-fi
+$htdocs/db/setup.sh

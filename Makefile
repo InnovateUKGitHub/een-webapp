@@ -21,11 +21,11 @@ build: install
 
 install:
 	@sh -c "echo ';zend_extension=xdebug.so' | sudo tee /etc/php/5.6/cli/conf.d/20-xdebug.ini"
-	@sh -c "./build/1-compile.sh"
-	@sh -c "sudo APPLICATION_ENV=development_vagrant ./build/2-deploy.sh"
+	@sh -c "./build/local/1-compile.sh"
+	@sh -c "sudo APPLICATION_ENV=development_vagrant ./build/local/2-deploy.sh"
 	@sh -c "sudo chown -R vagrant:vagrant /home/vagrant/.drush"
 	@sh -c "echo 'zend_extension=xdebug.so' | sudo tee /etc/php/5.6/cli/conf.d/20-xdebug.ini"
-	@sh -c "./build/3-test.sh"
+	@sh -c "./build/local/3-test.sh"
 	@sh -c "./build/6-copy-file.sh"
 
 gulp:
@@ -33,7 +33,7 @@ gulp:
 	@sh -c "./build/steps/compile/gulp.sh"
 
 test:
-	@sh -c "./build/3-test.sh"
+	@sh -c "./build/local/3-test.sh"
 
 ################################################################################
 #                                                                              #
@@ -54,9 +54,16 @@ install-module:
 delete-module:
 	@sh -c "cd drupal && $(DRUSH) pm-uninstall een_common opportunities events service_connection -y"
 
+delete-twig:
+	@sh -c "cd drupal && $(DRUSH) pm-uninstall twig_extensions -y"
+
 install-dependencies:
 	@echo "Installing dependencies..."
-	@sh -c "cd drupal && composer install --optimize-autoloader"
+	@sh -c "cd drupal && ../bin/composer install --optimize-autoloader"
+
+update-dependencies:
+	@echo "Installing dependencies..."
+	@sh -c "cd drupal && ../bin/composer update --optimize-autoloader"
 
 default-admin:
 	@echo "Changing default user admin password..."
@@ -68,12 +75,12 @@ delete-shortcut:
 
 import-config:
 	@echo "Importing configuration..."
-	@sh -c "cd drupal && $(DRUSH) cset system.site uuid $(UUID) -y"
-	@sh -c "cd drupal && $(DRUSH) config-import deploy -y"
+	@sh -c "cd drupal && $(DRUSH) config-import -y"
 
 export-config:
 	@echo "Exporting configuration..."
-	@sh -c "cd drupal && $(DRUSH) config-export deploy -y"
+	@sh -c "cd drupal && $(DRUSH) config-export -y"
+
 
 export-sql:
 	@echo "Exporting database..."
@@ -82,6 +89,7 @@ export-sql:
 update-entity:
 	@echo "Updating database..."
 	@sh -c "cd drupal && $(DRUSH) entity-updates -y"
+
 
 ################################################################################
 #                                                                              #

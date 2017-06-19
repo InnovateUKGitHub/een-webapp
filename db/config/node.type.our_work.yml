@@ -1,0 +1,17 @@
+uuid: b6fcff4a-8565-460f-bd4a-a969ce50befe
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Our work (DO NOT ALTER)'
+type: our_work
+description: 'Do not edit/delete this content type.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

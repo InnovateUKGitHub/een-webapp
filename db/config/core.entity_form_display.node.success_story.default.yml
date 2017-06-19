@@ -1,0 +1,161 @@
+uuid: af1c3376-8e6c-4ad3-b0ff-30cac8d61eec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.success_story.body
+    - field.field.node.success_story.field_copyrighted_image
+    - field.field.node.success_story.field_full_width_quote
+    - field.field.node.success_story.field_hero_stats
+    - field.field.node.success_story.field_location
+    - field.field.node.success_story.field_meta_tags
+    - field.field.node.success_story.field_persona
+    - field.field.node.success_story.field_tags
+    - field.field.node.success_story.field_yoast_seo
+    - image.style.thumbnail
+    - node.type.success_story
+  module:
+    - een_custom_fields
+    - geolocation
+    - metatag
+    - path
+    - text
+    - workbench_moderation
+    - yoast_seo
+id: node.success_story.default
+targetEntityType: node
+bundle: success_story
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 2
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+  field_copyrighted_image:
+    weight: 6
+    settings:
+      show_default_crop: '1'
+      warn_multiple_usages: '1'
+      preview_image_style: thumbnail
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - landscape_16_9
+      progress_indicator: throbber
+      show_crop_area: 0
+    third_party_settings: {  }
+    type: image_copyright_image
+  field_full_width_quote:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_hero_stats:
+    weight: 4
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea_with_summary
+  field_location:
+    weight: 14
+    settings:
+      default_longitude: '0.1278'
+      default_latitude: '51.5074'
+      auto_client_location: '1'
+      auto_client_location_marker: '1'
+      allow_override_map_settings: 1
+      google_map_settings:
+        height: 400px
+        width: 100%
+        type: ROADMAP
+        zoom: '10'
+        maxZoom: 18
+        minZoom: 0
+        mapTypeControl: 1
+        streetViewControl: 1
+        zoomControl: 1
+        scrollwheel: 1
+        gestureHandling: auto
+        draggable: 1
+        style: ''
+        info_auto_display: 1
+        marker_icon_path: ''
+        disableAutoPan: 1
+        rotateControl: 0
+        fullscreenControl: 0
+        preferScrollingToZooming: 0
+        disableDoubleClickZoom: 0
+      populate_address_field: ''
+      target_address_field: null
+      explicite_actions_address_field: ''
+    third_party_settings: {  }
+    type: geolocation_googlegeocoder
+  field_meta_tags:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
+  field_persona:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_tags:
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_yoast_seo:
+    weight: 13
+    settings:
+      body: body
+    third_party_settings: {  }
+    type: yoast_seo_widget
+  path:
+    type: path
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 9
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 10
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 7
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

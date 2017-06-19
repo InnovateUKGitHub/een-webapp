@@ -1,0 +1,21 @@
+uuid: 9d78992d-05cf-4e6b-949f-08769de88060
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_partner_expertise_sought
+    - node.type.partnering_opportunity
+  module:
+    - text
+id: node.partnering_opportunity.field_partner_expertise_sought
+field_name: field_partner_expertise_sought
+entity_type: node
+bundle: partnering_opportunity
+label: 'Partner Expertise Sought'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

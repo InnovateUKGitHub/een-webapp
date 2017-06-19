@@ -89,11 +89,12 @@
     {{ title_suffix }}
     {% if display_submitted %}
       <div class="node__meta">
-        {{ author_picture }}
-        <span{{ author_attributes }}>
-          {% set createdDate = node.getCreatedTime|date('j F Y') %}
-          {{ createdDate }}
-        </span>
+            <span class="author-name">{{ author_name }}</span>  
+            <figure class="author-picture">{{ author_picture }}</figure>
+            <span{{ author_attributes }}>
+              {% set createdDate = node.getCreatedTime|date('j F Y') %}
+              {{ createdDate }}
+            </span>
         {{ metadata }}
       </div>
     {% endif %}

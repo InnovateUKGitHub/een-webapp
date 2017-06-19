@@ -1,0 +1,22 @@
+uuid: fa323db2-45bf-486e-91ab-e187b838b69d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.partnering_opportunity
+id: node.partnering_opportunity.status
+field_name: status
+entity_type: node
+bundle: partnering_opportunity
+label: 'Publishing status'
+description: 'A boolean indicating whether the node is published.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

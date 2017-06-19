@@ -65,11 +65,32 @@ class OpportunitiesService
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
         $countries = $request->query->get(self::COUNTRY);
 
-        if (is_array($countries) && current($countries) == 'anywhere') {
-            $countries = array_keys($this->getCountryList());
-        }
-        if (is_array($countries) && current($countries) == 'europe') {
-            $countries = $this->getEuropeCountryCode();
+
+        if ($countries) {
+            if (in_array('europe', $countries) || in_array('anywhere', $countries)) {
+
+                $europeanCountriesWithResults = [];
+                if (in_array('europe', $countries) && !in_array('anywhere', $countries) && current($countries) == 'europe') {
+
+                    $countries = array_keys($this->getCountryList());
+                    $europeFullList = $this->getEuropeCountryCode();
+
+                    foreach ($europeFullList as $country) {
+                        if (in_array($country, $countries)) {
+                            $europeanCountriesWithResults[] = $country;
+                        }
+                    }
+                    $countries = $europeanCountriesWithResults;
+
+                    array_push($countries, 'europe');
+                }
+
+                if (in_array('anywhere', $countries) && current($countries) == 'anywhere') {
+                    $countries = array_keys($this->getCountryList());
+                    array_push($countries, 'anywhere');
+                    array_push($countries, 'europe');
+                }
+            }
         }
 
         $results = $this->search($form, $search, $types, $countries, $page, $resultPerPage, 3);
@@ -86,6 +107,7 @@ class OpportunitiesService
             'form'             => $form,
             'results'          => $results['results'],
             'total'            => $results['total'],
+            'aggregations'     => $results['aggregations'],
             'pageTotal'        => (int)ceil($results['total'] / $resultPerPage),
             'page'             => $page,
             'resultPerPage'    => $resultPerPage,
@@ -120,6 +142,7 @@ class OpportunitiesService
      *
      * @return array|null
      */
+
     public function search(&$form, $search, $types, $countries, $page, $resultPerPage, $searchType = 1)
     {
         $form['search']['#value'] = $search;
@@ -184,8 +207,9 @@ class OpportunitiesService
     private function reformatResults($results)
     {
         $response = [
-            'total'   => $results['total'],
-            'results' => [],
+            'total'        => $results['total'],
+            'results'      => [],
+            'aggregations' => $results['aggregations'],
         ];
 
         if (isset($results['results']) === false) {
@@ -237,7 +261,9 @@ class OpportunitiesService
      */
     public function getCountryList()
     {
-        return $this->service->execute(Request::METHOD_GET, 'countries');
+        $countryList = $this->service->execute(Request::METHOD_GET, 'countries');
+        asort($countryList);
+        return $countryList;
     }
 
     /**
@@ -247,17 +273,34 @@ class OpportunitiesService
      */
     public function verifyEmail($email, $token, $profileId)
     {
+      $url = Url::fromRoute('opportunities.details', array('profileId' => $profileId, 'token' => $token));
+      $url->setAbsolute();
+      $link = $url->toString();
+      $content = '    <p class="c8">
+        <span class="c2">' . $token . '</span>
+        </p>
+        <p class="c1">
+            <span class="c0"></span>
+        </p>
+        <p class="c3">
+            <span>Just enter this number into the 6 digit field </span>
+            <span class="c5 c4"><a href="' . $link . '">here</a></span>
+            <span class="c4">&nbsp;</span>
+            <span class="c0">to continue your application. </span>
+        </p>
+        <p class="c1">
+            <span class="c0"></span>
+        </p>
+        <p class="c3">
+            <span class="c0">Link not working? Copy and paste this code into your browser: ' . $link . '</span>
+        </p>
+      ';
+      
         $params = [
             'template' => 'email-verification-opportunity',
             'email'    => $email,
-            'url'      => \Drupal::request()->getSchemeAndHttpHost() .
-                Url::fromRoute(
-                    'opportunities.details',
-                    [
-                        'token'     => $token,
-                        'profileId' => $profileId,
-                    ]
-                )->toString(),
+            'url'      => $content,
+            'token'    => $token
         ];
 
         try {
@@ -265,6 +308,32 @@ class OpportunitiesService
         } catch (\Exception $e) {
             drupal_set_message('There was a problem while sending the email, please try later.', 'error');
         }
+    }
+
+        /**
+     * @param string $email
+     * @param string $token
+     * @param string $profileId
+     */
+    public function sendNotificationEmail($email, $token, $profileId, $data)
+    {
+      $dataHTML = '<table>';
+      foreach($data as $key => $value) {
+        $dataHTML .= '<tr><td>' . $key . '</td><td>' . $value . '</td></tr>';
+      }
+      $dataHTML .= '</table>';
+      $params = [
+          'template' => 'email-notification-opportunity',
+          'email'    => $email,
+          'url'      => $dataHTML,
+          'token'   => $token,
+      ];
+
+      try {
+          $this->service->execute(Request::METHOD_POST, 'email-verification', $params);
+      } catch (\Exception $e) {
+          drupal_set_message('There was a problem while sending the email, please try later.', 'error');
+      }
     }
 
     /**
@@ -285,5 +354,24 @@ class OpportunitiesService
     public function convertLead($data)
     {
         return $this->service->execute(Request::METHOD_POST, 'contact', $data);
+    }
+
+
+    public function autosuggest($search) {
+
+        $esr = array();
+        $esr['search'] = $search;
+        $esr['size'] = 0;
+
+        $results = $this->service->execute(Request::METHOD_POST, 'opportunities', $esr);
+
+
+        if(isset($results['aggregations']['autocomplete']['buckets'])){
+            if(count($results['aggregations']['autocomplete']['buckets'])){
+                return $results['aggregations']['autocomplete']['buckets'];
+            }
+        }
+
+        return null;
     }
 }

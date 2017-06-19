@@ -1,0 +1,84 @@
+uuid: ff1d77b8-8a6d-4fb1-bc7c-4116326f59f2
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - user
+id: user.field_partner
+field_name: field_partner
+entity_type: user
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: UK00075
+      label: 'BIC Innovation'
+    -
+      value: UK00080
+      label: 'Birmingham Chamber of Commerce and Industry'
+    -
+      value: UK00313
+      label: 'Business West Ltd'
+    -
+      value: UK00147
+      label: 'ChamberLink Ltd T/A Business Support Solutions'
+    -
+      value: UK00195
+      label: 'City of Bradford Metropolitan District Council'
+    -
+      value: UK00220
+      label: 'Coventry University Enterprises Ltd'
+    -
+      value: UK00229
+      label: 'East Midlands Chamber (Derbyshire, Nottinghamshire, Leicestershire)'
+    -
+      value: UK00276
+      label: 'Exemplas Holdings Ltd'
+    -
+      value: UK00311
+      label: Newable
+    -
+      value: UK00583
+      label: 'Greenwich Research and Enterprise - University of Greenwich'
+    -
+      value: UK00774
+      label: 'Innovate UK'
+    -
+      value: UK00773
+      label: 'Inventya Ltd'
+    -
+      value: UK00371
+      label: 'Invest Northern Ireland'
+    -
+      value: UK00540
+      label: 'London Chamber of Commerce'
+    -
+      value: UK00452
+      label: 'Oxford Innovation Services Ltd'
+    -
+      value: UK00474
+      label: 'RTC North Ltd'
+    -
+      value: UK00775
+      label: 'St John’s Innovation Centre Ltd'
+    -
+      value: UK00518
+      label: 'Swansea University'
+    -
+      value: UK00534
+      label: 'Teeside university'
+    -
+      value: UK00581
+      label: 'University College London'
+    -
+      value: UK00772
+      label: 'West & North Yorkshire Chamber of Commerce'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

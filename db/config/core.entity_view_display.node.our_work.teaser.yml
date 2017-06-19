@@ -1,0 +1,20 @@
+uuid: d42ca133-e784-4d22-97cc-dfe8a6a501b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.our_work
+  module:
+    - user
+id: node.our_work.teaser
+targetEntityType: node
+bundle: our_work
+mode: teaser
+content:
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+hidden:
+  field_our_work: true

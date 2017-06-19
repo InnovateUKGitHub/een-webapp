@@ -3,6 +3,7 @@
     ServerAdmin sysadmin@aerian.com
     ServerName %HOSTNAME%
     ServerAlias www.%HOSTNAME%
+    ServerAlias %HOSTNAMEADMIN%
          
     AliasMatch ^/v(\d+)\.(\d+)(\.(\d+))*/(.*) %DOCROOT%/$5
 
@@ -32,7 +33,8 @@
 
     SSLEngine On
     SSLCertificateFile %CERT%
-    SSLCertificateKeyFile %KEY% 
+    SSLCertificateKeyFile %KEY%
+    SSLCertificateChainFile %CSR% 
 
     <IfModule php5_module>
         php_value newrelic.appname "%HOSTNAME%"

@@ -1,0 +1,21 @@
+uuid: 6b9d02d9-e696-4d85-9dc4-74c59873802f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_persona
+    - node.type.news
+  module:
+    - options
+id: node.news.field_persona
+field_name: field_persona
+entity_type: node
+bundle: news
+label: 'This page is written for'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

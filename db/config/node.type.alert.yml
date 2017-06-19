@@ -1,0 +1,17 @@
+uuid: f80b5ad4-9872-4a5d-8322-2be77ed24121
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Footer Alert'
+type: alert
+description: 'This will be an alert to be displayed at the foot of the view, used for latest news.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

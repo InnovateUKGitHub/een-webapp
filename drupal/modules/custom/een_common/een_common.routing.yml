@@ -4,6 +4,71 @@ een.contact:
    _controller: '\Drupal\een_common\Controller\ContactController::index'
  requirements:
    _permission: 'access content'
+   
+article.page1:
+ path: '/article/1'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\ArticleController::page1'
+ requirements:
+   _permission: 'access content'
+   
+article.page2:
+ path: '/article/2'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\ArticleController::page2'
+ requirements:
+   _permission: 'access content'
+   
+article.page3:
+ path: '/article/3'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\ArticleController::page3'
+ requirements:
+   _permission: 'access content'
+   
+article.page4:
+ path: '/article/4'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\ArticleController::page4'
+ requirements:
+   _permission: 'access content'
+
+success_story:
+ path: '/success-story'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SuccessStoryController::index'
+ requirements:
+   _permission: 'access content'
+
+
+success_story.page1:
+ path: '/case-studies/1'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SuccessStoryController::page1'
+ requirements:
+   _permission: 'access content'
+
+success_story.page2:
+ path: '/case-studies/2'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SuccessStoryController::page2'
+ requirements:
+   _permission: 'access content'
+
+success_story.page3:
+ path: '/case-studies/3'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SuccessStoryController::page3'
+ requirements:
+   _permission: 'access content'
+
+
+sign-up.steps:
+ path: '/sign-up/{type}/{id}/steps'
+ defaults:
+   _controller: '\Drupal\een_common\Controller\SignUpController::steps'
+ requirements:
+   _permission: 'access content'
 
 sign-up.step1:
  path: '/sign-up/{type}/{id}/step1'

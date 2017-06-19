@@ -1,0 +1,9 @@
+uuid: 818c30e1-7f3e-4a72-b6b1-3f2a33bbed13
+langcode: en
+status: true
+dependencies: {  }
+name: 'Event Source'
+vid: event_source
+description: ''
+hierarchy: 0
+weight: 0

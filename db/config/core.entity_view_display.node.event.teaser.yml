@@ -1,0 +1,40 @@
+uuid: 0fed2df4-f20c-46ff-bcfc-2029e750505c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.event.body
+    - node.type.event
+  module:
+    - text
+    - user
+id: node.event.teaser
+targetEntityType: node
+bundle: event
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+  workbench_moderation_control:
+    weight: -20
+hidden:
+  field_copyrighted_image: true
+  field_event_date: true
+  field_event_import_source: true
+  field_event_price: true
+  field_event_source: true
+  field_event_type: true
+  field_event_url: true
+  field_location: true
+  field_meta_tags: true
+  field_yoast_seo: true

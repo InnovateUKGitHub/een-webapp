@@ -1,0 +1,29 @@
+uuid: 47f9d21f-ceeb-442a-b49b-f15c4d7792c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.homepage_quote.field_quote
+    - node.type.homepage_quote
+  module:
+    - field_formatter_class
+    - user
+id: node.homepage_quote.token
+targetEntityType: node
+bundle: homepage_quote
+mode: token
+content:
+  field_quote:
+    weight: 101
+    label: hidden
+    settings:
+      view_mode: token
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    type: entity_reference_entity_view
+hidden:
+  links: true
+  sharethis: true

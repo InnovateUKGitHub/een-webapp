@@ -4,10 +4,11 @@
     "type": "project",
     "license": "GPL-2.0+",
     "require": {
-        "composer/installers": "^1.0.21",
+        "composer/installers": "^1.2.0",
         "wikimedia/composer-merge-plugin": "~1.3",
         "zendframework/zend-http": "^2.5",
-        "twig/extensions": "^1.4"
+        "twig/extensions": "^1.4.1",
+        "aws/aws-sdk-php": "^3.28"
     },
     "replace": {
         "drupal/core": "~8.2"
@@ -25,7 +26,8 @@
         ],
         "merge-plugin": {
             "include": [
-                "core/composer.json"
+                "core/composer.json",
+                "modules/elasticsearch_connector/composer.json"
             ],
             "recurse": false,
             "replace": false,

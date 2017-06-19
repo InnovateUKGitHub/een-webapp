@@ -1,0 +1,118 @@
+uuid: 95d97883-525a-44ca-8e5d-54178dfe5347
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.latest_view
+    - field.field.node.news.body
+    - field.field.node.news.field_copyrighted_image
+    - field.field.node.news.field_full_width_quote
+    - field.field.node.news.field_location
+    - field.field.node.news.field_meta_tags
+    - field.field.node.news.field_persona
+    - field.field.node.news.field_tags
+    - field.field.node.news.field_yoast_seo
+    - image.style.latest_index
+    - node.type.news
+  module:
+    - een_custom_fields
+    - field_formatter_class
+    - field_group
+    - metatag
+    - text
+    - user
+    - yoast_seo
+third_party_settings:
+  field_group:
+    group_promo_:
+      children:
+        - field_copyrighted_image
+      parent_name: ''
+      weight: 0
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: promo-image
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: promo-image
+    group_body_content:
+      children:
+        - body
+        - field_tags
+        - field_yoast_seo
+      parent_name: ''
+      weight: 1
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: body-content
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: body-content
+id: node.news.latest_view
+targetEntityType: node
+bundle: news
+mode: latest_view
+content:
+  body:
+    label: hidden
+    type: text_trimmed
+    weight: 5
+    settings:
+      trim_length: 400
+    third_party_settings:
+      field_formatter_class:
+        class: latest-content
+  field_copyrighted_image:
+    weight: 6
+    label: above
+    settings:
+      image_style: latest_index
+      image_link: content
+    third_party_settings:
+      field_formatter_class:
+        class: copyrighted-image
+    type: copyright_image
+  field_meta_tags:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+  field_tags:
+    weight: 6
+    label: hidden
+    settings:
+      link: true
+    third_party_settings:
+      field_formatter_class:
+        class: tags
+    type: entity_reference_label
+  field_yoast_seo:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: yoastseo_formatter
+  links:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+  workbench_moderation_control:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_full_width_quote: true
+  field_location: true
+  field_persona: true
+  sharethis: true

@@ -1,0 +1,134 @@
+.email-verification-sent {
+    background:white;
+    border:1px solid green;
+    padding:15px;
+}
+
+.login-type {
+    min-height:130px;
+    padding:15px;
+    margin-bottom:7px;
+    background-position:480px 10px;
+    background-image:url('../img/robot.jpg');
+    background-repeat:no-repeat;
+    background-color:$dark-blue;
+    color:white;
+    label, h3 {
+        color:white;
+    }
+    input[type='radio'] {
+        position:relative;
+        top:-1px;
+    }
+    h3 {
+        margin:5px 0 18px 0;
+    }
+    label.selected {
+      background: none;
+      z-index: 0;
+    }
+    label {
+        display:block;
+        margin-bottom:16px;
+        input {
+            margin-right:10px;
+        }
+    }
+}
+.login-block {
+    border: solid 1px #e0f0f9;
+    border-bottom:solid 6px $govuk-blue;
+    overflow: hidden;
+    padding:16px;
+    margin-bottom: 30px;
+    background: #f5fafd;
+}
+.verify-email {
+    border:solid 1px $status-background;
+    overflow:hidden;
+    border-top:solid 6px $govuk-blue;
+    padding:16px;
+    margin-bottom:30px;
+    background:#f5fafd;
+    .form-email {
+        width:64%;
+        min-height:40px;
+        float:left;
+        margin-bottom:16px;
+        padding-left:2%;
+        padding-right:2%;
+    }
+    .form-actions {
+        width:34%;
+        float:right;
+        margin-bottom:16px;
+    }
+    .form-text {
+        min-width:220px;
+        width:220px;
+        height:44px;
+        margin-right:8px;
+    }
+}
+
+
+.login-types {
+    .button {
+        min-width:120px;
+        height:40px;
+        line-height:40px;
+        font-size:16px;
+        box-shadow:none;
+        border-bottom:solid 2px #9b9b9b;
+        padding:0 30px;
+        color:#fff;
+        background:$govuk-blue;
+    }
+    #verify-code {
+        height:44px;
+        line-height:44px;
+    }
+}
+#edit-token {
+    width:100px;
+    @media (max-width: 600px) {
+        margin-bottom:16px;
+    }
+}
+#een-login-form {
+    width:100%;
+    display:inline-block;
+    position:relative;
+    .form-email {
+        margin-bottom:20px;
+    }
+    .form-item-password {
+        margin-bottom:50px;
+    }
+    .button {
+        font-size:21px;
+        float:left;
+        left:0;
+        margin-right:20px;
+    }
+}
+
+.forgot-password,.show-password {
+    font-size:18px;
+    display:inline-block;
+    float:left;
+    text-decoration:underline;
+    margin:-32px 0 0 20px;
+    color:$cta;
+}
+.show-password {
+    position:relative;
+    top:-80px;
+    margin:0;
+}
+
+@media (max-width: 640px) {
+    #edit-password {
+        width:100%;
+    }
+}    

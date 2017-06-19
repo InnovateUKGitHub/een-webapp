@@ -66,7 +66,6 @@ jQuery(function () {
           } else {
               params.country = ['anywhere'];
           }
-          console.log(params);
           $('.js-sb-view-results').attr('href', '/opportunities#!/page/1?' + $.param(params));
       });
     };

@@ -1,0 +1,26 @@
+uuid: c2553fe7-661f-4d19-ad71-c43cd3997c4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mp4_video
+    - node.type.background_video
+  module:
+    - video
+id: node.background_video.field_mp4_video
+field_name: field_mp4_video
+entity_type: node
+bundle: background_video
+label: 'MP4 video'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_extensions: ''
+  file_directory: 'videos/[date:custom:Y]-[date:custom:m]'
+  max_filesize: ''
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: video

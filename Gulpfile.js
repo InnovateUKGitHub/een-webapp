@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 var themeDir = 'drupal/themes/custom/een';
 
 var jsDirs = [
-  'node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js',
+//   'node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js',
   'node_modules/govuk_template_mustache/assets/javascripts/govuk-template.js',
   'node_modules/angular/lib/angular.min.js',
   'node_modules/chosen-js/chosen.jquery.js',

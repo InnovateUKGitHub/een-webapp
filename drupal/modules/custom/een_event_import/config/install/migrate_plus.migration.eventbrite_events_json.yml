@@ -1,0 +1,57 @@
+# This migration demonstrates importing from a monolithic JSON file.
+id: eventbrite_events_json
+label: JSON feed of Events
+migration_group: een_events
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: eventbrite_json
+  urls: https://www.eventbriteapi.com/v3/organizers/7829726093/events?start_date.range_start=2017-04-01T00%3A00%3A00&token=44ZIDDTUI2JE7V4J3OF6
+  item_selector: events
+  fields:
+    -
+      name: machine_name
+      label: 'Unique event identifier'
+      selector: id
+    -
+      name: event_title
+      label: 'Event Title'
+      selector: name/text
+    -
+      name: event_body
+      label: 'Event Body'
+      selector: description/html
+    - 
+      name: event_start_date
+      label: 'Event Start Date'
+      selector: start/local
+    -
+      name: event_end_date
+      label: 'Event End Date'
+      selector: end/local
+    -
+      name: url
+      label: 'Event URL'
+      selector: url
+  ids:
+    machine_name:
+      type: string
+process:
+  id: machine_name
+  title: event_title
+  type: 
+    plugin: default_value
+    default_value: event
+  body: event_body
+  field_event_type:
+    plugin: default_value
+    default_value: imported
+  'field_event_date/value': event_start_date
+  'field_event_date/end_value': event_end_date
+  field_event_url: url
+  field_event_import_source:
+    plugin: default_value
+    default_value: Eventbrite
+destination:
+  plugin: entity:node
+migration_dependencies: {}
