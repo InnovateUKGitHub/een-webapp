@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.background_video.field_mp4_video
     - node.type.background_video
   module:
     - user
@@ -14,7 +15,9 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
   sharethis:
     weight: 10
+    region: content
 hidden:
   field_mp4_video: true

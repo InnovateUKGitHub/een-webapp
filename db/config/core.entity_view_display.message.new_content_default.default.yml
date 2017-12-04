@@ -21,6 +21,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_recipient:
     weight: 2
     label: above
@@ -28,6 +29,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_sender:
     weight: 3
     label: above
@@ -35,8 +37,11 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   partial_0:
     weight: 0
+    region: content
   partial_1:
     weight: 0
+    region: content
 hidden: {  }

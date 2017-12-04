@@ -93,10 +93,12 @@ class MigrateExecutable extends MigrateExecutableBase {
       $this->feedback = $options['feedback'];
     }
     if (isset($options['idlist'])) {
-      $this->idlist = explode(',', $options['idlist']);
-      array_walk($this->idlist , function(&$value, $key) {
-        $value = explode(':', $value);
-      });
+      if (is_string($options['idlist'])) {
+        $this->idlist = explode(',', $options['idlist']);
+        array_walk($this->idlist, function (&$value, $key) {
+          $value = explode(':', $value);
+        });
+      }
     }
 
     $this->listeners[MigrateEvents::MAP_SAVE] = [$this, 'onMapSave'];
@@ -342,7 +344,7 @@ class MigrateExecutable extends MigrateExecutableBase {
         ->getIds())), $row->getSourceIdValues());
       $skip = TRUE;
       foreach ($this->idlist as $item) {
-        if (array_values($source_id) === $item) {
+        if (array_values($source_id) == $item) {
           $skip = FALSE;
           break;
         }

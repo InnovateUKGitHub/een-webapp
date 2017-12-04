@@ -111,3 +111,57 @@
     line-height: 1.11111
   }
 }
+div.pager-pagination {
+    ul {
+        width:100%;
+        height:auto;
+        line-height:normal;
+        text-indent:0;
+        border:none;
+        overflow:hidden;
+        padding:0;
+    }
+    li {
+        font-size:24px;
+        list-style:none;
+        &.previous {
+            float:left;
+        }
+        &.next {
+            float:right;
+        }
+    }
+    .previous-page {
+        &::before {
+            position:relative;
+            top:7px;
+            font-size:36px;
+            font-family:FontAwesome;
+            content:"\f053";
+            margin-right:10px;
+            color:$cta;
+        }    
+    }
+    .next-page {
+        &::after {
+            position:relative;
+            top:7px;
+            font-size:36px;
+            font-family:FontAwesome;
+            content:"\f054";
+            margin-right:10px;
+            color:$cta;
+        }
+    }
+    .current-page {
+        width:100%;
+        overflow:hidden;
+        font-size:16px;
+        margin:20px 0;
+        color:$cta;
+    }
+    a:focus {
+        outline:none;
+        background:none;
+    }
+}

@@ -1,94 +1,97 @@
 <?php
 
-/**
- * @file
- * Drupal site-specific configuration file.
- *
- * IMPORTANT NOTE:
- * This file may have been set to read-only by the Drupal installation program.
- * If you make changes to this file, be sure to protect it again after making
- * your modifications. Failure to remove write permissions to this file is a
- * security risk.
- *
- * In order to use the selection rules below the multisite aliasing file named
- * sites/sites.php must be present. Its optional settings will be loaded, and
- * the aliases in the array $sites will override the default directory rules
- * below. See sites/example.sites.php for more information about aliases.
- *
- * The configuration directory will be discovered by stripping the website's
- * hostname from left to right and pathname from right to left. The first
- * configuration file found will be used and any others will be ignored. If no
- * other configuration file is found then the default configuration file at
- * 'sites/default' will be used.
- *
- * For example, for a fictitious site installed at
- * https://www.drupal.org:8080/mysite/test/, the 'settings.php' file is searched
- * for in the following directories:
- *
- * - sites/8080.www.drupal.org.mysite.test
- * - sites/www.drupal.org.mysite.test
- * - sites/drupal.org.mysite.test
- * - sites/org.mysite.test
- *
- * - sites/8080.www.drupal.org.mysite
- * - sites/www.drupal.org.mysite
- * - sites/drupal.org.mysite
- * - sites/org.mysite
- *
- * - sites/8080.www.drupal.org
- * - sites/www.drupal.org
- * - sites/drupal.org
- * - sites/org
- *
- * - sites/default
- *
- * Note that if you are installing on a non-standard port number, prefix the
- * hostname with that number. For example,
- * https://www.drupal.org:8080/mysite/test/ could be loaded from
- * sites/8080.www.drupal.org.mysite.test/.
- *
- * @see example.sites.php
- * @see \Drupal\Core\DrupalKernel::getSitePath()
- *
- * In addition to customizing application settings through variables in
- * settings.php, you can create a services.yml file in the same directory to
- * register custom, site-specific service definitions and/or swap out default
- * implementations with custom ones.
- */
 
-/**
- * Database settings:
- *
- * The $databases array specifies the database connection or
- * connections that Drupal may use.  Drupal is able to connect
- * to multiple databases, including multiple types of databases,
- * during the same request.
- *
- * One example of the simplest connection array is shown below. To use the
- * sample settings, copy and uncomment the code below between the @code and
- * @endcode lines and paste it after the $databases declaration. You will need
- * to replace the database username and password and possibly the host and port
- * with the appropriate credentials for your database system.
- *
- * The next section describes how to customize the $databases array for more
- * specific needs.
- *
- * @code
- * $databases['default']['default'] = array (
- *   'database' => 'databasename',
- *   'username' => 'sqlusername',
- *   'password' => 'sqlpassword',
- *   'host' => 'localhost',
- *   'port' => '3306',
- *   'driver' => 'mysql',
- *   'prefix' => '',
- *   'collation' => 'utf8mb4_general_ci',
- * );
- * @endcode
- */
+
+ /**
+  * @file
+  * Drupal site-specific configuration file.
+  *
+  * IMPORTANT NOTE:
+  * This file may have been set to read-only by the Drupal installation program.
+  * If you make changes to this file, be sure to protect it again after making
+  * your modifications. Failure to remove write permissions to this file is a
+  * security risk.
+  *
+  * In order to use the selection rules below the multisite aliasing file named
+  * sites/sites.php must be present. Its optional settings will be loaded, and
+  * the aliases in the array $sites will override the default directory rules
+  * below. See sites/example.sites.php for more information about aliases.
+  *
+  * The configuration directory will be discovered by stripping the website's
+  * hostname from left to right and pathname from right to left. The first
+  * configuration file found will be used and any others will be ignored. If no
+  * other configuration file is found then the default configuration file at
+  * 'sites/default' will be used.
+  *
+  * For example, for a fictitious site installed at
+  * https://www.drupal.org:8080/mysite/test/, the 'settings.php' file is searched
+  * for in the following directories:
+  *
+  * - sites/8080.www.drupal.org.mysite.test
+  * - sites/www.drupal.org.mysite.test
+  * - sites/drupal.org.mysite.test
+  * - sites/org.mysite.test
+  *
+  * - sites/8080.www.drupal.org.mysite
+  * - sites/www.drupal.org.mysite
+  * - sites/drupal.org.mysite
+  * - sites/org.mysite
+  *
+  * - sites/8080.www.drupal.org
+  * - sites/www.drupal.org
+  * - sites/drupal.org
+  * - sites/org
+  *
+  * - sites/default
+  *
+  * Note that if you are installing on a non-standard port number, prefix the
+  * hostname with that number. For example,
+  * https://www.drupal.org:8080/mysite/test/ could be loaded from
+  * sites/8080.www.drupal.org.mysite.test/.
+  *
+  * @see example.sites.php
+  * @see \Drupal\Core\DrupalKernel::getSitePath()
+  *
+  * In addition to customizing application settings through variables in
+  * settings.php, you can create a services.yml file in the same directory to
+  * register custom, site-specific service definitions and/or swap out default
+  * implementations with custom ones.
+  */
+
+ /**
+  * Database settings:.
+  *
+  * The $databases array specifies the database connection or
+  * connections that Drupal may use.  Drupal is able to connect
+  * to multiple databases, including multiple types of databases,
+  * during the same request.
+  *
+  * One example of the simplest connection array is shown below. To use the
+  * sample settings, copy and uncomment the code below between the @code and
+  *
+  * @endcode lines and paste it after the $databases declaration. You will need
+  * to replace the database username and password and possibly the host and port
+  * with the appropriate credentials for your database system.
+  *
+  * The next section describes how to customize the $databases array for more
+  * specific needs.
+  *
+  * @code
+  * $databases['default']['default'] = array (
+  *   'database' => 'databasename',
+  *   'username' => 'sqlusername',
+  *   'password' => 'sqlpassword',
+  *   'host' => 'localhost',
+  *   'port' => '3306',
+  *   'driver' => 'mysql',
+  *   'prefix' => '',
+  *   'collation' => 'utf8mb4_general_ci',
+  * );
+  * @endcode
+  */
  $databases = array();
 
-/**
+/*
  * Customizing database settings.
  *
  * Many of the values of the $databases array can be customized for your
@@ -144,6 +147,11 @@
  * @code
  *   'prefix' => 'main_',
  * @endcode
+ *
+ * Per-table prefixes are deprecated as of Drupal 8.2, and will be removed in
+ * Drupal 9.0. After that, only a single prefix for all tables will be
+ * supported.
+ *
  * To provide prefixes for specific tables, set 'prefix' as an array.
  * The array's keys are the table names and the values are the prefixes.
  * The 'default' element is mandatory and holds the prefix for any tables
@@ -238,15 +246,16 @@
  * array key CONFIG_ACTIVE_DIRECTORY.
  *
  * Example:
+ *
  * @code
  *   $config_directories = array(
  *     CONFIG_SYNC_DIRECTORY => '/directory/outside/webroot',
  *   );
  * @endcode
  */
-# $config_directories = array();
+$config_directories = array();
 
-/**
+/*
  * Settings:
  *
  * $settings contains environment-specific configuration, such as the files
@@ -256,7 +265,7 @@
  * @see \Drupal\Core\Site\Settings::get()
  */
 
-/**
+/*
  * The active installation profile.
  *
  * Changing this after installation is not recommended as it changes which
@@ -265,10 +274,15 @@
  * by the user.
  *
  * @see install_select_profile()
+ *
+ * @deprecated in Drupal 8.3.0 and will be removed before Drupal 9.0.0. The
+ *   install profile is written to the core.extension configuration. If a
+ *   service requires the install profile use the 'install_profile' container
+ *   parameter. Functional code can use \Drupal::installProfile().
  */
 # $settings['install_profile'] = '';
 
-/**
+/*
  * Salt for one-time login links, cancel links, form tokens, etc.
  *
  * This variable will be set to a random value by the installer. All one-time
@@ -287,7 +301,7 @@
  */
 $settings['hash_salt'] = '';
 
-/**
+/*
  * Deployment identifier.
  *
  * Drupal's dependency injection container will be automatically invalidated and
@@ -297,7 +311,7 @@ $settings['hash_salt'] = '';
  */
 # $settings['deployment_identifier'] = \Drupal::VERSION;
 
-/**
+/*
  * Access control for update.php script.
  *
  * If you are updating your Drupal installation using the update.php script but
@@ -308,9 +322,9 @@ $settings['hash_salt'] = '';
  * After finishing the upgrade, be sure to open this file again and change the
  * TRUE back to a FALSE!
  */
-$settings['update_free_access'] = FALSE;
+$settings['update_free_access'] = false;
 
-/**
+/*
  * External access proxy settings:
  *
  * If your site must access the Internet via a web proxy then you can enter the
@@ -330,7 +344,7 @@ $settings['update_free_access'] = FALSE;
 # $settings['http_client_config']['proxy']['https'] = 'http://proxy_user:proxy_pass@example.com:8080';
 # $settings['http_client_config']['proxy']['no'] = ['127.0.0.1', 'localhost'];
 
-/**
+/*
  * Reverse Proxy Configuration:
  *
  * Reverse proxy servers are often used to enhance the performance
@@ -363,43 +377,43 @@ $settings['update_free_access'] = FALSE;
  */
 # $settings['reverse_proxy'] = TRUE;
 
-/**
+/*
  * Specify every reverse proxy IP address in your environment.
  * This setting is required if $settings['reverse_proxy'] is TRUE.
  */
 # $settings['reverse_proxy_addresses'] = array('a.b.c.d', ...);
 
-/**
+/*
  * Set this value if your proxy server sends the client IP in a header
  * other than X-Forwarded-For.
  */
 # $settings['reverse_proxy_header'] = 'X_CLUSTER_CLIENT_IP';
 
-/**
+/*
  * Set this value if your proxy server sends the client protocol in a header
  * other than X-Forwarded-Proto.
  */
 # $settings['reverse_proxy_proto_header'] = 'X_FORWARDED_PROTO';
 
-/**
+/*
  * Set this value if your proxy server sends the client protocol in a header
  * other than X-Forwarded-Host.
  */
 # $settings['reverse_proxy_host_header'] = 'X_FORWARDED_HOST';
 
-/**
+/*
  * Set this value if your proxy server sends the client protocol in a header
  * other than X-Forwarded-Port.
  */
 # $settings['reverse_proxy_port_header'] = 'X_FORWARDED_PORT';
 
-/**
+/*
  * Set this value if your proxy server sends the client protocol in a header
  * other than Forwarded.
  */
 # $settings['reverse_proxy_forwarded_header'] = 'FORWARDED';
 
-/**
+/*
  * Page caching:
  *
  * By default, Drupal sends a "Vary: Cookie" HTTP header for anonymous page
@@ -418,7 +432,7 @@ $settings['update_free_access'] = FALSE;
 # $settings['omit_vary_cookie'] = TRUE;
 
 
-/**
+/*
  * Cache TTL for client error (4xx) responses.
  *
  * Items cached per-URL tend to result in a large number of cache items, and
@@ -431,7 +445,7 @@ $settings['update_free_access'] = FALSE;
 # $settings['cache_ttl_4xx'] = 3600;
 
 
-/**
+/*
  * Class Loader.
  *
  * If the APC extension is detected, the Symfony APC class loader is used for
@@ -463,7 +477,7 @@ if ($settings['hash_salt']) {
 }
 */
 
-/**
+/*
  * Authorized file system operations:
  *
  * The Update Manager module included with Drupal provides a mechanism for
@@ -487,7 +501,7 @@ if ($settings['hash_salt']) {
  */
 # $settings['allow_authorize_operations'] = FALSE;
 
-/**
+/*
  * Default mode for directories and files written by Drupal.
  *
  * Value should be in PHP Octal Notation, with leading zero.
@@ -495,7 +509,7 @@ if ($settings['hash_salt']) {
 # $settings['file_chmod_directory'] = 0775;
 # $settings['file_chmod_file'] = 0664;
 
-/**
+/*
  * Public file base URL:
  *
  * An alternative base URL to be used for serving public files. This must
@@ -508,7 +522,7 @@ if ($settings['hash_salt']) {
  */
 # $settings['file_public_base_url'] = 'http://downloads.example.com/files';
 
-/**
+/*
  * Public file path:
  *
  * A local file system path where public files will be stored. This directory
@@ -517,7 +531,7 @@ if ($settings['hash_salt']) {
  */
 # $settings['file_public_path'] = 'sites/default/files';
 
-/**
+/*
  * Private file path:
  *
  * A local file system path where private files will be stored. This directory
@@ -532,7 +546,7 @@ if ($settings['hash_salt']) {
  */
 # $settings['file_private_path'] = '';
 
-/**
+/*
  * Session write interval:
  *
  * Set the minimum interval between each session write to database.
@@ -540,7 +554,7 @@ if ($settings['hash_salt']) {
  */
 # $settings['session_write_interval'] = 180;
 
-/**
+/*
  * String overrides:
  *
  * To override specific strings on your site with or without enabling the Locale
@@ -557,7 +571,7 @@ if ($settings['hash_salt']) {
 #   '@count min' => '@count minutes',
 # );
 
-/**
+/*
  * A custom theme for the offline page:
  *
  * This applies when the site is explicitly set to maintenance mode through the
@@ -569,7 +583,7 @@ if ($settings['hash_salt']) {
  */
 # $settings['maintenance_theme'] = 'bartik';
 
-/**
+/*
  * PHP settings:
  *
  * To see what PHP settings are possible, including whether they can be set at
@@ -581,7 +595,7 @@ if ($settings['hash_salt']) {
  * issues.
  */
 
-/**
+/*
  * If you encounter a situation where users post a large amount of text, and
  * the result is stripped out upon viewing but can still be edited, Drupal's
  * output filter may not have sufficient memory to process it.  If you
@@ -592,7 +606,7 @@ if ($settings['hash_salt']) {
 # ini_set('pcre.backtrack_limit', 200000);
 # ini_set('pcre.recursion_limit', 200000);
 
-/**
+/*
  * Active configuration settings.
  *
  * By default, the active configuration is stored in the database in the
@@ -611,7 +625,7 @@ if ($settings['hash_salt']) {
  */
 # $settings['bootstrap_config_storage'] = array('Drupal\Core\Config\BootstrapConfigStorageFactory', 'getFileStorage');
 
-/**
+/*
  * Configuration overrides.
  *
  * To globally override specific configuration values for this site,
@@ -637,7 +651,7 @@ if ($settings['hash_salt']) {
 # $config['system.theme']['default'] = 'stark';
 # $config['user.settings']['anonymous'] = 'Visitor';
 
-/**
+/*
  * Fast 404 pages:
  *
  * Drupal can generate fully themed 404 pages. However, some of these responses
@@ -664,12 +678,12 @@ if ($settings['hash_salt']) {
 # $config['system.performance']['fast_404']['paths'] = '/\.(?:txt|png|gif|jpe?g|css|js|ico|swf|flv|cgi|bat|pl|dll|exe|asp)$/i';
 # $config['system.performance']['fast_404']['html'] = '<!DOCTYPE html><html><head><title>404 Not Found</title></head><body><h1>Not Found</h1><p>The requested URL "@path" was not found on this server.</p></body></html>';
 
-/**
+/*
  * Load services definition file.
  */
-$settings['container_yamls'][] = __DIR__ . '/services.yml';
+$settings['container_yamls'][] = $app_root.'/'.$site_path.'/services.yml';
 
-/**
+/*
  * Override the default service container class.
  *
  * This is useful for example to trace the service container for performance
@@ -678,7 +692,7 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  */
 # $settings['container_base_class'] = '\Drupal\Core\DependencyInjection\Container';
 
-/**
+/*
  * Override the default yaml parser class.
  *
  * Provide a fully qualified class name here if you would like to provide an
@@ -687,7 +701,7 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  */
 # $settings['yaml_parser_class'] = NULL;
 
-/**
+/*
  * Trusted host configuration.
  *
  * Drupal core can use the Symfony trusted host mechanism to prevent HTTP Host
@@ -724,7 +738,7 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  * example.org, with all subdomains included.
  */
 
-/**
+/*
  * The default list of directories that will be ignored by Drupal's file API.
  *
  * By default ignore node_modules and bower_components folders to avoid issues
@@ -739,7 +753,7 @@ $settings['file_scan_ignore_directories'] = [
   'bower_components',
 ];
 
-/**
+/*
  * Load local development override configuration, if available.
  *
  * Use settings.local.php to override variables on secondary (staging,
@@ -750,8 +764,8 @@ $settings['file_scan_ignore_directories'] = [
  * Keep this code block at the end of this file to take full effect.
  */
 #
-if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-    include $app_root . '/' . $site_path . '/settings.local.php';
-}
-
-$config_directories['sync'] = '../db/config';
+# if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+#   include $app_root . '/' . $site_path . '/settings.local.php';
+# }
+#
+$settings['create_elasticsearch_indices_from_drupal'] = true;

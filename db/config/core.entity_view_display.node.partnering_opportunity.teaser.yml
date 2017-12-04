@@ -5,6 +5,15 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.partnering_opportunity.body
+    - field.field.node.partnering_opportunity.field_accepting_eoi
+    - field.field.node.partnering_opportunity.field_advantages_and_innovations
+    - field.field.node.partnering_opportunity.field_country_of_origin
+    - field.field.node.partnering_opportunity.field_development_stage
+    - field.field.node.partnering_opportunity.field_intellectual_property
+    - field.field.node.partnering_opportunity.field_location
+    - field.field.node.partnering_opportunity.field_opportunity_id
+    - field.field.node.partnering_opportunity.field_opportunity_images
+    - field.field.node.partnering_opportunity.field_partner_expertise_sought
     - node.type.partnering_opportunity
   module:
     - text
@@ -21,18 +30,33 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
+    region: content
   sharethis:
     weight: 10
+    region: content
   workbench_moderation_control:
     weight: -20
+    region: content
 hidden:
+  field_accepting_eoi: true
   field_advantages_and_innovations: true
+  field_contact_consortium: true
+  field_contact_email: true
+  field_contact_fullname: true
+  field_contact_organisation: true
+  field_contact_phone: true
   field_country_of_origin: true
   field_development_stage: true
+  field_eoi_show: true
   field_intellectual_property: true
   field_location: true
   field_opportunity_id: true
   field_opportunity_images: true
+  field_opportunity_type: true
   field_partner_expertise_sought: true
+  field_submitted_date: true
+  field_summary: true
+  field_updated_date: true

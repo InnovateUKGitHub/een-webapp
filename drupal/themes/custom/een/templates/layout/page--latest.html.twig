@@ -43,6 +43,7 @@
  * @see html.html.twig
  */
 #}
+
 <div class="latest">
     <header role="banner" id="global-header" class="with-proposition">
         <div class="global-header-inner">
@@ -67,18 +68,9 @@
         <main role="main" id="content" ng-controller="MainCtrl">
             <a id="main-content" title="Main content"  tabindex="-1"></a>{# link is in html.html.twig #}
             {{ page.highlighted }}
-            <header>
-                <h1>Latest from EEN</h1>
-                <h2 class="heading-large">Success, thoughts and news</h2>
-                <p>Browse client successes along with our thought pieces and news to help ambitious businesses grow and expand internationally.</p>
-            </header>
-            <div class="layout-content grid-row">
-                <div class="column-one-third">
-                    Filters
-                </div> 
-                <div class="column-two-thirds">
-                    {{ page.content }}
-                </div>
+
+            <div class="layout-content">
+                {{ page.content }}
             </div>{# /.layout-content #}
 
             {% if page.sidebar_first %}
@@ -101,4 +93,5 @@
         </div>
     </div>    
     {% include '/themes/custom/een/templates/layout/footer.html.twig' %}
-</div>            
+</div>    
+

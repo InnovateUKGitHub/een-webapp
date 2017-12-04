@@ -52,6 +52,12 @@ and open the template in the editor.
             
     }
 }
+@media (max-width: 640px) {
+    .footer-container {
+        text-align: center;
+    }
+}
+
 @media (max-width: 1020px) {
     #footer {
         .footer-wrapper-top,.footer-wrapper-bottom {

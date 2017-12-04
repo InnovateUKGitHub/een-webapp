@@ -23,7 +23,9 @@ content:
       field_formatter_class:
         class: column-one-half
     type: entity_reference_entity_view
+    region: content
   sharethis:
     weight: 10
+    region: content
 hidden:
   links: true

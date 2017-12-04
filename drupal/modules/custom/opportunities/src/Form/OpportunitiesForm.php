@@ -61,22 +61,6 @@ class OpportunitiesForm extends AbstractForm
         $countries = array_merge($regions, $this->service->getCountryList());
 
         $form = [
-           /* 'search'           => [
-                '#type'       => 'textfield',
-                '#title'      => $this->t('Contains keywords...'),
-                '#attributes' => [
-                    'ng-model'    => 'data.search',
-                    'ng-change'   => 'queryKeyUp()',
-                    'tabindex'    => '0',
-                    'class'       => [
-                        'form-control',
-                    ],
-                    'placeholder' => [
-                        'E.g. medical component distribution',
-                    ],
-                ],
-            ],*/
-
             'opportunity_type' => [
                 '#type'       => 'checkboxes',
                 '#title'      => $this->t('I’m looking for a partner...'),
@@ -105,7 +89,13 @@ class OpportunitiesForm extends AbstractForm
                     '#type'        => 'submit',
                     '#value'       => $this->t('Search'),
                     '#button_type' => 'primary',
+                    '#attributes' => [
+                        'class'    => [
+                            'js-search-action',
+                        ],
+                    ],
                 ],
+
             ],
             '#method'          => Request::METHOD_POST,
             '#attributes'      => [

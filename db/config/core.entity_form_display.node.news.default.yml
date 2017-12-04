@@ -4,7 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.node.news.body
+    - field.field.node.news.field_associated_service
     - field.field.node.news.field_copyrighted_image
+    - field.field.node.news.field_county
     - field.field.node.news.field_full_width_quote
     - field.field.node.news.field_location
     - field.field.node.news.field_meta_tags
@@ -34,11 +36,22 @@ content:
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
+    region: content
   created:
     type: datetime_timestamp
     weight: 3
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_associated_service:
+    weight: 26
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_copyrighted_image:
     weight: 10
     settings:
@@ -47,11 +60,12 @@ content:
       preview_image_style: thumbnail
       crop_preview_image_style: crop_thumbnail
       crop_list:
-        - landscape_16_9
+        - new_landscape_crop
       progress_indicator: throbber
       show_crop_area: 0
     third_party_settings: {  }
     type: image_copyright_image
+    region: content
   field_full_width_quote:
     weight: 8
     settings:
@@ -59,12 +73,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_location:
     weight: 13
     settings:
       default_longitude: '0.1278'
       default_latitude: '51.5074'
-      auto_client_location: '1'
       auto_client_location_marker: '1'
       allow_override_map_settings: 1
       google_map_settings:
@@ -88,21 +102,25 @@ content:
         fullscreenControl: 0
         preferScrollingToZooming: 0
         disableDoubleClickZoom: 0
+      auto_client_location: '0'
       populate_address_field: ''
       target_address_field: null
       explicite_actions_address_field: ''
     third_party_settings: {  }
     type: geolocation_googlegeocoder
+    region: content
   field_meta_tags:
     weight: 11
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
+    region: content
   field_persona:
     weight: 0
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_tags:
     weight: 9
     settings:
@@ -111,29 +129,34 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_yoast_seo:
     weight: 12
     settings:
       body: body
     third_party_settings: {  }
     type: yoast_seo_widget
+    region: content
   path:
     type: path
     weight: 6
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 4
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 5
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 1
@@ -141,6 +164,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 2
@@ -149,4 +173,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+    region: content
+hidden:
+  field_county: true

@@ -13,69 +13,78 @@
 {% endif %}
 
 <div class="content-heading">
-    <h1 tabindex="0">{{ 'Events'|t }}</h1>
+    <h2 tabindex="0" class="heading-medium">{{ 'Events'|t }}</h2>
     <h2 class="heading-xlarge events-search" tabindex="0">{{ 'Search events near you'|t }}</h2>
-    <h3>{{ 'Our events could be your first step to finding new international business opportunities'|t }}</h3>
+    <h3>{{ 'Our events could be your first step to finding new international business opportunities or getting the key information or advice you need'|t }}</h3>
+</div>
+
+<div class="mobile-only">
+    <div class="events-filter-header">
+        <p>You can use the filters to show only results that match your interests</p>
+        <a class="button js-filter-results">Narrow search results</a>
+    </div>
 </div>
 
 <div class="grid-row">
     <div class="column-one-third">
         <div class="filter-container">
-            <div class="mobile-only">
-                <p>You can use the filters to show only results that match your interests</p>
-                <a class="button filter-results">Narrow search reults</a>
+            <div class="filter-wrap">
+                <div class="mobile-only">
+                    <a class="button refine-button js-filter-results">Refine results </a>
+                </div>
+                <h3 class="filter-heading">Filter your results</h3>
+                {{ form }}
             </div>
-            <h3 class="filter-heading">Filter your results</h3>
-            {{ form }}
         </div>
     </div>
     <div class="column-two-thirds" aria-live="assertive">
 
-        <div class="row">
-            <h3 class="heading-medium featured-events-heading">
-                {{ 'Featured events'|t }}
-            </h3>
-        </div>
+        {#todo featured event was static so is hidden for the time being#}
+        {#<div class="row">#}
+            {#<h3 class="heading-medium featured-events-heading">#}
+                {#{{ 'Featured events'|t }}#}
+            {#</h3>#}
+        {#</div>#}
 
-        <div class="results-list">
-            <div class="row row-bordered">
+        {#<div class="results-list">#}
+            {#<div class="row row-bordered">#}
 
-                <div class="meta-left">
-                    <span class="calendar"></span>
-                    <p class="meta-inline font-small">
-                        <span class="day">20th </span>-
-                        <span class="day">23th</span>
-                        <br/>
-                        <span class="month-year">
-                            <span>March</span>
-                            <br/>
-                            <span>2017</span>
-                        </span>
-                    </p>
-                </div>
-                <div class="event-list-element">
-                    <h3 class="results-list-heading-item" tabindex="0">
-                        <a href="{{ url('events.staticevent') }}">
-                            {{ 'Food & Drink Company Mission to Poland'|t }}
-                        </a>
-                    </h3>
+                {#<div class="meta-left">#}
+                    {#<span class="calendar"></span>#}
+                    {#<p class="meta-inline font-small">#}
+                        {#<span class="day">20th </span>-#}
+                        {#<span class="day">23th</span>#}
+                        {#<br/>#}
+                        {#<span class="month-year">#}
+                            {#<span>March</span>#}
+                            {#<br/>#}
+                            {#<span>2017</span>#}
+                        {#</span>#}
+                    {#</p>#}
+                {#</div>#}
+                {#<div class="event-list-element">#}
+                    {#<h3 class="results-list-heading-item" tabindex="0">#}
+                        {#<a href="{{ url('events.staticevent') }}">#}
+                            {#{{ 'Food & Drink Company Mission to Poland'|t }}#}
+                        {#</a>#}
+                    {#</h3>#}
 
-                    <p class="description">
-                        {{ 'Make the most of an exclusive opportunity to grow your food & drink, agriculture or packaging business by meeting Polish companies and establishing new relationships...'|t }}
+                    {#<p class="description">#}
+                        {#{{ 'Make the most of an exclusive opportunity to grow your food & drink, agriculture or packaging business by meeting Polish companies and establishing new relationships...'|t }}#}
 
-                        <a href="{{ url('events.staticevent') }}">
-                            {{ 'more'|t }}
-                        </a>
-                    </p>
+                        {#<a href="{{ url('events.staticevent') }}">#}
+                            {#{{ 'more'|t }}#}
+                        {#</a>#}
+                    {#</p>#}
 
-                    <p class="meta-inline font-small">
-                        <span class="flag-icon flag-icon-pl"></span>
-                        Poland, Krakow
-                    </p>
+                    {#<p class="meta-inline font-small">#}
+                        {#<span class="flag-icon flag-icon-pl"></span>#}
+                        {#Poland, Krakow#}
+                    {#</p>#}
 
-                </div>
-            </div>
-        </div>
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
 
         <div class="row">
             <h3 class="heading-medium upcoming-events-heading">
@@ -89,7 +98,7 @@
                  ng-class="{ transp: meta.searching }">
 
                 <div class="meta-left">
-                    <span class="calendar"></span>    
+                    <span class="calendar"></span>
                     <p class="meta-inline font-small" ng-if="row.start_date == row.end_date">
                         <span class="day" ng-bind-html="row.start_date | date : 'dd' | getEventDay | unsafe">{[{ row.start_date }]}</span>
                         <br/>
@@ -99,7 +108,7 @@
                         </span>
                     </p>
                     <p class="meta-inline font-small" ng-if="row.start_date != row.end_date">
-                        
+
                         <span class="day" ng-bind-html="row.start_date | date : 'dd' | getEventDay | unsafe">
                             {[{ row.start_date }]}
                         </span> -
@@ -121,17 +130,17 @@
                 </div>
                 <div class="event-list-element">
                     <h3 class="results-list-heading-item" tabindex="0">
-                        <a ng-href="/events/{[{row.id}]}" ng-if="row.type == 'salesForce'" id="event-link"
+                        <a ng-href="/events/{[{row.nid}]}" ng-if="row.url == null" id="event-link"
                            ng-bind-html="row.title | unsafe">
                             {[{ row.title }]}
                         </a>
-                        <a ng-href="{[{row.url}]}" ng-if="row.type != 'salesForce'" rel="external" id="event-link"
+                        <a ng-href="{[{row.url}]}" ng-if="row.url" rel="external" id="event-link"
                            ng-bind-html="row.title | unsafe">
                             {[{ row.title }]}
                         </a>
                     </h3>
 
-                    <p class="description" ng-bind-html="row.description | cut:true:240:'... ':row.type:row.url:row.id | unsafe">
+                    <p class="description" ng-bind-html="row.description | cut:true:240:'... ':row.type:row.url:row.nid | unsafe">
                         {[{ row.description }]}
                     </p>
 
@@ -158,44 +167,42 @@
                     <div class="meta-left">
                         <span class="calendar"></span>
                         <p class="meta-inline font-small">
-
                             {% if row.start_date|date("d-m-Y") != row.end_date|date("d-m-Y") %}
-
-                                <span class="day">{{ row.start_date|date("dS") }} </span>-
-                                <span class="day">{{ row.end_date|date("dS") }}</span>
-                                <br/>
-                                <span class="month-year">
-                                    <span>{{ row.start_date|date("F") }}</span><br/>
-                                    {% if row.start_date|date("F") != row.end_date|date("F") %}
-                                        <span>{{ row.end_date|date("F") }}</span><br/>
+                                <div class="start meta-inline">
+                                    <span class="day">{{ row.start_date|date("dS") }} </span>
+                                    <span class="month">{{ row.start_date|date("F") }}</span>
+                                    <span class="year">{{ row.start_date|date("Y") }}</span>
+                                </div>    
+                                <div class="end meta-inline">
+                                    <p>-</p>
+                                    {% if row.end_date|date("jS") %}
+                                        <span class="day">{{ row.end_date|date("jS") }}</span>
                                     {% endif %}
-
-                                    <span>{{ row.start_date|date("Y") }}</span><br/>
-                                    {% if row.start_date|date("Y") != row.end_date|date("Y") %}
-                                        <span>{{ row.end_date|date("Y") }}</span><br/>
+                                    {% if row.end_date|date("F") %}
+                                        <span class="month">{{ row.end_date|date("F") }}</span>
                                     {% endif %}
-                                </span>
-
+                                    {% if row.end_date|date("Y") %}
+                                        <span class="year">{{ row.end_date|date("Y") }}</span>
+                                    {% endif %}
+                                </div>
                             {% else %}
-
-                                <span class="day">{{ row.start_date|date("dS") }}</span>
+                                <span class="day">{{ row.start_date|date("jS") }}</span>
                                 <br/>
                                 <span class="month-year">
-                                    <span>{{ row.start_date|date("F") }}</span><br/>
-                                    <span>{{ row.start_date|date("Y") }}</span>
+                                    <span class="month">{{ row.start_date|date("F") }}</span>
+                                    <span class="year">{{ row.start_date|date("Y") }}</span>
                                 </span>
-
                             {% endif %}
-                        </p>
+                        </p>    
                     </div>
                     <div class="event-list-element">
                         <h3 class="results-list-heading-item" tabindex="0">
-                            {% if row.type == 'merlin' or row.type == 'eventBrite' %}
+                            {% if row.url %}
                                 <a rel="external" href="{{ row.url }}" target="_blank">
                                     {{ row.title }}
                                 </a>
                             {% else %}
-                                <a href="{{ url('events.details', {'eventId': row.id}) }}">
+                                <a href="/events/{{ row.nid }}">
                                     {{ row.title }}
                                 </a>
                             {% endif %}
@@ -204,12 +211,12 @@
                         <p class="description">
                             {{ row.description|truncate(240, true)|raw }}
 
-                            {% if row.type == 'merlin' or row.type == 'eventBrite' %}
+                            {% if row.url %}
                                 <a href="{{ row.url }}" target="_blank">
                                     {{ 'more'|t }}
                                 </a>
                             {% else %}
-                                <a href="{{ url('events.details', {'eventId': row.id}) }}">
+                                <a href="/events/{{ row.nid }}">
                                     {{ 'more'|t }}
                                 </a>
                             {% endif %}

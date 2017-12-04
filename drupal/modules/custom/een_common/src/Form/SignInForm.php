@@ -21,6 +21,7 @@ class SignInForm extends AbstractForm
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $form = [
+
             'email'     => [
                 '#type'           => 'email',
                 '#title'          => t('Email'),
@@ -62,8 +63,11 @@ class SignInForm extends AbstractForm
                     '#button_type' => 'primary',
                 ],
             ],
-            '#method' => Request::METHOD_GET,
+            '#method' => Request::METHOD_POST,
         ];
+
+        $form['#action'] ='/login';
+
         $form_state->setCached(false);
 
         return $form;

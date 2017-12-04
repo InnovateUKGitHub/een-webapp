@@ -11,6 +11,7 @@ dependencies:
     - link
     - path
     - text
+    - workbench_moderation
 id: node.alert.default
 targetEntityType: node
 bundle: alert
@@ -21,6 +22,7 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_content_type:
     weight: 31
     settings:
@@ -28,6 +30,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_link:
     weight: 33
     settings:
@@ -35,6 +38,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_text_content:
     weight: 32
     settings:
@@ -42,23 +46,27 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   path:
     type: path
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 15
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 16
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: -5
@@ -66,6 +74,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 5
@@ -74,4 +83,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden: {  }

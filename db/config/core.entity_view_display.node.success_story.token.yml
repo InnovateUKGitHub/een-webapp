@@ -5,7 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.token
     - field.field.node.success_story.body
+    - field.field.node.success_story.field_associated_service
     - field.field.node.success_story.field_copyrighted_image
+    - field.field.node.success_story.field_county
     - field.field.node.success_story.field_full_width_quote
     - field.field.node.success_story.field_hero_stats
     - field.field.node.success_story.field_location
@@ -34,6 +36,7 @@ content:
       field_formatter_class:
         class: copyrighted-image
     type: copyright_image
+    region: content
   field_tags:
     weight: 105
     label: hidden
@@ -43,8 +46,11 @@ content:
       field_formatter_class:
         class: tags
     type: entity_reference_label
+    region: content
 hidden:
   body: true
+  field_associated_service: true
+  field_county: true
   field_full_width_quote: true
   field_hero_stats: true
   field_location: true

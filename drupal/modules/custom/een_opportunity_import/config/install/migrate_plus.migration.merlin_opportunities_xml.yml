@@ -5,9 +5,13 @@ source:
   plugin: url
   data_fetcher_plugin: http
   data_parser_plugin: merlin_xml
-  urls: http://een.ec.europa.eu/tools/services/podv6/QueryService.svc/GetProfiles?u=UK00774&p=c9a0974cb8ba283ea6e31ca3683f9ebf&sa=20170310
+  urls: http://een.ec.europa.eu/tools/services/podv6/QueryService.svc/GetProfiles?u=PROFILE_KEY&p=PROFILE_P&sa=PROFILE_SA
   item_selector: /pod/profile
   fields:
+    -
+      name: opportunity_type
+      label: 'Opportunity Type'
+      selector: reference/type
     -
       name: machine_name
       label: 'Unique opportunity identifier'
@@ -53,7 +57,10 @@ source:
       type: string
 process:
   id: machine_name
-  title: opportunity_title
+  title: 
+    plugin: substr
+    source: opportunity_title
+    length: 254
   type: 
     plugin: default_value
     default_value: partnering_opportunity
@@ -67,6 +74,7 @@ process:
   field_intellectual_property: opportunity_ipr
   field_advantages_and_innovations: opportunity_advantages
   field_development_stage: opportunity_stage
+  field_opportunity_type: opportunity_type
 destination:
   plugin: entity:node
 migration_dependencies: {}

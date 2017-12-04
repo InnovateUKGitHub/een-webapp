@@ -5,6 +5,11 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.quote.body
+    - field.field.node.quote.field_image
+    - field.field.node.quote.field_meta_tags
+    - field.field.node.quote.field_quote_author
+    - field.field.node.quote.field_quote_company
+    - field.field.node.quote.field_yoast_seo
     - node.type.quote
   module:
     - text
@@ -21,7 +26,16 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
+    region: content
+  sharethis:
+    weight: 10
+    region: content
 hidden:
   field_image: true
+  field_meta_tags: true
+  field_quote_author: true
+  field_quote_company: true
+  field_yoast_seo: true

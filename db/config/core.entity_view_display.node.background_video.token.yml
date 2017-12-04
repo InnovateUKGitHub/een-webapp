@@ -30,6 +30,7 @@ content:
       field_formatter_class:
         class: ''
     type: video_player_list
+    region: content
 hidden:
   links: true
   sharethis: true

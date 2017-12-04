@@ -6,9 +6,15 @@ use Drupal\opportunities\Form\AbstractForm;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\een_common\Service\ContactService;
 
 class SignUpStepsForm extends AbstractForm
 {
+    /**
+     * @var ContactService
+     */
+    private $service;
+
     /**
      * @var PrivateTempStore
      */
@@ -19,9 +25,13 @@ class SignUpStepsForm extends AbstractForm
      *
      * @param PrivateTempStore $session
      */
-    public function __construct(PrivateTempStore $session)
+    public function __construct(
+        PrivateTempStore $session,
+        ContactService $service
+    )
     {
         $this->session = $session;
+        $this->service = $service;
     }
 
     /**
@@ -31,7 +41,10 @@ class SignUpStepsForm extends AbstractForm
      */
     public static function create(ContainerInterface $container)
     {
-        return new self($container->get('user.private_tempstore')->get('SESSION_ANONYMOUS'));
+        return new self(
+            $container->get('user.private_tempstore')->get('SESSION_ANONYMOUS'),
+            $container->get('contact.service')
+        );
     }
 
     /**
@@ -48,21 +61,17 @@ class SignUpStepsForm extends AbstractForm
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $types = [
-            'BP' => t('Blog Posts'),
-            'C'  => t('Consultations on EU law'),
-            'UK' => t('UK Newsletter'),
-            'EE' => t('East of England'),
-            'L'  => t('London'),
-            'M'  => t('Midlands'),
-            'NE' => t('North England'),
-            'NI' => t('Northern Ireland'),
-            'SE' => t('South East England'),
-            'SW' => t('South West England'),
-            'W'  => t('Wales'),
-        ];
-        $radio = [
-            'UK' => t('UK Newsletter'),
-            'EE' => t('East of England'),
+            'Blogs_New_data__c'             => t('Blog Posts'),
+            'Consultations_New_data__c'     => t('Consultations on EU law'),
+            'National_New_data__c'          => t('UK Newsletter'),
+            'East_New_data__c'              => t('East of England'),
+            'London_New_data__c'            => t('London'),
+            'Midlands_New_data__c'          => t('Midlands'),
+            'North_New_data__c'             => t('North England'),
+            'NI_New_data__c'                => t('Northern Ireland'),
+            'South_East_New_data__c'        => t('South East England'),
+            'South_West_New_data__c'        => t('South West England'),
+            'Wales_New_data__c'             => t('Wales'),
         ];
 
         $crchoice = [
@@ -158,21 +167,6 @@ class SignUpStepsForm extends AbstractForm
                 '#type'    => 'checkboxes',
                 '#title'   => t('<span tabindex="0">Sign up for the latest:</span>'),
                 '#options' => $types,
-            ],
-
-
-            'create_account'    => [
-                '#type'    => 'checkboxes',
-                '#title'   => t('Would you like to create an account with EEN?'),
-                '#options' => $crchoice,
-                '#required'       => true,
-                '#default_value' => 'no',
-            ],
-
-            'terms'    => [
-                '#type'    => 'checkbox',
-                '#title'   => t('I have read and accept the <a href="/terms-and-conditions" target="_blank">terms and conditions</a>'),
-                '#required'       => true
             ],
 
 
@@ -333,7 +327,7 @@ class SignUpStepsForm extends AbstractForm
             'alternative_address'    => [
                 '#type'    => 'checkbox',
                 '#title'   => t('Same as registered business address'),
-                '#default_value' => 1,
+                '#default_value' => 1
             ],
 
             'postcode'   => [
@@ -411,10 +405,19 @@ class SignUpStepsForm extends AbstractForm
             ],
             'create_account'    => [
                 '#type'    => 'radios',
-                '#title'   => t('Would you like to create and account with EEN?'),
+                '#title'   => t('Would you like to create an account with EEN?'),
                 '#options' => $accountchoice,
                 '#required'       => true,
+                '#default_value' => 'no',
             ],
+
+            'terms'    => [
+                '#type'    => 'checkbox',
+                '#title'   => t('I have read and accept the <a href="/terms-and-conditions" target="_blank">terms and conditions</a>'),
+                '#required'       => true
+            ],
+
+
             'password'  => [
                 '#type'            => 'password',
                 '#title'           => t('Password'),
@@ -470,13 +473,22 @@ class SignUpStepsForm extends AbstractForm
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        $form_state->setRedirect(
-            'sign-up.review',
-            [
-                'id'   => $this->session->get('id'),
-                'type' => $this->session->get('type'),
-            ]
-        );
+        $route = \Drupal::routeMatch()->getRouteName();
+        if($route == 'my-account-edit'){
+            drupal_set_message('Your details have been updated');
+            $form_state->setRedirect(
+                'my-account',
+                ['update' => true]
+            );
+        } else {
+            $form_state->setRedirect(
+                'sign-up.review',
+                [
+                    'id'   => $this->session->get('id'),
+                    'type' => $this->session->get('type'),
+                ]
+            );
+        }
 
         $this->session->set('step1', true);
         $this->session->set('firstname', $form_state->getValue('firstname'));
@@ -498,15 +510,63 @@ class SignUpStepsForm extends AbstractForm
 
         $this->session->set('alternative_address', $form_state->getValue('alternative_address'));
 
-        $this->session->set('postcode', $form_state->getValue('postcode'));
-        $this->session->set('addressone', $form_state->getValue('addressone'));
-        $this->session->set('addresstwo', $form_state->getValue('addresstwo'));
-        $this->session->set('city', $form_state->getValue('city'));
+        // if address is the same as company address
+        if($form_state->getValue('company_registered') == 'yes'){
 
-        $this->session->set('postcode_registered', $form_state->getValue('postcode_registered'));
-        $this->session->set('addressone_registered', $form_state->getValue('addressone_registered'));
-        $this->session->set('addresstwo_registered', $form_state->getValue('addresstwo_registered'));
-        $this->session->set('city_registered', $form_state->getValue('city_registered'));
+            if($form_state->getValue('alternative_address') == 1){
+                $this->session->set('postcode', $form_state->getValue('postcode_registered'));
+                $this->session->set('addressone', $form_state->getValue('addressone_registered'));
+                $this->session->set('addresstwo', $form_state->getValue('addresstwo_registered'));
+                $this->session->set('city', $form_state->getValue('city_registered'));
+            } else {
+                $this->session->set('postcode', $form_state->getValue('postcode'));
+                $this->session->set('addressone', $form_state->getValue('addressone'));
+                $this->session->set('addresstwo', $form_state->getValue('addresstwo'));
+                $this->session->set('city', $form_state->getValue('city'));
+            }
+
+            $this->session->set('postcode_registered', $form_state->getValue('postcode_registered'));
+            $this->session->set('addressone_registered', $form_state->getValue('addressone_registered'));
+            $this->session->set('addresstwo_registered', $form_state->getValue('addresstwo_registered'));
+            $this->session->set('city_registered', $form_state->getValue('city_registered'));
+
+        } else {
+
+            $this->session->set('postcode', $form_state->getValue('postcode'));
+            $this->session->set('addressone', $form_state->getValue('addressone'));
+            $this->session->set('addresstwo', $form_state->getValue('addresstwo'));
+            $this->session->set('city', $form_state->getValue('city'));
+
+            $this->session->set('postcode_registered', '');
+            $this->session->set('addressone_registered','');
+            $this->session->set('addresstwo_registered', '');
+            $this->session->set('city_registered', '');
+        }
+
+
+
+        $this->session->set('terms', $form_state->getValue('terms'));
+        $this->session->set('create_account', $form_state->getValue('create_account'));
+        $this->session->set('password', $this->service->hashPassword($form_state->getValue('password')));
+
+
+        try {
+            $postcode = json_decode(file_get_contents('https://api.postcodes.io/postcodes/'.$form_state->getValue('postcode')), true);
+
+            if($postcode['status'] == 200){
+
+                if($postcode['result']['region'] == 'Yorkshire and The Humber' || $postcode['result']['region'] == 'North West' || $postcode['result']['region'] == 'North East'){
+                    $postcode['result']['region'] = 'North';
+                }
+                if(!$postcode['result']['region']) {
+                    $postcode['result']['region'] = $postcode['result']['country'];
+                }
+
+                $this->session->set('region', $postcode['result']['region']);
+            }
+        } catch (Exception $e) {
+
+        }
     }
 
     private function purgeValues($values)

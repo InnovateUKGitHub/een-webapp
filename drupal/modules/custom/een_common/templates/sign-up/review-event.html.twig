@@ -19,7 +19,7 @@
     </div>
     <div class="row">
         <div class="column-one-third">
-            <p class="sh-bold">{{ 'Please tell us about your food specificity if you have some' }}</p>
+            <p class="sh-bold">{{ 'Any dietary requirements?' }}</p>
         </div>
         <div class="column-two-thirds with-cta">
             <div>
@@ -65,7 +65,7 @@
                     <p>Yes - please send me emails when there is a new blog post and newsletter</p>
                 {% endif %}
             </div>
-            <p><a href="{{ url('sign-up.step1', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about you</span></a></p>
+            <p><a href="{{ url('sign-up.steps', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about you</span></a></p>
         </div>
         <div class="column-full">
             <hr>
@@ -83,7 +83,7 @@
                 <p><strong class="label company-url sh-bold">Company URL:</strong><span>{{ form.website }}</span></p>
                 <p><strong class="label telephone-number sh-bold">Telephone number:</strong><span>{{ form.company_phone }}</span></p>
             </div>
-            <p><a href="{{ url('sign-up.step2', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about your company</span></a></p>
+            <p><a href="{{ url('sign-up.steps', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">details about your company</span></a></p>
         </div>
         <div class="column-full">
             <hr>
@@ -104,7 +104,7 @@
                     <abbr class="post-code" itemprop="post-code" title="SN13 8PN">{{ form.postcode }}</abbr>
                 </div>
             </div>
-            <p><a href="{{ url('sign-up.step3', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">your address</span></a></p>
+            <p><a href="{{ url('sign-up.steps', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">your address</span></a></p>
         </div>
         <div class="column-full">
             <hr>

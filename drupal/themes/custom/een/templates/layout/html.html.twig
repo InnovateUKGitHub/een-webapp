@@ -26,22 +26,23 @@
 <!DOCTYPE html>
 <html{{ html_attributes }}>
 <head>
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="googlebot" content="noindex, nofollow">
     <head-placeholder token="{{ placeholder_token|raw }}">
     <title>{{ head_title|safe_join(' | ') }}</title>
+
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-M7ZLSX');</script>
+        <!-- End Google Tag Manager -->
+
     <css-placeholder token="{{ placeholder_token|raw }}">
     <js-placeholder token="{{ placeholder_token|raw }}">
 
     <script>(function(n,t,i,r){var u,f;n[i]=n[i]||{},n[i].initial={accountCode:"AERIA11119",host:"AERIA11119.pcapredict.com"},n[i].on=n[i].on||function(){(n[i].onq=n[i].onq||[]).push(arguments)},u=t.createElement("script"),u.async=!0,u.src=r,f=t.getElementsByTagName("script")[0],f.parentNode.insertBefore(u,f)})(window,document,"pca","//AERIA11119.pcapredict.com/js/sensor.js")</script>
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-M7ZLSX');</script>
-    <!-- End Google Tag Manager -->
+
 
 
     </head>
@@ -63,10 +64,6 @@
         {{ 'Skip to main content'|t }}
     {% endif %}
 </a>
-
-<div class="sneaky-peak">
-    <p>This website prototype works like our <a href="https://www.enterprise-europe.co.uk">existing site.</a> Feedback very welcome via icon bottom right of screen</p>
-</div>
 
 {{ page_top }}
 {{ page }}

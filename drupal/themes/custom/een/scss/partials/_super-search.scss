@@ -14,9 +14,6 @@ $dark-blue:#0d6ca4;
         border:2px solid $dark-blue;
         padding:15px;
         font-size: 24px;
-        @media (max-width: 640px) {
-            font-size:16px;
-        }
     }
     .ss-submit {
       position: absolute;
@@ -57,6 +54,20 @@ $dark-blue:#0d6ca4;
 
       #edit-search {
         margin-top: 30px;
+
+        &::-webkit-input-placeholder { /* WebKit browsers */
+          color: transparent;
+        }
+        &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+          color: transparent;
+        }
+        &::-moz-placeholder { /* Mozilla Firefox 19+ */
+          color: transparent;
+        }
+        &:-ms-input-placeholder { /* Internet Explorer 10+ */
+          color: transparent;
+        }
+
       }
 
     }
@@ -124,6 +135,13 @@ $dark-blue:#0d6ca4;
     top: 0;
     max-width: 960px;
     z-index: 2;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+
+
     #form-container {
       max-width: 960px;
       margin:auto;
@@ -156,18 +174,71 @@ $dark-blue:#0d6ca4;
   padding: 7px 0px;
 }
 
-@media (max-width: 640px) {
-  .filter-heading {
-    display: none;
-  }
-}
+
 
 .initial-no-vis {
   visibility: hidden;
+  height:200px;
   opacity:0;
   transition:1s all;
 }
 
 .morphed-in {
   opacity:1;
+  height:auto;
+}
+
+.filter-results {
+  display:none;
+}
+
+
+@media (max-width: 640px) {
+
+  .filter-heading {
+    display: none;
+  }
+
+  .mobile-handler {
+    width:70%;
+    float:left;
+    position: relative
+  }
+
+  .search-container {
+
+      #opportunity-super-search-form {
+
+        label {
+            font-weight: 600;
+        }
+
+        input#edit-search {
+            font-size:16px;
+            margin-top: 3px;
+        }
+
+      }
+      .suggestion-labels {
+          display:block;
+      }
+      .ss-results-wrapper {
+          display:none;
+      }
+   }
+  .filter-results {
+    width: 28%;
+    float: right;
+    top: 6px;
+    display:block;
+  }
+
+  .events-filter-header {
+      border:1px solid lightgrey;
+      padding:16px;
+      margin-top: 30px;
+  }
+  .form-item-search {
+    text-align: left;
+  }
 }

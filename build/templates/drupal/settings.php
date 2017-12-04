@@ -1,12 +1,11 @@
-
-$settings['install_profile'] = 'standard';
-
 $settings['hash_salt'] = 'uDEiOdg2rx7LaJG9qpaX2zs0NIOxtXfF55eFuPHJdFJak_SPTQIANE4fJyN36ElDRdlZoqQORQ';
 
 $settings['trusted_host_patterns'] = [
     '^HOSTNAME$',
     '^www.HOSTNAME$',
-    '^HOSTNAMEADMIN$'
+    '^HOSTNAMEADMIN$',
+    '^www.enterprise-europe.co.uk$',
+    '^enterprise-europe.co.uk$'
 ];
 
 $databases['default']['default'] = array (

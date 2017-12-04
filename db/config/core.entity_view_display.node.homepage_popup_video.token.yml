@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.token
     - field.field.node.homepage_popup_video.field_y
+    - field.field.node.homepage_popup_video.field_youtube_home_title
     - node.type.homepage_popup_video
   module:
     - user
@@ -27,6 +28,17 @@ content:
       autoplay: true
       modal_max_width: 854
     third_party_settings: {  }
+    region: content
+  field_youtube_home_title:
+    type: string
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      field_formatter_class:
+        class: youtube-title
+    region: content
 hidden:
   links: true
   sharethis: true

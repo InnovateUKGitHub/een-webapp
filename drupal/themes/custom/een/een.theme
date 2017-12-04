@@ -15,6 +15,14 @@ function een_preprocess_node(&$variables) {
 
 }
 
+
+function een_preprocess_username(&$variables)
+{
+    if(drupal_validate_utf8($variables['name_raw'])){
+        $variables['name'] =  $variables['name_raw'];
+    }
+}
+
 function een_preprocess(array &$variables)
 {
     $variables['quote_on_opportunity'] = views_embed_view('quote_on_opportunity', 'default');
@@ -26,6 +34,7 @@ function een_preprocess(array &$variables)
     $variables['homepage_quote'] = views_embed_view('homepage_quote', 'default');
     $variables['homepage_popup_video'] = views_embed_view('homepage_popup_video', 'default');
 }
+
 function een_theme_suggestions_page_alter(array &$suggestions, array $variables)
 {
     if (($node = \Drupal::routeMatch()
@@ -34,4 +43,9 @@ function een_theme_suggestions_page_alter(array &$suggestions, array $variables)
         $content_type = $node->bundle();
         $suggestions[] = 'page__' . $content_type;
     }
+}
+
+/* fixes a mailing error bug */
+function een_mail($key, &$message, $params) {
+
 }

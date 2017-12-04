@@ -100,7 +100,7 @@ class MigrationListBuilder extends ConfigEntityListBuilder implements EntityHand
    * @return array
    *   A render array structure of header strings.
    *
-   * @see Drupal\Core\Entity\EntityListController::render()
+   * @see \Drupal\Core\Entity\EntityListController::render()
    */
   public function buildHeader() {
     $header['label'] = $this->t('Migration');
@@ -111,6 +111,7 @@ class MigrationListBuilder extends ConfigEntityListBuilder implements EntityHand
     $header['unprocessed'] = $this->t('Unprocessed');
     $header['messages'] = $this->t('Messages');
     $header['last_imported'] = $this->t('Last Imported');
+    $header['operations'] = $this->t('Operations');
     return $header; // + parent::buildHeader();
   }
 
@@ -123,59 +124,92 @@ class MigrationListBuilder extends ConfigEntityListBuilder implements EntityHand
    * @return array
    *   A render array of the table row for displaying the plugin information.
    *
-   * @see Drupal\Core\Entity\EntityListController::render()
+   * @see \Drupal\Core\Entity\EntityListController::render()
    */
   public function buildRow(EntityInterface $migration_entity) {
-    $migration = $this->migrationConfigEntityPluginManager->createInstance($migration_entity->id());
-    $migration_group = $migration->get('migration_group');
-    if (!$migration_group) {
-      $migration_group = 'default';
-    }
-    $route_parameters = array(
-      'migration_group' => $migration_group,
-      'migration' => $migration->id(),
-    );
-    $row['label'] = array(
-      'data' => array(
-        '#type' => 'link',
-        '#title' => $migration->label(),
-        '#url' => Url::fromRoute("entity.migration.overview", $route_parameters),
-      ),
-    );
-    $row['machine_name'] = $migration->id();
-    $row['status'] = $migration->getStatusLabel();
 
-    // Derive the stats.
-    $source_plugin = $migration->getSourcePlugin();
-    $row['total'] = $source_plugin->count();
-    $map = $migration->getIdMap();
-    $row['imported'] = $map->importedCount();
-    // -1 indicates uncountable sources.
-    if ($row['total'] == -1) {
+    try {
+      $migration = $this->migrationConfigEntityPluginManager->createInstance($migration_entity->id());
+
+      $migration_group = $migration->get('migration_group');
+      if (!$migration_group) {
+        $migration_group = 'default';
+      }
+      $route_parameters = array(
+        'migration_group' => $migration_group,
+        'migration' => $migration->id(),
+      );
+      $row['label'] = array(
+        'data' => array(
+          '#type' => 'link',
+          '#title' => $migration->label(),
+          '#url' => Url::fromRoute("entity.migration.overview", $route_parameters),
+        ),
+      );
+      $row['machine_name'] = $migration->id();
+      $row['status'] = $migration->getStatusLabel();
+    }
+    catch(\Exception $e) {
+      return NULL;
+    }
+
+    try {
+      // Derive the stats.
+      $source_plugin = $migration->getSourcePlugin();
+      $row['total'] = $source_plugin->count();
+      $map = $migration->getIdMap();
+      $row['imported'] = $map->importedCount();
+      // -1 indicates uncountable sources.
+      if ($row['total'] == -1) {
+        $row['total'] = $this->t('N/A');
+        $row['unprocessed'] = $this->t('N/A');
+      }
+      else {
+        $row['unprocessed'] = $row['total'] - $map->processedCount();
+      }
+      $row['messages'] = array(
+        'data' => array(
+          '#type' => 'link',
+          '#title' => $map->messageCount(),
+          '#url' => Url::fromRoute("migrate_tools.messages", $route_parameters),
+        ),
+      );
+      $migrate_last_imported_store = \Drupal::keyValue('migrate_last_imported');
+      $last_imported = $migrate_last_imported_store->get($migration->id(), FALSE);
+      if ($last_imported) {
+        /** @var DateFormatter $date_formatter */
+        $date_formatter = \Drupal::service('date.formatter');
+        $row['last_imported'] = $date_formatter->format($last_imported / 1000,
+          'custom', 'Y-m-d H:i:s');
+      }
+      else {
+        $row['last_imported'] = '';
+      }
+
+      $row['operations']['data'] = array(
+        '#type' => 'dropbutton',
+        '#links' => array(
+          'simple_form' => array(
+            'title' => $this->t('Launch'),
+            'url' => Url::fromRoute('migrate_tools.launch', array(
+              'migration_group' => $migration_group,
+              'migration' => $migration->id()
+            )),
+          ),
+        ),
+      );
+    }
+    catch (\Exception $e) {
+      // Derive the stats.
+      $row['status'] = $this->t('No data found');
       $row['total'] = $this->t('N/A');
+      $row['imported'] = $this->t('N/A');
       $row['unprocessed'] = $this->t('N/A');
+      $row['messages'] = $this->t('N/A');
+      $row['last_imported'] = $this->t('N/A');
+      $row['operations'] = $this->t('N/A');
     }
-    else {
-      $row['unprocessed'] = $row['total'] - $map->processedCount();
-    }
-    $row['messages'] = array(
-      'data' => array(
-        '#type' => 'link',
-        '#title' => $map->messageCount(),
-        '#url' => Url::fromRoute("migrate_tools.messages", $route_parameters),
-      ),
-    );
-    $migrate_last_imported_store = \Drupal::keyValue('migrate_last_imported');
-    $last_imported =  $migrate_last_imported_store->get($migration->id(), FALSE);
-    if ($last_imported) {
-      /** @var DateFormatter $date_formatter */
-      $date_formatter = \Drupal::service('date.formatter');
-      $row['last_imported'] = $date_formatter->format($last_imported / 1000,
-        'custom', 'Y-m-d H:i:s');
-    }
-    else {
-      $row['last_imported'] = '';
-    }
+
     return $row; // + parent::buildRow($migration_entity);
   }
 

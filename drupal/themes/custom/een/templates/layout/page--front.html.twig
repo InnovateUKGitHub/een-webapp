@@ -60,22 +60,23 @@
                     {{ page.secondary_menu }}
                 </div>
             </div>
-            <div class="header-quote-container">
-                {{ homepage_quote }}
-            </div>
-            <div class="popup-container">
-                {{ homepage_popup_video }}
-            </div>
-            <div id="video-bg">
-            </div>
-            {{ homepage_video }}
-        </div>
-        <div class="recent-partnerships">
             <div class="container">
-                <span>Recent partnerships we’ve helped create:</span> {{ recent_partnership }}
-                <a href="/success-stories" class="button">See all success stories</a>
-            </div>
-
+                <h1>We help ambitious small businesses</h1>
+                <div class="homepage-carousel owl-carousel">
+                    <div class="item"><a href="/services/move-new-markets">Move into new markets</a></div>
+                    <div class="item"><a href="/services/access-finance">Access funding</a></div>
+                    <div class="item"><a href="/services/advisers-worldwide" class="network">Use our networks</a></div>
+                    <div class="item innovate"><a href="/services/innovate-grow">Innovate to grow</a></div>
+                    <div class="item"><a href="/services/find-trusted-partners">Find trusted partners</a></div>
+                </div>
+                
+            </div>    
+            <div class="homepage-quote-container">
+                {{ homepage_quote }}
+                <div class="popup-container">
+                    {{ homepage_popup_video }}
+                </div>
+            </div>    
         </div>
     </header>
 
@@ -116,11 +117,13 @@
                     </div>#}{# /.layout-content #}
                 </div>
                 <div class="quote-and-near-me grid-row">
-                    <div class="quote column-two-thirds">
+                    <div class="quote column-full">
                         <div class="content">
                             {{ quote_on_opportunity }}
+                            <a href="/latest" class="all-stories">See all success stories</a>
                         </div>
                     </div>
+                    {#        
                     <div class="near-me column-one-third">
                         <div class="content">
                             <h3 class="heading-medium">Find local business help, events and support</h3>
@@ -141,7 +144,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> #}
                 </div>
             </div>            
 
@@ -153,10 +156,10 @@
                             <div id="form-container">
 
                                 <form tabindex="0" ng-submit="submit()" data-drupal-selector="opportunity-super-search-form" action="/partnering-opportunities" method="POST" id="opportunity-super-search-form" accept-charset="UTF-8">
-                                    <label for="edit-search" class="form-label">Search for SME and academic partners to manufacture, distribute, co-develop and supply your products, ideas and business.</label>
+                                    <label for="find-partners" class="form-label">Search for SME and academic partners to manufacture, distribute, co-develop and supply your products, ideas and services.</label>
                                     <div class="js-form-item form-item js-form-type-textfield form-item-search js-form-item-search">
                                         <span class="error-message"> </span>
-                                        <input  ng-model="data.search" ng-change="queryKeyUp()" tabindex="0" class="form-control form-text" placeholder="Search over 8,000 partnership opportunities" data-drupal-selector="edit-search" type="text" id="edit-search-home" value="" size="60" maxlength="128" />
+                                        <input id="find-partners" ng-model="data.search" ng-change="queryKeyUp()" tabindex="0" class="form-control form-text" placeholder="Search by keyword e.g. battery, engineering, biofuels" data-drupal-selector="edit-search" type="text" id="edit-search-home" value="" size="60" maxlength="128" />
                                     </div>
                                     <input  data-drupal-selector="form-e-t6fe07qrvndnedqtkomo4xg06-y9owmnzs57da2eo" type="hidden" name="form_build_id" value="form-E-T6fe07qrVndnEDqtkOMo4xG06-y9OwmNZs57Da2eo" />
                                     <input  data-drupal-selector="edit-opportunity-super-search-form-form-token" type="hidden" name="form_token" value="8ZhLfsD9AT3NyLV9vpKju7Z5HRZ6GUvc5GVui-vU7Iw" />
@@ -172,7 +175,7 @@
                             <div class="clearfix"></div>
                         </div>
                     </div>
-
+                   {# <p><a href="/browse-partnering-opportunities">browse</a></p> #}     
                 </div>    
             </div>
 
@@ -206,10 +209,10 @@
                         <h3 class="heading-medium">Our events could be your first step to finding new international business opportunities</h3>
                     </div>
                     <div class="column-one-half">
-                        <form tabindex="0" ng-submit="submit()" action="/event-search" method="POST" id="event-search" accept-charset="UTF-8">
+                        <form tabindex="0" ng-submit="submit()" action="/events" method="GET" id="event-search" accept-charset="UTF-8">
                             <div class="js-form-item form-item js-form-type-textfield form-item-search js-form-item-search">
-                                <label for="edit-search" class="form-label">Find events near you</label>
-                                <input tabindex="0" class="form-control form-text" placeholder="Search events" type="text" />
+                                <label for="find-events" class="form-label">Find events near you</label>
+                                <input tabindex="0" id="find-events" class="form-control form-text" name="search" placeholder="Search events" type="text" />
                             </div>
                             <div class="ss-submit form-actions js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions">
                                 <input id="edit-submit" value="Go" class="button" type="submit" />
@@ -222,7 +225,7 @@
         <div class="news container">
             <header class="header">
                 <h3 class="heading-medium">Latest news</h3>
-                <a href="/news">More of the latest</a>
+                <a href="/latest">More of the latest</a>
             </header>
             <div class="latest-news">
                 <div class="grid-row">
@@ -235,10 +238,10 @@
                         <h3 class="heading-medium">Don’t miss out on the latest news and business insights that could help your business grow.</h3>
                     </div>
                     <div class="column-one-half">
-                        <form tabindex="0" ng-submit="submit()" action="#" method="POST" id="newsletter" accept-charset="UTF-8">
+                        <form tabindex="0" ng-submit="submit()" action="https://public.govdelivery.com/accounts/UKINNOVATE/subscriber/qualify" method="POST" id="newsletter" accept-charset="UTF-8">
                             <div class="js-form-item form-item js-form-type-textfield form-item-search js-form-item-search">
-                                <label for="edit-search" class="form-label">Receive the EEN newsletter direct to your inbox</label>
-                                <input tabindex="0" class="form-control form-text" placeholder="Your email address" type="text" />
+                                <label for="receive-newsletter" class="form-label">Receive the EEN newsletter direct to your inbox</label>
+                                <input tabindex="0" id="receive-newsletter" class="form-control form-text" name="email" placeholder="Your email address" type="text" />
                             </div>
                             <div class="ss-submit form-actions js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions">
                                 <input id="edit-submit" value="Subscribe" class="button" type="submit" />

@@ -35,11 +35,11 @@ node {
         archive "${packageName}.tar.gz"
     } 
     
-    //remoteDeploy('integration_v3', packageName, deployMethod, false, false, false)
-    remoteDeploy('stage_een_aws', packageName, deployMethod, true, false, false)
+    remoteDeploy('integration_v3', packageName, deployMethod, false, false, false)
+    remoteDeploy('stage_een_aws', packageName, deployMethod, true, true, false)
     
     if (env.BRANCH_NAME == ("master")) {
-        remoteDeploy('production_een_aws', packageName, deployMethod, true, false, false)
+        remoteDeploy('production_een_aws', packageName, deployMethod, true, true, false)
     }
 }
      
@@ -68,28 +68,30 @@ def remoteDeploy(String targetEnvironment, String packageName, String deployMeth
             sh "./build/steps/deploy/upload-by-rsync.sh ${targetEnvironment} ${packageName}"
         }
 
+
+
+
         stage "Deploy to: ${targetEnvironment}"
-        try {
-            timeout(time: 10, unit: 'SECONDS') {
-                rebuildDatabase = input message: 'Rebuild Database?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'yes']]
+
+
+            try {
+                timeout(time: 10, unit: 'SECONDS') {
+                    reloadConfiguration = input message: 'Reload Drupal config?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'yes']]
+                }
+            } catch (err) {
+                reloadConfiguration = false
             }
-        } catch (err) {
+
             rebuildDatabase = false
-        }
-        try {
-            timeout(time: 10, unit: 'SECONDS') {
-                reloadConfiguration = input message: 'Reload Drupal config?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'yes']]
-            }
-        } catch (err) {
-            reloadConfiguration = false
-        }
-        sh "./build/steps/deploy/deploy-on-remote.sh ${targetEnvironment} ${packageName} ${deployMethod} ${rebuildDatabase} ${reloadConfiguration}"
+        
+            sh "./build/steps/deploy/deploy-on-remote.sh ${targetEnvironment} ${packageName} ${deployMethod} ${rebuildDatabase} ${reloadConfiguration}"
         
         stage "Integration tests: ${targetEnvironment}"
-        build job: 'een-integration-tests', parameters: [[$class: 'StringParameterValue', name: 'APPLICATION_ENV', value: "${targetEnvironment}"]]
+        build job: 'een-integration-tests', parameters: [[$class: 'StringParameterValue', name: 'APPLICATION_ENV', value: "${targetEnvironment}"]], propagate: false
 
         if (updateAmi) {
-            sh "./build/steps/post-build/update-ami.sh ${targetEnvironment} ${packageName}"
+            stage "Update AMI: ${targetEnvironment}"
+            sh "export APPLICATION_ENV=${targetEnvironment} && ./build/steps/post-build/update-ami.sh ${targetEnvironment} ${packageName}"
         }
     }
 }

@@ -80,7 +80,7 @@ echo "Executing deploy script on hosts: $HOSTS"
 
 for HOSTNAME in ${HOSTS} ; do
     echo "Executing deploy script on ${USER}@${HOSTNAME}"
-    ssh -o 'StrictHostKeyChecking no' -l ${USER} ${HOSTNAME} "${SCRIPT}"
-    #ssh -o 'StrictHostKeyChecking no' -l ${USER} ${HOSTNAME} "AWS_EC2_NODE_NO=${AWS_EC2_NODE_NO}; ${SCRIPT}"
+    #ssh -o 'StrictHostKeyChecking no' -l ${USER} ${HOSTNAME} "${SCRIPT}"
+    ssh -o 'StrictHostKeyChecking no' -l ${USER} ${HOSTNAME} "AWS_EC2_NODE_NO=${AWS_EC2_NODE_NO}; ${SCRIPT}"
     #AWS_EC2_NODE_NO=1
 done

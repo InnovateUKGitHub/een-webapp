@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.homepage_popup_video.field_y
+    - field.field.node.homepage_popup_video.field_youtube_home_title
     - node.type.homepage_popup_video
   module:
     - user
@@ -14,6 +16,10 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
   sharethis:
     weight: 10
-hidden: {  }
+    region: content
+hidden:
+  field_y: true
+  field_youtube_home_title: true

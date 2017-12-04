@@ -4,6 +4,9 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.message.mail_subject
+    - field.field.message.new_content_default.field_node_reference
+    - field.field.message.new_content_default.field_recipient
+    - field.field.message.new_content_default.field_sender
     - message.template.new_content_default
 _core:
   default_config_hash: q8QOms_NALH1opAHBXsnZZLYloJeXurkBuuvz8rREOg
@@ -14,5 +17,9 @@ mode: mail_subject
 content:
   partial_0:
     weight: 0
+    region: content
 hidden:
+  field_node_reference: true
+  field_recipient: true
+  field_sender: true
   partial_1: true

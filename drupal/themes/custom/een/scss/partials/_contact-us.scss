@@ -8,6 +8,19 @@ and open the template in the editor.
     Author     : jasongoodenough
 */
 // contact us page
+.get-in-touch {
+    .content-heading {
+        padding:0;
+    }
+    #block-een-page-title {
+        h1 {
+            font-size:24px;
+            font-weight:normal;
+            margin-bottom:10px;
+            color:#9b9b9b;
+        }
+    }
+}
 .email-form {
     width:58%;
     box-sizing:border-box;
@@ -39,7 +52,7 @@ and open the template in the editor.
         }
     }
 }
-.skype-btn {
+a.skype-btn {
     //min-width:146px;
     display:inline-block;
     position:relative;
@@ -47,31 +60,43 @@ and open the template in the editor.
     margin-bottom:10px;
     color:$light-blue;
     background:#fff;
-    p {
-        line-height:1em;
-        font-size:inherit!important;
-        margin:7px 0 0 0;
-        padding:2px 30px;
-        a {
-            img {
-                margin:0!important;
-                vertical-align:0!important;
-            }
-        }
+    font-size: 25px;
+    text-align: center;
+    padding: 5px 10px;
+    -webkit-transition: background 0.25s;
+    -moz-transition: background 0.25s;
+    -ms-transition: background 0.25s;
+    -o-transition: background 0.25s;
+    transition: background 0.25s;
+
+    &:hover {
+        background: #fbfbfb;
     }
+
+    span {
+        display: inline-block;
+    }
+
+    i {
+        font-size: 30px;
+        display: inline-block;
+        vertical-align: text-bottom;
+
+    }
+
 }
+
 @media (min-width:640px) and (max-width:1199px) {
-    .skype-btn {
-        min-width:124px;
-        p {
-            padding:2px 20px;
-        }
-    }
+
 }
-.contact-number {
+.contact-number,.mailto {
     font-size:48px;
     font-weight:bold;
     margin-bottom:0;
+}
+.mailto  {
+    font-size:30px;
+    font-weight:bold;
 }
 #een-contact-form {
     .form-label {
@@ -89,7 +114,7 @@ and open the template in the editor.
         position:relative;
         .form-required:before {
             position:absolute;
-            content:"*";
+            content:"";
             top:3px;
             left:-15px;
         }
@@ -132,10 +157,7 @@ and open the template in the editor.
         }
     }
     .skype-btn {
-        min-width:100px;
-        p {
-            padding:2px 10px;
-        }
+
         &:first-of-type {
             margin-right:5px;
         }

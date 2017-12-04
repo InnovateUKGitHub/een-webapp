@@ -15,9 +15,9 @@ touch $htdocs/logs/error.log
 
 echo "Updating folder permissions..."
 
-chmod 777 $htdocs/drupal/sites/default/settings.php
-chmod 777 $htdocs/drupal/sites/default/settings.local.php
-chmod 777 $htdocs/drupal/sites/default/services.yml
+# chmod 777 $htdocs/drupal/sites/default/settings.php
+# chmod 777 $htdocs/drupal/sites/default/settings.local.php
+# chmod 777 $htdocs/drupal/sites/default/services.yml
 
 # change directory permissions
 chmod 775 $htdocs/cache -R

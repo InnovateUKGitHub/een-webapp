@@ -5,7 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.token
     - field.field.node.news.body
+    - field.field.node.news.field_associated_service
     - field.field.node.news.field_copyrighted_image
+    - field.field.node.news.field_county
     - field.field.node.news.field_full_width_quote
     - field.field.node.news.field_location
     - field.field.node.news.field_meta_tags
@@ -33,6 +35,7 @@ content:
       field_formatter_class:
         class: ''
     type: copyright_image
+    region: content
   field_tags:
     weight: 0
     label: hidden
@@ -40,8 +43,11 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
 hidden:
   body: true
+  field_associated_service: true
+  field_county: true
   field_full_width_quote: true
   field_location: true
   field_meta_tags: true

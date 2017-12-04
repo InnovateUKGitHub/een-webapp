@@ -29,6 +29,9 @@ and open the template in the editor.
     .promo-image {
         position:relative;
         padding:0 0 0 240px;
+        @media (max-width: 1201px) {
+            padding:0;
+        }
     }
     .sharethis-wrapper {
         margin-bottom:40px;
@@ -83,19 +86,110 @@ and open the template in the editor.
             font-weight:600;
             margin-bottom:5px;
         }
+        @media (max-width: 1201px) {
+            position:relative;
+            overflow:hidden;
+            div {
+                height:100px;
+                margin:0 10px 10px 0;
+                float:left;
+                &:first-child {
+                    border:none!important;
+                }
+            }
+        }
+        
     }
+    @media (max-width: 640px){
+        div.hero-stats {
+            div {
+                min-height:80px;
+                max-width:25%;
+                float:left;
+                padding:5px;
+                margin-right:0 3% 0 0;
+            }
+            h1,h2,h3,h4,h5 {
+                margin:5px 0 5px 0;
+            }
+            h1,h2 {
+                font-size:19px;
+            }
+            h3 {
+                font-size:16px;
+            }
+            h4 {
+                font-size:14px;
+            }
+            h5 {
+                font-size:13px;
+            }
+            p {
+                font-size:14px;
+            }
+        }
+    }        
+        
     .body-content {
         > div {
             padding:0 0 0 240px;
-            @media (max-width: 1366px) {
-                padding:0 100px;
-            } 
             @media (max-width: 1201px) {
                 padding:0 80px;
             }
             @media (max-width: 640px) {
                 padding:0;
             }
+        }
+        div.full-width-quote {
+            min-height:50px;
+            border-top:solid 1px #9b9b9b;
+            border-bottom:solid 1px #9b9b9b;
+            border-left:0;
+            padding:30px 0 30px 84px;
+            margin:30px 0 30px 240px;
+            &:before {
+                top:27px;
+                left:0;
+            }
+            h1,h2 {
+                font-size:24px;
+            }
+            h3 {
+                font-size:21px;
+            }
+            h4 {
+                font-size:16px;
+            }
+            h5 {
+                font-size:13px;
+            }
+            h1,h2,h3,h4,h5 {
+                font-weight:300;
+                margin-bottom:14px;
+                color:#4a4a4a;
+            }
+            @media (max-width: 1366px) {
+                margin:30px 110px 30px 100px;
+            }
+            @media (max-width: 1201px) {
+                margin:30px 90px 30px 80px
+            }
+            @media (max-width: 640px) {
+                margin:20px 0;
+                h1,h2 {
+                    font-size:19px;
+                }
+                h3 {
+                    font-size:16px;
+                }
+                h4 {
+                    font-size:14px;
+                }
+                p {
+                    font-size:14px;
+                }
+            }
+            
         }
     }
 }

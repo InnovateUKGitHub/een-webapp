@@ -1,15 +1,46 @@
+//doesn't appear to be in use
+//@font-face {
+//  font-family: 'Blogger Sans';
+//  src: url('../fonts/blogger-sans/Blogger Sans.ttf') format('truetype');
+//  font-weight: normal;
+//  font-style: normal;
+//}
+//
+//@font-face {
+//  font-family: 'Blogger Sans Italic';
+//  src: url('../fonts/blogger-sans/Blogger Sans-Italic.otf') format("opentype"),
+//  url('../fonts/blogger-sans/Blogger Sans-Italic.ttf') format('truetype');
+//  font-weight: normal;
+//  font-style: normal;
+//}
+
+
+
 
 @font-face {
-  font-family: 'Blogger Sans';
-  src: url('../fonts/blogger-sans/Blogger Sans.ttf') format('truetype');
+  font-family: 'Myriad Pro';
+  src: url('/themes/custom/een/dist/fonts/myriad-pro/MyriadPro-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('/themes/custom/een/dist/fonts/myriad-pro/MyriadPro-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('/themes/custom/een/dist/fonts/myriad-pro/MyriadPro-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Blogger Sans Italic';
-  src: url('../fonts/blogger-sans/Blogger Sans-Italic.otf') format("opentype"),
-  url('../fonts/blogger-sans/Blogger Sans-Italic.ttf') format('truetype');
-  font-weight: normal;
+  font-family: 'Myriad Pro';
+  src: url('/themes/custom/een/dist/fonts/myriad-pro/MyriadPro-Semibold.woff') format('woff');
+  font-weight: 500;
   font-style: normal;
 }

@@ -4,6 +4,9 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.alert.field_content_type
+    - field.field.node.alert.field_link
+    - field.field.node.alert.field_text_content
     - node.type.alert
   module:
     - user
@@ -14,8 +17,10 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
   sharethis:
     weight: 10
+    region: content
 hidden:
   field_content_type: true
   field_link: true

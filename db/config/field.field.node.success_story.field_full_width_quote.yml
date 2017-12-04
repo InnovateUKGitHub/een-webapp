@@ -12,7 +12,7 @@ field_name: field_full_width_quote
 entity_type: node
 bundle: success_story
 label: 'Full Width Quote'
-description: ''
+description: "IMPORTANT:\r\n- Text formatted as Headings (2, 3, 4) will appear italic, these should be used for the quote. The different heading options will still make the text larger (smaller number = bigger text), Heading 3 will make the font size 21px which is the suggested size.\r\n- Text formatted as 'Normal' will appear in bold, this should be used to format the name of the person you are quoting\r\n"
 required: false
 translatable: true
 default_value: {  }

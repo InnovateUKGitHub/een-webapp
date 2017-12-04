@@ -21,11 +21,11 @@ build: install
 
 install:
 	@sh -c "echo ';zend_extension=xdebug.so' | sudo tee /etc/php/5.6/cli/conf.d/20-xdebug.ini"
-	@sh -c "./build/local/1-compile.sh"
-	@sh -c "sudo APPLICATION_ENV=development_vagrant ./build/local/2-deploy.sh"
+	@sh -c "./build/steps/1-compile.sh"
+	@sh -c "sudo APPLICATION_ENV=development_vagrant ./build/steps/2-deploy.sh"
 	@sh -c "sudo chown -R vagrant:vagrant /home/vagrant/.drush"
 	@sh -c "echo 'zend_extension=xdebug.so' | sudo tee /etc/php/5.6/cli/conf.d/20-xdebug.ini"
-	@sh -c "./build/local/3-test.sh"
+	@sh -c "./build/steps/3-test.sh"
 	@sh -c "./build/6-copy-file.sh"
 
 gulp:

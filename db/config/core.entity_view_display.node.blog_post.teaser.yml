@@ -5,6 +5,16 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.blog_post.body
+    - field.field.node.blog_post.comment
+    - field.field.node.blog_post.field_associated_service
+    - field.field.node.blog_post.field_copyrighted_image
+    - field.field.node.blog_post.field_county
+    - field.field.node.blog_post.field_full_width_quote
+    - field.field.node.blog_post.field_location
+    - field.field.node.blog_post.field_meta_tags
+    - field.field.node.blog_post.field_persona
+    - field.field.node.blog_post.field_tags
+    - field.field.node.blog_post.field_yoast_seo
     - node.type.blog_post
   module:
     - text
@@ -21,16 +31,22 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
+    region: content
   sharethis:
     weight: 10
+    region: content
   workbench_moderation_control:
     weight: -20
+    region: content
 hidden:
   comment: true
+  field_associated_service: true
   field_blog_lede: true
   field_copyrighted_image: true
+  field_county: true
   field_full_width_quote: true
   field_location: true
   field_meta_tags: true
