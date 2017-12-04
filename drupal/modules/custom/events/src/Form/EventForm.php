@@ -50,8 +50,7 @@ class EventForm extends AbstractForm
         $form = [
             'dietary' => [
                 '#type'                => 'textarea',
-                '#title'               => $this->t('Please tell us about your food specificity if you have some'),
-                '#description'         => $this->t('This is your allergies, preferences, etc...'),
+                '#title'               => $this->t('Any dietary requirements?'),
                 '#description_display' => 'before',
                 '#label_display'       => 'before',
                 '#required'            => false,
@@ -78,7 +77,7 @@ class EventForm extends AbstractForm
                 '#type'  => 'actions',
                 'submit' => [
                     '#type'        => 'submit',
-                    '#value'       => $this->t('Register for the event'),
+                    '#value'       => $this->t('Save and continue'),
                     '#button_type' => 'primary',
                 ],
             ],
@@ -111,7 +110,7 @@ class EventForm extends AbstractForm
             );
         } else {
             $form_state->setRedirect(
-                'sign-up.step1',
+                'sign-up.steps',
                 [
                     'id'   => $this->session->get('id'),
                     'type' => 'events',

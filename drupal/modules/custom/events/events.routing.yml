@@ -2,6 +2,7 @@ events.search:
  path: '/events'
  defaults:
    _controller: '\Drupal\events\Controller\EventsController::index'
+   _title: 'Events'
  requirements:
    _permission: 'access content'
 

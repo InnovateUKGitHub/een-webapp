@@ -82,7 +82,14 @@ class EventController extends ControllerBase
     public function index($eventId, $token, Request $request)
     {
         $page = $request->query->get(self::PAGE_NUMBER, 1);
-        $results = $this->service->get($eventId);
+        $fids =  \Drupal::entityQuery('node')
+            ->condition('type', 'event')
+            ->condition('nid', $eventId)
+            ->execute();
+
+        $id = array_shift(array_values($fids));
+        $entity_manager = \Drupal::entityManager();
+        $results =  $entity_manager->getStorage('node')->load($id)->toArray();
 
         $form = \Drupal::formBuilder()->getForm(EventForm::class);
         $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);

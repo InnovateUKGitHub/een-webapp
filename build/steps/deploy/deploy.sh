@@ -75,4 +75,7 @@ if [ "$AWS_EC2_NODE_NO" = "" ] || [ "$AWS_EC2_NODE_NO" = "0" ] ; then
     $workspace/build/steps/deploy/s3-maintenance.sh
 fi
 
+
+$workspace/build/steps/deploy/cronjobs.sh
 $workspace/build/steps/deploy/apache.sh
+$workspace/build/steps/deploy/elastic-search-check.sh

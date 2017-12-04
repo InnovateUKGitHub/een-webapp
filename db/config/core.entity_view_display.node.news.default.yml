@@ -4,20 +4,22 @@ status: true
 dependencies:
   config:
     - field.field.node.news.body
+    - field.field.node.news.field_associated_service
     - field.field.node.news.field_copyrighted_image
+    - field.field.node.news.field_county
     - field.field.node.news.field_full_width_quote
     - field.field.node.news.field_location
     - field.field.node.news.field_meta_tags
     - field.field.node.news.field_persona
     - field.field.node.news.field_tags
     - field.field.node.news.field_yoast_seo
-    - image.style.image_crop_style
+    - image.style.new_image_crop_style
     - node.type.news
   module:
     - een_custom_fields
+    - field_formatter_class
     - geolocation
     - metatag
-    - options
     - text
     - user
     - yoast_seo
@@ -29,64 +31,80 @@ content:
   body:
     label: hidden
     type: text_default
-    weight: 101
+    weight: 3
     settings: {  }
     third_party_settings: {  }
-  field_copyrighted_image:
-    weight: 103
+    region: content
+  field_associated_service:
+    weight: 10
     label: above
     settings:
-      image_style: image_crop_style
-      image_link: ''
+      link: true
     third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_copyrighted_image:
+    weight: 5
+    label: above
+    settings:
+      image_style: new_image_crop_style
+      image_link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     type: copyright_image
+    region: content
   field_full_width_quote:
-    weight: 104
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_location:
-    weight: 107
+    weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
+    region: content
   field_meta_tags:
-    weight: 105
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
-  field_persona:
-    weight: 108
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
+    region: content
   field_tags:
-    weight: 102
+    weight: 4
     label: hidden
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_yoast_seo:
-    weight: 106
+    weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: yoastseo_formatter
+    region: content
   links:
-    weight: 100
+    weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   sharethis:
-    weight: 10
+    weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
-    weight: -20
+    weight: 0
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+    region: content
+hidden:
+  field_county: true
+  field_persona: true

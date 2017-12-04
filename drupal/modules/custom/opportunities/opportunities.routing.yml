@@ -9,6 +9,7 @@ opportunities.search:
  path: '/partnering-opportunities'
  defaults:
    _controller: '\Drupal\opportunities\Controller\OpportunitiesController::index'
+   _title: 'Partnering opportunities'
  requirements:
    _permission: 'access content'
 
@@ -30,6 +31,7 @@ opportunities.details:
  path: '/opportunities/{profileId}/{token}'
  defaults:
    _controller: '\Drupal\opportunities\Controller\OpportunityController::index'
+   _title_callback: '\Drupal\opportunities\Controller\OpportunityController::getTitle'
    token: null
  requirements:
    _permission: 'access content'

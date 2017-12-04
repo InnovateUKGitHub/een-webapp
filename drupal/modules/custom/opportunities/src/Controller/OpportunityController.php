@@ -10,6 +10,7 @@ use Drupal\een_common\Form\SignInForm;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class OpportunityController extends ControllerBase
@@ -20,6 +21,7 @@ class OpportunityController extends ControllerBase
     const OPPORTUNITY_TYPE = 'opportunity_type';
     const COUNTRY = 'country';
     const EMAIL = 'email';
+    const TOKEN = 'token';
 
     /**
      * @var PrivateTempStore
@@ -83,12 +85,22 @@ class OpportunityController extends ControllerBase
      */
     public function index($profileId, $token, Request $request)
     {
+
+        $fids =  \Drupal::entityQuery('node')
+            ->condition('type', 'partnering_opportunity')
+            ->condition('field_opportunity_id', $profileId)
+            ->execute();
+
+        $id = array_shift(array_values($fids));
+
+        $entity_manager = \Drupal::entityManager();
+        $results =  $entity_manager->getStorage('node')->load($id)->toArray();
+
         $search = $request->query->get(self::SEARCH);
         $opportunityType = $request->query->get(self::OPPORTUNITY_TYPE);
-        $country = $request->query->get(self::COUNTRY);
 
-        $results = $this->service->get($profileId);
-
+        $country_list = \Drupal\Core\Locale\CountryManager::getStandardList();
+        $country = array_search($results['field_country_of_origin'][0]['value'], $country_list);
 
         $form = \Drupal::formBuilder()->getForm(ExpressionOfInterestForm::class);
         $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);
@@ -96,10 +108,12 @@ class OpportunityController extends ControllerBase
 
         $formLogin = \Drupal::formBuilder()->getForm(SignInForm::class);
 
+        $this->session->set('id', $profileId);
         $this->checkSession($form, $token, $profileId);
 
         return [
             '#theme'            => 'opportunities_details',
+            '#title'            => '',
             '#form_email'       => $formEmail,
             '#form_login'       => $formLogin,
             '#form'             => $form,
@@ -110,11 +124,32 @@ class OpportunityController extends ControllerBase
             '#token'            => $token != null && $token === $this->session->get('token'),
             '#email'            => $this->session->get('email'),
             '#mail'             => [
-                'subject' => $results['_source']['title'],
+                'subject' => $results['title'][0]['value'],
                 'body'    => $this->getMailToBody($request, $profileId),
             ],
         ];
     }
+
+
+
+
+    public function getTitle($profileId, $token, Request $request){
+
+
+        $fids =  \Drupal::entityQuery('node')
+            ->condition('type', 'partnering_opportunity')
+            ->condition('field_opportunity_id', $profileId)
+            ->execute();
+
+        $id = array_shift(array_values($fids));
+
+        $entity_manager = \Drupal::entityManager();
+        $results =  $entity_manager->getStorage('node')->load($id)->toArray();
+
+        return $results['title'][0]['value'];
+    }
+
+
 
     /**
      * @param array  $form
@@ -126,12 +161,7 @@ class OpportunityController extends ControllerBase
         $emailSession = $this->session->get('email');
         $tokenSession = $this->session->get('token');
 
-
-
-
         if ($token != null && $token === $tokenSession) {
-
-
 
             $this->clearSession();
 
@@ -147,8 +177,6 @@ class OpportunityController extends ControllerBase
             )->toString();
 
             $contact = $this->service->createLead($emailSession);
-
-
 
             $this->session->set('isLoggedIn', true);
             $this->session->set('type', $contact['Contact_Status__c']);
@@ -195,45 +223,6 @@ class OpportunityController extends ControllerBase
     }
 
     /**
-     * @param array $contact
-     */
-    private function setSession($contact)
-    {
-        if (isset($contact['Phone'])) {
-            $this->session->set('phone', $contact['Phone']);
-        }
-
-        $this->session->set('step1', true);
-        $this->session->set('firstname', $contact['FirstName']);
-        $this->session->set('lastname', $contact['LastName']);
-        $this->session->set('contact_email', $contact['Email']);
-        $this->session->set('contact_phone', $contact['MobilePhone']);
-
-        $this->session->set('step2', true);
-        $this->session->set('company_name', $contact['Account']['Name']);
-        if (isset($contact['Account']['Company_Registration_Number__c'])) {
-            $this->session->set('company_number', $contact['Account']['Company_Registration_Number__c']);
-        }
-        if (isset($contact['Account']['Website'])) {
-            $this->session->set('website', $contact['Account']['Website']);
-        }
-        if (isset($contact['Account']['Phone'])) {
-            $this->session->set('company_phone', $contact['Account']['Phone']);
-        }
-
-        $this->session->set('step3', true);
-        if (isset($contact['MailingPostalCode'])) {
-            $this->session->set('postcode', $contact['MailingPostalCode']);
-        }
-        if (isset($contact['MailingStreet'])) {
-            $this->session->set('addressone', $contact['MailingStreet']);
-        }
-        if (isset($contact['MailingCity'])) {
-            $this->session->set('city', $contact['MailingCity']);
-        }
-    }
-
-    /**
      * @param array $form
      */
     private function disableForm(&$form)
@@ -271,16 +260,48 @@ It's on Enterprise Europe Network's website, the world's largest business suppor
      */
     public function ajax($profileId, Request $request)
     {
+
+        $this->session->set('id', $profileId);
         $email = $request->query->get(self::EMAIL);
+
+
+        $type = 'opportunity';
+        $fids =  \Drupal::entityQuery('node')
+            ->condition('type', 'partnering_opportunity')
+            ->condition('field_opportunity_id', $profileId)
+            ->execute();
+
+        $id = array_shift(array_values($fids));
+
+        if(!$id){
+            $fids =  \Drupal::entityQuery('node')
+                ->condition('type', 'event')
+                ->condition('nid', $profileId)
+                ->execute();
+
+            $id = array_shift(array_values($fids));
+            if($id){
+                $type = 'event';
+            }
+        }
+
+        //Create lead on verify email.
+        $this->service->createLead($email);
+
         $token =  mt_rand(100000, 999999);
         $this->session->set('email', $email);
         $this->session->set('token', $token);
+
+
         $this->service->verifyEmail(
             $email,
             $token,
-            $profileId
+            $type
         );
 
-        return ['success' => true];
+        return new JsonResponse(
+            ['status' => 'success']
+        );
     }
+
 }

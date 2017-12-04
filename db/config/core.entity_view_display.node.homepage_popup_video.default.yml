@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.homepage_popup_video.field_y
+    - field.field.node.homepage_popup_video.field_youtube_home_title
     - node.type.homepage_popup_video
   module:
     - user
@@ -15,7 +16,7 @@ mode: default
 content:
   field_y:
     weight: 101
-    label: above
+    label: hidden
     settings:
       responsive: true
       width: 854
@@ -23,12 +24,25 @@ content:
       autoplay: true
     third_party_settings: {  }
     type: video_embed_field_video
+    region: content
+  field_youtube_home_title:
+    weight: 103
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      field_formatter_class:
+        class: youtube-title
+    type: string
+    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
   sharethis:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

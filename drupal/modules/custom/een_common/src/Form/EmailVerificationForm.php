@@ -52,6 +52,7 @@ abstract class EmailVerificationForm extends AbstractForm
                 '#type'          => 'email',
                 '#title'         => t('Enter your email to'),
                 '#label_display' => 'before',
+                '#placeholder'       => $this->t('Enter email address'),
                 '#required'      => true,
                 '#attributes'    => [
                     'class' => [
@@ -67,7 +68,7 @@ abstract class EmailVerificationForm extends AbstractForm
                 '#type'  => 'actions',
                 'submit' => [
                     '#type'        => 'submit',
-                    '#value'       => $this->t('Verify my email'),
+                    '#value'       => $this->t('Submit'),
                     '#button_type' => 'primary',
                     '#attributes'    => [
                         'class' => [
@@ -81,6 +82,7 @@ abstract class EmailVerificationForm extends AbstractForm
                 '#type'          => 'textfield',
                 //'#value'       => $this->t('6 digit code'),
                 '#placeholder'       => $this->t('6 digit code'),
+                '#title'         => '6 digit code',
                 '#label_display' => 'before',
                 '#required'      => false,
                 '#attributes'    => [

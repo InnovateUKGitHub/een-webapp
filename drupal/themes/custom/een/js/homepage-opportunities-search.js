@@ -268,7 +268,7 @@
                     checkboxFactory.setCountry($scope.data.country);
                     checkboxFactory.setFacets(data.aggregations);
 
-                    $('#auto-2 .sb-results').html('<span>'+data.total + '</span> opportunities found');
+                    $('#auto-2 .sb-results').html('<span>'+numberWithCommas(data.total) + '</span> opportunities found');
 
 
                 }).fail(function () {
@@ -473,6 +473,10 @@
             }
 
         }]);
+    }
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
 })();

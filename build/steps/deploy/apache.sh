@@ -9,6 +9,34 @@
 #exit on error
 set -e 
 
+echo "Setting up mod headers for security"
+# Note settings for 2.4
+sudo a2enmod headers
+# Restart to enable the headers module first
+sudo apachectl graceful
+
+
+SECURITY_CONF=/etc/apache2/conf-enabled/security.conf
+SHEADER_1="Header unset Server"
+SHEADER_2="Header always unset Server"
+SHEADER_3="ServerSignature Off"
+SHEADER_4="ServerTokens Prod"
+
+
+
+if [ -f $SECURITY_CONF ]; then
+    grep -qF "$SHEADER_1" "$SECURITY_CONF" ||  sudo echo "$SHEADER_1" >> $SECURITY_CONF
+    grep -qF "$SHEADER_2" "$SECURITY_CONF" ||  sudo echo "$SHEADER_2" >> $SECURITY_CONF
+    grep -qF "$SHEADER_3" "$SECURITY_CONF" ||  sudo echo "$SHEADER_3" >> $SECURITY_CONF
+    grep -qF "$SHEADER_4" "$SECURITY_CONF" ||  sudo echo "$SHEADER_4" >> $SECURITY_CONF
+else
+    echo "$SECURITY_CONF does not exist exiting"
+    exit 1;
+fi
+
+sudo apachectl graceful
+
+
 cd $htdocs/build/templates/apache
 
 echo "Creating HTTP 80 apache virtualhost, enabling it & restarting apache"

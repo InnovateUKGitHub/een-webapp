@@ -1,12 +1,15 @@
 global-styling:
-  version: "1.0.1"
+  version: "1.0.17"
   css:
     theme:
       dist/css/ie8.css: { browsers: { IE: 'lte IE 8', '!IE': false } }
       dist/css/een.css: {}
   js:
+    dist/js/angular.min.js: {}
     dist/js/bundle.js: {}
     js/jquery.autocomplete.min.js: {}
+    js/magnific.js: {}
+    js/owl.carousel.min.js: {}
     /libraries/videobackground/jquery.videobackground.js: {}
     # js/dist/bundle.js.map: {}
   dependencies:

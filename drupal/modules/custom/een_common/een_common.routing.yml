@@ -2,6 +2,7 @@ een.contact:
  path: '/contact-us'
  defaults:
    _controller: '\Drupal\een_common\Controller\ContactController::index'
+   _title: 'Contact us'
  requirements:
    _permission: 'access content'
    
@@ -118,3 +119,90 @@ sign-up.companies:
    _controller: '\Drupal\een_common\Controller\SignUpController::companies'
  requirements:
    _permission: 'access content'
+
+login:
+ path: '/login'
+ defaults:
+   _title: 'Login to your account'
+   _controller: '\Drupal\een_common\Controller\SignUpController::login'
+ requirements:
+   _permission: 'access content'
+
+logout:
+ path: '/logout'
+ defaults:
+   _title: 'Log out'
+   _controller: '\Drupal\een_common\Controller\SignUpController::logout'
+ requirements:
+   _permission: 'access content'
+
+reset-password:
+ path: '/reset-password'
+ defaults:
+   _title: 'Reset your password'
+   _controller: '\Drupal\een_common\Controller\SignUpController::reset'
+ requirements:
+   _permission: 'access content'
+
+reset-password-enter:
+ path: '/reset-password/verify'
+ defaults:
+   _title: 'Verify your password'
+   _controller: '\Drupal\een_common\Controller\SignUpController::verifyPassword'
+ requirements:
+   _permission: 'access content'
+
+reset-password-new:
+ path: '/reset-password/new'
+ defaults:
+   _title: 'New password'
+   _controller: '\Drupal\een_common\Controller\SignUpController::newPassword'
+ requirements:
+   _permission: 'access content'
+
+my-account:
+  path: '/my-account'
+  defaults:
+    _title: 'My Account'
+    _controller: '\Drupal\een_common\Controller\AccountController::index'
+  requirements:
+    _permission: 'access content'
+
+my-account-edit:
+  path: '/my-account/edit'
+  defaults:
+    _title: 'Edit My Account'
+    _controller: '\Drupal\een_common\Controller\AccountController::edit'
+  requirements:
+    _permission: 'access content'
+
+alert-add:
+  path: '/alert/add'
+  defaults:
+    _controller: '\Drupal\een_common\Controller\AlertController::add'
+  requirements:
+    _permission: 'access content'
+
+alert-update:
+  path: '/alert/update'
+  title: 'Update email alert'
+  defaults:
+    _controller: '\Drupal\een_common\Controller\AlertController::update'
+  requirements:
+    _permission: 'access content'
+
+alert-remove:
+  path: '/alert/remove'
+  title: 'Remove email alert'
+  defaults:
+    _controller: '\Drupal\een_common\Controller\AlertController::remove'
+  requirements:
+    _permission: 'access content'
+
+alert-unsubscribe:
+  path: '/alert/unsubscribe'
+  defaults:
+    _title: 'Manage your email alerts'
+    _controller: '\Drupal\een_common\Controller\AlertController::unsubscribe'
+  requirements:
+    _permission: 'access content'

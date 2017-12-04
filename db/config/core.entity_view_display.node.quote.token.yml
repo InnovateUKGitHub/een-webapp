@@ -10,8 +10,11 @@ dependencies:
     - field.field.node.quote.field_quote_author
     - field.field.node.quote.field_quote_company
     - field.field.node.quote.field_yoast_seo
+    - image.style.quote_profile_image
     - node.type.quote
   module:
+    - field_formatter_class
+    - image
     - text
     - user
 id: node.quote.token
@@ -22,25 +25,38 @@ content:
   body:
     label: hidden
     type: text_default
-    weight: 101
+    weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_image:
+    type: image
+    weight: 1
+    label: above
+    settings:
+      image_style: quote_profile_image
+      image_link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: quote-image
+    region: content
   field_quote_author:
-    weight: 105
+    weight: 2
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_quote_company:
-    weight: 106
+    weight: 3
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
 hidden:
-  field_image: true
   field_meta_tags: true
   field_yoast_seo: true
   links: true

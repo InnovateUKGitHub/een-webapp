@@ -4,17 +4,29 @@ status: true
 dependencies:
   config:
     - field.field.node.partnering_opportunity.body
+    - field.field.node.partnering_opportunity.field_accepting_eoi
     - field.field.node.partnering_opportunity.field_advantages_and_innovations
+    - field.field.node.partnering_opportunity.field_contact_consortium
+    - field.field.node.partnering_opportunity.field_contact_email
+    - field.field.node.partnering_opportunity.field_contact_fullname
+    - field.field.node.partnering_opportunity.field_contact_organisation
+    - field.field.node.partnering_opportunity.field_contact_phone
     - field.field.node.partnering_opportunity.field_country_of_origin
     - field.field.node.partnering_opportunity.field_development_stage
+    - field.field.node.partnering_opportunity.field_eoi_show
     - field.field.node.partnering_opportunity.field_intellectual_property
     - field.field.node.partnering_opportunity.field_location
+    - field.field.node.partnering_opportunity.field_msummary
     - field.field.node.partnering_opportunity.field_opportunity_id
     - field.field.node.partnering_opportunity.field_opportunity_images
+    - field.field.node.partnering_opportunity.field_opportunity_type
     - field.field.node.partnering_opportunity.field_partner_expertise_sought
+    - field.field.node.partnering_opportunity.field_submitted_date
+    - field.field.node.partnering_opportunity.field_updated_date
     - image.style.thumbnail
     - node.type.partnering_opportunity
   module:
+    - datetime
     - geolocation
     - image
     - path
@@ -33,11 +45,20 @@ content:
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
+    region: content
   created:
     type: datetime_timestamp
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_accepting_eoi:
+    weight: 40
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_advantages_and_innovations:
     weight: 35
     settings:
@@ -45,6 +66,47 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_contact_consortium:
+    weight: 46
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_contact_email:
+    weight: 49
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+    region: content
+  field_contact_fullname:
+    weight: 47
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_contact_organisation:
+    weight: 50
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_contact_phone:
+    weight: 48
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_country_of_origin:
     weight: 32
     settings:
@@ -52,6 +114,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_development_stage:
     weight: 36
     settings:
@@ -59,6 +122,15 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_eoi_show:
+    weight: 42
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
   field_intellectual_property:
     weight: 37
     settings:
@@ -66,12 +138,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_location:
     weight: 39
     settings:
       default_longitude: '0.1278'
       default_latitude: '51.5074'
-      auto_client_location: '1'
       auto_client_location_marker: '1'
       allow_override_map_settings: 1
       google_map_settings:
@@ -95,11 +167,21 @@ content:
         fullscreenControl: 0
         preferScrollingToZooming: 0
         disableDoubleClickZoom: 0
+      auto_client_location: '0'
       populate_address_field: ''
       target_address_field: null
       explicite_actions_address_field: ''
     third_party_settings: {  }
     type: geolocation_googlegeocoder
+    region: content
+  field_msummary:
+    weight: 51
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
   field_opportunity_id:
     weight: 33
     settings:
@@ -107,6 +189,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_opportunity_images:
     weight: 38
     settings:
@@ -114,6 +197,15 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
+  field_opportunity_type:
+    weight: 41
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_partner_expertise_sought:
     weight: 34
     settings:
@@ -121,23 +213,39 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_submitted_date:
+    weight: 44
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_updated_date:
+    weight: 43
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
   path:
     type: path
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 15
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 16
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: -5
@@ -145,6 +253,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 5
@@ -153,4 +262,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+    region: content
+hidden:
+  field_summary: true

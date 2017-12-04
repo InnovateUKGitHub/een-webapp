@@ -22,6 +22,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_link:
     weight: 103
     label: above
@@ -33,11 +34,14 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
   sharethis:
     weight: 10
+    region: content
 hidden:
   field_text_content: true

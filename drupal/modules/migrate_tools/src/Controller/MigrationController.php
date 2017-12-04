@@ -8,7 +8,11 @@ use Drupal\Component\Utility\Xss;
 use Drupal\Component\Utility\Html;
 use Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\migrate_tools\MigrateBatchExecutable;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Url;
+use Drupal\migrate_tools\MigrateExecutable;
+use Drupal\migrate\MigrateMessage;
 
 /**
  * Returns responses for migrate_tools migration view routes.
@@ -146,6 +150,31 @@ class MigrationController extends ControllerBase implements ContainerInjectionIn
   }
 
   /**
+   * Run a migration.
+   *
+   * @param string $migration_group
+   *   Machine name of the migration's group.
+   * @param string $migration
+   *   Machine name of the migration.
+   *
+   * @return array
+   *   A render array as expected by drupal_render().
+   */
+  public function run($migration_group, $migration) {
+
+    /** @var MigrationInterface $migration */
+    $migration = $this->migrationConfigEntityPluginManager->createInstance($migration);
+
+    $migrateMessage = new MigrateMessage();
+    $options = [];
+
+    $executable = new MigrateBatchExecutable($migration, $migrateMessage, $options);
+    $executable->batchImport();
+
+    return batch_process();
+  }
+
+  /**
    * Display process information of a migration entity.
    *
    * @param string $migration_group
@@ -203,6 +232,12 @@ class MigrationController extends ControllerBase implements ContainerInjectionIn
       '#header' => $header,
       '#rows' => $rows,
       '#empty' => $this->t('No process defined.'),
+    ];
+
+    $build['process']['run'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Run'),
+      '#url' => Url::fromRoute('entity.migration.process.run', ['migration_group' => $migration_group, 'migration' => $migration->id()]),
     ];
 
     return $build;

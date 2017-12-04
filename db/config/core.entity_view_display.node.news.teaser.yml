@@ -5,6 +5,15 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.news.body
+    - field.field.node.news.field_associated_service
+    - field.field.node.news.field_copyrighted_image
+    - field.field.node.news.field_county
+    - field.field.node.news.field_full_width_quote
+    - field.field.node.news.field_location
+    - field.field.node.news.field_meta_tags
+    - field.field.node.news.field_persona
+    - field.field.node.news.field_tags
+    - field.field.node.news.field_yoast_seo
     - node.type.news
   module:
     - text
@@ -21,14 +30,20 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
+    region: content
   sharethis:
     weight: 10
+    region: content
   workbench_moderation_control:
     weight: -20
+    region: content
 hidden:
+  field_associated_service: true
   field_copyrighted_image: true
+  field_county: true
   field_full_width_quote: true
   field_location: true
   field_meta_tags: true

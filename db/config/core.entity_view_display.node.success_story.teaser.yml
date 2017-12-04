@@ -5,6 +5,16 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.success_story.body
+    - field.field.node.success_story.field_associated_service
+    - field.field.node.success_story.field_copyrighted_image
+    - field.field.node.success_story.field_county
+    - field.field.node.success_story.field_full_width_quote
+    - field.field.node.success_story.field_hero_stats
+    - field.field.node.success_story.field_location
+    - field.field.node.success_story.field_meta_tags
+    - field.field.node.success_story.field_persona
+    - field.field.node.success_story.field_tags
+    - field.field.node.success_story.field_yoast_seo
     - node.type.success_story
   module:
     - text
@@ -21,15 +31,21 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
+    region: content
   sharethis:
     weight: 10
+    region: content
   workbench_moderation_control:
     weight: -20
+    region: content
 hidden:
+  field_associated_service: true
   field_blog_lede: true
   field_copyrighted_image: true
+  field_county: true
   field_full_width_quote: true
   field_hero_stats: true
   field_location: true

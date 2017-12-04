@@ -7,7 +7,6 @@ and open the template in the editor.
     Created on : Apr 21, 2017, 3:24:18 PM
     Author     : jasongoodenough
 */
-#global-header,
 .global-header-inner,
 #global-header .header-wrapper {
     background: $light-blue;
@@ -43,22 +42,21 @@ and open the template in the editor.
         margin-top: 11px;
         font-size: 20px;
         font-weight: 600;
-
-        @media (max-width:640px){
+        @media (max-width:768px) {
             display:none;
         }
-    }
+}
     .header-proposition {
         #proposition-menu {
             margin: 0  15px 0 15px;
-            @media (max-width:640px){
+            @media (max-width:768px){
                 margin:0;
             }
         }
         #proposition-links {
             padding:7px 0 0;
             border-bottom: 1px solid #ccc;
-            @media (max-width:769px){
+            @media (max-width:768px){
                 padding:0;
                 border:none;
             }
@@ -98,11 +96,8 @@ and open the template in the editor.
         }
         a.menu {
             font-size: 36px;
-            position: absolute;
-            top: 14px;
             padding: 0 12px;
-            right: 20px;
-
+            margin: -65px 10px 0 0;
             &:focus, &:active {
                 background:none;
                 border:none;
@@ -116,23 +111,23 @@ and open the template in the editor.
             content: "";
             position: absolute;
             top: 0.25em;
-            left: 0;
             width: 1em;
             height: 22px;
             background: url('../img/burger-icon.png');
             outline: none;
+
         }
         .menu.js-hidden:before {
             content: "X";
             border: none;
             font-family: "Verdana";
-            left: 6px;
+            left: 16px;
             -webkit-transform:scale(1.3,1.0); /* Safari and Chrome */
             -moz-transform:scale(1.3,1.0); /* Firefox */
             -ms-transform:scale(1.3,1.0); /* IE 9 */
             -o-transform:scale(1.3,1.0); /* Opera */
             transform: scale(1.3,1.0);
-            top: 2px;
+            top: 0;
             background: none;
         }
     }
@@ -151,6 +146,13 @@ and open the template in the editor.
         margin: 0 auto;
         padding-left: 15px;
         padding-right: 15px;
+        @media (max-width: 768px){
+            background:$light-blue;
+        }
+        @media (min-width:641px) and (max-width:768px) {
+            padding-left:30px;
+            padding-right:30px;
+        }
     }
     .header-proposition #proposition-link,  .header-proposition #proposition-links {
         display: block;
@@ -162,10 +164,8 @@ and open the template in the editor.
         display:block;
     }
 }
-@media (max-width:769px){
+@media (max-width:640px){
     #global-header {
-        background:$light-blue;
-        margin-bottom:14px;
         .global-header-inner {
             &:after {
                 display:none;

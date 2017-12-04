@@ -24,12 +24,14 @@ content:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_meta_tags:
     weight: 102
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
+    region: content
   field_yoast_seo:
     weight: 103
     label: above
@@ -37,8 +39,11 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   links:
     weight: 101
+    region: content
   sharethis:
     weight: 10
+    region: content
 hidden: {  }

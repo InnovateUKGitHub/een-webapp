@@ -6,7 +6,9 @@ dependencies:
     - core.entity_view_mode.node.token
     - field.field.node.blog_post.body
     - field.field.node.blog_post.comment
+    - field.field.node.blog_post.field_associated_service
     - field.field.node.blog_post.field_copyrighted_image
+    - field.field.node.blog_post.field_county
     - field.field.node.blog_post.field_full_width_quote
     - field.field.node.blog_post.field_location
     - field.field.node.blog_post.field_meta_tags
@@ -23,10 +25,9 @@ dependencies:
 third_party_settings:
   field_group:
     group_body_content:
-      children:
-        - field_tags
+      children: {  }
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: html_element
       format_settings:
         id: ''
@@ -53,16 +54,22 @@ content:
       field_formatter_class:
         class: copyrighted-image
     type: copyright_image
+    region: content
   field_tags:
-    weight: 7
-    label: visually_hidden
+    weight: 1
+    label: hidden
     settings:
       link: true
-    third_party_settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     type: entity_reference_label
+    region: content
 hidden:
   body: true
   comment: true
+  field_associated_service: true
+  field_county: true
   field_full_width_quote: true
   field_location: true
   field_meta_tags: true

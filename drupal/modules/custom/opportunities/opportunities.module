@@ -87,6 +87,7 @@ function opportunities_theme()
                 'token'            => null,
                 'email'            => null,
                 'mail'             => null,
+                'title'             => null,
             ],
             'template'  => 'opportunities-details',
         ],
@@ -135,4 +136,23 @@ function opportunities_preprocess_html(&$variables)
     if (\Drupal::request()->getPathInfo() === '/opportunities') {
         $variables['skip_text'] = 'View your search results';
     }
+}
+
+/*
+ * Delete out of date opportunities
+ */
+function opportunities_cron()
+{
+    $today = date('Y-m-d');
+    $date = date('Y-m-d', strtotime('-1 year', strtotime($today)));
+
+    $fids =  \Drupal::entityQuery('node')
+        ->condition('type', 'partnering_opportunity')
+        ->condition('field_updated_date', $date, '<')
+        ->condition('status', 1, '=')
+        ->execute();
+
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadMultiple($fids);
+    $storage_handler->delete($entities);
 }

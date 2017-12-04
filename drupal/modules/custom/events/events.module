@@ -40,3 +40,21 @@ function events_theme()
         ],
     ];
 }
+
+/*
+ * Get events that have passed and unpublish
+ */
+function events_cron()
+{
+    $fids =  \Drupal::entityQuery('node')
+        ->condition('type', 'event')
+        ->condition('field_event_date.end_value', date("Y-m-d"), '<')
+        ->condition('status', 1, '=')
+        ->execute();
+
+    foreach($fids as $nid){
+        $node = \Drupal\node\Entity\Node::load($nid);
+        $node->set("status", '0');
+        $node->save();
+    }
+}

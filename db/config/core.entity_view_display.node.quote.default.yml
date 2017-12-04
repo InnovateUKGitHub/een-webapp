@@ -27,6 +27,7 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_image:
     weight: 102
     label: above
@@ -35,12 +36,14 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_meta_tags:
     weight: 103
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
+    region: content
   field_quote_author:
     weight: 105
     label: above
@@ -48,6 +51,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_quote_company:
     weight: 106
     label: above
@@ -55,18 +59,22 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_yoast_seo:
     weight: 104
     label: above
     settings: {  }
     third_party_settings: {  }
     type: yoastseo_formatter
+    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
   sharethis:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

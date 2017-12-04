@@ -67,9 +67,33 @@
         <a id="main-content" title="Main content"  tabindex="-1"></a>{# link is in html.html.twig #}
         {{ page.highlighted }}
 
-        <div class="layout-content">
-            
-            <img src="/themes/custom/een/img/404-plug.svg">
+        <div class="layout-content page-not-found">
+            <div>
+                <p class="subtext">Error 404</p>
+                <h1 class="heading-very-large">Sorry, page not found.</h1>
+
+                <p>What we can find however, are thousands of tried and tested partners ready to develop your products or
+                services. There's a whole world of opportunity ready to explore.</p>
+
+                <a class="button-brand" href="/partnering-opportunities">Find the right partners for your business</a>
+            </div>
+
+            <div class="not-found-quote">
+                <i class="fa fa-quote-left"></i>
+                <p>
+                    EEN and Innovate UK have provided us with invaluable support and provided us with a platform to
+                    showcase our technology to the world.
+                </p>
+                <div class="author">
+                    {#<div class="avatar-image"></div>#}
+                    <div class="text">
+                        Monique Seth<br>
+                        <span class="subtext">Conigital, Birmingham</span>
+                    </div>
+                </div>
+            </div>
+
+            <img class="plug" src="/themes/custom/een/img/404-plug.svg">
 
         </div>{# /.layout-content #}
 

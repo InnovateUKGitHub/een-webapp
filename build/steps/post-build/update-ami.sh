@@ -37,8 +37,8 @@ test -e $envPropsPath || (echo "Env props not found: " $envPropsPath && exit 1;)
 . $basePropsPath
 . $envPropsPath
 
-if [ "$APPLICATION_ENV" = "" ] || [ "$aws_cli_profile" = "" ] || [ "$aws_cf_stack" = "" ] || [ "$AWS_EC2_NODE_NO" = "" ]; then
-  echo "Required vars not set APPLICATION_ENV:$APPLICATION_ENV aws_cli_profile:$aws_cli_profile aws_cf_stack:$aws_cf_stack AWS_EC2_NODE_NO:$AWS_EC2_NODE_NO" && exit 1;
+if [ "$APPLICATION_ENV" = "" ] || [ "$aws_cli_profile" = "" ] || [ "$aws_cf_stack" = "" ]; then
+  echo "Required vars not set APPLICATION_ENV:$APPLICATION_ENV aws_cli_profile:$aws_cli_profile aws_cf_stack:$aws_cf_stack" && exit 1;
 fi
 
 # set UniqueId for imageId
@@ -49,9 +49,9 @@ else
     uniqueId=$BUILD_NUMBER-$GIT_BRANCH-$GIT_COMMIT
 fi
 
-runningInstanceId=`aws ec2 describe-instances --profile $aws_cli_profile --filter "Name=tag:aws:cloudformation:stack-name,Values=$aws_cf_stack" "Name=instance-state-name,Values=running" | jq ".Reservations[$AWS_EC2_NODE_NO]" | jq '.Instances[].InstanceId' -r`
-imageName="ubuntu-14.04-aerian-$APPLICATION_ENV-$uniqueId"
-imageDescription="'100 GB, Apache, PHP, NPM, Compass, NewRelic, XDebug disabled, BBC SSL Certificate, Encrypted RDS'"
+runningInstanceId=`aws ec2 describe-instances --profile $aws_cli_profile --filter "Name=tag:aws:cloudformation:stack-name,Values=$aws_cf_stack*" "Name=instance-state-name,Values=running" | jq ".Reservations[0]" | jq '.Instances[].InstanceId' -r`
+imageName="ubuntu-16.04-aerian-$APPLICATION_ENV-$runningInstanceId-$uniqueId"
+imageDescription="'100 GB, Apache, PHP, NPM'"
 
 if [ "$runningInstanceId" = "" ] || [ "$imageName" = "" ] || [ "$imageDescription" = "" ]; then
   echo "Required vars not set runningInstanceId:$runningInstanceId imageName:$imageName imageDescription:$imageDescription" && exit 1;
@@ -128,13 +128,13 @@ fi
 
 stackInfo=`aws cloudformation describe-stacks --profile $aws_cli_profile --stack-name $aws_cf_stack`
 currentParameters=`echo "$stackInfo" | jq '.Stacks[].Parameters'`
-currentAmiId=`echo "$stackInfo" | jq '.Stacks[].Parameters[] | select(.ParameterKey == "EC2InstanceAmi") | .ParameterValue' -r`
+currentAmiId=`echo "$stackInfo" | jq '.Stacks[].Parameters[] | select(.ParameterKey == "PresentationEC2Ami") | .ParameterValue' -r`
 
 echo "currentParameters: $currentParameters"
 echo "currentAmiId: $currentAmiId"
 echo "newAmiId: $newAmiId"
 
-newParameters=`echo "$currentParameters" | sed "s/$currentAmiId/$newAmiId/g"` 
+newParameters=`echo "$currentParameters" | sed "s/$currentAmiId/$newAmiId/g"`
 
 if [ "$currentAmiId" = "" ] || [ "$newAmiId" = "" ] || [ "$newParameters" = "" ]; then
   echo "Required vars not set currentAmiId:$currentAmiId newAmiId:$newAmiId newParameters:$newParameters" && exit 1;

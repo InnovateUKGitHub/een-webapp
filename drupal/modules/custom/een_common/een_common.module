@@ -90,8 +90,10 @@ function een_common_theme()
         ],
         'sign_up_review'   => [
             'variables' => [
-                'form' => null,
-                'type' => null,
+                'form'      => null,
+                'formemail' => null,
+                'type'      => null,
+                'loggedIn'  => null,
             ],
             'template'  => 'sign-up/review',
         ],
@@ -116,6 +118,69 @@ function een_common_theme()
             ],
             'template'  => 'sign-up/complete-event',
         ],
+        'reset_password' => [
+            'variables' => [
+                'form' => null,
+                'type' => null,
+            ],
+            'template'  => 'reset-password',
+        ],
+        'reset_password_verify' => [
+            'variables' => [
+                'form' => null,
+                'passwordform' => null,
+                'type' => null,
+            ],
+            'template'  => 'reset-password-enter',
+        ],
+
+        'reset_password_new' => [
+            'variables' => [
+                'form' => null,
+                'passwordform' => null,
+                'type' => null,
+            ],
+            'template'  => 'reset-password-new-password',
+        ],
+        'login' => [
+            'variables' => [
+                'form' => null,
+                'type' => null,
+            ],
+            'template'  => 'login',
+        ],
+        'my_account' => [
+            'variables' => [
+                'form'        => null,
+                'userdetails' => null,
+                'alerts' => null,
+            ],
+            'template'  => 'account/my-account',
+        ],
+        'my_account_edit' => [
+            'variables' => [
+                'form'        => null,
+                'userdetails' => null,
+            ],
+            'template'  => 'account/my-account-edit',
+        ],
+        'pod_email' => [
+            'variables' => [
+                'body'      => null,
+                'email'     => null,
+                'id'        => null,
+            ],
+            'template'  => 'custom-emailer-simple',
+        ],
+        'alert_unsubscribe' => [
+            'variables' => [
+                'form'        => null,
+                'userdetails' => null,
+                'alerts' => null,
+            ],
+            'template'  => 'alert/unsubscribe',
+        ],
+
     ];
 }
 
@@ -130,13 +195,17 @@ function een_common_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateInte
   */
   if (isset($form['body']['widget'][0]['summary']['#attached'])) {
       unset($form['body']['widget'][0]['summary']['#attached']);
-      $form['body']['widget'][0]['summary']['#description'] = "Field limited to 150 characters for better Google ranking";
-      $form['body']['widget'][0]['summary']['#maxlength'] = 150;
+
+      if($form_id != "node_partnering_opportunity_form") {
+          $form['body']['widget'][0]['summary']['#description'] = "Field limited to 150 characters for better Google ranking";
+          $form['body']['widget'][0]['summary']['#maxlength'] = 150;
+      }
   }
-  // Set the max length of the Title to 55 and add help text
-  $form['title']['widget'][0]['value']['#maxlength'] = 70;
-  $form['title']['widget'][0]['#suffix'] = '<div class="help-text">Field limited to 70 characters for better Google ranking</div>';
-  
+    if($form_id != "node_partnering_opportunity_form") {
+        // Set the max length of the Title to 55 and add help text
+        $form['title']['widget'][0]['value']['#maxlength'] = 70;
+        $form['title']['widget'][0]['#suffix'] = '<div class="help-text">Field limited to 70 characters for better Google ranking</div>';
+    }
   // If there's an uploaded image then show the crop window by default
   if(isset($form['field_copyrighted_image']['widget'][0]['#crop_preview_image_style'])) {
     $form['field_copyrighted_image']['widget'][0]['#show_crop_area'] = 1;

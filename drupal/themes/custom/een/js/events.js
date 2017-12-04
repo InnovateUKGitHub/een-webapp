@@ -53,7 +53,7 @@
                         value = value.substr(0, lastspace);
                     }
                 }
-                if (type === 'salesForce') {
+                if (url == null) {
                     url = '/events/' + id;
                 }
 

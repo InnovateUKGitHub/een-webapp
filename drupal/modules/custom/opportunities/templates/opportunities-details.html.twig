@@ -10,8 +10,9 @@
 {% endif %}
 
 {% if opportunity is not empty %}
-    
-<div  class="op-details">    
+
+
+    <div  class="op-details">
     {% if token %}
         <div class="status-summary continue-with-application-status" aria-live="assertive">
             <div class="column-two-thirds">
@@ -35,28 +36,28 @@
         </div>
         <div class="content-heading">
             <h1 tabindex="0">{{ 'Partnering opportunity'|t }}</h1>
-            <h2 class="heading-large" tabindex="0">{{ opportunity._source.title }}</h2>
+            <h2 class="heading-large" tabindex="0">{{ opportunity.title.0.value }}</h2>
             <div class="meta">
                 <div class="meta-data">
                     <span class="text-label">{{ 'Country of origin:'|t }}</span>
                     <p>
-                        {% set flag = opportunity._source.country_code|lower %}
+                        {% set flag = country|lower %}
                         {% if flag == 'uk' %}
                             {% set flag = 'gb' %}
                         {% endif %}
                         <span class="flag-icon flag-icon-{{ flag }}"></span>
-                        {{ opportunity._source.country }}
+                        {{ opportunity.field_country_of_origin.0.value }}
                     </p>
                 </div>
-                {% if opportunity._source.date|date('U') > '-5 days'|date('U') %}
+                {#% if opportunity.changed|date('U') > '-5 days'|date('U') %}
                     <div class="meta-data">
                         <span class="text-label">{{ 'Last updated:'|t }}</span>
-                        <p>{{ opportunity._source.date|time_diff }}</p>
+                        <p>{{ opportunity.changed|time_diff }}</p>
                     </div>
-                {% endif %}
+                {% endif %#}
                 <div class="meta-data">
                     <span class="text-label">{{ 'Opportunity ID:'|t }}</span>
-                    <p tabindex="0" aria-label="{{ opportunity._id|split('')|join(' ') }}"><span aria-hidden="true">{{ opportunity._id }}</span></p>
+                    <p tabindex="0" aria-label="{{ opportunity.field_opportunity_id.0.value|split('')|join(' ') }}"><span aria-hidden="true">{{ opportunity.field_opportunity_id.0.value }}</span></p>
                 </div>
             </div>
         </div>
@@ -81,48 +82,50 @@
         <div class="column-two-thirds contents-text-block">
             <h3 class="heading-medium" id="summary" tabindex="0">{{ 'Summary'|t }}</h3>
             <p>
-                {% if opportunity._source.summary %}
-                    {{ opportunity._source.summary|raw }}
+                {% if opportunity.field_msummary.0.value %}
+                    {{ opportunity.field_msummary.0.value|raw }}
+                {% elseif opportunity.body.0.value  %}
+                    {{ opportunity.body.0.value|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
             <h3 class="heading-medium" id="partner_expertise_sought" tabindex="0">{{ 'Partner expertise sought'|t }}</h3>
             <p>
-                {% if opportunity._source.partner_expertise %}
-                    {{ opportunity._source.partner_expertise|raw }}
+                {% if opportunity.field_partner_expertise_sought.0.value %}
+                    {{ opportunity.field_partner_expertise_sought.0.value|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
             <h3 class="heading-medium" id="description" tabindex="0">{{ 'Description'|t }}</h3>
             <p>
-                {% if opportunity._source.description %}
-                    {{ opportunity._source.description|raw }}
+                {% if opportunity.body.0.value %}
+                    {{ opportunity.body.0.value|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
             <h3 class="heading-medium" id="advantages_and_innovations" tabindex="0">{{ 'Advantages and innovations'|t }}</h3>
             <p>
-                {% if opportunity._source.advantage %}
-                    {{ opportunity._source.advantage|raw }}
+                {% if opportunity.field_advantages_and_innovations.0.value %}
+                    {{ opportunity.field_advantages_and_innovations.0.value|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
             <h3 class="heading-medium" id="development_stage" tabindex="0">{{ 'Development stage'|t }}</h3>
             <p>
-                {% if opportunity._source.stage %}
-                    {{ opportunity._source.stage|raw }}
+                {% if opportunity.field_development_stage.0.value %}
+                    {{ opportunity.field_development_stage.0.value|raw }}
                 {% else %}
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
             <h3 class="heading-medium" id="ipr" tabindex="0">{{ 'Intellectual Property Rights (IPR)'|t }}</h3>
             <p>
-                {% if opportunity._source.ipr or opportunity._source.ipr_comment %}
-                    {{ opportunity._source.ipr }}
+                {% if opportunity.field_intellectual_property.0.value %}
+                    {{ opportunity.field_intellectual_property.0.value }}
                     {{ opportunity._source.ipr_comment }}
                 {% else %}
                     {{ 'Not available'|t }}
@@ -138,7 +141,7 @@
 
             <article data-history-node-id="11" role="article" about="/node/11" class="quote quote-display clearfix">
                 <div class="content">
-                    {{ quote_on_opportunity }}
+                    {# {{ quote_on_opportunity }} #}
                 </div>
             </article>
         </div>
@@ -148,13 +151,13 @@
                 <h3 tabindex="0">How it works</h3>
                 <div class="step-container">
                     <ul class="progressbar">
-                        <li class="active step1" tabindex="0"><span>Tell us about your business</span></li>
-                        <li class="step2" tabindex="0"><span>We shortlist the best submissions</span></li>
-                        <li class="step3" tabindex="0"><span>Finally, client selects winning partner(s)</span></li>
+                        <li class="active step1" tabindex="0"><span>Tell us about yourself</span></li>
+                        <li class="step2" tabindex="0"><span>We’ll discuss with you</span></li>
+                        <li class="step3" tabindex="0"><span>We put the right partners in touch</span></li>
                     </ul>
                 </div>
             </div>
-            <a class="what-value" tabindex="0"><span class="q-styled">?</span>What value does EEN add?</a>
+            
             <div class="een-value">
                 <p tabindex="0">EEN help you find the right partner, rather than you going it alone.</p>
                 <p tabindex="0">Our role is to review and collate the most suitable submissions, 
@@ -171,53 +174,67 @@
                     priorities for either party, things progress slowly, but you never
                     know - your next big business break could start right here.</p>
             </div>
-
+            <a class="what-value" tabindex="0"><span class="q-styled">?</span>What value does EEN add?</a>
 
             {% if token == false %}
                 <div class="login-type js-login-type">
-                    <h3 class="heading-medium">How would you like to progress?</h3>
+                    <h3 class="heading-medium">First we need to check you’re human.</h3>
                     <form>
                         <label>
                             <input type="radio" name="login-type" checked="checked" value="verify"/>
-                            Confirm I'm human by verifying my email address
+                            Verify with an email address and continue
                         </label>
                         <label>
                             <input type="radio" name="login-type" value="login">
                             Sign into my account
                         </label>
                     </form>
+                    <img src="/themes/custom/een/img/robot.svg" alt="A Robot waving" />
                 </div>
             {% endif %}
 
             <div id="login" class="login-block login-types hide">
                 <div class="private-beta-login-notice">
-                    <span> <span class="bold-small">Private Beta</span><br />
-                    <p>Log in details created for our old website won't work on here yet, but data submitted here will be referred on to EEN advisors</p>
+                    <p>You can reset your password the first time you express an interest in a partnering opportunity. For security reasons, we couldn't migrate passwords from our old website.</p>
                 </div>
                 {{ form_login }}
                 <a class="showHideP show-password">Show password</a>
-                <a href="#" class="forgot-password">Forgotten your password?</a>
+                <a href="/reset-password" class="forgot-password">Forgotten your password?</a>
                 
             </div>
-
+                
             {% if token == false %}
                 <div class="verify-email login-types" id="verify">
 
                     <div class="email-verification-sent hide">
+                        <h3>Email Sent</h3>
                         <p>Thank you for verifying your email. We have sent you a confirmation email
                             containing a 6 digit verification code to unlock the form below</p>
                         <p><a href="" class="js-not-received">Not received your email? Send again</a> </p>
                     </div>
-
-                    {{ form_email }}
-
+                    <form action="{{ form_email['#action'] }}" method="{{ form_email['#method'] }}" class="" id="email-verification-form">
+                        {#Required hidden field for drupal form#}
+                        <div class="beta-login-warning">
+                            <p>You can reset your password the first time you express an interest in a partnering opportunity. For security reasons, we couldn't migrate passwords from our old website.</p>
+                        </div>
+                        <div>
+                            {{ form_email.emailverification }}
+                            {{ form_email.actions }}
+                        </div>
+                        <h3>Enter your 6 digit verification code if you have already received it</h3>
+                        {{ form_email.token }}
+                        {{ form_email.form_build_id }}
+                        {{ form_email.form_id }}
+                        {{ form_email.id }}
+                    </form>
+                    
                     <p class="js-rp-message">We just need to check you're a real person. We'll send you a confirmation email containing a
                         6 digit verification code to unlock the form below.</p>
                 </div>
                 <div class="transp">
             {% endif %}
             
-                <form action="{{ form['#action'] }}" method="{{ form['#method'] }}" class="form-opportunities">
+                <form action="/opportunities/{{ opportunity.field_opportunity_id.0.value }}" method="{{ form['#method'] }}" class="form-opportunities">
 
                     {% if token == true %}
                         <div class="verify-email verify-email-complete">

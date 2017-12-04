@@ -22,9 +22,8 @@ jQuery(function () {
         $( ".een-value" ).slideToggle("slow");
     });
 
-    $( ".filter-container .mobile-only .button" ).click(function() {
-        $(this).toggleClass('open');
-        $( "form" ).slideToggle("slow");
+    $( ".js-filter-results, .js-search-action" ).on('click', function() {
+        $('.filter-container').toggleClass('show');
     });
     /*
      *
@@ -95,6 +94,12 @@ jQuery(function () {
         });
     });
 
+    $( ".js-email" ).click(function() {
+        $( ".js-email-signup" ).slideToggle("fast");
+    });
+    $( ".js-email-signup .close" ).click(function() {
+        $( ".js-email-signup" ).slideToggle("fast");
+    });
     /*
     * alert panel functionality
     */
@@ -110,10 +115,8 @@ jQuery(function () {
     if (showAlert === 'false') {
         $('.alert-banner').remove();
     } else if(!showAlert) {
-        console.log('SHOW BANNER');
         $('.alert-banner').fadeIn('fast');
     } else {
-        console.log('SHOW BANNER');
         $('.alert-banner').fadeIn('fast');
     }
 
@@ -160,20 +163,9 @@ jQuery(function () {
         });
     }
 
-
-    $(document).on('click', '.js-try-it-out', function(){
-        createCookie('sneakpeak', 1, 1);
-        $('#overlay-sneak-peak').remove();
-    });
-
-    if(!readCookie('sneakpeak')){
-        $html = '<div id="overlay-sneak-peak"><div class="sp-content"><span>Here\'s a look at our new website</span><button class="btn btn-default try-it-out js-try-it-out">Try it out</button> <a href="http://www.enterprise-europe.co.uk" class="return-to-old">Go back to the old website</a> </div></div>';
-        $('body').prepend($html);
-    }
-    
     $(document).ready(function() {
-        var owl = $('.owl-carousel');
-        owl.owlCarousel({
+        var blogOwl = $('.blog-carousel');
+        blogOwl.owlCarousel({
             loop: true,
             navRewind: false,
             nav:true,
@@ -191,4 +183,111 @@ jQuery(function () {
             }
         });
     });
+
+
+
+    var owl = $('.homepage-carousel');
+    function homepageCarousel(){
+
+        owl.owlCarousel({
+            loop: true,
+            navRewind: false,
+            nav:true,
+            margin:0,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                640: {
+                    items: 2
+                }
+            }
+        });
+    }
+
+    if ($(window).width() < 640) {
+        homepageCarousel();
+    }
+    $(window).resize(function(){
+        resizeWin();
+    });
+
+    function resizeWin(){
+
+        if ($(window).width() < 640) {
+            homepageCarousel();
+        } else {
+            owl.owlCarousel('destroy');
+        }
+    }
+
+
+
+
+    //login/logout behaviour
+    $(document).on('click', '.open-popup-link', function() {
+        $.ajax({
+            url: "/login?popover=true",
+            type: 'GET',
+            success: function (data) {
+                $.magnificPopup.open({
+                    items: {
+                        src: $(data).find('#js-login-container').html() + '<button title="Close (Esc)" type="button" class="mfp-close">×</button>',
+                        type: 'inline'
+                    },
+                    showCloseBtn: false,
+                    closeOnContentClick: false
+                });
+            }
+        });
+    });
+
+    var showLoginButtons = readCookie('loggedIn');
+
+    if (showLoginButtons === 'false') {
+        $('.js-li').removeClass('hide');
+        $('.js-lo').addClass('hide');
+    } else if(!showLoginButtons) {
+        $('.js-li').removeClass('hide');
+        $('.js-lo').addClass('hide');
+    } else {
+        $('.js-lo').removeClass('hide');
+        $('.js-li').addClass('hide');
+    }
+
+    $(document).on('submit', '#een-login-form', function(e) {
+        $.post("/login", $("#een-login-form").serialize(), function(data) {
+
+            if(data.success == true){
+                $('#login, .js-login-type').fadeOut();
+                enableform();
+
+                createCookie('loggedIn','true',1);
+                $('.js-lo').removeClass('hide');
+                $('.js-li').addClass('hide');
+
+                if (!$(".op-details").length) {
+                    window.location.href = '/my-account';
+                } else {
+                    $('.login-types').remove();
+                    $.magnificPopup.close();
+                }
+
+            } else {
+                $('.login-error-warning').remove();
+                $('.js-form-item-password').before('<div class="login-error-warning error-summary"><p>'+data.message+'</p></div>');
+            }
+        });
+        e.preventDefault();
+    });
+
+
+    function enableform(){
+        $('.transp').removeClass('transp');
+        $('.form-opportunities').find('input').attr('disabled', false).removeClass('is_disabled');
+        $('.form-opportunities').find('textarea').attr('disabled', false).removeClass('is_disabled');
+    }
+
+
+
 });

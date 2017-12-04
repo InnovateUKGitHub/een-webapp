@@ -273,6 +273,23 @@
                     checkboxFactory.setFacets(data.aggregations);
 
 
+
+                    var countryArray = $scope.data.country;
+                    var countries = '';
+                    if ($.inArray('anywhere', countryArray) > -1 || countryArray.length == 0) {
+                        countries = $.trim($( "input[name='country[anywhere]']").parent().text());
+                    } else if ($.inArray('europe', countryArray) > -1) {
+                        countries = $.trim($( "input[name='country[europe]']").parent().text());
+                    } else {
+                        $.each(countryArray, function( index, value ) {
+                            countries += $.trim($( "input[name='country["+value+"]']").parent().text()) + ", ";
+                        });
+                        countries = countries.slice(0, -1);
+                    }
+
+                    $('.js-alert-search-value').text($scope.data.search);
+                    $('.js-alert-countries-value').text(countries);
+
                     $('#auto-2 .sb-results').html('<span>'+data.total + '</span> opportunities found');
 
 
@@ -356,6 +373,7 @@
             };
 
             $scope.selectCountryCheckbox = function ($event) {
+
                 var tar = $event.target;
 
                 if (tar.value == 'anywhere' && tar.checked) {
@@ -369,6 +387,10 @@
 
                 if (tar.value == 'europe' && tar.checked) {
                     $scope.data.country = ['europe'];
+                } else if(tar.value == 'europe' && !$("input[value=anywhere]").parent().hasClass('selected')) {
+                    $scope.data.country = [];
+                } else if(tar.value == 'anywhere' && !$("input[value=europe]").parent().hasClass('selected')) {
+                    $scope.data.country = [];
                 }
 
 
@@ -393,7 +415,7 @@
                 if (data) {
                     $scope.data = {
                         opportunity_type: data.opportunity_type || [],
-                        country: data.country || [],
+                        country: data.country || ['anywhere'],
                         search: data.search,
                         page: data.page
                     };
@@ -403,7 +425,7 @@
                 } else {
                     $scope.data = {
                         opportunity_type: [],
-                        country: [],
+                        country: ['anywhere'],
                         search: '',
                         page: 1
                     };
@@ -436,37 +458,28 @@
                 }
             };
 
-
-            /*$("#auto-2 #edit-search").autocomplete({
-                source: "/search/autosuggest",
-                minLength: 2,
-                classes: {
-                    "ui-autocomplete": "highlight"
-                },
-                appendTo: ".js-form-item-search",
-                select: function( event, ui ) {
-                    console.log( "Selected: " + ui.item.value + " aka " + ui.item.id );
-
-                    $scope.data.search = ui.item.value;
-                    liveQueryAPI();
-                },
-                open: function (e, ui) {
-                    var acData = $(this).data('ui-autocomplete');
-                    acData
-                        .menu
-                        .element
-                        .find('li')
-                        .each(function () {
-                            var me = $(this);
-                            var keywords = acData.term.split(' ').join('|');
-                            me.html(me.text().replace(new RegExp("(" + keywords + ")", "gi"), '<b>$1</b>'));
-                        });
-                }
-            });*/
-
             $('#auto-2 #edit-submit').click(function(e){
                 liveQueryAPI();
                 e.preventDefault();
+            });
+
+
+
+
+            $('#alert-signup-form').on('submit', function(e){
+                $scope.data.email = $('#alert-email').val();
+                var jsonString = JSON.stringify($scope.data);
+
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "/alert/add",
+                    data: {data : jsonString},
+                    cache: false,
+                    success: function(){
+                        $('#alert-signup-form').hide().after('<p>Thank you.</p>').remove();
+                    }
+                });
             });
 
 

@@ -5,7 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.latest_view
     - field.field.node.news.body
+    - field.field.node.news.field_associated_service
     - field.field.node.news.field_copyrighted_image
+    - field.field.node.news.field_county
     - field.field.node.news.field_full_width_quote
     - field.field.node.news.field_location
     - field.field.node.news.field_meta_tags
@@ -65,13 +67,14 @@ mode: latest_view
 content:
   body:
     label: hidden
-    type: text_trimmed
+    type: text_summary_or_trimmed
     weight: 5
     settings:
       trim_length: 400
     third_party_settings:
       field_formatter_class:
         class: latest-content
+    region: content
   field_copyrighted_image:
     weight: 6
     label: above
@@ -82,12 +85,14 @@ content:
       field_formatter_class:
         class: copyrighted-image
     type: copyright_image
+    region: content
   field_meta_tags:
     weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
+    region: content
   field_tags:
     weight: 6
     label: hidden
@@ -97,21 +102,27 @@ content:
       field_formatter_class:
         class: tags
     type: entity_reference_label
+    region: content
   field_yoast_seo:
     weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: yoastseo_formatter
+    region: content
   links:
     weight: 3
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
+  field_associated_service: true
+  field_county: true
   field_full_width_quote: true
   field_location: true
   field_persona: true

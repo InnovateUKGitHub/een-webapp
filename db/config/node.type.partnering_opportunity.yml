@@ -11,7 +11,7 @@ third_party_settings:
       - main
     parent: 'main:'
   workbench_moderation:
-    enabled: true
+    enabled: false
     allowed_moderation_states:
       - published
       - archived
@@ -22,6 +22,6 @@ name: 'Partnering Opportunity'
 type: partnering_opportunity
 description: ''
 help: ''
-new_revision: true
+new_revision: false
 preview_mode: 1
 display_submitted: true

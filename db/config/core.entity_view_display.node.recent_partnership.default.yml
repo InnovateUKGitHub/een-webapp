@@ -19,7 +19,9 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   sharethis:
     weight: 10
+    region: content
 hidden:
   links: true

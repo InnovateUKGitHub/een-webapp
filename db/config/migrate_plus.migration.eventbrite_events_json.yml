@@ -39,6 +39,10 @@ source:
       name: url
       label: 'Event URL'
       selector: url
+    -
+      name: venue
+      label: Venue
+      selector: venue_id
   ids:
     machine_name:
       type: string
@@ -55,9 +59,29 @@ process:
   field_event_date/value: event_start_date
   field_event_date/end_value: event_end_date
   field_event_url: url
+  field_location/lat:
+    plugin: event_venue_lookup
+    type: lat
+    token: 44ZIDDTUI2JE7V4J3OF6
+  field_location/lng:
+    plugin: event_venue_lookup
+    type: lng
+    token: 44ZIDDTUI2JE7V4J3OF6
   field_event_import_source:
     plugin: default_value
     default_value: Eventbrite
+  field_event_city:
+    plugin: event_venue_lookup
+    type: city
+    token: 44ZIDDTUI2JE7V4J3OF6
+  field_event_country:
+    plugin: event_venue_lookup
+    type: country
+    token: 44ZIDDTUI2JE7V4J3OF6
+  field_event_country_code:
+    plugin: event_venue_lookup
+    type: country_code
+    token: 44ZIDDTUI2JE7V4J3OF6
 destination:
   plugin: 'entity:node'
 migration_dependencies: {  }

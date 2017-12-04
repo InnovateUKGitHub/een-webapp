@@ -10,28 +10,26 @@
 {% endif %}
 
 <div class="content-heading">
-    <h1 tabindex="0">{{ 'Partnering opportunities'|t }}</h1>
+    <h2 tabindex="0" class="heading-medium">{{ 'Partnering opportunities'|t }}</h2>
     <h2 class="heading-large" tabindex="0">{{ 'Live global partnering opportunities'|t }}</h2>
-    <h3>{{ 'Search for SME and academic partners to manufacture, distribute, co-develop and supply your products, ideas and business.'|t }}</h3>
+    <h3>{{ 'Search for SME and academic partners to manufacture, distribute, co-develop and supply your products, ideas and services.'|t }}</h3>
 
     <div class="how-it-works">
-        <p class="js-toggle-handle toggle-handle">
+        <p class="js-toggle-handle toggle-handle" tabindex="0">
             How it works
-            <a class="js-toggle-state toggle-state state--state-closed">Expand</a>
-            <a class="js-toggle-state toggle-state state--state-open hide">Hide information</a>
+            <button class="js-toggle-state toggle-state state--state-closed" tabindex="0" role="button">Expand</button>
+            <button class="js-toggle-state toggle-state state--state-open hide" tabindex="0" role="button">Hide information</button>
         </p>
         <div class="js-toggle-content toggle-content">
             <ol>
-                <li><span class="number">1</span> <span class="step">Search our global partnership database to find relevant opportunities</span></li>
-                <li><span class="number">2</span> <span class="step">Express your interest by telling us about your company</span></li>
-                <li><span class="number">3</span> <span class="step">We collate responses and introduce matched partners to each other</span></li>
+                <li tabindex="0"><span class="number">1</span> <span class="step">Search our global partnership database to find relevant opportunities</span></li>
+                <li tabindex="0"><span class="number">2</span> <span class="step">Express your interest by telling us about your company</span></li>
+                <li tabindex="0"><span class="number">3</span> <span class="step">We collate responses and introduce matched partners to each other</span></li>
             </ol>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
-
-
 
 <div class="grid-row">
     <div class="column-fullwidth">
@@ -40,22 +38,28 @@
                 <div id="form-container">
 
                     <form tabindex="0" ng-submit="submit()" data-drupal-selector="opportunity-super-search-form" action="/search-opportunities" method="POST" id="opportunity-super-search-form" accept-charset="UTF-8">
-                        <div class="js-form-item form-item js-form-type-textfield form-item-search js-form-item-search">
-                            <label for="edit-search" class="form-label">Search by keyword <span class="suggestion-labels">e.g.  battery, engineering, biofuels</span></label>
-                            <span class="error-message"> </span>
-                            <input  ng-model="data.search" ng-change="queryKeyUp()" tabindex="0" class="form-control form-text" placeholder="E.g. medical component distribution" data-drupal-selector="edit-search" type="text" id="edit-search" value="" size="60" maxlength="128" />
+
+                        <label for="edit-search" class="form-label">Search by keyword <span class="suggestion-labels">e.g.  battery, engineering, biofuels</span></label>
+                        <div class="mobile-handler">
+                            <div class="js-form-item form-item js-form-type-textfield form-item-search js-form-item-search">
+                                <span class="error-message"> </span>
+                                <input  ng-model="data.search" ng-change="queryKeyUp()" tabindex="0" class="form-control form-text" placeholder="E.g. medical component distribution" data-drupal-selector="edit-search" type="text" id="edit-search" value="" size="60" maxlength="128" />
+                            </div>
+                            <input  data-drupal-selector="form-e-t6fe07qrvndnedqtkomo4xg06-y9owmnzs57da2eo" type="hidden" name="form_build_id" value="form-E-T6fe07qrVndnEDqtkOMo4xG06-y9OwmNZs57Da2eo" />
+                            <input  data-drupal-selector="edit-opportunity-super-search-form-form-token" type="hidden" name="form_token" value="8ZhLfsD9AT3NyLV9vpKju7Z5HRZ6GUvc5GVui-vU7Iw" />
+                            <input  data-drupal-selector="edit-opportunity-super-search-form" type="hidden" name="form_id" value="opportunity_super_search_form" />
+                            <div class="ss-submit form-actions js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions">
+                                <input  data-drupal-selector="edit-submit" type="submit" id="edit-submit" name="op" value="Search" class="button button--primary js-form-submit form-submit" />
+                            </div>
                         </div>
-                        <input  data-drupal-selector="form-e-t6fe07qrvndnedqtkomo4xg06-y9owmnzs57da2eo" type="hidden" name="form_build_id" value="form-E-T6fe07qrVndnEDqtkOMo4xG06-y9OwmNZs57Da2eo" />
-                        <input  data-drupal-selector="edit-opportunity-super-search-form-form-token" type="hidden" name="form_token" value="8ZhLfsD9AT3NyLV9vpKju7Z5HRZ6GUvc5GVui-vU7Iw" />
-                        <input  data-drupal-selector="edit-opportunity-super-search-form" type="hidden" name="form_id" value="opportunity_super_search_form" />
-                        <div class="ss-submit form-actions js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions">
-                            <input  data-drupal-selector="edit-submit" type="submit" id="edit-submit" name="op" value="Search" class="button button--primary js-form-submit form-submit" />
-                        </div>
+                        <a class="button filter-results js-filter-results">Refine</a>
+
                     </form>
                 </div>
                 <p class="sb-results-wrapper ss-results-wrapper">
                     <span tabindex="0" class="sb-results" aria-live="assertive"><span>{{ total|number_format(0, '.', ',') }}</span> total opportunities</span>
                 </p>
+
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -66,12 +70,13 @@
 <div class="grid-row js-opportunities-list initial-no-vis">
     <div class="column-one-third">
         <div class="filter-container">
-            <div class="mobile-only">
-                <p>You can use the filters to show only results that match your interests</p>
-                <a class="button filter-results">Filter results</a>
+            <div class="filter-wrap">
+                <div class="mobile-only">
+                    <a class="button refine-button js-filter-results">Refine results </a>
+                </div>
+                <h3 class="filter-heading">Filter your results</h3>
+                {{ form }}
             </div>
-            <h3 class="filter-heading">Filter your results</h3>
-            {{ form }}
         </div>
     </div>
     <div class="column-two-thirds" aria-live="assertive">
@@ -84,10 +89,44 @@
         </div>
 
         <div class="row ss-row" ng-show="!meta.searched" ng-class="{ transp: meta.searching }">
-            <h3 class="gov uk results-list-heading" tabindex="0">{{ total|number_format(0, '.', ',') }}  {{ 'opportunities '|t }}</h3>
+            {%  set displaycount = 0 %}
+            {%  if results|length > 0 %}
+                {%  set displaycount = total %}
+            {%  endif %}
+            <h3 class="gov uk results-list-heading" tabindex="0">{{ displaycount|number_format(0, '.', ',') }}  {{ 'opportunities '|t }}</h3>
         </div>
 
         <div class="results-list">
+            {#
+            <div class="update-bar">
+
+                <div class="js-email-signup">
+                    <span class="close">Close</span>
+                    <p>You’re signing up to all partnering opportunity alerts for:</p>
+                    <p><i class="fa fa-search" aria-hidden="true"></i><small class="js-alert-search-value"></small><i class="fa fa-map-marker" aria-hidden="true"></i><small class="js-alert-countries-value"></small></p>
+                    <hr />
+
+                    <form action="/alert/add" method="POST" id="alert-signup-form">
+                        <div>
+                            <div class="js-form-item form-item js-form-type-email form-item-emailverification js-form-item-emailverification">
+                                <label for="alert-email" class="js-form-required form-required form-label">Enter your email to</label>
+                                <input class="form-control form-email required" id="alert-email" name="email" placeholder="Your email address" value="" size="60" maxlength="254" required="required" aria-required="true" type="email">
+                            </div>
+                            <div data-drupal-selector="edit-actions" class="form-actions js-form-wrapper form-wrapper" id="edit-actions--2">
+                                <div class="submit">
+                                    <input class="button button--primary js-form-submit form-submit" id="alert-send-form" value="Submit" type="submit">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-section terms">
+                            <label class="block-label multiple-choice" for="edit-terms">
+                                <input id="edit-terms" name="terms" value="1" class="form-checkbox required" required="required" aria-required="true" type="checkbox">
+                                I have read and accept the <a href="/terms-and-conditions" target="_blank">terms and conditions</a>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>#}
 
             <div class="contents-text-block">
                 <h3 tabindex="0" class="sr-only">The search results below each have a summary which you may find useful
@@ -107,7 +146,7 @@
 
                 <p class="meta-inline font-small">
                     {# lastupdated #}
-                    {[{ row.date }]}
+                    
 
                     <span ng-class="getFlagClass(row.country_code)" role="presentation"></span>
                     <span class="sr-only">Country of origin </span>{[{ row.country }]}
@@ -131,10 +170,11 @@
 
                     <p class="meta-inline font-small">
                         {# lastupdated #}
+                        {#
                         {% if row.date|date('U') > '-5 days'|date('U') %}
                             {{ row.date|time_diff }} |
                         {% endif %}
-
+                        #}
 
                         {# Country of origin #}
                         {% set flag = row.country_code|lower %}

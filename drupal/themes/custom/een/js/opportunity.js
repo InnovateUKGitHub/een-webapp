@@ -67,28 +67,32 @@ jQuery(function () {
     }
 
     $('#email-verification-form').on('submit', function(e) {
+        
+        var data = $("#email-verification-form :input").serializeArray();
+        var id = $("#email-verification-form input[name=id]").val();
+        var email = $("#email-verification-form #edit-emailverification").val();
+        var formid = $("#email-verification-form input[name=form_build_id]").val();
+      
+        $.get('/opportunities/' + id + '/_ajax', 'email=' + email+ '&id='+ id + '&c='+ formid);
 
-        if(!$('#edit-token').val()){
-            var data = $("#email-verification-form :input").serializeArray();
-            $.get('/opportunities/' + data[1].value + '/_ajax', 'email=' + data[0].value);
+        $('.js-form-item-emailverification, .js-rp-message, #edit-submit--2').hide();
+        $('.email-verification-sent').fadeIn('fast');
 
-            $('.js-form-item-emailverification, .js-rp-message, #edit-submit--2').hide();
-            $('.email-verification-sent').fadeIn('fast');
+        $('#edit-token').removeClass('disabled').attr('disabled', false);
+        $('#verify-code').removeClass('is-disabled').attr('disabled', false);
 
-            $('#edit-token').removeClass('disabled').attr('disabled', false);
-            $('#verify-code').removeClass('is-disabled').attr('disabled', false);
-            e.preventDefault();
-        }
-
+        enableform();
+        e.preventDefault();
     });
 
     $('.js-not-received').on('click', function(e){
 
         $('.email-verification-sent').hide();
         $('.js-form-item-emailverification, .js-rp-message, #edit-submit--2').show();
+        $('.second-verify-email').removeClass('hide');
 
         e.preventDefault();
-    })
+    });
 
 
     $('.js-login-type').on('change', 'input', function(e){
@@ -96,8 +100,6 @@ jQuery(function () {
         $('.login-types').hide();
         $('#'+id).show();
     });
-
-    $('#edit-token').after('<input type="submit" id="verify-code" disabled class="button button--primary js-form-submit form-submit is-disabled" value="Continue"/>')
 
 
     var p = $('.js-rp-message').detach();
@@ -107,11 +109,10 @@ jQuery(function () {
     $('.js-form-item-emailverification').after(a);
 
 
-
-    $('#een-login-form').on('submit', function(e) {
-        e.preventDefault();
-        $('#login').html('<p>Login method not available at this time.');
-    });
-
+    function enableform(){
+        $('.transp').removeClass('transp');
+        $('.form-opportunities').find('input').attr('disabled', false).removeClass('is_disabled');
+        $('.form-opportunities').find('textarea').attr('disabled', false).removeClass('is_disabled');
+    }
 
 });

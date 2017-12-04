@@ -57,10 +57,12 @@ class MappingFactory {
             'type' => 'float',
           ];
 
+        /* date format changed from 'epoch_second' to 'date_optional_time' as specified in https://www.drupal.org/node/2858873 */
+
         case 'date':
           return [
             'type' => 'date',
-            'format' => 'epoch_second',
+            'format' => 'date_optional_time',
           ];
 
         case 'attachment':

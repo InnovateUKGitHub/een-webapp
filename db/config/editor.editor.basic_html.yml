@@ -28,6 +28,7 @@ settings:
           name: 'Block Formatting'
           items:
             - Format
+            - DrupalImage
   plugins:
     language:
       language_list: un

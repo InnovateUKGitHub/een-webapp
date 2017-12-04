@@ -2,17 +2,81 @@
     background:white;
     border:1px solid green;
     padding:15px;
+    margin-bottom:10px;
+    h3 {
+        font-size:18px;
+        font-weight:600;
+        position:relative;
+        padding-left:10%;
+        &::before {
+            font-size:36px;
+            font-family:FontAwesome;
+            position:absolute;
+            top:-10px;
+            left:0;
+            content:"\f003";
+            color:#b9e88b;
+        }
+    }
+    p {
+        font-size:16px;
+        padding-left:10%;
+        
+    }
 }
+
+
+.review-verify {
+    .login-type {
+        min-height:auto;
+        margin:0;
+        h3 {
+            margin:0;
+        }
+    }
+
+    .verify-email {
+        border-top:0;
+    }
+
+    .form-item-token {
+        width:100%;
+        padding-top:15px;
+        #edit-token {
+            width:60%;
+        }
+    }
+    .form-item-emailverification {
+
+        padding-bottom:30px;
+        overflow: hidden;
+        width: 60%;
+        float: left;
+
+        input {
+            width:100%;
+        }
+    }
+
+    @media (min-width: 640px){
+        width:70%;
+    }
+}
+.form-item-token {
+    .form-label {
+        position:absolute;
+        text-indent:-10000px;
+    }
+}
+
 
 .login-type {
     min-height:130px;
     padding:15px;
     margin-bottom:7px;
-    background-position:480px 10px;
-    background-image:url('../img/robot.jpg');
-    background-repeat:no-repeat;
     background-color:$dark-blue;
     color:white;
+    position: relative;
     label, h3 {
         color:white;
     }
@@ -34,6 +98,17 @@
             margin-right:10px;
         }
     }
+
+    img {
+        position: absolute;
+        right: 20px;
+        top: 25px;
+
+
+        @media all and (min-width: 640px) and (max-width: 920px), (max-width: 530px){
+            display: none;
+        }
+    }
 }
 .login-block {
     border: solid 1px #e0f0f9;
@@ -44,9 +119,8 @@
     background: #f5fafd;
 }
 .verify-email {
-    border:solid 1px $status-background;
     overflow:hidden;
-    border-top:solid 6px $govuk-blue;
+    border-bottom:solid 6px #006ba6;
     padding:16px;
     margin-bottom:30px;
     background:#f5fafd;
@@ -69,8 +143,39 @@
         height:44px;
         margin-right:8px;
     }
+    
+    #email-verification-form {
+        h3 {
+            font-size:18px;
+            font-weight:600;
+            margin:0;
+        }
+    }
+    
+    @media (max-width: 640px) {
+        &.login-types {
+            p {
+                margin-bottom:0;
+            }
+        }
+    }
 }
-
+.beta-login-warning {
+    padding:10px;
+    border:solid 3px #fc2469;
+    margin-bottom:20px;
+    background:#fff;
+    h3 {
+        font-size:24px;
+        font-weight:600;
+        @media (max-width: 640px) {
+            font-size:18px;
+        }
+    }
+    p {
+        margin-bottom:5px;
+    }
+}   
 
 .login-types {
     .button {
@@ -90,8 +195,10 @@
     }
 }
 #edit-token {
-    width:100px;
+    width:313px;
+    background:#fff;
     @media (max-width: 600px) {
+        width:100px;
         margin-bottom:16px;
     }
 }
@@ -120,11 +227,23 @@
     text-decoration:underline;
     margin:-32px 0 0 20px;
     color:$cta;
+    position: relative;
 }
 .show-password {
     position:relative;
     top:-80px;
     margin:0;
+}
+
+
+
+.loading-verify-email {
+    opacity:0.3;
+    pointer-events: none;
+}
+.verify-warning {
+    color: darkred;
+    margin: 7px 0 0 0;
 }
 
 @media (max-width: 640px) {
