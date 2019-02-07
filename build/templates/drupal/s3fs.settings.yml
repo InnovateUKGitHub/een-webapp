@@ -1,5 +1,5 @@
-access_key: AKIAJ7TTD3JH5QOYT2WQ
-secret_key: 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
+access_key: 
+secret_key: 
 use_instance_profile: false
 default_cache_config: ''
 bucket: een-resources-vagrant

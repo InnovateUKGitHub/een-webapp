@@ -187,7 +187,7 @@ jQuery(function () {
         var searchText = $(this).val();
 
         var params = {
-            Key: '***REMOVED***',
+            Key: 'FN97-TJ51-WP36-DX35',
             Text: searchText,
             Origin: "GB",
             Countries: "GB",
@@ -222,7 +222,7 @@ jQuery(function () {
             var url = "https://services.postcodeanywhere.co.uk/Capture/Interactive/Retrieve/v1.00/json3.ws?";
 
             var params = {
-                Key: '***REMOVED***',
+                Key: 'FN97-TJ51-WP36-DX35',
                 id: id
             };
 
@@ -245,7 +245,7 @@ jQuery(function () {
             var url = "https://services.postcodeanywhere.co.uk/Capture/Interactive/Find/v1.00/json3.ws?";
 
             var params = {
-                Key: '***REMOVED***',
+                Key: 'FN97-TJ51-WP36-DX35',
                 Text: searchText,
                 Container: id
             };
