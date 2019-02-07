@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.event.body
+    - field.field.node.event.field_checked_by_neg
     - field.field.node.event.field_copyrighted_image
     - field.field.node.event.field_county
     - field.field.node.event.field_event_city
@@ -42,6 +43,16 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_checked_by_neg:
+    weight: 118
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_copyrighted_image:
     weight: 105
@@ -194,6 +205,8 @@ content:
   sharethis:
     weight: 10
     region: content
+    settings: {  }
+    third_party_settings: {  }
   workbench_moderation_control:
     weight: -20
     settings: {  }

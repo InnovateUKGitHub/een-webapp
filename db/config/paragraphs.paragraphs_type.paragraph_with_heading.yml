@@ -1,0 +1,14 @@
+uuid: 35cdc9f0-6b6f-449c-bc24-4ee3ca51568d
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_library
+third_party_settings:
+  paragraphs_library:
+    allow_library_conversion: true
+id: paragraph_with_heading
+label: 'Paragraph with heading'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

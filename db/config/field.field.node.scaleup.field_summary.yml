@@ -1,0 +1,22 @@
+uuid: 886cf756-72fa-4cfa-ac90-765e0e77779a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_summary
+    - node.type.scaleup
+  module:
+    - text
+id: node.scaleup.field_summary
+field_name: field_summary
+entity_type: node
+bundle: scaleup
+label: 'Hero Summary'
+description: 'Summary text for hero section'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary

@@ -1,0 +1,14 @@
+uuid: 7876e056-b0c6-4d0c-9899-6df04af7fd85
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.merlin
+  module:
+    - user
+id: user_remove_role_action.merlin
+label: 'Remove the Merlin role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: merlin

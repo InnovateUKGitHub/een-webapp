@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.success_story.field_associated_service
     - field.field.node.success_story.field_copyrighted_image
     - field.field.node.success_story.field_county
+    - field.field.node.success_story.field_feed_only_tag
     - field.field.node.success_story.field_full_width_quote
     - field.field.node.success_story.field_hero_stats
     - field.field.node.success_story.field_location
@@ -35,17 +36,24 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
   sharethis:
     weight: 10
     region: content
+    settings: {  }
+    third_party_settings: {  }
   workbench_moderation_control:
     weight: -20
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_associated_service: true
   field_blog_lede: true
   field_copyrighted_image: true
   field_county: true
+  field_feed_only_tag: true
   field_full_width_quote: true
   field_hero_stats: true
   field_location: true

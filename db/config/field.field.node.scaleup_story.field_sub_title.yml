@@ -1,0 +1,19 @@
+uuid: 1ea2d585-49f3-4758-9ac7-72cf5e3a950b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sub_title
+    - node.type.scaleup_story
+id: node.scaleup_story.field_sub_title
+field_name: field_sub_title
+entity_type: node
+bundle: scaleup_story
+label: 'Sub Title'
+description: 'Title of the main body text'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

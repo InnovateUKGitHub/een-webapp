@@ -1,0 +1,21 @@
+uuid: af999032-08b3-43be-9da3-07f343fdc902
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_text
+    - paragraphs.paragraphs_type.scaleup_growth_journey
+  module:
+    - text
+id: paragraph.scaleup_growth_journey.field_text
+field_name: field_text
+entity_type: paragraph
+bundle: scaleup_growth_journey
+label: Text
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

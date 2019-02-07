@@ -1,0 +1,15 @@
+uuid: b28d0734-aed4-4b6b-bb40-d1ffcff26e7f
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+name: new_image_crop_style
+label: 'New Image Crop Style'
+effects:
+  7704d0cd-5db6-4c03-973e-9cf183650af3:
+    uuid: 7704d0cd-5db6-4c03-973e-9cf183650af3
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: new_landscape_crop

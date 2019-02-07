@@ -1,8 +1,8 @@
 global-styling:
-  version: "1.0.17"
+  version: "1.0.47"
   css:
     theme:
-      dist/css/ie8.css: { browsers: { IE: 'lte IE 8', '!IE': false } }
+      dist/css/ie8.css: { browsers: { IE: "lte IE 8", "!IE": false } }
       dist/css/een.css: {}
   js:
     dist/js/angular.min.js: {}

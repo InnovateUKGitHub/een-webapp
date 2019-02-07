@@ -1,0 +1,33 @@
+uuid: 67ffcefa-81c8-4d82-96cd-825509a0057e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.key_insights.field_image
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.key_insights
+  module:
+    - een_custom_fields
+    - workbench_moderation
+id: paragraph.key_insights.default
+targetEntityType: paragraph
+bundle: key_insights
+mode: default
+content:
+  field_image:
+    weight: 6
+    settings:
+      crop_preview_image_style: crop_thumbnail
+      crop_list: null
+      show_crop_area: false
+      show_default_crop: true
+      warn_multiple_usages: true
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_copyright_image
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

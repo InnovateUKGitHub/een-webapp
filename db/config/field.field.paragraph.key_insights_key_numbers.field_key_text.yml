@@ -1,0 +1,19 @@
+uuid: 8b52ae85-689c-4f91-90d3-34ed685e3f81
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_key_text
+    - paragraphs.paragraphs_type.key_insights_key_numbers
+id: paragraph.key_insights_key_numbers.field_key_text
+field_name: field_key_text
+entity_type: paragraph
+bundle: key_insights_key_numbers
+label: 'Key text'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

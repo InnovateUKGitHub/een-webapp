@@ -1,0 +1,10 @@
+uuid: 454234ac-3c6b-453c-9ec4-b6682c691cd8
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.aggregator
+label: Aggregator
+targetEntityType: node
+cache: true

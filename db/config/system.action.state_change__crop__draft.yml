@@ -1,0 +1,11 @@
+uuid: 6dde8c41-0497-43fd-b531-d3adedc543a4
+langcode: en
+status: true
+dependencies:
+  module:
+    - workbench_moderation_actions
+id: state_change__crop__draft
+label: 'Set Crop as Draft'
+type: crop
+plugin: 'state_change:crop__draft'
+configuration: {  }

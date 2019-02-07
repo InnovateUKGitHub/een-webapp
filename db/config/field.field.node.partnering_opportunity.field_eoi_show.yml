@@ -1,0 +1,19 @@
+uuid: 9737b822-1261-45a7-acb9-42f6ded8aaab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_eoi_show
+    - node.type.partnering_opportunity
+id: node.partnering_opportunity.field_eoi_show
+field_name: field_eoi_show
+entity_type: node
+bundle: partnering_opportunity
+label: 'Eoi show'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

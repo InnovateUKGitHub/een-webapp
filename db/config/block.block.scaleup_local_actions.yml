@@ -1,0 +1,20 @@
+uuid: f354a266-d623-4fd1-ac6a-0d17749fbcec
+langcode: en
+status: true
+dependencies:
+  theme:
+    - scaleup
+_core:
+  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+id: scaleup_local_actions
+theme: scaleup
+region: content
+weight: -5
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

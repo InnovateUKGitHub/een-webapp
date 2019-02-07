@@ -101,7 +101,11 @@
         {% endif %}
     </header>
     <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
-      {{ content }}
+        <div class="blog-tags">
+            <p>Filed under</p>
+            {{ content.field_tags }}
+        </div>
+        {{ content }}
     </div>
 </article>
   

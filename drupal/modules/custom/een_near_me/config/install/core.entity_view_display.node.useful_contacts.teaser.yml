@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.useful_contacts.body
+    - node.type.useful_contacts
+  module:
+    - text
+    - user
+id: node.useful_contacts.teaser
+targetEntityType: node
+bundle: useful_contacts
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+hidden: {  }

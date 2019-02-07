@@ -50,7 +50,7 @@ abstract class EmailVerificationForm extends AbstractForm
         $form = [
             'emailverification' => [
                 '#type'          => 'email',
-                '#title'         => t('Enter your email to'),
+                '#title'         => t('Enter your email to unlock the form below'),
                 '#label_display' => 'before',
                 '#placeholder'       => $this->t('Enter email address'),
                 '#required'      => true,

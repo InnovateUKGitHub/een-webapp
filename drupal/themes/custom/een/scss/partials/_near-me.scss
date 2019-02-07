@@ -1,0 +1,307 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 15, 2017, 11:54:42 AM
+    Author     : jasongoodenough
+*/
+
+.near-me {
+    .header {
+        position:relative;
+        margin:50px 0 67px 0;
+        h1 {
+            font-size:48px;
+            padding-top:30px;
+        }
+        h2 {
+            position:absolute;
+            top:0;
+            left:0;
+            color:#9b9b9b;
+        }
+        p {
+            width:80%;
+            font-size:24px;
+            margin-top:0;
+        }
+    }
+    #block-nearmeheader {
+        height:66px;
+        line-height:66px;
+        background:$cta;
+        ul {
+            li {
+                float:left;
+                font-size:24px;
+                margin-right:35px;
+                &:first-child {
+                    font-weight:600;
+                }
+                a {
+                    color:#fff;
+                }
+            }
+        }
+        .your-area {
+            font-size:24px;
+            font-weight:600;
+            float:right;
+            color:#fff;
+            &:after {
+                display:inline-block;
+                font-size:20px;
+                font-family: FontAwesome;
+                content: "\f041"; 
+                margin-left:7px;
+                color:#fff;
+            }
+        }
+    }
+    .find-county-form {
+        height:87px;
+        background:#3586b2;
+        h2 {
+            display:none;
+        }
+        form {
+            position:relative;
+            @extend .container;
+            .form-submit {
+                width:50px;
+                height:50px;
+                box-shadow:none;
+                padding:0;
+                text-indent:-5000px;
+                background:url('/themes/custom/een/img/blue-search.png') no-repeat center;
+            }
+            .submit {
+                width:50px;
+                height:50px;
+                position:relative;
+                text-align:center;
+                float:left;
+                margin:20px 0px 0 -50px;
+                background:#fff;
+            }
+        }
+    }
+    .form-item-search-query {
+        width:549px;
+        height:50px;
+        float:left;
+        position:relative;
+        border:solid 1px $cta;
+        margin-top:18px;
+        .form-label {
+            @extend .sr-only;
+        }
+        .error-message {
+            padding:0;
+        }
+        //input
+        .form-text {
+            width:529px;
+            height:50px;
+            line-height:50px;
+            border:solid 1px $cta;
+            padding:0 10px;
+        }
+    }
+    .form-item-find-my-location {
+        float:left;
+        clear:none;
+        margin:18px 16px 0 16px;
+        .error-message {
+            padding:0;
+        }
+        .button {
+            width:245px;
+            height:52px;
+            border:solid 1px $cta;
+            box-shadow:none;
+            color:$cta;
+            background:#fff url('/themes/custom/een/img/location.png') no-repeat 170px center;
+            
+        }
+    }
+    .form-item-close-form {
+        height:70px;
+        overflow:hidden;
+        position:relative;
+        float:left;
+        clear:none;
+        &:before {
+            position:absolute;
+            z-index:1;
+            top:30px;
+            left:30px;
+            font-family: FontAwesome;
+            content: "\f00d"; 
+            color:#fff;
+        }
+        .button {
+            width:132px;
+            padding-left:56px;
+            margin-top:14px;
+            background:#0a597b;
+        }
+    }
+    #locate-status {
+        position:absolute;
+    }
+    .form-item-town-options {
+        width:529px;
+        top:71px;
+        position:absolute;
+        border:solid 1px $cta;
+        padding:0 10px;
+        background:#fff;
+        tr {
+            text-indent:10px;
+            &:hover {
+                background:#e0f0fa;
+            }
+        }
+        td {
+            border:none;
+        }
+    }
+    #block-een-content {
+        background:#f0efef;
+        div:first-of-type {
+            @extend .container;
+            div {
+                max-width:none;
+            }
+        }
+    }
+    // promos
+    div.views-row {
+        width:65%;
+        height:172px;
+        overflow:hidden;
+        float:right;
+        margin-bottom:30px;
+        background:#fff;
+        .views-field.views-field-field-copyrighted-image {
+            width:42%;
+            float:left;
+            padding:0;
+            img {
+                width:100%;
+                max-height:172px;
+                height:100%;
+            }
+            p {
+                display:none;
+            }
+        }
+        .views-field,.near-me-useful-contacts {
+            width:calc(58% - 40px);
+            float:left;
+            padding:20px;
+        }
+        .views-field-term-node-tid {
+            padding:0 14px;
+            .field-content {
+                color:#9b9b9b;
+            }
+            a {
+                display:inline-block;
+                font-size:14px;
+                color:#9b9b9b;
+            }    
+        }
+        .views-field-type {
+            display:none;
+        }
+        // first promo
+        &:first-of-type {
+            width:calc(35% - 30px);
+            height:100%;
+            min-height:576px;
+            overflow:hidden;
+            float:left;
+            background:#fff;
+            .views-field-field-copyrighted-image {
+                width:100%;
+                float:none;
+                img {
+                    width:auto;
+                    height:372px; // temp to force image height
+                    max-height:none;
+                    margin-left:-50%;
+                }
+                p {
+                    display:none;
+                }
+            }
+            .views-field {
+                width:100%;
+                float:none;
+            }
+            .views-field-title {
+                padding:14px;
+                .field-content {
+                    font-size:28px;
+                    font-weight:normal;
+                    a {
+                        color:#4a4a4a;
+                    }
+                }
+            }
+            article {
+                header {
+                    width:100%;
+                    float:none;
+                }
+            }
+            .node__content {
+                width:100%;
+                max-height:378px;
+                float:none;
+                overflow:hidden;
+            }
+            .node__meta span,p {
+                color:#fff;
+            }
+            .tags {
+                >  div div a {
+                    border-right:solid 1px #fbfbfb;
+                    color:#fbfbfb;
+                }
+            }
+        }
+    }
+    .near-me-useful-contacts {
+        width:624px;
+        height:172px;
+        float:right;
+        overflow:hidden;
+        margin-left:30px;
+        margin-bottom:30px;
+        color:#fff;
+        background:#4a4a4a;
+    }
+    
+    /*
+    #block-een-page-title,#block-een-content {
+        div:first-of-type {
+            overflow:hidden;
+            background:#f0efef;
+            header {
+                display:none;
+            }
+        }
+        .views-view-grid.horizontal {
+            @extend .container;
+        }
+        .advisers-header {
+            @extend .container;
+            background:#fff;
+        }
+    }*/
+}

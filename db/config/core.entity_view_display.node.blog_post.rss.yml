@@ -1,0 +1,75 @@
+uuid: b5495769-8f9e-43bb-8d9a-f4aafdbecccd
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.rss
+    - field.field.node.blog_post.body
+    - field.field.node.blog_post.comment
+    - field.field.node.blog_post.field_associated_service
+    - field.field.node.blog_post.field_copyrighted_image
+    - field.field.node.blog_post.field_county
+    - field.field.node.blog_post.field_feed_only_tag
+    - field.field.node.blog_post.field_full_width_quote
+    - field.field.node.blog_post.field_location
+    - field.field.node.blog_post.field_meta_tags
+    - field.field.node.blog_post.field_persona
+    - field.field.node.blog_post.field_tags
+    - field.field.node.blog_post.field_yoast_seo
+    - image.style.xml_feed_650_width
+    - node.type.blog_post
+  module:
+    - een_custom_fields
+    - field_formatter_class
+    - taxonomy
+    - text
+    - user
+id: node.blog_post.rss
+targetEntityType: node
+bundle: blog_post
+mode: rss
+content:
+  body:
+    type: text_default
+    weight: 0
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_copyrighted_image:
+    type: copyright_image
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      image_style: xml_feed_650_width
+      image_link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+  field_feed_only_tag:
+    type: entity_reference_rss_category
+    weight: 3
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_rss_category
+    weight: 2
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  comment: true
+  field_associated_service: true
+  field_county: true
+  field_full_width_quote: true
+  field_location: true
+  field_meta_tags: true
+  field_persona: true
+  field_yoast_seo: true
+  links: true
+  sharethis: true
+  workbench_moderation_control: true

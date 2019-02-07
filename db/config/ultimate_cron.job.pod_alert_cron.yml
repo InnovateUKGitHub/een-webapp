@@ -1,0 +1,30 @@
+uuid: e14ef2d4-8189-4049-88e1-4b6cf421cf97
+langcode: en
+status: true
+dependencies:
+  module:
+    - pod_alert
+title: 'Default cron handler'
+id: pod_alert_cron
+weight: 7
+module: pod_alert
+callback: pod_alert_cron
+scheduler:
+  id: crontab
+  configuration:
+    rules:
+      - '0 6 * * 1-5'
+    catch_up: 0
+launcher:
+  id: serial
+  configuration:
+    timeouts:
+      lock_timeout: 3600
+    launcher:
+      thread: 0
+logger:
+  id: database
+  configuration:
+    method: '3'
+    expire: 1209600
+    retain: 1000

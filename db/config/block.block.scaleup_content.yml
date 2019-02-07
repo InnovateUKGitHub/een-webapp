@@ -1,0 +1,22 @@
+uuid: cc5fed2f-f751-4dcf-8d1e-ff2c7f618744
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - scaleup
+_core:
+  default_config_hash: 9EoWV2Lot6FVSr50t4hoKgiz1LIXYWNG-IIPYsWxBqo
+id: scaleup_content
+theme: scaleup
+region: content
+weight: -2
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

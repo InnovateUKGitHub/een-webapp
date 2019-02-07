@@ -1,0 +1,55 @@
+dbtng_example:
+  path: 'bulkemailer/dbtng-example'
+  defaults:
+    _title: 'DBTNG Example'
+    _controller: '\Drupal\bulkemailer\Controller\BulkEmailController::entryList'
+  requirements:
+    _permission: 'access content'
+
+dbtng_list:
+  path: 'admin/bulkemailer/dbtng-example/list'
+  defaults:
+    _title: 'List'
+    _controller: '\Drupal\bulkemailer\Controller\BulkEmailController::entryList'
+  requirements:
+    _permission: 'access content'
+
+dbtng_add:
+  path: 'admin/bulkemailer/dbtng-example/add'
+  defaults:
+    _title: 'Add entry'
+    _form: '\Drupal\bulkemailer\Form\DbtngExampleAddForm'
+  requirements:
+    _permission: 'access content'
+
+dbtng_update:
+  path: 'admin/bulkemailer/dbtng-example/update'
+  defaults:
+    _title: 'Update entry'
+    _form: '\Drupal\bulkemailer\Form\BulkEmailerUpdateForm'
+  requirements:
+    _permission: 'access content'
+
+dbtng_advanced:
+  path: 'admin/bulkemailer/dbtng-example/advanced'
+  defaults:
+    _title: 'Advanced list'
+    _controller: '\Drupal\bulkemailer\Controller\BulkEmailController::entryAdvancedList'
+  requirements:
+    _permission: 'access content'
+
+addtoqueue:
+  path: 'admin/bulkemailer/addtoqueue'
+  defaults:
+    _title: 'Update entry'
+    _form: '\Drupal\bulkemailer\Form\BatchAddToQueueForm'
+  requirements:
+    _permission: 'access content'
+
+downloadcontacts:
+  path: 'admin/bulkemailer/download-contacts'
+  defaults:
+    _title: 'Download Contacts'
+    _form: '\Drupal\bulkemailer\Form\DownloadContactsForm'
+  requirements:
+    _permission: 'access content'

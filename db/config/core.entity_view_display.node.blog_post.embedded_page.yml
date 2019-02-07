@@ -1,0 +1,115 @@
+uuid: bd3e2500-e568-4692-bb5b-7f5568ac3757
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.embedded_page
+    - field.field.node.blog_post.body
+    - field.field.node.blog_post.comment
+    - field.field.node.blog_post.field_associated_service
+    - field.field.node.blog_post.field_copyrighted_image
+    - field.field.node.blog_post.field_county
+    - field.field.node.blog_post.field_feed_only_tag
+    - field.field.node.blog_post.field_full_width_quote
+    - field.field.node.blog_post.field_location
+    - field.field.node.blog_post.field_meta_tags
+    - field.field.node.blog_post.field_persona
+    - field.field.node.blog_post.field_tags
+    - field.field.node.blog_post.field_yoast_seo
+    - image.style.new_image_crop_style
+    - node.type.blog_post
+  module:
+    - een_custom_fields
+    - field_formatter_class
+    - field_group
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_header:
+      children: {  }
+      parent_name: ''
+      weight: 0
+      format_type: html_element
+      format_settings:
+        label: blog-lede
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: blog-lede
+      label: blog-lede
+    group_blog_feature_image:
+      children:
+        - field_copyrighted_image
+      parent_name: ''
+      weight: 1
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: blog-image
+        element: figure
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: blog-feature-image
+    group_body_content:
+      children:
+        - body
+      parent_name: ''
+      weight: 2
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: body-content
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: body-content
+id: node.blog_post.embedded_page
+targetEntityType: node
+bundle: blog_post
+mode: embedded_page
+content:
+  body:
+    type: text_default
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    region: content
+  field_copyrighted_image:
+    weight: 2
+    label: visually_hidden
+    settings:
+      image_style: new_image_crop_style
+      image_link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: copyrighted-image
+    type: copyright_image
+    region: content
+hidden:
+  comment: true
+  field_associated_service: true
+  field_county: true
+  field_feed_only_tag: true
+  field_full_width_quote: true
+  field_location: true
+  field_meta_tags: true
+  field_persona: true
+  field_tags: true
+  field_yoast_seo: true
+  links: true
+  sharethis: true
+  workbench_moderation_control: true

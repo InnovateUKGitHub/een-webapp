@@ -7,13 +7,24 @@ dependencies:
     - field.field.node.partnering_opportunity.body
     - field.field.node.partnering_opportunity.field_accepting_eoi
     - field.field.node.partnering_opportunity.field_advantages_and_innovations
+    - field.field.node.partnering_opportunity.field_contact_consortium
+    - field.field.node.partnering_opportunity.field_contact_email
+    - field.field.node.partnering_opportunity.field_contact_fullname
+    - field.field.node.partnering_opportunity.field_contact_organisation
+    - field.field.node.partnering_opportunity.field_contact_phone
     - field.field.node.partnering_opportunity.field_country_of_origin
+    - field.field.node.partnering_opportunity.field_deadline_date
     - field.field.node.partnering_opportunity.field_development_stage
+    - field.field.node.partnering_opportunity.field_eoi_show
     - field.field.node.partnering_opportunity.field_intellectual_property
     - field.field.node.partnering_opportunity.field_location
+    - field.field.node.partnering_opportunity.field_msummary
     - field.field.node.partnering_opportunity.field_opportunity_id
     - field.field.node.partnering_opportunity.field_opportunity_images
+    - field.field.node.partnering_opportunity.field_opportunity_type
     - field.field.node.partnering_opportunity.field_partner_expertise_sought
+    - field.field.node.partnering_opportunity.field_submitted_date
+    - field.field.node.partnering_opportunity.field_updated_date
     - node.type.partnering_opportunity
   module:
     - text
@@ -34,9 +45,13 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
   sharethis:
     weight: 10
     region: content
+    settings: {  }
+    third_party_settings: {  }
   workbench_moderation_control:
     weight: -20
     region: content
@@ -49,10 +64,12 @@ hidden:
   field_contact_organisation: true
   field_contact_phone: true
   field_country_of_origin: true
+  field_deadline_date: true
   field_development_stage: true
   field_eoi_show: true
   field_intellectual_property: true
   field_location: true
+  field_msummary: true
   field_opportunity_id: true
   field_opportunity_images: true
   field_opportunity_type: true

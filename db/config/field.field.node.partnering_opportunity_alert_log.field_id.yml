@@ -1,0 +1,19 @@
+uuid: 3a31bb97-f43e-454e-9170-b90f263b0cdc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_id
+    - node.type.partnering_opportunity_alert_log
+id: node.partnering_opportunity_alert_log.field_id
+field_name: field_id
+entity_type: node
+bundle: partnering_opportunity_alert_log
+label: id
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

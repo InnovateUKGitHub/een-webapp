@@ -1,0 +1,22 @@
+uuid: 4febcc07-3b4e-4791-8105-e00e3c08e75f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.partnering_opportunity_alert_log
+id: node.partnering_opportunity_alert_log.status
+field_name: status
+entity_type: node
+bundle: partnering_opportunity_alert_log
+label: 'Publishing status'
+description: 'A boolean indicating the published state.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

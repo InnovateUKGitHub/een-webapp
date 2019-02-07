@@ -1,0 +1,92 @@
+<section class="preferences">
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <p>Enterprise Europe Network help ambitious businesses</p>
+            <ul>
+                <li>Move into new markets</li>
+                <li>Access funding</li>
+                <li>Use our networks</li>
+                <li>Innovate to grow</li>
+                <li>Find trusted partners</li>
+            </ul>
+
+        </div>
+        <div class="column-one-third">
+            <figure class="video-yt-responsive">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/60dD1ymm5w4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </figure>
+        </div>
+    </div>
+
+    <div>
+        <h2 class="heading-medium">Please confirm your preferences</h2>
+        <p>It’s important EEN across England, Wales and Northern Ireland continue send communications to those who want to receive them, about subjects most of interest.
+            You can select from various newsletters below and also tell us which subjects are of interest.</p>
+
+        <div class="form-companies-house-search">
+            {{ form }}
+        </div>
+    </div>
+
+
+    <div class="user-account">
+
+        <div class="content-heading no-header">
+            <h3>Opportunity alerts</h3>
+            <p>Here are your saved opportunity alerts and notifications</p>
+        </div>
+
+        {% if alerts|length > 0 %}
+            <ul class="alerts">
+                {% for alert in alerts %}
+                    <li class="js-alert-row">
+                        <form method="post" action="/alert/update" class="js-update-pod-alert">
+                            <input type="hidden" name="Id" value="{{ alert.Id }}"/>
+                            <fieldset>
+                                <legend>
+                                    <h3 class="heading-small">Search Term:{% if alert.Search_Term__c %} <a href="#"> {{ alert.Search_Term__c|capitalize }} {% else %} None {% endif %}</a></h3>
+                                    <a class="remove js-remove-alert" href="/alert/remove?id={{ alert.Id }}">Remove Alert</a>
+                                </legend>
+                                <div class="buy">
+                                    <label for="Business_Offer__c__{{ alert.Id }}" >
+                                        <input id="Business_Offer__c__{{ alert.Id }}" name="Business_Offer__c" class="form-checkbox" type="checkbox" {% if alert.Business_Offer__c %} checked="checked" {% endif %} value="1">
+                                        To buy from
+                                    </label>
+                                </div>
+                                <div class="sell">
+                                    <label for="Business_Request__c__{{ alert.Id }}">
+                                        <input id="Business_Request__c__{{ alert.Id }}" name="Business_Request__c" class="form-checkbox" type="checkbox" {% if alert.Business_Request__c %} checked="checked" {% endif %} value="1">
+                                        To sell to
+                                    </label>
+                                </div>
+                                <div class="needs">
+                                    <label for="Technology_Offer__c__{{ alert.Id }}">
+                                        <input id="Technology_Offer__c__{{ alert.Id }}" name="Technology_Offer__c" class="form-checkbox" type="checkbox" {% if alert.Technology_Offer__c %} checked="checked" {% endif %} value="1">
+                                        Needs my tech/expertise
+                                    </label>
+                                </div>
+                                <div class="tech">
+                                    <label for="Technology_Request__c__{{ alert.Id }}">
+                                        <input id="Technology_Request__c__{{ alert.Id }}" name="Technology_Request__c" class="form-checkbox" type="checkbox" {% if alert.Technology_Request__c %} checked="checked" {% endif %} value="1">
+                                        Tech/expertise I need
+                                    </label>
+                                </div>
+                                <div class="collaborate">
+                                    <label for="R_and_D_Request__c__{{ alert.Id }}">
+                                        <input id="R_and_D_Request__c__{{ alert.Id }}" name="R_and_D_Request__c" class="form-checkbox" type="checkbox" {% if alert.R_and_D_Request__c %} checked="checked" {% endif %} value="1">
+                                        To collaborate/co-develop with
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <br />
+            <p>You have no pod alerts. </p>
+        {% endif %}
+    </div>
+
+
+</section>

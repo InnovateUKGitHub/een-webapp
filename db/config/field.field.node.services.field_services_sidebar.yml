@@ -1,0 +1,21 @@
+uuid: d152e808-ff3e-459d-a07b-39f6b6107f5f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_services_sidebar
+    - node.type.services
+  module:
+    - text
+id: node.services.field_services_sidebar
+field_name: field_services_sidebar
+entity_type: node
+bundle: services
+label: 'Services Sidebar'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

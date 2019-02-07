@@ -1,0 +1,61 @@
+uuid: 1f07c21c-95d9-4487-85d3-3289ffefbf00
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.aggregator.body
+    - field.field.node.aggregator.field_aggregator_description
+    - field.field.node.aggregator.field_country
+    - field.field.node.aggregator.field_keyword
+    - field.field.node.aggregator.field_meta_tags
+    - field.field.node.aggregator.field_opportunity_type_agg
+    - field.field.node.aggregator.field_page_summary
+    - node.type.aggregator
+  module:
+    - field_formatter_class
+    - metatag
+    - text
+    - user
+id: node.aggregator.default
+targetEntityType: node
+bundle: aggregator
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_aggregator_description:
+    weight: 2
+    label: hidden
+    settings:
+      view_mode: aggregator
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    type: entity_reference_entity_view
+    region: content
+  field_meta_tags:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_page_summary:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden:
+  field_country: true
+  field_keyword: true
+  field_opportunity_type_agg: true
+  links: true
+  sharethis: true

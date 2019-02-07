@@ -1,0 +1,32 @@
+uuid: f2cfb79c-b11e-464d-9805-1c974b8023fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.authored_by
+  module:
+    - ctools
+    - views
+  theme:
+    - scaleup
+id: scaleup_views_block__authored_by_block_1
+theme: scaleup
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:authored_by-block_1'
+settings:
+  id: 'views_block:authored_by-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      blog_post: blog_post
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

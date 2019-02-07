@@ -1,0 +1,110 @@
+uuid: d5c984d5-222a-4516-b44c-2364d24ef705
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.scaleup_story.body
+    - field.field.node.scaleup_story.field_content
+    - field.field.node.scaleup_story.field_growth_journey
+    - field.field.node.scaleup_story.field_key_insights
+    - field.field.node.scaleup_story.field_list_title
+    - field.field.node.scaleup_story.field_page_title
+    - field.field.node.scaleup_story.field_scaleup_hero_image
+    - field.field.node.scaleup_story.field_scaleup_tags
+    - field.field.node.scaleup_story.field_sub_title
+    - field.field.node.scaleup_story.field_summary
+    - image.style.large
+    - node.type.scaleup_story
+  module:
+    - field_formatter_class
+    - field_group
+    - image
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_panel_image:
+      children:
+        - field_scaleup_hero_image
+      parent_name: ''
+      weight: 2
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: media-image
+        element: figure
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Panel image'
+    group_panel_content:
+      children:
+        - field_page_title
+        - field_summary
+      parent_name: ''
+      weight: 3
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: panel-content
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Panel content'
+id: node.scaleup_story.teaser
+targetEntityType: node
+bundle: scaleup_story
+mode: teaser
+content:
+  field_page_title:
+    type: basic_string
+    weight: 3
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: panel-title
+  field_scaleup_hero_image:
+    type: image
+    weight: 2
+    region: content
+    label: hidden
+    settings:
+      image_style: large
+      image_link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+  field_summary:
+    type: text_summary_or_trimmed
+    weight: 4
+    region: content
+    label: hidden
+    settings:
+      trim_length: 100
+    third_party_settings:
+      field_formatter_class:
+        class: summary
+  sharethis:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  field_clos: true
+  field_content: true
+  field_growth_campaign: true
+  field_growth_journey: true
+  field_key_insights: true
+  field_list_title: true
+  field_scaleup_tags: true
+  field_sub_title: true
+  links: true

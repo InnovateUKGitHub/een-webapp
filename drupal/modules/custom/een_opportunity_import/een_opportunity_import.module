@@ -1,0 +1,48 @@
+<?php
+
+/*
+ * Automate import images
+ */
+function een_opportunity_import_cron()
+{
+// Get all possible dates between the start date and today
+    $start = (new DateTime())->modify('-2 days');
+    $end = new DateTime('NOW');
+
+    $date_array = getDatesFromRange($start->format('Ymd'), $end->format('Ymd'));
+    // Get the queue
+    $queue = \Drupal::queue('image_importer_queue');
+
+    // Loop through the date array and create items
+    foreach ($date_array as $value) {
+        $interval = new DateInterval('P1D');
+        $end_day = new DateTime($value);
+        $end_day->add($interval);
+        $queue->createItem(['day' => $value, 'end_day' => $end_day->format('Ymd')]);
+    }
+}
+
+/**
+ * Generate an array of string dates between 2 dates
+ *
+ * @param string $start Start date
+ * @param string $end End date
+ * @param string $format Output format (Default: Ymd)
+ *
+ * @return array
+ */
+function getDatesFromRange($start, $end, $format = 'Ymd') {
+    $array = array();
+    $interval = new DateInterval('P1D');
+
+    $realEnd = new DateTime($end);
+    $realEnd->add($interval);
+
+    $period = new DatePeriod(new DateTime($start), $interval, $realEnd);
+
+    foreach($period as $date) {
+        $array[] = $date->format($format);
+    }
+
+    return $array;
+}

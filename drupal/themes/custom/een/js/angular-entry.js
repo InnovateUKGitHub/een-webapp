@@ -130,11 +130,14 @@ var getParams = function () {
 };
 
 var setParams = function (page, q) {
-    var newHash = '!/page/' + page + '?' + q;
-    if ('#' + newHash !== window.location.hash) {
-        window.location.hash = '!/page/' + page + '?' + q;
-    } else {
-        window.dispatchEvent(new HashChangeEvent('hashchange'));
+    var windowPath = window.location.pathname;
+    if(windowPath != '/'){
+        var newHash = '!/page/' + page + '?' + q;
+        if ('#' + newHash !== window.location.hash) {
+            window.location.hash = '!/page/' + page + '?' + q;
+        } else {
+            window.dispatchEvent(new HashChangeEvent('hashchange'));
+        }
     }
 };
 

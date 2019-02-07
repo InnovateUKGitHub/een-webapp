@@ -1,0 +1,19 @@
+uuid: 064f0770-f0cf-4d02-aa5a-72f153aca9b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_opportunity_type
+    - node.type.partnering_opportunity
+id: node.partnering_opportunity.field_opportunity_type
+field_name: field_opportunity_type
+entity_type: node
+bundle: partnering_opportunity
+label: 'Opportunity Type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

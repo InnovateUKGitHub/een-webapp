@@ -1,0 +1,305 @@
+// Story detail
+
+.sub-section {
+  overflow: hidden;
+  .section-title {
+    margin-top: 0;
+    @media (min-width: 768px) {
+      width: 50%;
+      float: left;
+    }
+  }
+  .body-text {
+    @media (min-width: 768px) {
+      width: 50%;
+      float: right;
+    }
+    p:first-child {
+      line-height: 1.6m;
+      font-size: 20px;
+      @media (min-width: 768px) {
+        font-size: 24px;
+      }
+    }
+    p {
+      line-height: 1.4em;
+    }
+  }
+}
+
+.scaleup-list-group {
+  .paragraph--type--scaleup-growth-journey {
+    counter-increment: item;
+    margin-bottom: 5px;
+    overflow: hidden;
+    margin-bottom: 60px;
+
+    &:before {
+      width: 67px;
+      height: 67px;
+      line-height: 2em;
+      font-size: 36px;
+      text-align: center;
+      position: absolute;
+      display: inline-block;
+      content: counter(item);
+      color: $whiteish;
+      @media (min-width: 768px) {
+        width: 134px;
+        height: 134px;
+        line-height: 134px;
+        font-size: 72px;
+      }
+    }
+  }
+
+  .story-list-text {
+    @media (min-width: 768px) {
+      margin-left: 200px;
+    }
+    margin-top: 40px;
+
+    h2,
+    h3,
+    h4 {
+      color: $blue-dark;
+    }
+
+    p {
+      line-height: 1.4em;
+    }
+  }
+
+  .story-list-images {
+    @media (min-width: 768px) {
+      margin-left: 185px;
+      margin-right: -15px;
+    }
+    > div {
+      margin-bottom: 20px;
+      @media (min-width: 768px) {
+        margin-bottom: 0;
+      }
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      @media (min-width: 768px) {
+        width: auto;
+        height: auto;
+        float: left;
+        margin: 15px;
+      }
+    }
+  }
+
+  .story-list-header {
+    display: inline-block;
+    font-size: 30px;
+    box-shadow: 5px 5px #5b9d2d;
+    margin: 5px 0 0 62px;
+    color: $blue-dark;
+    background: #fff;
+    position: relative;
+    padding: 7px 21px;
+    font-family: $font_familyFeature;
+    @media (min-width: 768px) {
+      margin: 10px 0 0 110px;
+    }
+  }
+}
+
+// Story list item don't think this CSS is being used commented out for now JG
+
+// .story-list-title {
+//   height: 53px;
+//   line-height: 53px;
+//   padding: 0 20px;
+// }
+
+// Key insight
+.key-insights {
+  overflow: hidden;
+  background: url("/themes/custom/scaleup/img/boxes-bg.png") no-repeat center
+    126px;
+  margin-bottom: 100px;
+
+  .col-1 {
+    @media (min-width: 768px) {
+      width: 42%;
+      font-size: 16px;
+      float: left;
+    }
+
+    > div {
+      overflow: hidden;
+      @media (min-width: 768px) {
+        margin-right: 15px;
+      }
+    }
+    div {
+      .paragraph:first-child {
+        margin-bottom: 30px;
+      }
+      .paragraph:last-child {
+        margin-bottom: 20px;
+        @media (min-width: 768px) {
+          width: 80%;
+          min-height: 288px;
+          float: right;
+          margin: 0;
+        }
+        .content {
+          top: 13px;
+          h3 {
+            margin: 106px 0 0px 0;
+          }
+
+          p {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+  .col-2 {
+    @media (min-width: 768px) {
+      width: 58%;
+      float: left;
+    }
+
+    > div {
+      overflow: hidden;
+      @media (min-width: 768px) {
+        margin-left: 15px;
+      }
+    }
+    .boxes-container {
+      > div:first-child {
+        margin-bottom: 30px;
+      }
+    }
+    .box-container {
+      > div {
+        overflow: hidden;
+        margin: 0 10px 0 30px;
+      }
+    }
+  }
+
+  // end layout
+
+  // keep boxes square
+  .box {
+    position: relative;
+    overflow: hidden;
+    &:before {
+      content: "";
+      display: block;
+      padding-top: 100%;
+    }
+    .content {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: $whiteish;
+      &:before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+      }
+      > div {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+      }
+      p {
+        width: 65%;
+      }
+    }
+  }
+  // paragraph blank
+  .paragraph--type--key-insights-blank {
+    display: none;
+    @media (min-width: 768px) {
+      min-height: 200px;
+      display: block;
+      opacity: 0.1;
+      background: $blue-light;
+      clear: both;
+    }
+  }
+
+  .paragraph--type--key-insights-key-numbers {
+    min-height: 200px;
+    position: relative;
+
+    h3 {
+      font-size: 72px;
+      margin: 0 0 16px 0;
+      color: white;
+    }
+    .content {
+      overflow: hidden;
+      padding: 30px;
+      color: white;
+      background: url("/themes/custom/scaleup/img/insight-rings.png") no-repeat;
+      background-size: cover;
+    }
+  }
+
+  .col-2 .paragraph--type--key-insights-key-numbers {
+    .content {
+      background: none;
+    }
+  }
+
+  .paragraph--type--key-insights-text-content {
+    border: 1px solid #006ba6;
+    border-radius: 5px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+    .content {
+      width: 80%;
+      padding: 21px 30% 21px 21px;
+      margin-top: 30%;
+      .ki-title {
+        font-size: 18px;
+        margin: 0 0 16px 0;
+        color: $blue-light;
+      }
+      .ki-text {
+        font-size: 22px;
+        color: $blue-dark;
+        margin: 0;
+      }
+    }
+  }
+
+  .col-2 {
+    .boxes-container {
+      width: 42%;
+      float: left;
+      .paragraph--type--key-insights-key-numbers {
+        h3 {
+          font-size: $h1;
+          margin: 0;
+        }
+        p {
+          margin: 0;
+        }
+      }
+    }
+    .box-container {
+      width: 58%;
+      float: left;
+    }
+  }
+  .quote-container {
+    margin: 0;
+    @media (min-width: 1200px) {
+      width: 75%;
+    }
+  }
+}

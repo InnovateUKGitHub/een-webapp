@@ -1,0 +1,51 @@
+uuid: 5dd067a6-7d60-4c9a-93d9-b64acec3dd54
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_country_code
+    - field.storage.node.field_country_name
+    - search_api.server.een_server
+  module:
+    - search_api
+    - node
+id: een_countries
+name: een_countries
+description: ''
+read_only: false
+field_settings:
+  field_country_code:
+    label: 'Country Code'
+    datasource_id: 'entity:node'
+    property_path: field_country_code
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_country_code
+  field_country_name:
+    label: 'Country name'
+    datasource_id: 'entity:node'
+    property_path: field_country_name
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_country_name
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - countries
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  rendered_item: {  }
+tracker_settings:
+  default: {  }
+options:
+  index_directly: true
+  cron_limit: 50
+server: een_server

@@ -12,6 +12,10 @@ use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\een_common\Service\ContactService;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use \Drupal\eoilog\EoiLogStorage;
+
 
 class OpportunityController extends ControllerBase
 {
@@ -38,6 +42,13 @@ class OpportunityController extends ControllerBase
      */
     private $service;
 
+
+    /**
+     * @var ContactService
+     */
+    private $contactService;
+
+
     /**
      * OpportunityController constructor.
      *
@@ -48,12 +59,14 @@ class OpportunityController extends ControllerBase
     public function __construct(
         OpportunitiesService $service,
         PrivateTempStore $session,
-        SessionManagerInterface $sessionManager
+        SessionManagerInterface $sessionManager,
+        ContactService $contactService
     )
     {
         $this->service = $service;
         $this->session = $session;
         $this->sessionManager = $sessionManager;
+        $this->contactService = $contactService;
 
         // TODO check if the user is connected when the login is implemented
         if (!isset($_SESSION['session_started'])) {
@@ -72,7 +85,8 @@ class OpportunityController extends ControllerBase
         return new self(
             $container->get('opportunities.service'),
             $container->get('user.private_tempstore')->get('SESSION_ANONYMOUS'),
-            $container->get('session_manager')
+            $container->get('session_manager'),
+            $container->get('contact.service')
         );
     }
 
@@ -86,15 +100,43 @@ class OpportunityController extends ControllerBase
     public function index($profileId, $token, Request $request)
     {
 
-        $fids =  \Drupal::entityQuery('node')
+
+
+        $query = \Drupal::entityQuery('node');
+        $group = $query
+            ->orConditionGroup()
+            ->condition('field_eoi_show', 'Yes')
+            ->condition('field_eoi_show', 'True');
+
+        $fids =  $query
             ->condition('type', 'partnering_opportunity')
             ->condition('field_opportunity_id', $profileId)
+            ->condition($group)
             ->execute();
 
-        $id = array_shift(array_values($fids));
+        $arrayValues = array_values($fids);
+        $id = array_shift($arrayValues);
+
+
+        if(!$id){
+            throw new NotFoundHttpException();
+        }
 
         $entity_manager = \Drupal::entityManager();
-        $results =  $entity_manager->getStorage('node')->load($id)->toArray();
+        $results =  $entity_manager->getStorage('node')->load((int)$id)->toArray();
+
+
+        $i=0;
+        foreach ( $results['field_opportunity_images'] as $item) {
+            $file = \Drupal\file\Entity\File::load($item['target_id']);
+            $url = file_create_url($file->getFileUri());
+            $thumbnailUrl = \Drupal\image\Entity\ImageStyle::load('pod_thumbnail')->buildUrl($file->getFileUri());
+            $expandedUrl = \Drupal\image\Entity\ImageStyle::load('pod_image_large')->buildUrl($file->getFileUri());
+
+            $results['field_opportunity_images'][$i]['src'] = $expandedUrl;
+            $results['field_opportunity_images'][$i]['thumbnail_src'] = $thumbnailUrl;
+            $i++;
+        }
 
         $search = $request->query->get(self::SEARCH);
         $opportunityType = $request->query->get(self::OPPORTUNITY_TYPE);
@@ -140,8 +182,8 @@ class OpportunityController extends ControllerBase
             ->condition('type', 'partnering_opportunity')
             ->condition('field_opportunity_id', $profileId)
             ->execute();
-
-        $id = array_shift(array_values($fids));
+        $arrayValues = array_values($fids);
+        $id = array_shift($arrayValues);
 
         $entity_manager = \Drupal::entityManager();
         $results =  $entity_manager->getStorage('node')->load($id)->toArray();
@@ -176,7 +218,7 @@ class OpportunityController extends ControllerBase
                 ]
             )->toString();
 
-            $contact = $this->service->createLead($emailSession);
+            $contact = $this->contactService->createLead($emailSession);
 
             $this->session->set('isLoggedIn', true);
             $this->session->set('type', $contact['Contact_Status__c']);
@@ -186,7 +228,7 @@ class OpportunityController extends ControllerBase
             }
         } else {
             $this->disableForm($form);
-            $this->session->set('isLoggedIn', false);
+            //$this->session->set('isLoggedIn', false);
         }
     }
 
@@ -286,9 +328,11 @@ It's on Enterprise Europe Network's website, the world's largest business suppor
         }
 
         //Create lead on verify email.
-        $this->service->createLead($email);
+        $this->contactService->createLead($email);
+
 
         $token =  mt_rand(100000, 999999);
+        $this->session->set('isLoggedIn', false);
         $this->session->set('email', $email);
         $this->session->set('token', $token);
 
@@ -298,6 +342,16 @@ It's on Enterprise Europe Network's website, the world's largest business suppor
             $token,
             $type
         );
+
+        EoiLogStorage::insert(array(
+           'email' => $email,
+           'token' => $token,
+            'code_sent' => 'Yes',
+            'code_delivered' => '--',
+            'code_verified' => 'No',
+            'logtime' => date('Y-m-d H:i:s')
+        ));
+
 
         return new JsonResponse(
             ['status' => 'success']

@@ -1,0 +1,47 @@
+uuid: b7f817ab-c56b-49f1-870c-beabe2ade748
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.aggregator.body
+    - field.field.node.aggregator.field_aggregator_description
+    - field.field.node.aggregator.field_country
+    - field.field.node.aggregator.field_keyword
+    - field.field.node.aggregator.field_meta_tags
+    - field.field.node.aggregator.field_opportunity_type_agg
+    - field.field.node.aggregator.field_page_summary
+    - node.type.aggregator
+  module:
+    - text
+    - user
+id: node.aggregator.teaser
+targetEntityType: node
+bundle: aggregator
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_aggregator_description: true
+  field_country: true
+  field_keyword: true
+  field_meta_tags: true
+  field_opportunity_type_agg: true
+  field_page_summary: true

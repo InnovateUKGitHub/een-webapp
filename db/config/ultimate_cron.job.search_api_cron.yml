@@ -1,0 +1,17 @@
+uuid: 9749aea3-0546-4f3b-b9b2-29a3d5d62c93
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api
+title: 'Default cron handler'
+id: search_api_cron
+weight: -11
+module: search_api
+callback: search_api_cron
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

@@ -1,0 +1,13 @@
+een_opportunity_import.import_pod_images:
+  title: 'EEN Import POD Images'
+  parent: system.admin_config_system
+  description: 'Import historic POD images'
+  route_name: een_opportunity_import.import_pod_images
+  weight: -20
+  
+een_opportunity_import.check_pod_import:
+  title: 'Check POD import status'
+  parent: system.admin_config_system
+  description: 'Check POD import status'
+  route_name: een_opportunity_import.import_queue_status
+  weight: -20

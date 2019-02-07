@@ -1,0 +1,27 @@
+uuid: ab63d129-d680-47d9-8545-1dc612c8419d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_other_success_stories
+    - node.type.scaleup_story
+id: node.scaleup_story.field_other_success_stories
+field_name: field_other_success_stories
+entity_type: node
+bundle: scaleup_story
+label: 'Other success stories'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      scaleup_story: scaleup_story
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

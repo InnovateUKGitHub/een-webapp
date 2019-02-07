@@ -1,0 +1,22 @@
+uuid: 002a4e1b-f766-4fd8-8e19-f4ed3a0070c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.scaleup_story
+  module:
+    - text
+id: node.scaleup_story.body
+field_name: body
+entity_type: node
+bundle: scaleup_story
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

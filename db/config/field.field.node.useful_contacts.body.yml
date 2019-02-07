@@ -1,0 +1,24 @@
+uuid: a9495257-decf-4515-a90a-951a9984a0f2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.useful_contacts
+  module:
+    - text
+_core:
+  default_config_hash: Xt1ljr8UYA7pThxe8ku_zK9wWBdIU1QtEw5yhKq5Lt4
+id: node.useful_contacts.body
+field_name: body
+entity_type: node
+bundle: useful_contacts
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

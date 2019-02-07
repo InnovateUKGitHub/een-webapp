@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the dbtng_example module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Creates some default entries on this module custom table.
+ *
+ * @see hook_install()
+ *
+ * @ingroup dbtng_example
+ */
+function update_preferences_install() {}
+
+/**
+ * Implements hook_schema().
+ *
+ * Defines the database tables used by this module.
+ *
+ * @see hook_schema()
+ *
+ * @ingroup dbtng_example
+ */
+function update_preferences_schema() {
+  $schema['update_preferences'] = [
+    'description' => 'Logs users who have managed their preferences.',
+    'fields' => [
+            'pid' => [
+            'type' => 'serial',
+            'not null' => TRUE,
+            'description' => 'Primary Key: Unique  ID.',
+        ],
+        'email' => [
+            'type' => 'varchar',
+            'length' => 150,
+            'not null' => TRUE,
+            'default' => '',
+            'description' => 'Email of the person.',
+        ],
+        'date' => [
+            'type' => 'varchar',
+            'length' => 255,
+            'description' => 'Date saved content.',
+        ],
+    ],
+    'primary key' => ['pid'],
+      'unique keys' => array(
+          'pid' => array(
+              'pid',
+          ),
+      ),
+  ];
+
+  return $schema;
+}

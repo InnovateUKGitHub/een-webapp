@@ -1,0 +1,8 @@
+type: module
+name: EEN SalesForce customisations
+description: 'Contains customisations for interactions with salesforce'
+package: EEN
+core: 8.x
+dependencies:
+  - salesforce_mapping
+  - salesforce_pull

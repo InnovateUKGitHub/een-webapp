@@ -1,0 +1,11 @@
+uuid: c859e3ca-0f1c-4660-b8e2-563de3156f8c
+langcode: en
+status: true
+dependencies:
+  module:
+    - workbench_moderation_actions
+id: state_change__crop__archived
+label: 'Set Crop as Archived'
+type: crop
+plugin: 'state_change:crop__archived'
+configuration: {  }

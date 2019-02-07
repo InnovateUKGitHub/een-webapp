@@ -1,0 +1,20 @@
+uuid: 9844359f-f509-404c-a98b-ab4e84493994
+langcode: en
+status: true
+dependencies:
+  module:
+    - bulkemailer
+title: 'Queue: Download Contacts Queue'
+id: ultimate_cron_queue_download_contacts_queue
+weight: 6
+module: bulkemailer
+callback: 'ultimate_cron.queue_worker:queueCallback'
+scheduler:
+  id: simple
+  configuration:
+    rules:
+      - '* * * * *'
+launcher:
+  id: serial
+logger:
+  id: database

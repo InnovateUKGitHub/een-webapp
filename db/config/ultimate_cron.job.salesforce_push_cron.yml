@@ -1,0 +1,17 @@
+uuid: 1e9ec860-ba6c-4fdd-b392-6c6b06f9f68f
+langcode: en
+status: true
+dependencies:
+  module:
+    - salesforce_push
+title: 'Default cron handler'
+id: salesforce_push_cron
+weight: -8
+module: salesforce_push
+callback: salesforce_push_cron
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

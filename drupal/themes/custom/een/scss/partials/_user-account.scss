@@ -96,10 +96,15 @@ and open the template in the editor.
     }
     .alerts {
         margin-top:-1px;
+        padding: 0;
+
+
         li {
            border:solid 1px #e0f0fa; 
            margin-bottom:10px;
            background:rgba(224,240,250,0.3);
+           list-style: none;
+            margin-left: 0;
         }
         div {
             display:inline-block;
@@ -272,4 +277,8 @@ and open the template in the editor.
             }
         }
     }
+}
+
+.preferences .user-account {
+    margin-top:60px;
 }

@@ -1,0 +1,21 @@
+uuid: ce37eb78-83d4-4f5d-9318-3f8cdd89c501
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contact_email
+    - node.type.useful_contacts
+_core:
+  default_config_hash: 10zpzO0oC0fN5R3Ce3eJLzmwCvONmdR2P7XJiUKv-IM
+id: node.useful_contacts.field_contact_email
+field_name: field_contact_email
+entity_type: node
+bundle: useful_contacts
+label: 'Contact Email'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

@@ -29,9 +29,13 @@ content:
   links:
     weight: 101
     region: content
+    settings: {  }
+    third_party_settings: {  }
   sharethis:
     weight: 10
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_meta_tags: true
   field_yoast_seo: true

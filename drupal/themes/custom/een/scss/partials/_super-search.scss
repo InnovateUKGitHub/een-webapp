@@ -193,6 +193,14 @@ $dark-blue:#0d6ca4;
 }
 
 
+.opps-view-all {
+  cursor: pointer;
+  text-decoration: underline;
+  &:hover {
+    color: $cta;
+  }
+}
+
 @media (max-width: 640px) {
 
   .filter-heading {

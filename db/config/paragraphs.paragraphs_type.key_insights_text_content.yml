@@ -1,0 +1,9 @@
+uuid: 722aa616-0022-40c7-b28f-5c1bab0c2655
+langcode: en
+status: true
+dependencies: {  }
+id: key_insights_text_content
+label: 'Key insights - text content'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

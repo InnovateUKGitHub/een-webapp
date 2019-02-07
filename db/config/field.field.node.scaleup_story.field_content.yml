@@ -1,0 +1,31 @@
+uuid: 1b131e52-ebcc-447e-8360-6274e5a11d40
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.scaleup_story
+    - paragraphs.paragraphs_type.paragraph_of_text
+  module:
+    - entity_reference_revisions
+id: node.scaleup_story.field_content
+field_name: field_content
+entity_type: node
+bundle: scaleup_story
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      paragraph_of_text: paragraph_of_text
+    target_bundles_drag_drop:
+      paragraph_of_text:
+        enabled: true
+        weight: 2
+field_type: entity_reference_revisions

@@ -1,0 +1,55 @@
+uuid: 803838d6-5855-4c35-a1c3-8e30cc07dfbb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_about
+    - node.type.scaleup
+    - paragraphs.paragraphs_type.paragraph_with_heading
+  module:
+    - entity_reference_revisions
+id: node.scaleup.field_about
+field_name: field_about
+entity_type: node
+bundle: scaleup
+label: About
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      paragraph_with_heading: paragraph_with_heading
+    target_bundles_drag_drop:
+      from_library:
+        weight: 10
+        enabled: false
+      key_insights:
+        weight: 11
+        enabled: false
+      key_insights_blank:
+        weight: 12
+        enabled: false
+      key_insights_key_numbers:
+        weight: 13
+        enabled: false
+      key_insights_text_content:
+        weight: 14
+        enabled: false
+      paragraph_of_text:
+        weight: 15
+        enabled: false
+      paragraph_with_heading:
+        enabled: true
+        weight: 16
+      quote:
+        weight: 17
+        enabled: false
+      scaleup_growth_journey:
+        weight: 18
+        enabled: false
+field_type: entity_reference_revisions

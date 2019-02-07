@@ -1,0 +1,6 @@
+nearme:
+  version: 1.x
+  js:
+    js/nearme.js: {}
+  dependencies:
+    - core/jquery

@@ -1,0 +1,52 @@
+uuid: e0ce7993-5f30-4b76-a774-ba5d7171ec4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.scaleup_growth_journey.field_images
+    - field.field.paragraph.scaleup_growth_journey.field_section_title
+    - field.field.paragraph.scaleup_growth_journey.field_text
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.scaleup_growth_journey
+  module:
+    - een_custom_fields
+    - text
+    - workbench_moderation
+id: paragraph.scaleup_growth_journey.default
+targetEntityType: paragraph
+bundle: scaleup_growth_journey
+mode: default
+content:
+  field_images:
+    weight: 6
+    settings:
+      crop_preview_image_style: crop_thumbnail
+      crop_list: null
+      show_crop_area: false
+      show_default_crop: true
+      warn_multiple_usages: true
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_copyright_image
+    region: content
+  field_section_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_text:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

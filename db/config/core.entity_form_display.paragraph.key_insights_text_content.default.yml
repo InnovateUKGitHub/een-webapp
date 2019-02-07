@@ -1,0 +1,35 @@
+uuid: 71f15574-a1f3-4388-8316-29db0c2a73ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.key_insights_text_content.field_key_text
+    - field.field.paragraph.key_insights_text_content.field_section_title
+    - paragraphs.paragraphs_type.key_insights_text_content
+  module:
+    - workbench_moderation
+id: paragraph.key_insights_text_content.default
+targetEntityType: paragraph
+bundle: key_insights_text_content
+mode: default
+content:
+  field_key_text:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_section_title:
+    weight: 6
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

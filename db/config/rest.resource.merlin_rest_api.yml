@@ -1,0 +1,20 @@
+uuid: d65d76c6-cb7e-4bc4-bc97-24c7b5f210f3
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - merlin
+    - serialization
+    - user
+id: merlin_rest_api
+plugin_id: merlin_rest_api
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - xml
+  authentication:
+    - basic_auth
+    - cookie

@@ -1,0 +1,113 @@
+<?php
+
+
+
+
+function getAlertLists($query)
+{
+
+    $salesforce = \Drupal::service('salesforce.client');
+    $response = $salesforce->apiCall($query);
+    $alerts = $response['records'];
+
+    $alertResponse = [];
+
+    foreach($alerts as $alert){
+        $alertResponse[] = $alert;
+    }
+
+    if(isset($response['nextRecordsUrl']) && count($response['records'])){
+        $next = getAlertLists($response['nextRecordsUrl']);
+        foreach($next as $alert){
+            $alertResponse[] = $alert;
+        }
+    }
+
+    return  $alertResponse;
+}
+
+
+/*
+ * Create pod alert email.
+ */
+function pod_alert_cron()
+{
+    ini_set('max_execution_time', 600);
+
+    $httpService = new Drupal\service_connection\Service\HttpService();
+    $oppService = new \Drupal\opportunities\Service\OpportunitiesService($httpService);
+    $contactService = new \Drupal\een_common\Service\ContactService($httpService);
+    $requestObject = new \Symfony\Component\HttpFoundation\Request();
+
+    $query = '
+SELECT Id, Contact__c, Search_Term__c, Business_Offer__c, Business_Request__c, R_and_D_Request__c, Technology_Offer__c, Technology_Request__c, Country__c
+FROM POD_Alert__c WHERE Unsubscribe__c = false';
+
+    $alerts = getAlertLists('query?q=' . urlencode($query));
+    $uniqueContacts = [];
+    $i=0;
+    foreach ($alerts as $alert) {
+        $uniqueContacts['W'.$alert['Contact__c']]['contactId'] = $alert['Contact__c'];
+        $uniqueContacts['W'.$alert['Contact__c']]['results'][$i] = $alert;
+        $i++;
+    }
+
+
+  foreach($uniqueContacts as $alertList){
+
+      $contactId = $alertList['contactId'];
+      $alerts = $alertList['results'];
+      if($contactId) {
+          $queue = \Drupal::queue('pod_alert_notify_queue_contact', TRUE);
+          $item = array(
+            'contactId' => $alertList['contactId'],
+            'results' => $alerts,
+          );
+          $queue->createItem($item);
+      }
+  }
+}
+
+/*
+ * Remove opportunities that have already been sent in the past.
+ * May occur when opportunity is updated at the root source.
+ * Purposely stored separately from partnering opportunities
+ * and elastic search index.
+ */
+function getValidOpportunities($opportunities){
+    $result = [];
+    foreach($opportunities as $opportunity)
+    {
+
+        $ids[] = $opportunity['id'];
+        $fids = \Drupal::entityQuery('node')
+            ->condition('type', 'partnering_opportunity_alert_log')
+            ->condition('field_id', $opportunity['id'])
+            ->condition('created', strtotime(date('c') . ' -1 year'), '>')
+            ->execute();
+        if(!$fids){
+            $result[$opportunity['id']] = $opportunity;
+        }
+    }
+
+    return $result;
+}
+
+/*
+ * Once pod has been sent, they are added to logs to make
+ * sure re-sends do not happen.
+ */
+function queueAlertLogs($batch)
+{
+    foreach ($batch as $key => $opportunities){
+        foreach($opportunities['opportunities'] as $opportunityAlert) {
+
+            $queue = \Drupal::queue('pod_alert_opportunity_queue', TRUE);
+            $item = array(
+                'id' => $opportunityAlert['id'],
+            );
+            $queue->createItem($item);
+        }
+    }
+    return $batch;
+}

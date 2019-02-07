@@ -26,7 +26,7 @@ jQuery(function () {
         var capital = checkCapital($('#edit-password').val()),
             tenChars = checkTenChars($('#edit-password').val()),
             symbol = checkSymbol($('#edit-password').val());
-        $('.password-section').fadeIn().removeClass('hide');
+        $('.password-section, .js-account-options').fadeIn().removeClass('hide');
 
         if ( capital && tenChars && symbol ) {
             $('#edit-submit').removeAttr('disabled');

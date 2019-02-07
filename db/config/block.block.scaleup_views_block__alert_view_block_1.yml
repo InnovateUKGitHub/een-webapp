@@ -1,0 +1,24 @@
+uuid: fce06443-b59f-49b9-9df5-4d690a8e7337
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.alert_view
+  module:
+    - views
+  theme:
+    - scaleup
+id: scaleup_views_block__alert_view_block_1
+theme: scaleup
+region: header
+weight: -7
+provider: null
+plugin: 'views_block:alert_view-block_1'
+settings:
+  id: 'views_block:alert_view-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+visibility: {  }

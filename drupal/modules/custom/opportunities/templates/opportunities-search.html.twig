@@ -39,7 +39,7 @@
 
                     <form tabindex="0" ng-submit="submit()" data-drupal-selector="opportunity-super-search-form" action="/search-opportunities" method="POST" id="opportunity-super-search-form" accept-charset="UTF-8">
 
-                        <label for="edit-search" class="form-label">Search by keyword <span class="suggestion-labels">e.g.  battery, engineering, biofuels</span></label>
+                        <label for="edit-search" class="form-label">Search by keyword <span class="suggestion-labels">e.g.  battery, engineering, biofuels | or <span class="opps-view-all">view all</span></span></label>
                         <div class="mobile-handler">
                             <div class="js-form-item form-item js-form-type-textfield form-item-search js-form-item-search">
                                 <span class="error-message"> </span>
@@ -79,9 +79,9 @@
             </div>
         </div>
     </div>
-    <div class="column-two-thirds" aria-live="assertive">
+    <div class="column-two-thirds">
         <div class="row ss-row" ng-show="meta.searched" ng-cloak ng-class="{ transp: meta.searching }">
-            <h3 class="results-list-heading" tabindex="0" aria-live="assertive">
+            <h3 class="results-list-heading" aria-live="assertive" tabindex="0">
                 {[{ data.total | number }]} <span class="sr-only">opportunities</span>
                     <ng-pluralize count="data.total"
                                   when="{'0': 'opportunities found', 'one': 'opportunity found','other': 'opportunities found'}"/>
@@ -97,36 +97,69 @@
         </div>
 
         <div class="results-list">
-            {#
-            <div class="update-bar">
 
+            <div class="update-bar">
+                <p>Get updates to this list
+                    <span class="email js-email"><i class="fa fa-envelope" aria-hidden="true"></i>Email </span>
+                    {#<span class="rss"><i class="fa fa-rss" aria-hidden="true"></i> RSS</span>
+                    <span class="embed">Embed these results <i class="fa fa-question-circle" aria-hidden="true"><span class="hover-box">You can now include partnering opportunities from EEN results pages to appear on your own web site page by embedding it within an iFrame (an iFrame is an HTML tag that displays another web page inside a block of the hosting page).</span></i></span>#}
+                </p>
                 <div class="js-email-signup">
                     <span class="close">Close</span>
                     <p>You’re signing up to all partnering opportunity alerts for:</p>
-                    <p><i class="fa fa-search" aria-hidden="true"></i><small class="js-alert-search-value"></small><i class="fa fa-map-marker" aria-hidden="true"></i><small class="js-alert-countries-value"></small></p>
+                    <p><i class="fa fa-search" aria-hidden="true"></i><small class="js-alert-search-value"></small><i class="fa fa-map-marker" aria-hidden="true"></i><small class="js-alert-countries-value"></small> <i class="fa fa-caret-right" aria-hidden="true"></i><small class="js-alert-opportunity-types-value"></small></p>
                     <hr />
 
-                    <form action="/alert/add" method="POST" id="alert-signup-form">
-                        <div>
-                            <div class="js-form-item form-item js-form-type-email form-item-emailverification js-form-item-emailverification">
-                                <label for="alert-email" class="js-form-required form-required form-label">Enter your email to</label>
-                                <input class="form-control form-email required" id="alert-email" name="email" placeholder="Your email address" value="" size="60" maxlength="254" required="required" aria-required="true" type="email">
+                    <div class="alert-notifications js-alert-notifications-email hide">
+                        <h4>Please check your inbox</h4>
+                        <p>Thank you for verifying your email. We have sent you a confirmation email containing a 6 digit verification code to complete your subscription</p>
+                    </div>
+
+                    <div class="alert-notifications js-alert-notifications-success hide">
+                        <h4>Thank you</h4>
+                        <p>You've successfully created a subscription</p>
+                    </div>
+
+                    <div class="alert-notifications js-alert-notifications-error hide"></div>
+
+                    <form action="" method="POST" class="js-alert-add" id="email-verification-form">
+                        <div class="js-alert-form-content">
+                            <div class="form-section terms">
+                                <label class="block-label multiple-choice" for="edit-terms">
+                                    <input id="edit-terms" name="terms" value="1" class="form-checkbox required" required="required" aria-required="true" type="checkbox">
+                                    I have read and accept the <a href="/privacy-notice" target="_blank">privacy notice policy</a>
+                                </label>
                             </div>
-                            <div data-drupal-selector="edit-actions" class="form-actions js-form-wrapper form-wrapper" id="edit-actions--2">
-                                <div class="submit">
-                                    <input class="button button--primary js-form-submit form-submit" id="alert-send-form" value="Submit" type="submit">
+                            <div>
+                                <div class="js-form-item form-item js-form-type-email form-item-emailverification js-form-item-emailverification">
+                                    <label for="edit-emailverification" class="js-form-required form-required form-label">Enter your email to</label>
+                                    <input  class="form-control form-email required" data-drupal-selector="edit-emailverification" type="email" id="edit-emailverification" name="emailverification" value="" size="60" maxlength="254" placeholder="Enter email address" required="required" aria-required="true" />
+                                </div>
+
+                                <div data-drupal-selector="edit-actions" class="form-actions js-form-wrapper form-wrapper" id="edit-actions--2"><div class="submit">
+                                        <input  class="verify-my-email button button--primary js-form-submit form-submit" data-drupal-selector="edit-submit" type="submit" id="edit-submit--2" name="op" value="Submit" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-section terms">
-                            <label class="block-label multiple-choice" for="edit-terms">
-                                <input id="edit-terms" name="terms" value="1" class="form-checkbox required" required="required" aria-required="true" type="checkbox">
-                                I have read and accept the <a href="/terms-and-conditions" target="_blank">terms and conditions</a>
-                            </label>
+
+                            <div class="js-identity-check">
+                                <p><small>We just need to check you're a real person. We'll send you a confirmation email containing a 6 digit verification code to complete your subscription</small></p>
+
+                                <div class="js-form-item form-item js-form-type-textfield form-item-token js-form-item-token">
+                                    <label for="edit-token" class="form-label">6 digit code</label>
+                                    <input  class="form-control disabled entered-verification form-text" disabled="disabled" data-drupal-selector="edit-token" type="text" id="edit-token" name="token" value="" size="60" maxlength="128" placeholder="6 digit code" />
+                                </div>
+                            </div>
+
+                            <input  data-drupal-selector="edit-email-verification-form" type="hidden" name="form_id" value="email_verification_form" />
+                            <input  data-drupal-selector="edit-id" type="hidden" name="id" value="ALERT" />
                         </div>
                     </form>
+
+                    <form id="alert-signup-form"></form>
+
                 </div>
-            </div>#}
+            </div>
 
             <div class="contents-text-block">
                 <h3 tabindex="0" class="sr-only">The search results below each have a summary which you may find useful

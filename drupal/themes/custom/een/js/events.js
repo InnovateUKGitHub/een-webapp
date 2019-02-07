@@ -303,7 +303,6 @@
             };
 
             $scope.dateChange = function () {
-                console.log('hello');
                 liveQueryAPI();
             };
 

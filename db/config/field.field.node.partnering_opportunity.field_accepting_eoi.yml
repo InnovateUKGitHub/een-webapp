@@ -1,0 +1,23 @@
+uuid: 98b55b0e-841b-4c61-a897-3278e0025614
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_accepting_eoi
+    - node.type.partnering_opportunity
+id: node.partnering_opportunity.field_accepting_eoi
+field_name: field_accepting_eoi
+entity_type: node
+bundle: partnering_opportunity
+label: 'Accepting EOI'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

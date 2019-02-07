@@ -1,0 +1,15 @@
+uuid: 9c17e248-cc39-4749-9e61-37f3da2db4b5
+langcode: en
+status: true
+dependencies: {  }
+name: pod_image_large
+label: 'Pod image large'
+effects:
+  69405d6a-1d5b-4ddf-8c67-761307c11695:
+    uuid: 69405d6a-1d5b-4ddf-8c67-761307c11695
+    id: image_scale
+    weight: 1
+    data:
+      width: 1000
+      height: null
+      upscale: false

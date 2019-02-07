@@ -1,0 +1,11 @@
+uuid: aaff47a1-9798-47c1-acb1-be53b8a2bed4
+langcode: en
+status: true
+dependencies:
+  module:
+    - workbench_moderation_actions
+id: state_change__crop__published
+label: 'Set Crop as Published'
+type: crop
+plugin: 'state_change:crop__published'
+configuration: {  }

@@ -1,0 +1,19 @@
+uuid: e5bfafbc-960f-45c0-ad31-e732a46efc14
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_youtube_home_title
+    - node.type.homepage_popup_video
+id: node.homepage_popup_video.field_youtube_home_title
+field_name: field_youtube_home_title
+entity_type: node
+bundle: homepage_popup_video
+label: Youtube-home-title
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

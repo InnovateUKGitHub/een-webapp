@@ -9,6 +9,82 @@
 
 function een_preprocess_page(&$variables) {
 
+
+    try {
+        $current_uri = \Drupal::request()->getHttpHost();
+        $subdomain =  explode('.', $current_uri)[0];
+
+        if (\Drupal::currentUser()->isAnonymous() && ($subdomain == 'admin' || $subdomain == 'admin-stage')) {
+            $current_path = \Drupal::service('path.current')->getPath();
+
+            if(substr( $current_path, 0, 5) !== "/user"){
+                header('Location: https://www.enterprise-europe.co.uk/');
+                exit;
+            }
+        }
+    } catch(\Exception $e){
+
+    }
+
+    if(isset($variables['node'])) {
+        switch ($variables['node']->getType()) {
+            case "aggregator":
+
+                $keyword = $variables['node']->get('field_keyword')->getValue()[0]['value'];
+                $opportunityTypeArray = $variables['node']->get('field_opportunity_type_agg')->getValue();
+
+                $oppTypes = [];
+                foreach($opportunityTypeArray as $type){
+                    $oppTypes[] = $type['value'];
+                }
+
+                $countryArray = $variables['node']->get('field_country')->getValue();
+
+                $countries = [];
+                foreach($countryArray as $type){
+                    $countries[] = $type['value'];
+                }
+
+                $exactMatch = 0;
+                if(str_word_count($keyword) >= 2){
+                    $exactMatch = 1;
+                }
+
+                $data = array(
+                    'search' => $keyword,
+                    'opportunity_type' => $oppTypes,
+                    'country' => $countries,
+                    'exactMatch' => $exactMatch
+                );
+
+                $variables['form'] = \Drupal::formBuilder()->getForm(\Drupal\opportunities\Form\OpportunitiesForm::class);
+                $variables['hash'] = '#!/page/1?'.http_build_query($data);
+
+                try {
+                    $current_uri = \Drupal::request()->getSchemeAndHttpHost();
+                    $client = new \GuzzleHttp\Client();
+                    $url = $current_uri.'/opportunities/_ajax/?'.http_build_query($data);
+                    $res = $client->request('GET', $url);
+                    $body = $res->getBody();
+                    $content = json_decode($body->getContents());
+
+                    $variables['route'] = $content->route;
+                    $variables['pageNumber'] = $content->page;
+                    $variables['resultPerPage'] = $content->resultPerPage;
+                    $variables['pageTotal'] = $content->pageTotal;
+                    $variables['total'] = $content->total;
+                    $variables['results'] = $content->results;
+                    $variables['exactMatch'] = $exactMatch;
+
+                } catch(\Exception $e){
+
+                }
+
+                break;
+            default:
+
+        }
+    }
 }
 
 function een_preprocess_node(&$variables) {

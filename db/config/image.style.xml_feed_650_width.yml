@@ -1,0 +1,15 @@
+uuid: e67614fa-00a0-460b-b91d-1ffe953174e3
+langcode: en
+status: true
+dependencies: {  }
+name: xml_feed_650_width
+label: 'XML feed 650 width'
+effects:
+  ce652f5f-aa70-4a27-bce9-85e9d38c44d6:
+    uuid: ce652f5f-aa70-4a27-bce9-85e9d38c44d6
+    id: image_scale
+    weight: 1
+    data:
+      width: 650
+      height: null
+      upscale: false

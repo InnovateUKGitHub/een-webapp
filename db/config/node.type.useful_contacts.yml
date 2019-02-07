@@ -1,0 +1,23 @@
+uuid: 62544227-8748-4751-a9c5-9d4d34ac7b8f
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - een_near_me
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+_core:
+  default_config_hash: 1ewScDg3MhmML9ek7UYROf6HArdwMyBcM8AqLuC48yA
+name: 'Useful Contacts'
+type: useful_contacts
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

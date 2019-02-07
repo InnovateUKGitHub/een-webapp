@@ -1,0 +1,19 @@
+uuid: 0f14a6e4-da83-4402-b433-2d4823252f73
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_types_of_updates
+    - node.type.client_options
+id: node.client_options.field_types_of_updates
+field_name: field_types_of_updates
+entity_type: node
+bundle: client_options
+label: 'Types of updates'
+description: 'Use as name|key'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

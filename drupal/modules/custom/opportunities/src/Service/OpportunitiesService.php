@@ -102,6 +102,8 @@ class OpportunitiesService
         $search = $request->query->get(self::SEARCH);
         $types = $request->query->get(self::OPPORTUNITY_TYPE);
         $countries = $request->query->get(self::COUNTRY);
+        $exactMatch = $request->query->get('exactMatch');
+
 
 
         if ($countries) {
@@ -132,7 +134,7 @@ class OpportunitiesService
         }
 
         $search = str_replace('"', '', $search);
-        $results = $this->search($form, $search, $types, $countries, $page, $resultPerPage, 3);
+        $results = $this->search($form, $search, $types, $countries, $page, $resultPerPage, $exactMatch);
 
 
         // Test if single match
@@ -199,6 +201,9 @@ class OpportunitiesService
             $search = '';
         }
 
+        // Get country list from the Drupal core 'locale' module
+        $country_list = \Drupal\Core\Locale\CountryManager::getStandardList();
+
         $params = [
             'index' => ['elasticsearch_index_een_een_opportunity'],
             'body' => [
@@ -213,11 +218,18 @@ class OpportunitiesService
                             ]
                         ],
                         'must' => [
-                            ['term' =>
-                                ['field_eoi_show' => 'True']
+                            ['bool' =>
+                                ['should' => [
+                                        ['term' =>
+                                            ['field_eoi_show' => 'Yes']
+                                        ],
+                                        ['term' =>
+                                            ['field_eoi_show' => 'True']
+                                        ],
+                                    ]
+                                ]
                             ]
                         ]
-
                     ]
                 ]
             ],
@@ -228,6 +240,11 @@ class OpportunitiesService
             $params['body']['query']['bool']['must'][] = [
                 'query_string' => [
                     'query' => $search,
+                    'fields' => [
+                        'field_opportunity_id^3',
+                        'title^2',
+                        'body^1',
+                    ],
                     'phrase_slop' => 50,
                     'allow_leading_wildcard' => true,
                     'analyze_wildcard' => true,
@@ -238,19 +255,25 @@ class OpportunitiesService
         }
 
         $filterCountries = true;
-        if (in_array('anywhere', $countries)) {
+        $countriesWithNames = [];
+        if (!is_array($countries) || in_array('anywhere', $countries)) {
             $filterCountries = false;
         }
-
         if($filterCountries) {
-            if (count($countries) > 0) {
+            foreach($countries as $country) {
+                if(isset($country_list[$country])) {
+                    $countriesWithNames[] = $country_list[$country]->getUntranslatedString();
+                }
+            }
+
+            if (count($countriesWithNames) > 0) {
                 $operator = 'OR';
                 $params['body']['query']['bool']['must'][] = [
                     'query_string' => [
                         'fields' => [
                             'field_country_of_origin'
                         ],
-                        'query' => implode('* ' . $operator . ' ', $countries) . '*',
+                        'query' => implode('* ' . $operator . ' ', $countriesWithNames) . '*',
                     ]
                 ];
             }
@@ -275,15 +298,15 @@ class OpportunitiesService
         $hosts = [
             $elasticSearchUrl
         ];
-        
+
         $client = $this->getElasticSearchClient($hosts);
-    
+
         $es_results = $client->search($params);
 
         return $es_results['aggregations'];
     }
 
-    public function search(&$form, $search, $types, $countries, $page, $resultPerPage, $searchType = 1, $timeStampFrom = 1)
+    public function search(&$form, $search, $types, $countries, $page, $resultPerPage, $exactMatch = false, $timeStampFrom = 1)
     {
 
         $form['search']['#value'] = $search;
@@ -309,6 +332,9 @@ class OpportunitiesService
             $dateFrom = 'field_updated_date';
         }
 
+
+      $date = date('Y-m-d H:i:s');
+
         $params = [
             'index' => ['elasticsearch_index_een_een_opportunity'],
             'body' => [
@@ -319,12 +345,28 @@ class OpportunitiesService
                     'bool' => [
                         'filter' => [
                             ['range' =>
-                                [$dateFrom => ['gte' => $timeStampFrom]]
-                            ]
+                                [
+                                   $dateFrom => ['gte' => $timeStampFrom]
+                                ]
+                            ],
+                            ['range' =>
+                                [
+                                  'field_deadline_date' => ['gte' => date('Y-m-d')],
+                                ]
+                            ],
                         ],
                         'must' => [
-                            ['term' =>
-                                ['field_eoi_show' => 'True']
+                            ['bool' =>
+                                [
+                                    'should' => [
+                                        ['term' =>
+                                            ['field_eoi_show' => 'Yes']
+                                        ],
+                                        ['term' =>
+                                            ['field_eoi_show' => 'True']
+                                        ],
+                                    ],
+                                ],
                             ]
                         ]
                     ]
@@ -335,11 +377,24 @@ class OpportunitiesService
         ];
 
 
-        if($search) {
+        if($search && $exactMatch == 1) {
+           $params['body']['query']['bool']['must'][]['bool']['must'] = [
+                   'match' => [
+                       'title' => [
+                           "query" => $search,
+                           "operator" => "and",
+                           "zero_terms_query" => "all"
+                       ]
+                   ]
+
+           ];
+       } elseif($search){
+
             $params['body']['query']['bool']['must'][] = [
                 'query_string' => [
                     'query' => $search,
                     'fields' => [
+                        'field_opportunity_id^3',
                         'title^2',
                         'body^1',
                     ],
@@ -352,9 +407,11 @@ class OpportunitiesService
             ];
         }
 
+
+
         $filterCountries = true;
         $countriesWithNames = [];
-        if (in_array('anywhere', $countries)) {
+        if (!is_array($countries) || in_array('anywhere', $countries)) {
             $filterCountries = false;
         }
         if($filterCountries) {
@@ -455,10 +512,6 @@ class OpportunitiesService
 
         $es_results = $client->search($params);
 
-
-
-
-
         // Process the results
         $es_results_rows = array();
         $es_results_formatted = array();
@@ -490,7 +543,7 @@ class OpportunitiesService
                         'changed' => $thisres['changed'][0],
                         'nid' => $thisres['nid'][0],
                         'country_code' => $country_code,
-                        'field_submitted_date' => $thisres['field_submitted_date'][0],
+                        'field_submitted_date' => $thisres['field_submitted_date'][0]
                     );
                 }
             }
@@ -636,7 +689,7 @@ class OpportunitiesService
         $parameters = array();
         $parameters['title'] = isset($data['title']) ? $data['title'] : '';
         $parameters['reference_number'] = isset($data['reference_number']) ? $data['reference_number'] : '';
-        $parameters['profile'] = isset($data['profile']) ? $data['profile'] : '';
+        $parameters['profile'] = isset($data['id']) ? $data['id'] : '';
         $parameters['description'] = isset($data['description']) ? $data['description'] : '';
         $parameters['interest'] = isset($data['interest']) ? $data['interest'] : '';
         $parameters['more'] = isset($data['more']) ? $data['more'] : '';
@@ -693,6 +746,10 @@ class OpportunitiesService
 
         $parameters = [];
         $parameters['event_title'] = isset($eventDetails['title'][0]['value']) ? $eventDetails['title'][0]['value'] : '';
+        $parameters['delegateName'] = $data['delegateName'];
+        $parameters['delegateEmail'] = $data['delegateEmail'];
+        $parameters['companyName'] = $data['companyName'];
+        $parameters['eventDate'] = $data['eventDate'];
 
         try {
             $response = $notifyClient->sendEmail( $data['email'], $email_template_key, $parameters);
@@ -747,7 +804,9 @@ class OpportunitiesService
         $data['addresstwo_registered'] = isset($form['addresstwo_registered']) ? $form['addresstwo_registered'] : 'No data';
         $data['city_registered'] = isset($form['city_registered']) ? $form['city_registered'] : 'No data';
         $data['postcode_registered'] = isset($form['postcode_registered']) ? $form['postcode_registered'] : 'No data';
-        
+
+        $data['requestednewaddress'] = isset($form['requestednewaddress']) ? $form['requestednewaddress'] : 'No data';
+
         try {
             // Call the new 'Gov Notify' service to send notification email
             $response = $notifyClient->sendEmail($email, $email_template_key, $data);
@@ -811,14 +870,19 @@ class OpportunitiesService
 
         } else {
             //..... Pod alert for each specific country.
-            foreach($data->country as $country){
-                $this->submitAlert($data, $update, $country);
+
+            if($data->country) {
+                foreach ($data->country as $country) {
+                    $this->submitAlert($data, $update, $country);
+                }
+            } else {
+                $this->submitAlert($data, $update, null);
             }
         }
     }
 
 
-    public function submitAlert($data, $update = false, $country = 'Anywhere')
+    public function submitAlert($data, $update = false, $country = null)
     {
         if(!$update){
             $params = array();
@@ -829,7 +893,9 @@ class OpportunitiesService
             $params['Technology_Request__c']    = (in_array('TR', $data->opportunity_type)) ? 1 : 0;
             $params['Business_Request__c']      = (in_array('BR', $data->opportunity_type)) ? 1 : 0;
             $params['R_and_D_Request__c']       = (in_array('RDR', $data->opportunity_type)) ? 1 : 0;
-            $params['Country__c']               = $country;
+            if($country) {
+                $params['Country__c'] = $country;
+            }
 
         } else {
             $params = $data;
@@ -894,7 +960,7 @@ class OpportunitiesService
             $clusterId = \Drupal\elasticsearch_connector\Entity\Cluster::getDefaultCluster();
             $this->cluster = \Drupal\elasticsearch_connector\Entity\Cluster::load($clusterId);
         }
-   
+
         if (empty($this->cluster->options['elasticsearch_aws_connector_aws_region'])) {
             $client = ClientBuilder::create()->setHosts($hosts)->build();
         } else {
@@ -909,14 +975,15 @@ class OpportunitiesService
 
     public function createEmailAlertContent($opportunities)
     {
-        $content = '<br /><br />';
+        $content = '';
         foreach($opportunities as $emailContent){
-               $content .= '<a style="color:#0068A5" href="https://www.enterprise-europe.co.uk/opportunities/'.$emailContent['id'].'?utm_source=alert&utm_medium=email&utm_campaign=pod">'.$emailContent['title'].'</a>';
-               $content .= '<p><strong>'.$emailContent['id'].' | '.strtoupper($emailContent['country']).'</strong></p>';
-               $content .= '<p>'.substr($emailContent['summary'], 0 , 240).'...</p>';
-               $content .= '<hr />';
+            $content .= '
+#'.$emailContent['title'].'
+'.$emailContent['id'].' | '.strtoupper($emailContent['country']).'
+https://www.enterprise-europe.co.uk/opportunities/'.$emailContent['id'].'?utm_source=podalert
+'.substr($emailContent['summary'], 0 , 240).'...
+            ';
         }
-
         return $content;
     }
 

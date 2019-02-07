@@ -61,7 +61,7 @@ class ExpressionOfInterestForm extends AbstractForm
                     ],
                     'placeholder' => [
                         '',
-                    ],
+                    ]
                 ],
             ],
             'interest'    => [
@@ -80,7 +80,7 @@ class ExpressionOfInterestForm extends AbstractForm
                     ],
                     'maxlength' => [
                         600
-                    ],
+                    ]
                 ],
             ],
             'more'        => [
@@ -91,14 +91,14 @@ class ExpressionOfInterestForm extends AbstractForm
                 '#label_display'       => 'before',
                 '#attributes'          => [
                     'class'       => [
-                        'form-control textarea-max-length',
+                        'form-control textarea-max-length no-min-length',
                     ],
                     'placeholder' => [
                         '',
                     ],
                     'maxlength' => [
                         600
-                    ],
+                    ]
                 ],
             ],
             'email'       => [
@@ -157,6 +157,40 @@ class ExpressionOfInterestForm extends AbstractForm
     {
         parent::checkRequireField($form_state, 'description', $this->t('A short description of your organisation is required to complete your application.'));
         parent::checkRequireField($form_state, 'interest', $this->t('Details of your interest in this opportunity are required to complete your application.'));
+
+
+        if (strlen($form_state->getValue('description')) < 150 || strlen($form_state->getValue('description')) > 600) {
+            $form_state->setErrorByName(
+                'description',
+                [
+                    'key'          => 'edit-description',
+                    'text'         => t('Your description must be between 150 - 600 characters long.'),
+                    'general_text' => t('Your description must be between 150 - 600 characters long.'),
+                ]
+            );
+        }
+
+        if (strlen($form_state->getValue('interest')) < 150 || strlen($form_state->getValue('interest')) > 600) {
+            $form_state->setErrorByName(
+                'interest',
+                [
+                    'key'          => 'edit-interest',
+                    'text'         => t('Your interests must be between 150 - 600 characters long.'),
+                    'general_text' => t('Your interests must be between 150 - 600 characters long.'),
+                ]
+            );
+        }
+
+        if (strlen($form_state->getValue('more')) > 600) {
+            $form_state->setErrorByName(
+                'more',
+                [
+                    'key'          => 'edit-more',
+                    'text'         => t('Further information must be under 600 characters long.'),
+                    'general_text' => t('Further information must be under 600 characters long.'),
+                ]
+            );
+        }
     }
 
     /**
@@ -164,23 +198,13 @@ class ExpressionOfInterestForm extends AbstractForm
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        if ($this->session->get('type') === 'Client') {
-            $form_state->setRedirect(
-                'sign-up.review',
-                [
-                    'id'   => $this->session->get('id'),
-                    'type' => 'opportunities',
-                ]
-            );
-        } else {
-            $form_state->setRedirect(
-                'sign-up.steps',
-                [
-                    'id'   => $this->session->get('id'),
-                    'type' => 'opportunities',
-                ]
-            );
-        }
+        $form_state->setRedirect(
+            'sign-up.steps',
+            [
+                'id'   => $this->session->get('id'),
+                'type' => 'opportunities',
+            ]
+        );
 
         $this->session->set('email-verification', true);
         $this->session->set('type', 'opportunities');

@@ -1,0 +1,143 @@
+uuid: 815e9527-c09f-40e0-9959-015985a59616
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.scaleup.body
+    - field.field.node.scaleup.field_about
+    - field.field.node.scaleup.field_category
+    - field.field.node.scaleup.field_copyrighted_image
+    - field.field.node.scaleup.field_page_title
+    - field.field.node.scaleup.field_scaleup_promo
+    - field.field.node.scaleup.field_summary
+    - node.type.scaleup
+  module:
+    - een_custom_fields
+    - entity_reference_revisions
+    - field_formatter_class
+    - field_group
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_media_image:
+      children:
+        - field_copyrighted_image
+      parent_name: group_wrapper
+      weight: 0
+      format_type: html_element
+      format_settings:
+        label: media-image
+        element: figure
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: 'media-image hero-bg'
+      label: media-image
+    group_content:
+      children:
+        - field_page_title
+        - field_summary
+      parent_name: group_container
+      weight: 2
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: content
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: content
+    group_container:
+      children:
+        - group_content
+      parent_name: group_wrapper
+      weight: 1
+      format_type: html_element
+      format_settings:
+        label: container
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: 'container rings'
+      label: container
+    group_wrapper:
+      children:
+        - group_media_image
+        - group_container
+      parent_name: ''
+      weight: 0
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: header-wrapper
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: wrapper
+id: node.scaleup.default
+targetEntityType: node
+bundle: scaleup
+mode: default
+content:
+  field_about:
+    type: entity_reference_revisions_entity_view
+    weight: 5
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_copyrighted_image:
+    weight: 3
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: copyright_image
+    region: content
+  field_page_title:
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: page-title
+    type: basic_string
+    region: content
+  field_scaleup_promo:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_summary:
+    weight: 4
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: summary
+    type: text_default
+    region: content
+hidden:
+  body: true
+  field_category: true
+  links: true
+  sharethis: true

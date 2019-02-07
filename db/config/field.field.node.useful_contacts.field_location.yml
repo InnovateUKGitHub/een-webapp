@@ -1,0 +1,23 @@
+uuid: 5abc6da3-4940-4cc6-ad56-fd64c99dc9bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location
+    - node.type.useful_contacts
+  module:
+    - geolocation
+_core:
+  default_config_hash: d_RtFLlH4gDr3uYocKDVrQQIEs9fO00RdXcwXUo8VUU
+id: node.useful_contacts.field_location
+field_name: field_location
+entity_type: node
+bundle: useful_contacts
+label: Location
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

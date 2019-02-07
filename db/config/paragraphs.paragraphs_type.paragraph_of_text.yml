@@ -1,0 +1,9 @@
+uuid: b10cb713-2f9e-44c9-82bb-d94b45d6bc05
+langcode: en
+status: true
+dependencies: {  }
+id: paragraph_of_text
+label: 'Paragraph of text'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

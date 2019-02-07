@@ -1,0 +1,21 @@
+uuid: 516dd85f-76b0-4733-9df7-4baf1b86a079
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_full_width_quote
+    - node.type.services
+  module:
+    - text
+id: node.services.field_full_width_quote
+field_name: field_full_width_quote
+entity_type: node
+bundle: services
+label: 'Full Width Quote'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

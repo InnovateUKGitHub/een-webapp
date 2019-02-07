@@ -1,0 +1,120 @@
+uuid: f4841f1d-244f-4b7c-90b9-f311fc5eb777
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.news_homepage
+    - field.field.node.success_story.body
+    - field.field.node.success_story.field_associated_service
+    - field.field.node.success_story.field_copyrighted_image
+    - field.field.node.success_story.field_county
+    - field.field.node.success_story.field_full_width_quote
+    - field.field.node.success_story.field_hero_stats
+    - field.field.node.success_story.field_location
+    - field.field.node.success_story.field_meta_tags
+    - field.field.node.success_story.field_persona
+    - field.field.node.success_story.field_tags
+    - field.field.node.success_story.field_yoast_seo
+    - image.style.300x170_news_homepage_
+    - node.type.success_story
+  module:
+    - een_custom_fields
+    - field_formatter_class
+    - field_group
+    - metatag
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_body_content:
+      children:
+        - field_tags
+      parent_name: ''
+      weight: 4
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: body-content
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: body-content
+    group_featured_image:
+      children: {  }
+      parent_name: ''
+      weight: 3
+      format_type: html_element
+      format_settings:
+        label: promo-image
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: promo-image
+      label: promo-image
+    group_lede_:
+      children: {  }
+      parent_name: ''
+      weight: 15
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: blog-lede
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'lede '
+id: node.success_story.news_homepage
+targetEntityType: node
+bundle: success_story
+mode: news_homepage
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 1
+    settings:
+      trim_length: 150
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    region: content
+  field_copyrighted_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: 300x170_news_homepage_
+      image_link: content
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    type: copyright_image
+    region: content
+  field_meta_tags:
+    type: metatag_empty_formatter
+    weight: 2
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_associated_service: true
+  field_county: true
+  field_full_width_quote: true
+  field_hero_stats: true
+  field_location: true
+  field_persona: true
+  field_tags: true
+  field_yoast_seo: true
+  links: true
+  sharethis: true
+  workbench_moderation_control: true

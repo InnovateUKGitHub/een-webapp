@@ -1,0 +1,83 @@
+uuid: 495e623c-dfa1-46ab-8d56-403b64cf8832
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.aggregator
+    - field.field.node.aggregator.body
+    - field.field.node.aggregator.field_aggregator_description
+    - field.field.node.aggregator.field_country
+    - field.field.node.aggregator.field_keyword
+    - field.field.node.aggregator.field_meta_tags
+    - field.field.node.aggregator.field_opportunity_type_agg
+    - field.field.node.aggregator.field_page_summary
+    - node.type.aggregator
+  module:
+    - field_formatter_class
+    - options
+    - text
+    - user
+id: node.aggregator.aggregator
+targetEntityType: node
+bundle: aggregator
+mode: aggregator
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_aggregator_description:
+    weight: 106
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    type: entity_reference_entity_view
+    region: content
+  field_country:
+    weight: 105
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_keyword:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_opportunity_type_agg:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_page_summary:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_meta_tags: true

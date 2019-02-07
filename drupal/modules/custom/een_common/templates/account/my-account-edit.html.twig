@@ -1,0 +1,190 @@
+<div class="grid-row">
+    <div class="column-full">
+        <div class="form-heading header-secondary">
+            <h1 class="heading-large" tabindex="0">Edit your details.</h1>
+        </div>
+    </div>
+
+    <div class="column-full">
+
+        <form action="{{ form['#action'] }}" method="{{ form['#method'] }}" class="form-companies-house-search single-step-form">
+            {#Required hidden field for drupal form#}
+            {{ form.form_build_id }}
+            {{ form.form_id }}
+
+
+
+            <div class="column-two-thirds">
+
+                <div class="step1">
+                    <h2 class="heading-large">About you</h2>
+                    <div class="form-section">
+                        {{ form.firstname }}
+                    </div>
+
+                    <div class="form-section">
+                        {{ form.lastname }}
+                    </div>
+
+                    <div class="form-section">
+                        {{ form.contact_email }}
+                    </div>
+
+                    <div class="form-section">
+                        {{ form.contact_phone }}
+                    </div>
+
+
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="column-one-third no-pad-right">
+                <section class="help-box">
+                    <h3>Why do EEN need this?</h3>
+                    <p>EEN help you find the right partner, rather than you going it alone and by telling us a little about you and your business, we can give you tailored support and advice.</p>
+                    <p>What’s more, by sharing your information with EEN we can alert you to new partnership opportunities as they arise and applying for them will be quicker, saving you time.</p>
+                </section>
+            </div>
+            <div class="column-two-thirds">
+                <h2 class="heading-large">Your company</h2>
+                <div class="step2">
+                    <div class="acc-content">
+                        <div class="form-section">
+                            {{ form.company_registered }}
+                        </div>
+
+                        <div class="form-section">
+                            {{ form.company_name }} {{ form.search }}
+                            <div class="form-group" id="ch_search-results">
+                                <ul class="companies-house-list"></ul>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            {{ form.company_number }}
+                        </div>
+
+                        <div class="js-show-registered" id="registered_address">
+                            <div class="form-section">
+                                {{ form.postcode_registered }}
+                            </div>
+
+                            <div class="form-section">
+                                {{ form.addressone_registered }}
+                            </div>
+
+                            <div class="form-section">
+                                {{ form.addresstwo_registered }}
+                            </div>
+
+                            <div class="form-section">
+                                {{ form.city_registered }}
+                            </div>
+
+                            <div class="form-section">
+                                {{ form.county_registered }}
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            {{ form.website }}
+                        </div>
+
+                        <div class="form-section">
+                            {{ form.company_phone }}
+                        </div>
+
+                        <div class="form-section">
+                            {{ form.sfaccount }}
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="step3">
+                    <h2 class="heading-large">Correspondence address</h2>
+
+                    <div class="form-section js-alternative-address">
+                        {{ form.alternative_address }}
+                    </div>
+
+                    <div class="form-section js-corres">
+                        {{ form.postcode }}
+                    </div>
+
+                    <div class="signup-addresses acc-content" id="normal_address">
+                        <div class="js-show-cs-address">
+                            <div class="form-section">
+                                {{ form.addressone }}
+                            </div>
+
+                            <div class="form-section">
+                                {{ form.addresstwo }}
+                            </div>
+
+                            <div class="form-section">
+                                {{ form.city }}
+                            </div>
+
+                            <div class="form-section">
+                                {{ form.county }}
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+
+                <div class="clearfix"></div>
+            </div>
+
+
+            <div class="column-two-thirds">
+                <h2 class="heading-large">Stay up to date</h2>
+
+                <div class="form-section">
+                    {{ form.newsletter }}
+                </div>
+
+                <div class="form-section">
+                    {{ form.subjects }}
+                </div>
+
+                <div class="form-section">
+                    {{ form.update_type }}
+                </div>
+            </div>
+            <div class="column-one-third no-pad-right">
+
+                <section class="help-box create-account">
+                    <h3>Why create an account?</h3>
+                    <ul>
+                        <li>Store your response so registering for new opportunities is faster, simpler.</li>
+                        <li>Set and control your opportunity search preferences</li>
+                        <li>Receive updates for opportunities that suit you</li>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="clearfix"></div>
+            <div>
+                <hr />
+
+                <div class="form-section terms">
+                    {{ form.terms }}
+                </div>
+
+                <br />
+                <br />
+                <div class="form-section">
+                    {{ form.actions }}
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

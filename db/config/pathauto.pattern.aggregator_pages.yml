@@ -1,0 +1,22 @@
+uuid: a391c002-77ab-4fcf-93a9-7961d5c0ae7c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: aggregator_pages
+label: 'Aggregator pages'
+type: 'canonical_entities:node'
+pattern: '/[node:title]/aggregation'
+selection_criteria:
+  5f7887aa-352e-4c8e-9c45-e7fd6518944c:
+    id: node_type
+    bundles:
+      aggregator: aggregator
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 5f7887aa-352e-4c8e-9c45-e7fd6518944c
+selection_logic: and
+weight: -5
+relationships: {  }

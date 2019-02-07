@@ -1,0 +1,11 @@
+uuid: 93fbd3e2-b4a6-4c79-ad4a-2f35f0f6a278
+langcode: en
+status: true
+dependencies:
+  module:
+    - workbench_moderation_actions
+id: state_change__media__draft
+label: 'Set Media as Draft'
+type: media
+plugin: 'state_change:media__draft'
+configuration: {  }

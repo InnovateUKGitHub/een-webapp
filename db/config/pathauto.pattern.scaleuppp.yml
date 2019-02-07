@@ -1,0 +1,22 @@
+uuid: a1e70992-da7d-4781-98fd-5d98078e11c1
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: scaleuppp
+label: 'Scaleup pages'
+type: 'canonical_entities:node'
+pattern: '/story/[node:title]'
+selection_criteria:
+  9173c944-e317-47f7-871b-5d7b0e6e3205:
+    id: node_type
+    bundles:
+      scaleup_story: scaleup_story
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 9173c944-e317-47f7-871b-5d7b0e6e3205
+selection_logic: and
+weight: -5
+relationships: {  }

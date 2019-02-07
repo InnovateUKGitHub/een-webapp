@@ -1,0 +1,35 @@
+uuid: 137caa3d-61e7-4c2e-bd5a-b625a2e65b24
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.key_insights_key_numbers.field_key_text
+    - field.field.paragraph.key_insights_key_numbers.field_number
+    - paragraphs.paragraphs_type.key_insights_key_numbers
+  module:
+    - workbench_moderation
+id: paragraph.key_insights_key_numbers.default
+targetEntityType: paragraph
+bundle: key_insights_key_numbers
+mode: default
+content:
+  field_key_text:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_number:
+    weight: 6
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

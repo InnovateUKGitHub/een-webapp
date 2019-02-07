@@ -1,7 +1,8 @@
 (function () {
     'use strict';
 
-    if (window.location.pathname === '/partnering-opportunities') {
+    var windowPath = window.location.pathname;
+    if (windowPath === '/partnering-opportunities' || windowPath.indexOf('/aggregation') !== -1) {
 
         var $ = jQuery;
 
@@ -128,10 +129,19 @@
         });
 
         een.factory('oppsFactory', function () {
+
+
+            var exactMatch = 0;
+            if($('#exactMatch').length){
+                exactMatch = 1;
+            }
+
+
             var search = function (opts) {
                 return $.ajax({
-                    url: 'opportunities/_ajax',
+                    url: '/opportunities/_ajax',
                     data: {
+                        exactMatch: exactMatch,
                         page: opts.page,
                         resultPerPage: 19,
                         search: opts.search,
@@ -178,8 +188,6 @@
                         $item.prop('checked', false);
                         $parent.removeClass('selected');
                     }
-
-                    $('.selected-countries').html(opps.length + ' countries selected');
                 }
             };
 
@@ -274,24 +282,40 @@
 
 
 
-                    var countryArray = $scope.data.country;
-                    var countries = '';
-                    if ($.inArray('anywhere', countryArray) > -1 || countryArray.length == 0) {
-                        countries = $.trim($( "input[name='country[anywhere]']").parent().text());
-                    } else if ($.inArray('europe', countryArray) > -1) {
-                        countries = $.trim($( "input[name='country[europe]']").parent().text());
-                    } else {
-                        $.each(countryArray, function( index, value ) {
-                            countries += $.trim($( "input[name='country["+value+"]']").parent().text()) + ", ";
-                        });
-                        countries = countries.slice(0, -1);
-                    }
 
-                    $('.js-alert-search-value').text($scope.data.search);
-                    $('.js-alert-countries-value').text(countries);
+                    updateAlertOptions($scope);
+                    resetAlertSignUp();
+
 
                     $('#auto-2 .sb-results').html('<span>'+data.total + '</span> opportunities found');
 
+
+                    if($('.cp-highlight-row').attr('data-search') !== $scope.data.search){
+                        $('.cp-highlight-row').remove();
+                    }
+                    var string = '<div class="row row-bordered cp-highlight-row" data-search="'+$scope.data.search+'">' +
+                        '<div class="column-two-thirds"> <h3 class="results-list-heading-item" tabindex="0"> ' +
+                        '{{:title}} ' +
+                        '</h3>' +
+                        '<p class="description">{{:body}}</p> ' +
+                        '<span class="n-type">{{:type}}</span>' +
+                        '{{:country_code}}' +
+                        '{{:event_location}}' +
+                        '</div> ' +
+                        '<div class="column-one-third"> {{:image}}  ' +
+                        '{{:date}}' +
+                        '</div>' +
+                        '</div>';
+
+                    if(!$('.cp-highlight-row').length){
+                        $.get( "/api/cross-promotion/"+$scope.data.search, function( data ) {
+                            $.templates("crossPromotionTmpl", string);
+                            var node = data;
+                            var html = $.templates.crossPromotionTmpl(node);
+
+                            $(".results-list  > div:nth-child(7)").after($(html).hide().fadeIn('slow'));
+                        });
+                    }
 
                 }).fail(function () {
                     $scope.results = [];
@@ -467,7 +491,7 @@
 
 
             $('#alert-signup-form').on('submit', function(e){
-                $scope.data.email = $('#alert-email').val();
+                $scope.data.email = $('#edit-emailverification').val();
                 var jsonString = JSON.stringify($scope.data);
 
                 e.preventDefault();
@@ -477,9 +501,27 @@
                     data: {data : jsonString},
                     cache: false,
                     success: function(){
-                        $('#alert-signup-form').hide().after('<p>Thank you.</p>').remove();
+
                     }
                 });
+            });
+
+
+
+            $(document).on('click', '.js-clear-regions', function (e) {
+                e.preventDefault();
+                var data = getParams();
+
+                $scope.data = {
+                    opportunity_type: data.opportunity_type || [],
+                    country: [],
+                    search: data.search,
+                    page: data.page
+                };
+
+                if ($scope.meta.searched) {
+                    queryAPI(true);
+                }
             });
 
 
@@ -489,6 +531,56 @@
             }
 
         }]);
+    }
+
+
+
+    function updateAlertOptions($scope){
+        var countryArray = $scope.data.country;
+        var countries = '';
+        if ($.inArray('anywhere', countryArray) > -1 || countryArray.length == 0) {
+            countries = $.trim($( "input[name='country[anywhere]']").parent().text());
+        } else if ($.inArray('europe', countryArray) > -1) {
+            countries = $.trim($( "input[name='country[europe]']").parent().text());
+        } else {
+            $.each(countryArray, function( index, value ) {
+                countries += $.trim($( "input[name='country["+value+"]']").parent().text()) + ", ";
+            });
+            countries = countries.slice(0, -1);
+        }
+
+        var opportunityTypeArray = $scope.data.opportunity_type;
+        var opportunityTypes = '';
+
+        $.each(opportunityTypeArray, function( index, value ) {
+            var alltext = $( "input[name='opportunity_type["+value+"]']").parent().text();
+            var count  =  $( "input[name='opportunity_type["+value+"]']").parent().children('.facet-counts').text();
+            var res = alltext.replace(count, "");
+            opportunityTypes += $.trim(res) + " / ";
+        });
+        opportunityTypes = opportunityTypes.slice(0, -2);
+
+        if(opportunityTypes.length == 0) {
+            opportunityTypes = '[all]';
+        }
+
+        $('.js-alert-search-value').text($scope.data.search);
+        $('.js-alert-countries-value').text(countries);
+        $('.js-alert-opportunity-types-value').text("I'm looking for a partner "+opportunityTypes);
+    }
+
+
+
+    function resetAlertSignUp()
+    {
+        if($('.js-alert-notifications-success').is(":visible")){
+            $('.js-email').click();
+            $('.js-alert-notifications-email').hide();
+            $('.js-alert-notifications-success').hide();
+            $('.js-alert-form-content').removeClass('hide');
+            $('#email-verification-form #edit-submit--2, .js-form-item-emailverification').show();
+            $('#edit-token').val("");
+        }
     }
 
 })();

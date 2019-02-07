@@ -1,0 +1,22 @@
+uuid: 90e437bb-ee27-4104-a93e-2d7b711ec052
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.countries
+  module:
+    - text
+id: node.countries.body
+field_name: body
+entity_type: node
+bundle: countries
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

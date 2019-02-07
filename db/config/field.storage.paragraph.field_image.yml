@@ -1,0 +1,34 @@
+uuid: a3e39603-d743-485c-850b-d373b06e3fec
+langcode: en
+status: true
+dependencies:
+  module:
+    - een_custom_fields
+    - field_permissions
+    - file
+    - paragraphs
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: paragraph.field_image
+field_name: field_image
+entity_type: paragraph
+type: een_copyright_image
+settings:
+  uri_scheme: s3
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  target_type: file
+  display_field: false
+  display_default: false
+module: een_custom_fields
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

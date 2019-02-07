@@ -32,6 +32,10 @@
 @import "partials/near-me";
 @import "partials/magnific";
 @import "partials/update-bar";
+@import "partials/manage-preferences";
+@import "partials/aggregation";
+@import "partials/global-search";
+
 
 //pages created via cms
 
@@ -333,13 +337,41 @@ input,textarea,select,button,#global-header input:focus {
     }
 }
 
-.char-count {
+.char-count, .char-required {
     font-size: 14px;
-    margin-top: 3px;
+    margin-top: 7px;
     float: right;
     strong {
         font-weight: bold;
     }
+}
+
+.char-required {
+    float:left;
+    color: #9B9B9B;
+}
+
+.char-fulfilled {
+    color: #417505;
+    &::after {
+        font-family:FontAwesome;
+        margin: 0 0 0 4px;
+        content:"\f00c";
+    }
+}
+
+.char-unfulfilled {
+    color: #D0021B;
+    &::after {
+        font-family:FontAwesome;
+        margin: 0 0 0 4px;
+        content:"\f06a";
+    }
+}
+
+.char-error {
+    border: 5px solid rgb(177, 14, 30);
+    padding: 8px;
 }
 
 .hide {
@@ -394,10 +426,10 @@ input,textarea,select,button,#global-header input:focus {
 .form-companies-house-search {
     .companies-house-list {
         border: 1px solid #9B9B9B;
-        display:none;
-        width:70%;
-        max-height: 185px;
+        width: 100%;
+        max-height: 213px;
         overflow: auto;
+        margin: 13px 0 0 0;
 
         li {
             border-top: 1px solid #9B9B9B;
@@ -451,6 +483,58 @@ input,textarea,select,button,#global-header input:focus {
         margin-top:14px;
         margin-left:-3px;
     }
+
+    .address-notifier {
+        clear: both;
+        font-size: 14px;
+        margin: 12px 0 0 0;
+        display: block;
+        float: left;
+    }
+
+
+    /*.lsfduplicate:after {
+        content: "More results from companies house";
+        display: block;
+        border-top: 1px solid #9B9B9B;
+        background: #f1f1f1;
+        margin: 7px -6px -7px -6px;
+        padding: 7px;
+        text-transform: uppercase;
+        font-style: italic;
+        font-weight: normal;
+    }*/
+
+    .fsfduplicate:before {
+        content: "We've found some matching results, are these you?";
+        display: block;
+        border-bottom: 1px solid #9B9B9B;
+        background: #f1f1f1;
+        margin: -6px -6px 7px -6px;
+        padding: 7px;
+        text-transform: uppercase;
+        font-style: italic;
+        font-weight: normal;
+    }
+
+    .address-dismiss {
+        padding: 11px 18px 17px 0;
+        clear: both;
+        margin: 5px 0 0 0;
+        display: block;
+        font-size: 14px;
+    }
+
+    .remove-company-reference {
+        float:right;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .cs-registered-address:empty {
+        display: none;
+    }
+
 
     #edit-company-number {
         width:70%;
@@ -786,28 +870,37 @@ form[data-drupal-selector="event-search-form"]{
             overflow-x: hidden;
             margin:7px 0 0;
             border-bottom: 1px solid #9B9B9B;
+            clear: both;
         }
 
         .region-toggle {
-            float: none;
+            float: left;
             font-size: 16px;
-            margin: 15px 0;
-            display: inline;
-            position: relative;
-            top:2px;
+            margin: 7px 0;
         }
 
         .region-sh {
-            font-size: 16px;
-            display: inline;
-            float: none;
             color: $dark-blue;
-            position: relative;
-            top:2px;
-
+            float: none;
+            display: inline;
             &:before {
                 display:none;
             }
+        }
+
+        .clear-regions {
+            font-size: 16px;
+        }
+
+        .region-pipe {
+            font-size: 14px;
+        }
+
+        .region-options {
+            float: left;
+            display: block;
+            min-width: 100px;
+            margin: 4px 0 0 7px;
         }
     }
     .selected-countries {
@@ -919,10 +1012,6 @@ h2.heading-xlarge.events-search {
 
     p.description {
         margin-bottom:0.5em;
-        span {
-            background: #f7e53b;
-            padding: 1px 6px;
-        }
 
         .more {
             display: inline-block;
@@ -2329,6 +2418,13 @@ img.full-width {
 }
 
 .single-step-form {
+
+    .grid-row {
+        margin:0;
+        padding:50px 0 0 0;
+    }
+
+
     .column-two-thirds {
         padding:15px 75px 15px 0;
         @media (max-width:640px ) {
@@ -2353,7 +2449,7 @@ img.full-width {
         display:block;
     }
     .company-name-wrapper.tooltip-active {
-      &:after {
+      /*&:after {
         position: absolute;
         font-size: 14px;
         background-color: rgba(224,240,250,0.3);
@@ -2375,7 +2471,7 @@ img.full-width {
         border-top: 10px solid transparent;
         border-bottom: 10px solid transparent;
         border-right:10px solid rgba(224,240,250,0.3);
-      }
+      }*/
     }
 
     #edit-company-number {
@@ -2475,6 +2571,47 @@ img.full-width {
             padding-top:5px;
         }
     }
+
+    .enter-address-manually {
+        margin: 0 0 14px 0;
+        display: block;
+        clear: both;
+        position: relative;
+        top: -15px;
+        font-size: 15px;
+    }
+
+    .pcapredict-results {
+        height: 100px;
+        display: none;
+        overflow: auto;
+        border: 1px solid;
+        margin: -19px 0 22px 0;
+        position: relative;
+        top: -21px;
+        padding: 0px 12px;
+        border: 1px solid #9B9B9B;
+
+        li {
+
+
+            border-top: 1px dashed #ccc;
+            padding: 5px 0;
+            font-size: 14px;
+            cursor: pointer;
+
+            &:first-of-type {
+                border:none;
+            }
+
+            &:hover {
+                color: $cta;
+            }
+        }
+    }
+    .st-end-sen {
+        visibility: hidden;
+    }
 }
 
 
@@ -2545,8 +2682,9 @@ img.full-width {
 .help-box {
     border-top:solid 5px $cta;
     padding:24px;
-    margin:114px 0 20px 0;
+    margin:0 0 20px 0;
     background:#e0f0f9;
+    overflow: hidden;
     @media (max-width:640px ) { 
         display:none;
     }    
@@ -2800,5 +2938,111 @@ input:placeholder-shown {
 }
 
 
+.cp-highlight-row {
+    margin: 0 0 15px;
+    border:1px solid $cta;
+    border-radius: 2px;
 
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    .meta-left {
+        width:100%;
+    }
 
+    min-height:100px;
+
+    .cp-event-location {
+        display: inline;
+    }
+    .flag-icon {
+        top:1px;
+    }
+}
+
+.n-type {
+    border: 1px solid #64B4E6;
+    border-radius: 3px;
+    background-color: $cta;
+    font-size: 16px;
+    padding: 4px 6px;
+    color: #ffffff;
+    margin: 0 7px 0 0;
+}
+
+.mfp-bg {
+    background: #000;
+    opacity: 0.4;
+}
+
+.ip-overlay {
+
+    background: white;
+    box-shadow: rgb(0, 0, 0) 0px 0px 10px;
+
+    .button {
+        margin-bottom:10px;
+    }
+    h2 {
+        font-family: "Myriad Pro",Arial;
+        margin: 0 0 1em;
+    }
+
+    .form-content {
+        text-align: center;
+        padding: 30px 30px 20px 30px;
+
+        p {
+            font-size: 20px;
+        }
+    }
+
+    .action-links {
+        text-align: right;
+        padding-right:16px;
+
+        a {
+            margin:0 0 0 16px;
+            font-size: 14px;
+        }
+    }
+
+    .ip-overlay-footer {
+        background: $cta;
+        height: 70px;
+        width: 100%;
+
+      img {
+        max-width: 68px;
+        margin: 13px;
+      }
+    }
+}
+
+.sign-up-mfp {
+    .mfp-content {
+        max-width: 400px;
+    }
+}
+
+.basic-page {
+    h1 {
+        font-size: 36px;
+        font-weight: 600;
+        margin: 0 0 0.5em 0;
+    }
+
+    .body-content>div {
+        padding:0;
+
+        p {
+            margin: 0 0 1em 0;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding: 0 0 0 40px;
+        }
+    }
+}

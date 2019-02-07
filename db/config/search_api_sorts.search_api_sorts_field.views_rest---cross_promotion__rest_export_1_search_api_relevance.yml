@@ -1,0 +1,11 @@
+uuid: 30484b97-d652-4e96-9ffe-9f056c514648
+langcode: en
+status: true
+dependencies: {  }
+id: views_rest---cross_promotion__rest_export_1_search_api_relevance
+display_id: views_rest---cross_promotion__rest_export_1
+field_identifier: search_api_relevance
+default_sort: true
+default_order: desc
+label: Relevance
+weight: 0

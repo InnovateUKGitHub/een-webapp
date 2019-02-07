@@ -1,0 +1,19 @@
+uuid: 56074616-a347-4cee-877c-356a9f768044
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_msummary
+    - node.type.partnering_opportunity
+id: node.partnering_opportunity.field_msummary
+field_name: field_msummary
+entity_type: node
+bundle: partnering_opportunity
+label: mSummary
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,5 @@
+name: Pod Alert Email Cron Generator
+description: Generates Pod Alert emails.
+core: 8.x
+package: Searches
+type: module

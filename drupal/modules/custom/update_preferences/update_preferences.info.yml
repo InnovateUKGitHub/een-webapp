@@ -1,0 +1,5 @@
+name: EEN Update preferences Module
+description: This is the module to update preferences
+core: 8.x
+package: EEN
+type: module

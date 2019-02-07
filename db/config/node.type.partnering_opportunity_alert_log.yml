@@ -1,0 +1,17 @@
+uuid: dbf53a52-6cba-4f1b-acbb-aab9ee61b938
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Partnering Opportunity Alert Log'
+type: partnering_opportunity_alert_log
+description: 'This is a log to log opportunities which have been sent out in the POD alerts'
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false

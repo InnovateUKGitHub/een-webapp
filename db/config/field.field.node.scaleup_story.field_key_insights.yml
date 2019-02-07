@@ -1,0 +1,63 @@
+uuid: 10dfd10f-927f-4e8d-b105-f8dba411fc49
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_key_insights
+    - node.type.scaleup_story
+    - paragraphs.paragraphs_type.key_insights
+    - paragraphs.paragraphs_type.key_insights_blank
+    - paragraphs.paragraphs_type.key_insights_key_numbers
+    - paragraphs.paragraphs_type.key_insights_text_content
+    - paragraphs.paragraphs_type.quote
+  module:
+    - entity_reference_revisions
+id: node.scaleup_story.field_key_insights
+field_name: field_key_insights
+entity_type: node
+bundle: scaleup_story
+label: 'Key insights'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      key_insights_blank: key_insights_blank
+      key_insights: key_insights
+      key_insights_key_numbers: key_insights_key_numbers
+      key_insights_text_content: key_insights_text_content
+      quote: quote
+    target_bundles_drag_drop:
+      key_insights_blank:
+        enabled: true
+        weight: 7
+      key_insights:
+        enabled: true
+        weight: 8
+      key_insights_key_numbers:
+        enabled: true
+        weight: 9
+      from_library:
+        weight: 10
+        enabled: false
+      key_insights_text_content:
+        enabled: true
+        weight: 10
+      paragraph_of_text:
+        weight: 11
+        enabled: false
+      scaleup_growth_journey:
+        weight: 12
+        enabled: false
+      paragraph_with_heading:
+        weight: 16
+        enabled: false
+      quote:
+        enabled: true
+        weight: 17
+field_type: entity_reference_revisions

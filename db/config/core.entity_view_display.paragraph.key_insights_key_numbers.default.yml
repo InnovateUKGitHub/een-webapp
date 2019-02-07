@@ -1,0 +1,36 @@
+uuid: f71e5319-ddb2-4c95-b514-201ef748861e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.key_insights_key_numbers.field_key_text
+    - field.field.paragraph.key_insights_key_numbers.field_number
+    - paragraphs.paragraphs_type.key_insights_key_numbers
+  module:
+    - field_formatter_class
+id: paragraph.key_insights_key_numbers.default
+targetEntityType: paragraph
+bundle: key_insights_key_numbers
+mode: default
+content:
+  field_key_text:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    type: string
+    region: content
+  field_number:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    type: string
+    region: content
+hidden: {  }

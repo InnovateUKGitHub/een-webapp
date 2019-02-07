@@ -1,0 +1,28 @@
+uuid: ef6fdb77-0116-483d-b5d5-6cabae4b7271
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_category
+    - node.type.scaleup
+    - taxonomy.vocabulary.scaleup_categories
+id: node.scaleup.field_category
+field_name: field_category
+entity_type: node
+bundle: scaleup
+label: Category
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      scaleup_categories: scaleup_categories
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

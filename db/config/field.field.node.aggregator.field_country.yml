@@ -1,0 +1,23 @@
+uuid: 31a88136-d4eb-429d-855f-8359ddcd2b9c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_country
+    - node.type.aggregator
+  module:
+    - options
+id: node.aggregator.field_country
+field_name: field_country
+entity_type: node
+bundle: aggregator
+label: Country
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: anywhere
+default_value_callback: ''
+settings: {  }
+field_type: list_string

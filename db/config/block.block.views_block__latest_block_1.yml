@@ -1,0 +1,32 @@
+uuid: aa512259-e5b1-426f-a2b3-74dec3d4f9c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.latest
+  module:
+    - node
+    - views
+  theme:
+    - een
+id: views_block__latest_block_1
+theme: een
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:latest-block_1'
+settings:
+  id: 'views_block:latest-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      services: services
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

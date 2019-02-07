@@ -59,9 +59,9 @@ jQuery(function () {
     }, 1000);
 
 
-
+    $(".textarea-max-length").after('<span class="char-required">150 - 600 characters required</span>');
     $(".textarea-max-length").after('<span class="char-count" aria-live="polite">' + (600 - $(this).val().length)+' characters remaining</span>');
-
+    $('.no-min-length').next().next('.char-required').remove();
 
     $('.textarea-max-length').keyup(function(e) {
         var tval = $(this).val(),
@@ -71,15 +71,21 @@ jQuery(function () {
             charCountHTML = remain+' characters remaining',
             charTooManyHTML = Math.abs(remain)+' characters too many';
         if (remain < 0 ) {
-            $(this).next('.char-count').html(charTooManyHTML);
+            $(this).next('.char-count').html(charTooManyHTML).addClass('char-unfulfilled');
         }
         else {
-            $(this).next('.char-count').html(charCountHTML);
+            $(this).next('.char-count').html(charCountHTML).removeClass('char-unfulfilled');
         }
-        /*if (remain <= 0 && e.which !== 0 && e.charCode !== 0) {
-            $(this).next('.char-count').val((tval).substring(0, tlength - 1))
-        }*/
+
+        var charRequired = $(this).next('.char-count').next('.char-required');
+
+        if(tlength > 150 && tlength < 600) {
+            $(charRequired).addClass('char-fulfilled').removeClass('char-unfulfilled').removeClass('char-error');
+        } else {
+            $(charRequired).addClass('char-unfulfilled').removeClass('char-fulfilled');
+        }
     });
+
 
 
     $( ".js-toggle-handle" ).click(function() {
@@ -98,7 +104,7 @@ jQuery(function () {
         $( ".js-email-signup" ).slideToggle("fast");
     });
     $( ".js-email-signup .close" ).click(function() {
-        $( ".js-email-signup" ).slideToggle("fast");
+        $( ".js-email-signup" ).slideToggle(500);
     });
     /*
     * alert panel functionality
@@ -280,14 +286,31 @@ jQuery(function () {
         });
         e.preventDefault();
     });
-
+    
 
     function enableform(){
         $('.transp').removeClass('transp');
         $('.form-opportunities').find('input').attr('disabled', false).removeClass('is_disabled');
         $('.form-opportunities').find('textarea').attr('disabled', false).removeClass('is_disabled');
     }
+    
+
+    var clickApplySearchButton = debounce(function() {
+        $('.global-search-view .js-form-submit').trigger("click");
+    }, 700);
 
 
+    $(document).on('keyup', '.global-search-view form input',function() {
+        clickApplySearchButton();
+    });
+
+    $(document).on('change', '.global-search-view .form-radio', function() {
+        clickApplySearchButton();
+    });
+
+
+    $(document).on('click', '.opps-view-all', function(){
+        $('.js-opportunities-list').removeClass('initial-no-vis');
+    });
 
 });

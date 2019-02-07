@@ -1,0 +1,43 @@
+uuid: 8e1a946b-33c3-4d80-9e88-2ef5b0dd16dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.scaleup.body
+    - field.field.node.scaleup.field_category
+    - field.field.node.scaleup.field_copyrighted_image
+    - field.field.node.scaleup.field_page_title
+    - field.field.node.scaleup.field_summary
+    - node.type.scaleup
+  module:
+    - text
+    - user
+id: node.scaleup.teaser
+targetEntityType: node
+bundle: scaleup
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_category: true
+  field_copyrighted_image: true
+  field_page_title: true
+  field_summary: true

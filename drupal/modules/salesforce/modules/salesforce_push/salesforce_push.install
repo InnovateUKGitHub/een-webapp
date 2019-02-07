@@ -1,0 +1,57 @@
+<?php
+
+use Drupal\salesforce_push\PushQueue;
+
+/**
+ * Implements hook_install().
+ */
+function salesforce_push_install() {
+  \Drupal::state()->set('salesforce.mapping_push_limit', PushQueue::MAPPING_CRON_PUSH_LIMIT);
+  \Drupal::state()->set('salesforce.push_queue_processor', PushQueue::DEFAULT_QUEUE_PROCESSOR);
+  \Drupal::state()->set('salesforce.push_queue_max_fails', PushQueue::DEFAULT_MAX_FAILS);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function salesforce_push_uninstall() {
+  $delete = [
+    'salesforce.push_limit',
+    'salesforce.push_queue_processor',
+    'salesforce.push_queue_max_fails',
+    'salesforce.mapping_push_info',
+  ];
+  \Drupal::state()->deleteMultiple($delete);
+  \Drupal::service('queue.salesforce_push')->deleteTable();
+}
+
+/**
+ * Set default variables
+ *
+ * @return void
+ * @author Aaron Bauman
+ */
+function salesforce_push_update_1() {
+  \Drupal::state()->set('salesforce.push_queue_processor', PushQueue::DEFAULT_QUEUE_PROCESSOR);
+  \Drupal::state()->set('salesforce.push_queue_max_fails', PushQueue::DEFAULT_MAX_FAILS);
+}
+
+/**
+ * Create new variables for more granualar push limits.
+ */
+function salesforce_push_update_2() {
+  \Drupal::state()->set('salesforce.global_push_limit', PushQueue::DEFAULT_GLOBAL_LIMIT);
+
+  \Drupal::state()->delete('salesforce.push_limit');
+}
+
+/**
+ * Moves global push limit out of state into config.
+ */
+function salesforce_push_update_3() {
+  $config = \Drupal::configFactory()->getEditable('salesforce.settings');
+  $config
+    ->set('global_push_limit', \Drupal::state()->get('salesforce.global_push_limit'))
+    ->save();
+  \Drupal::state()->delete('salesforce.global_push_limit');
+}

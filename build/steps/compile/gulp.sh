@@ -23,9 +23,8 @@ if [ ! -z "$csdTemplatesChanges" ] || [ ! -z "$jsTemplatesChanges" ] || [ ! -z "
     echo "running gulp"
 
     ./node_modules/gulp-cli/bin/gulp.js --verbose
-
 else
     echo "drupal/themes/custom/een or /js has not changed, not running gulp"
 fi
-
+./node_modules/gulp-cli/bin/gulp.js --verbose --gulpfile=GulpfileScaleupTheme.js
 

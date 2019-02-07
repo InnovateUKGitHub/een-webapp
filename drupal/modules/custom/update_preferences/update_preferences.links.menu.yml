@@ -1,0 +1,6 @@
+update_preferences.admin:
+  title: 'Update preferences settings'
+  description: 'Update preferences'
+  parent: system.admin_config_system
+  route_name: download_log
+  weight: 100
