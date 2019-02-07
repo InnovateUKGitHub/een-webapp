@@ -1,0 +1,9 @@
+global-styling:
+  version: "1.0.41"
+  css:
+    theme:
+      dist/css/scaleup.css: {}
+  js:
+    dist/js/bundle.js: {}
+  dependencies:
+    - core/jquery

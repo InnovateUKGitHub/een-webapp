@@ -1,0 +1,140 @@
+uuid: 3fe42430-5717-4991-a394-b73067b87615
+langcode: en
+status: true
+dependencies: {  }
+id: merlin_opportunities_xml_2017_1_a
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: een_opportunities
+label: 'REST service providing opportunities.'
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: merlin_xml
+  urls: 'https://merlin:8hrr9rh9dhdOKUH@admin.enterprise-europe.co.uk/api/merlin?_format=xml'
+  item_selector: /pod/profile
+  fields:
+    -
+      name: opportunity_type
+      label: 'Opportunity Type'
+      selector: reference/type
+    -
+      name: machine_name
+      label: 'Unique opportunity identifier'
+      selector: reference/external
+    -
+      name: opportunity_title
+      label: 'Opportunity Title'
+      selector: content/title
+    -
+      name: opportunity_body
+      label: 'Opportunity Body'
+      selector: content/description
+    -
+      name: opportunity_summary
+      label: 'Opportunity Summary'
+      selector: content/summary
+    -
+      name: country_of_origin
+      label: 'Country of Origin'
+      selector: company/country/label
+    -
+      name: country_of_origin_code
+      label: 'Country of Origin Code'
+      selector: company/country/key
+    -
+      name: opportunity_created_date
+      label: 'Opportunity Created Date'
+      selector: datum/submit
+    -
+      name: opportunity_updated_date
+      label: 'Opportunity Created Date'
+      selector: datum/update
+    -
+      name: opportunity_deadline_date
+      label: 'Opportunity Deadline Date'
+      selector: datum/deadline
+    -
+      name: opportunity_expertise_sought
+      label: 'Expertise Sought'
+      selector: cooperation/partner/sought
+    -
+      name: opportunity_partner_area
+      label: 'Expertise Area'
+      selector: cooperation/partner/area
+    -
+      name: opportunity_ipr
+      label: 'Intellectual Property Rights'
+      selector: cooperation/ipr/status
+    -
+      name: opportunity_advantages
+      label: 'Advantages and Innovations'
+      selector: cooperation/plusvalue
+    -
+      name: opportunity_stage
+      label: 'Development Stage'
+      selector: cooperation/stagedev/stage
+    -
+      name: opportunity_eoi
+      label: 'Accepting EOI'
+      selector: eoi/status
+    -
+      name: opportunity_contact_organisation
+      label: 'Contact Organisation'
+      selector: contact/organization
+    -
+      name: opportunity_contact_consortium
+      label: 'Contact Consortium'
+      selector: contact/consortium
+    -
+      name: opportunity_contact_fullname
+      label: 'Contact Full Name'
+      selector: contact/fullname
+    -
+      name: opportunity_contact_phone
+      label: 'Contact Organisation'
+      selector: contact/phone
+    -
+      name: opportunity_contact_email
+      label: 'Contact Email'
+      selector: contact/email
+  ids:
+    machine_name:
+      type: string
+process:
+  id: machine_name
+  title: opportunity_title
+  type:
+    plugin: default_value
+    default_value: partnering_opportunity
+  body: opportunity_body
+  field_msummary: opportunity_summary
+  field_event_type:
+    plugin: default_value
+    default_value: imported
+  field_country_of_origin: country_of_origin
+  field_event_country_code: country_of_origin_code
+  field_opportunity_id: machine_name
+  field_partner_expertise_sought: opportunity_expertise_sought
+  field_partner_area: opportunity_partner_area
+  field_intellectual_property: opportunity_ipr
+  field_advantages_and_innovations: opportunity_advantages
+  field_development_stage: opportunity_stage
+  field_eoi_show: opportunity_eoi
+  field_opportunity_type: opportunity_type
+  field_submitted_date: opportunity_created_date
+  field_updated_date: opportunity_updated_date
+  field_deadline_date: opportunity_deadline_date
+  field_contact_organisation: opportunity_contact_organisation
+  field_contact_consortium: opportunity_contact_consortium
+  field_contact_fullname: opportunity_contact_fullname
+  field_contact_phone: opportunity_contact_phone
+  field_contact_email: opportunity_contact_email
+  status:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:node'
+migration_dependencies: {  }

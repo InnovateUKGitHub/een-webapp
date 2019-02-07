@@ -1,0 +1,21 @@
+uuid: baa94a7e-0280-48dd-8114-3852d6e76cd5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_opportunity_type_agg
+    - node.type.aggregator
+  module:
+    - options
+id: node.aggregator.field_opportunity_type_agg
+field_name: field_opportunity_type_agg
+entity_type: node
+bundle: aggregator
+label: 'Opportunity type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

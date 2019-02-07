@@ -60,23 +60,34 @@
                     {{ page.secondary_menu }}
                 </div>
             </div>
+
+            {# <div id="video-bg">
+            </div>
+            {{ homepage_video }} #}
+
             <div class="container">
-                <h1>We help ambitious small businesses</h1>
-                <div class="homepage-carousel owl-carousel">
-                    <div class="item"><a href="/services/move-new-markets">Move into new markets</a></div>
-                    <div class="item"><a href="/services/access-finance">Access funding</a></div>
-                    <div class="item"><a href="/services/advisers-worldwide" class="network">Use our networks</a></div>
-                    <div class="item innovate"><a href="/services/innovate-grow">Innovate to grow</a></div>
-                    <div class="item"><a href="/services/find-trusted-partners">Find trusted partners</a></div>
+                <div class="masthead-opener">
+                    <h1>For growing, innovative businesses</h1>
+                    <div class="masthead-options">
+                        <div class="homepage-carousel owl-carousel">
+                            <div class="item"><a href="/services/innovate-grow">I want to <span>innovate to grow</span></a></div>
+                            <div class="item"><a href="/services/move-new-markets">I'm ready to <span>move into new markets</span></a></div>
+                            <div class="item"><a href="/services/find-trusted-partners">I want to <span>find trusted partners</span></a></div>
+                            <div class="item"><a href="/services/access-finance">I need to <span>access funding</span></a></div>
+                            <div class="item"><a href="/services/advisers-worldwide">I want <span>more global connections</span></a></div>
+                        </div>
+                    </div>
                 </div>
-                
+                <div class="clearfix"></div>
             </div>    
             <div class="homepage-quote-container">
                 {{ homepage_quote }}
                 <div class="popup-container">
                     {{ homepage_popup_video }}
                 </div>
-            </div>    
+            </div>
+
+
         </div>
     </header>
 
@@ -89,25 +100,33 @@
                 {{ page.highlighted }}
                 <div class="partner-icons">
                     <div class="partner-icon">
-                        <figure>
-                            <img class="een-logo" src="/themes/custom/een/img/EEN-partner-logo.png" alt="EEN"/>
-                        </figure>
-                    </div>    
-                    <div class="partner-icon">
-                        <figure>
-                            <img class="innovate-uk" src="/themes/custom/een/img/innovate-uk-logo.png" alt="Innovate UK"/>
-                        </figure>    
+                        <a target="_blank" href="https://een.ec.europa.eu/">
+                            <figure>
+                                <img class="een-logo" src="/themes/custom/een/img/EEN-partner-logo.png" alt="EEN"/>
+                            </figure>
+                        </a>
                     </div>
                     <div class="partner-icon">
-                        <figure>
-                            <img class="hm-government" src="/themes/custom/een/img/HM_Government_logo.png" alt="HM Government"/>
-                        </figure>    
+                        <a target="_blank" href="https://www.gov.uk/guidance/global-innovation-what-support-is-available#connect-to-innovation-partners">
+                            <figure>
+                                <img class="innovate-uk" src="/themes/custom/een/img/innovate-uk-logo.png" alt="Innovate UK"/>
+                            </figure>
+                        </a>
                     </div>
                     <div class="partner-icon">
-                        <figure>
-                            <img class="european-commission" src="/themes/custom/een/img/European_Commission.png" alt="European Commission"/>
-                        </figure>    
-                    </div>    
+                        <a target="_blank" href="https://www.gov.uk/business-finance-support?keywords=enterprise+europe+network">
+                            <figure>
+                                <img class="hm-government" src="/themes/custom/een/img/HM_Government_logo.png" alt="HM Government"/>
+                            </figure>
+                        </a>
+                    </div>
+                    <div class="partner-icon">
+                        <a target="_blank" href="https://ec.europa.eu/easme/en">
+                            <figure>
+                                <img class="european-commission" src="/themes/custom/een/img/European_Commission.png" alt="European Commission"/>
+                            </figure>
+                        </a>
+                    </div>
                 </div>
                 <div class="our-work-in-action">
                     <h3 class="heading-medium">Our work in action</h3>
@@ -175,7 +194,7 @@
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                   {# <p><a href="/browse-partnering-opportunities">browse</a></p> #}     
+                   <p class="browse-link"><a href="/aggregation-opportunities">browse</a></p>     
                 </div>    
             </div>
 

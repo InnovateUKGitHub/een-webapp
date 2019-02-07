@@ -10,6 +10,8 @@ use Drupal\events\Service\EventsService;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 class EventController extends ControllerBase
 {
@@ -88,8 +90,19 @@ class EventController extends ControllerBase
             ->execute();
 
         $id = array_shift(array_values($fids));
+
+        if(!$id){
+            throw new NotFoundHttpException();
+        }
+
         $entity_manager = \Drupal::entityManager();
         $results =  $entity_manager->getStorage('node')->load($id)->toArray();
+
+
+        if($results['field_event_url'][0]['uri']){
+            header('Location: '.$results['field_event_url'][0]['uri']);
+            exit;
+        }
 
         $form = \Drupal::formBuilder()->getForm(EventForm::class);
         $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);

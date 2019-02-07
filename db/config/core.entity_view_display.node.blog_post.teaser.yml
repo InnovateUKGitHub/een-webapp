@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.blog_post.field_associated_service
     - field.field.node.blog_post.field_copyrighted_image
     - field.field.node.blog_post.field_county
+    - field.field.node.blog_post.field_feed_only_tag
     - field.field.node.blog_post.field_full_width_quote
     - field.field.node.blog_post.field_location
     - field.field.node.blog_post.field_meta_tags
@@ -35,18 +36,25 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
   sharethis:
     weight: 10
     region: content
+    settings: {  }
+    third_party_settings: {  }
   workbench_moderation_control:
     weight: -20
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   comment: true
   field_associated_service: true
   field_blog_lede: true
   field_copyrighted_image: true
   field_county: true
+  field_feed_only_tag: true
   field_full_width_quote: true
   field_location: true
   field_meta_tags: true

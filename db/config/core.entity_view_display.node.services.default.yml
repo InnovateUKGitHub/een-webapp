@@ -1,0 +1,70 @@
+uuid: 1511d3f5-b3e5-4aef-b0da-5f0bc872d9bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.services.body
+    - field.field.node.services.field_full_width_quote
+    - field.field.node.services.field_service_icon
+    - field.field.node.services.field_services_sidebar
+    - node.type.services
+  module:
+    - field_formatter_class
+    - field_group
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_body_container:
+      children:
+        - body
+        - field_full_width_quote
+      parent_name: ''
+      weight: 0
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: body-container
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: body-container
+id: node.services.default
+targetEntityType: node
+bundle: services
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 1
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: body-content
+    region: content
+  field_full_width_quote:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: quote
+    type: text_default
+    region: content
+  field_services_sidebar:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: services-sidebar
+    type: text_default
+    region: content
+hidden:
+  field_service_icon: true
+  links: true
+  sharethis: true

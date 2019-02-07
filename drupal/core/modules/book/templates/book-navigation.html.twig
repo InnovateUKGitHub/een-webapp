@@ -43,12 +43,12 @@
       {% endif %}
       {% if parent_url %}
         <li>
-          <a tabindex="0" href="{{ parent_url }}" title="{{ 'Go to parent page'|t }}">{{ 'Up'|t }}</a>
+          <a href="{{ parent_url }}" title="{{ 'Go to parent page'|t }}">{{ 'Up'|t }}</a>
         </li>
       {% endif %}
       {% if next_url %}
         <li>
-          <a tabindex="0" href="{{ next_url }}" rel="next" title="{{ 'Go to next page'|t }}">{{ next_title }} <b>{{ '›'|t }}</b></a>
+          <a href="{{ next_url }}" rel="next" title="{{ 'Go to next page'|t }}">{{ next_title }} <b>{{ '›'|t }}</b></a>
         </li>
       {% endif %}
     </ul>

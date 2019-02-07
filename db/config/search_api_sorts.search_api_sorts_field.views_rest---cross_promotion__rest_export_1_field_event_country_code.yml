@@ -1,0 +1,11 @@
+uuid: 94737d14-c4bd-4fc0-bc37-d3f0200d7b3c
+langcode: en
+status: false
+dependencies: {  }
+id: views_rest---cross_promotion__rest_export_1_field_event_country_code
+display_id: views_rest---cross_promotion__rest_export_1
+field_identifier: field_event_country_code
+default_sort: false
+default_order: asc
+label: 'Event Country Code'
+weight: 0

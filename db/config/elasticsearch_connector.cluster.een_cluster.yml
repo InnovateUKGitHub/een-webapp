@@ -1,0 +1,14 @@
+uuid: 1cf7b613-fa05-43be-82c9-e410eb1f2e2a
+langcode: en
+status: '1'
+dependencies: {  }
+cluster_id: een_cluster
+name: een-cluster
+url: 'http://192.168.50.8:9200'
+options:
+  multiple_nodes_connection: false
+  use_authentication: 0
+  authentication_type: Basic
+  username: ''
+  password: ''
+  timeout: '3'

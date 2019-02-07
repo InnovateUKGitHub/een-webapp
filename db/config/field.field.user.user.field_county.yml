@@ -1,0 +1,22 @@
+uuid: 735b6f42-c161-4933-aae4-3895714d698b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_county
+  module:
+    - user
+_core:
+  default_config_hash: u53JPHRNQIBcsz6mbqaSj_k7k3srX4IIKofnHDYoITI
+id: user.user.field_county
+field_name: field_county
+entity_type: user
+bundle: user
+label: County
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

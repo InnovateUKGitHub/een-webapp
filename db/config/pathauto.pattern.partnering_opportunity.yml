@@ -1,0 +1,22 @@
+uuid: e7d7f3da-871a-4e60-a81c-b9801117703d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: partnering_opportunity
+label: 'Partnering Opportunity'
+type: 'canonical_entities:node'
+pattern: '/opportunity/[node:field_opportunity_id]'
+selection_criteria:
+  1508af43-b746-46b4-a4e4-7e3898dd3c37:
+    id: node_type
+    bundles:
+      partnering_opportunity: partnering_opportunity
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 1508af43-b746-46b4-a4e4-7e3898dd3c37
+selection_logic: and
+weight: -5
+relationships: {  }

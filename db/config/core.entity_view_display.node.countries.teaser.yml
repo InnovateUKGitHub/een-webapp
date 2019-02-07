@@ -1,0 +1,39 @@
+uuid: d8e5bad7-0b1a-4cb4-8b53-304713c0292b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.countries.body
+    - field.field.node.countries.field_country_code
+    - field.field.node.countries.field_country_name
+    - node.type.countries
+  module:
+    - text
+    - user
+id: node.countries.teaser
+targetEntityType: node
+bundle: countries
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_country_code: true
+  field_country_name: true

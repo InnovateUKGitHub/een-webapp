@@ -1,0 +1,23 @@
+uuid: d231480a-aea5-4cf3-87ff-5e2d11e671d2
+langcode: en
+status: true
+dependencies:
+  module:
+    - elasticsearch_connector
+id: een_server
+name: een-server
+description: ''
+backend: elasticsearch
+backend_config:
+  cluster_settings:
+    cluster: een_cluster
+  scheme: http
+  host: localhost
+  port: '9200'
+  path: ''
+  excerpt: false
+  retrieve_data: false
+  highlight_data: false
+  http_method: AUTO
+  autocorrect_spell: true
+  autocorrect_suggest_words: true

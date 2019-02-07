@@ -10,6 +10,8 @@ use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Query\QueryInterface;
 use Drupal\Core\Site\Settings;
 use Elasticsearch\ClientBuilder;
+use Aws\ElasticsearchService\ElasticsearchPhpHandler;
+
 
 class EventsService
 {
@@ -26,6 +28,7 @@ class EventsService
      * @var HttpService
      */
     private $service;
+    private $cluster = null;
 
     /**
      * EventsService constructor.
@@ -189,6 +192,28 @@ class EventsService
                     "post_tags" => ["</span>"],
                     "order" => "score",
                     "fields" => [
+                        "title" => [
+                            "fragment_size" => 0,
+                            "number_of_fragments" => 0,
+                            "highlight_query" => [
+                                "bool" => [
+                                    "must" => [
+                                        "query_string" => [
+                                            "fields" => [
+                                                "title",
+                                                "body",
+                                            ],
+                                            "query" => $search,
+                                            "phrase_slop" => 50,
+                                            "allow_leading_wildcard" => true,
+                                            "analyze_wildcard" => true,
+                                            "default_operator" => "AND",
+                                            "fuzzy_prefix_length" => 3
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
                         "body" => [
                             "fragment_size" => 240,
                             "number_of_fragments" => 2,
@@ -247,6 +272,12 @@ class EventsService
                             $nid = substr($portion, 0, strpos($portion, ':'));
                         }
 
+                        $title = (isset($thisresult['highlight']['title'])
+                            ? implode('', $thisresult['highlight']['title'])
+                            : (isset($thisresult['highlight']['title'])
+                                ? implode('', $thisresult['highlight']['title'])
+                                : $thisresult['_source']['title'][0]));
+
                         $summary = (isset($thisresult['highlight']['summary'])
                             ? implode('', $thisresult['highlight']['summary'])
                             : (isset($thisresult['highlight']['body'])
@@ -255,7 +286,7 @@ class EventsService
 
                         $es_results_rows[] = array(
                             'nid' => $nid,
-                            'title' => $thisres['title'][0],
+                            'title' => $title,
                             'description' => $summary,
                             'start_date' => $thisres['field_event_date'][0],
                             'end_date' => $thisres['end_value'][0],
@@ -441,14 +472,14 @@ class EventsService
             $clusterId = \Drupal\elasticsearch_connector\Entity\Cluster::getDefaultCluster();
             $this->cluster = \Drupal\elasticsearch_connector\Entity\Cluster::load($clusterId);
         }
-   
+
         if (empty($this->cluster->options['elasticsearch_aws_connector_aws_region'])) {
             $client = ClientBuilder::create()->setHosts($hosts)->build();
         } else {
             $handler = new ElasticsearchPhpHandler($this->cluster->options['elasticsearch_aws_connector_aws_region']);
             $client = ClientBuilder::create()
-                      ->setHandler($handler)
-                      ->setHosts($hosts)->build();
+                ->setHandler($handler)
+                ->setHosts($hosts)->build();
         }
 
         return $client;

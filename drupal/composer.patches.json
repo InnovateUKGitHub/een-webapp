@@ -1,0 +1,7 @@
+{
+  "patches": {
+    "drupal/contentimport": {
+      "Added new list_type import": "https://www.drupal.org/files/issues/2018-07-03/2948733-6.patch"
+    }
+  }
+}

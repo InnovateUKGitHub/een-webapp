@@ -1,0 +1,8 @@
+api_key: live_key-c75dc957-c9ab-420b-ad92-28e7159791b8-9e1f980f-f9e3-45c7-859d-50c4b63081a7
+service_email: contact@enterprise-europe.co.uk
+verify_email_template_key: b4d361df-0f3b-4f35-91a7-5df3d6ca3382
+verify_email_events_template_key: 8ac31927-56b4-4cc4-a017-df8320f40b1b
+verify_sms_template_key: 57fac6e3-b5cd-4411-b5fb-b240281d2055
+eoi_notify_client_email_template_key: dcdaf480-5c28-4592-a13c-34b7363eea98
+eoi_notify_service_email_template_key: 30729854-b39d-4637-b8e2-11936dbfce00
+event_registration_notify_template_key: ed6d778c-2f63-4e63-ac62-abcda80d7399

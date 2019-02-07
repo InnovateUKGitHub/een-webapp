@@ -1,0 +1,205 @@
+uuid: cf32d0f9-d130-468b-a6af-92857ab88c17
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - search_api
+  config:
+    - field.storage.node.body
+    - field.storage.node.field_country_of_origin
+    - field.storage.node.field_deadline_date
+    - field.storage.node.field_eoi_show
+    - field.storage.node.field_msummary
+    - field.storage.node.field_opportunity_id
+    - field.storage.node.field_opportunity_type
+    - field.storage.node.field_submitted_date
+    - field.storage.node.field_updated_date
+    - search_api.server.een_server
+id: een_opportunity
+name: een_opportunity
+description: ''
+read_only: false
+field_settings:
+  body:
+    label: Body
+    datasource_id: 'entity:node'
+    property_path: body
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.body
+  changed:
+    label: Changed
+    datasource_id: 'entity:node'
+    property_path: changed
+    type: string
+    dependencies:
+      module:
+        - node
+  created:
+    label: 'Authored on'
+    datasource_id: 'entity:node'
+    property_path: created
+    type: string
+    dependencies:
+      module:
+        - node
+  field_country_of_origin:
+    label: 'Country of Origin'
+    datasource_id: 'entity:node'
+    property_path: field_country_of_origin
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_country_of_origin
+  field_deadline_date:
+    label: 'Deadline date'
+    datasource_id: 'entity:node'
+    property_path: field_deadline_date
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_deadline_date
+  field_eoi_show:
+    label: 'Eoi show'
+    datasource_id: 'entity:node'
+    property_path: field_eoi_show
+    type: string
+    boost: !!float 0
+    dependencies:
+      config:
+        - field.storage.node.field_eoi_show
+  field_msummary:
+    label: mSummary
+    datasource_id: 'entity:node'
+    property_path: field_msummary
+    type: text
+    boost: !!float 2
+    dependencies:
+      config:
+        - field.storage.node.field_msummary
+  field_opportunity_id:
+    label: 'Opportunity ID'
+    datasource_id: 'entity:node'
+    property_path: field_opportunity_id
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_opportunity_id
+  field_opportunity_type:
+    label: 'Opportunity Type'
+    datasource_id: 'entity:node'
+    property_path: field_opportunity_type
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_opportunity_type
+  field_submitted_date:
+    label: 'Submitted Date'
+    datasource_id: 'entity:node'
+    property_path: field_submitted_date
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_submitted_date
+  field_updated_date:
+    label: 'Updated Date'
+    datasource_id: 'entity:node'
+    property_path: field_updated_date
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_updated_date
+  nid:
+    label: ID
+    datasource_id: 'entity:node'
+    property_path: nid
+    type: integer
+    dependencies:
+      module:
+        - node
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: !!float 2
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - partnering_opportunity
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  entity_status: {  }
+  highlight:
+    highlight: always
+    highlight_partial: false
+    excerpt: true
+    excerpt_length: 256
+    exclude_fields: {  }
+    prefix: '<strong>'
+    suffix: '</strong>'
+    weights:
+      postprocess_query: 0
+  rendered_item: {  }
+  stopwords:
+    all_fields: false
+    fields:
+      - body
+      - title
+    stopwords:
+      - a
+      - an
+      - and
+      - are
+      - as
+      - at
+      - be
+      - but
+      - by
+      - for
+      - if
+      - in
+      - into
+      - is
+      - it
+      - 'no'
+      - not
+      - of
+      - 'on'
+      - or
+      - s
+      - such
+      - t
+      - that
+      - the
+      - their
+      - then
+      - there
+      - these
+      - they
+      - this
+      - to
+      - was
+      - will
+      - with
+    weights:
+      preprocess_index: -5
+      preprocess_query: -2
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  cron_limit: 50
+server: een_server

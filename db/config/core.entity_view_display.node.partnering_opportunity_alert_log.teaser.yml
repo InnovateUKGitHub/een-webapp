@@ -1,0 +1,27 @@
+uuid: d7f25ccb-5cf8-449a-a247-6303bc7bcd83
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.partnering_opportunity_alert_log.field_id
+    - node.type.partnering_opportunity_alert_log
+  module:
+    - user
+id: node.partnering_opportunity_alert_log.teaser
+targetEntityType: node
+bundle: partnering_opportunity_alert_log
+mode: teaser
+content:
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_id: true

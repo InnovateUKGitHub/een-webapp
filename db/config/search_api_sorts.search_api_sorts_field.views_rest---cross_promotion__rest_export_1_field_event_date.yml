@@ -1,0 +1,11 @@
+uuid: 35debc84-5095-4070-89e1-063adb2f7c8b
+langcode: en
+status: false
+dependencies: {  }
+id: views_rest---cross_promotion__rest_export_1_field_event_date
+display_id: views_rest---cross_promotion__rest_export_1
+field_identifier: field_event_date
+default_sort: false
+default_order: asc
+label: 'Event Date'
+weight: 0

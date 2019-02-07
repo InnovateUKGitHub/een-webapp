@@ -23,5 +23,7 @@ content:
   sharethis:
     weight: 10
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   links: true

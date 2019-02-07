@@ -54,7 +54,9 @@ function events_cron()
 
     foreach($fids as $nid){
         $node = \Drupal\node\Entity\Node::load($nid);
+        $node->set("changed", $node->changed->value);
         $node->set("status", '0');
+        $node->set("moderation_state", 'archived');
         $node->save();
     }
 }

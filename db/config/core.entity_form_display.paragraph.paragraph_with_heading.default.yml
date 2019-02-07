@@ -1,0 +1,36 @@
+uuid: 2c64ee73-6b51-41be-8c1d-0cfc7299be77
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.paragraph_with_heading.field_body
+    - field.field.paragraph.paragraph_with_heading.field_heading
+    - paragraphs.paragraphs_type.paragraph_with_heading
+  module:
+    - text
+    - workbench_moderation
+id: paragraph.paragraph_with_heading.default
+targetEntityType: paragraph
+bundle: paragraph_with_heading
+mode: default
+content:
+  field_body:
+    weight: 7
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_heading:
+    weight: 6
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

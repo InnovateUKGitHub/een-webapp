@@ -1,0 +1,24 @@
+links:
+  -
+    path: /
+    priority: '1.0'
+  -
+    path: /sitemap
+    priority: '0.5'
+  -
+    path: /contact-us
+    priority: '0.9'
+  -
+    path: /latest
+    priority: '0.9'
+  -
+    path: /how-can-we-help
+    priority: '0.8'
+  -
+    path: /partnering-opportunities
+    priority: '0.9'
+  -
+    path: /events
+    priority: '0.9'
+_core:
+  default_config_hash: Gp8bobHmx-DuBPQoAb8KqKZXBqnca2flPqbNerZl0xQ

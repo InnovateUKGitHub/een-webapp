@@ -41,7 +41,11 @@ content:
   partial_0:
     weight: 0
     region: content
+    settings: {  }
+    third_party_settings: {  }
   partial_1:
     weight: 0
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden: {  }

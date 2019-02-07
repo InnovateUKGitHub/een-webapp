@@ -41,6 +41,7 @@ node {
     if (env.BRANCH_NAME == ("master")) {
         remoteDeploy('production_een_aws', packageName, deployMethod, true, true, false)
     }
+
 }
      
 def remoteDeploy(String targetEnvironment, String packageName, String deployMethod, Boolean requireInput, Boolean updateAmi, Boolean tests) {

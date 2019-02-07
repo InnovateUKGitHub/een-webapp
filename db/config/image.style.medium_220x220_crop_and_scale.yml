@@ -1,0 +1,15 @@
+uuid: 1d80b632-add4-4cf1-81f7-c318d8523b42
+langcode: en
+status: true
+dependencies: {  }
+name: medium_220x220_crop_and_scale
+label: 'Medium (220x220) Crop and Scale'
+effects:
+  d7ec0b91-2c70-40bd-a6f1-bcee1f4e7089:
+    uuid: d7ec0b91-2c70-40bd-a6f1-bcee1f4e7089
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 220
+      height: 220
+      anchor: center-center

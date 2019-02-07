@@ -1,0 +1,155 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 05-Sep-2017, 16:04:39
+    Author     : jasongoodenough
+*/
+
+// this is the block that is revealed on clicking the email link on the partnering opportunities page
+
+.update-bar {
+    border-top:solid 2px #ddd;
+    padding:10px 0;
+    p {
+        margin:0;
+    }
+    .fa {
+        margin:0 5px;
+        color:#000;
+    }
+    .fa-question-circle {
+        color:$cta;
+        position:relative;
+        &:hover {
+            cursor:pointer;
+        }
+        &:hover .hover-box {
+            display:block;
+        }
+    }
+    .hover-box {
+        display:none;
+        min-width:200px;
+        line-height:1.3em;
+        top:-20px;
+        font-family:"Myriad Pro",Arial;
+        position:absolute;
+        border:solid 1px #e0f0f9;
+        padding:10px;
+        margin-left:30px;
+        color:$cta;
+        background:#F5F9FC;
+        &:before {
+            width:13px;
+            height:23px;
+            display:block;
+            position:absolute;
+            content:url('../img/hover-corner.jpg');
+            left:-13px;
+            top:16px;
+        }
+    }
+    span {
+        color:$cta;
+    }
+    .embed {
+        position:relative;
+        float:right;
+    }
+}
+.js-email {
+    display:inline-block;
+    &:hover {
+        cursor:pointer;
+    }
+}
+.js-email-signup {
+    display:none;
+    position:relative;
+    overflow:hidden;
+    border: 1px solid #E0F0FA;
+    border-bottom:solid 6px #006ba6;
+    padding:16px;
+    margin:9px 0 30px 0;
+    background:#f5fafd;
+    .close {
+        font-size:14px;
+        font-weight:600;
+        position:absolute;
+        top:15px;
+        right:15px;
+        &:hover {
+            cursor:pointer;
+        }
+    }
+    p {
+        font-weight:600;
+        clear:both;
+    }
+    p:first-of-type {
+        font-weight:normal;
+        margin-bottom:5px;
+    }
+    .fa {
+        color:$cta;
+    }
+    .form-label {
+        position:absolute;
+        text-indent:-10000px;
+    }
+    .form-email {
+        width:64%;
+        min-height:40px;
+        float:left;
+        margin-bottom:16px;
+        padding-left:2%;
+        padding-right:2%;
+    }
+    .form-actions {
+        width:34%;
+        float:right;
+        .button {
+            width:100%;
+            height:40px;
+            line-height:40px;
+            padding:0;
+        }
+    }
+    .terms {
+        margin: 0 0 19px 0;
+        .block-label {
+
+            font-size: 16px;
+
+            &:after {
+                width: 20px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            left: 3px;
+            top: -1px;
+            float: left;
+            border: 1px solid #bfc1c3;
+            border-radius: 1px;
+            content: " ";
+            }
+            &.selected {
+                line-height:1.6em;
+                background:none;
+                &::after {
+                    border-color: #bfc1c3;
+                    background: #006BA6 url("../img/tick-checkbox.png") no-repeat center 50%;
+                }
+            }
+        }
+    }
+    #verify-code {
+        height: 37px;
+        margin: 0 0 0 14px;
+        padding: 10px 27px;
+    }
+
+}

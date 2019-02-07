@@ -1,0 +1,13 @@
+een_near_me.module_settings:
+  title: 'EEN Near Me'
+  parent: system.admin_config_system
+  description: 'EEN Near Me Settings.'
+  route_name: een_near_me.module_settings
+  weight: -20
+
+een_near_me.import_towns:
+  title: 'EEN Import Towns List'
+  parent: system.admin_config_system
+  description: 'Import a Towns List csv file'
+  route_name: een_near_me.import_towns
+  weight: -20

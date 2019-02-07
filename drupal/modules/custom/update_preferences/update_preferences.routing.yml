@@ -1,0 +1,18 @@
+mm.manage-your-preferences:
+  path: '/manage-your-preferences'
+  defaults:
+    _controller: '\Drupal\update_preferences\Controller\UpdatePreferencesController::index'
+    _title: 'Do we have your preferences right?'
+  requirements:
+    _permission: 'access content'
+  options:
+    _admin_route: FALSE
+download_log:
+  path: 'admin/download-user-preferences-log'
+  defaults:
+    _title: 'Download User Preferences Log'
+    _form: '\Drupal\update_preferences\Form\DownloadLogForm'
+  requirements:
+    _permission: 'administer content'
+  options:
+      _admin_route: true

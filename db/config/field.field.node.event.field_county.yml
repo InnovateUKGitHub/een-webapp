@@ -1,0 +1,21 @@
+uuid: be684c8c-0121-4288-a2e9-258c94a89d43
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_county
+    - node.type.event
+_core:
+  default_config_hash: 0c43xGmhxL6ROUkf7JsAEevDxTw3_IJUhATs2qvOryo
+id: node.event.field_county
+field_name: field_county
+entity_type: node
+bundle: event
+label: County
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,22 @@
+uuid: a886eecd-12b3-4ccb-8f56-8953f0a6cb19
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.partnering_opportunity_alert_log
+id: node.partnering_opportunity_alert_log.promote
+field_name: promote
+entity_type: node
+bundle: partnering_opportunity_alert_log
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

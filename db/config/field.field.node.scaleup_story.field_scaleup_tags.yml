@@ -1,0 +1,28 @@
+uuid: 7f40b688-87db-4edf-94b9-081b919e9c6d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_scaleup_tags
+    - node.type.scaleup_story
+    - taxonomy.vocabulary.scaleup_categories
+id: node.scaleup_story.field_scaleup_tags
+field_name: field_scaleup_tags
+entity_type: node
+bundle: scaleup_story
+label: 'Scaleup tags'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      scaleup_categories: scaleup_categories
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

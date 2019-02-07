@@ -1,0 +1,51 @@
+uuid: b5170692-2c18-44a2-8416-54d26810109a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.client_options.field_newsletter_otions
+    - field.field.node.client_options.field_subjects_of_interest
+    - field.field.node.client_options.field_types_of_updates
+    - node.type.client_options
+  module:
+    - user
+id: node.client_options.default
+targetEntityType: node
+bundle: client_options
+mode: default
+content:
+  field_newsletter_otions:
+    weight: 104
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_subjects_of_interest:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_types_of_updates:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

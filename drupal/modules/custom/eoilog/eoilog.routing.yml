@@ -1,0 +1,7 @@
+eoilog_list:
+  path: 'admin/eoilog/list'
+  defaults:
+    _title: 'List'
+    _controller: '\Drupal\eoilog\Controller\EoilogController::eoiList'
+  requirements:
+    _permission: 'administer content'

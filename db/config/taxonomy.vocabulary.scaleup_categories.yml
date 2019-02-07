@@ -1,0 +1,9 @@
+uuid: 14a68e75-090c-476d-b8c6-547e2bc13d97
+langcode: en
+status: true
+dependencies: {  }
+name: 'Scaleup categories'
+vid: scaleup_categories
+description: ''
+hierarchy: 0
+weight: 0

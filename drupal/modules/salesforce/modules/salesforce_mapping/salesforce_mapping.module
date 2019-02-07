@@ -1,0 +1,97 @@
+<?php
+
+/**
+ * @file
+ * Manages Salesforce object and Drupal entity mappings.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+// Not sure if we'll actually need these, since entity API seems to provide everything:
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function salesforce_mapping_entity_type_alter(array &$entity_types) {
+  /** @var $entity_types \Drupal\Core\Entity\EntityTypeInterface[] */
+  foreach ($entity_types as $entity_type_id => $entity_type) {
+    if ($entity_type->hasViewBuilderClass() && $entity_type->hasLinkTemplate('canonical')) {
+      $entity_type->setLinkTemplate('salesforce', "/$entity_type_id/{{$entity_type_id}}/salesforce");
+      $entity_type->setLinkTemplate('salesforce_edit', "/$entity_type_id/{{$entity_type_id}}/salesforce/edit");
+      $entity_type->setLinkTemplate('salesforce_delete', "/$entity_type_id/{{$entity_type_id}}/salesforce/delete");
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_operation().
+ */
+function salesforce_mapping_entity_operation(EntityInterface $entity) {
+  $operations = [];
+  if (\Drupal::currentUser()->hasPermission('administer salesforce')) {
+    if ($entity->hasLinkTemplate('salesforce')) {
+      $operations['salesforce'] = [
+        'title' => t('Salesforce'),
+        'weight' => 200,
+        'url' => $entity->toUrl('salesforce'),
+      ];
+    }
+  }
+  return $operations;
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function salesforce_mapping_entity_extra_field_info() {
+  // Include Salesforce data for mapped entities.
+  // @TODO: these don't actually show up on the entity view. Have to implement hook_entity_view as well?
+  $extra = [];
+  $mappings = \Drupal::service('entity.manager')
+    ->getStorage('salesforce_mapping')
+    ->loadPushMappings();
+  foreach ($mappings as $mapping) {
+    $extra[$mapping->drupal_entity_type][$mapping->drupal_bundle] = [
+      'display' => [
+        'salesforce_id' => [
+          'label' => t('Salesforce Id'),
+          'description' => t('ID of a linked Salesforce object.'),
+          'weight' => 0,
+        ],
+        'salesforce_last_sync' => [
+          'label' => t('Salesforce last sync'),
+          'description' => t('Timestamp for the latest sync with Salesforce.'),
+          'weight' => 0,
+        ],
+      ],
+    ];
+  }
+  return $extra;
+}
+
+/**
+ * Implements hook_entity_update().
+ *
+ * Ensures drupal entity has an update timestamp.
+ */
+function salesforce_mapping_entity_update(EntityInterface $entity) {
+  // Check for mappings (much faster than looking for mapped objects.)
+  $mappings = \Drupal::service('entity.manager')
+    ->getStorage('salesforce_mapping')
+    ->loadByDrupal($entity->getEntityTypeId());
+  if (empty($mappings)) {
+    return;
+  }
+
+  // If mappings, check for mapped objects.
+  $mapped_objects = \Drupal::service('entity.manager')
+    ->getStorage('salesforce_mapped_object')
+    ->loadByDrupal($entity->getEntityTypeId(), $entity->id());
+
+  foreach ($mapped_objects as $mapped_object) {
+    // Resaving the object should update the timestamp.
+    // NB: we are purposefully not creating a new revision here.
+    $mapped_object
+      ->set('entity_updated', \Drupal::time()->getRequestTime())
+      ->save();
+  }
+}

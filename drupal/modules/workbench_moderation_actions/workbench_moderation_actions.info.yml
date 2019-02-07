@@ -1,0 +1,11 @@
+name: WBM actions
+# core: 8.x
+type: module
+dependencies:
+  - workbench_moderation:workbench_moderation
+
+# Information added by Drupal.org packaging script on 2017-07-10
+version: '8.x-1.x-dev'
+core: '8.x'
+project: 'workbench_moderation_actions'
+datestamp: 1499683746

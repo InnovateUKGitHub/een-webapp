@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - een_near_me
+    - system
+  theme:
+    - een
+id: nearmeheader
+theme: een
+region: content
+weight: -8
+provider: null
+plugin: een_near_me_header
+settings:
+  id: een_near_me_header
+  label: 'Near Me Header'
+  provider: een_near_me
+  label_display: visible
+visibility:
+  request_path:
+    id: request_path
+    pages: /near-me
+    negate: false
+    context_mapping: {  }

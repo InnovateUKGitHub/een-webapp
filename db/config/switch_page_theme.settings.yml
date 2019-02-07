@@ -1,0 +1,14 @@
+spt_table:
+  -
+    status: '1'
+    pages: "/story/*\r\n/scaleup"
+    theme: scaleup
+    weight: '-10'
+    roles:
+      anonymous: 0
+      authenticated: 0
+      administrator: 0
+      content_creator: 0
+      content_moderator: 0
+      merlin: 0
+    remove: Remove

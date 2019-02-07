@@ -235,8 +235,6 @@
     margin:0;
 }
 
-
-
 .loading-verify-email {
     opacity:0.3;
     pointer-events: none;
@@ -250,4 +248,119 @@
     #edit-password {
         width:100%;
     }
-}    
+}
+.page-within-aggregator {
+    margin:20px 0;
+
+    h3 {
+        font-weight:700;
+    }
+}
+
+
+.pod-gallery-mfp {
+
+     .mfp-image-holder .mfp-close, .mfp-iframe-holder .mfp-close {
+        color: white;
+        right: 0;
+        text-align: right;
+        padding: 1px 12px 0px 18px;
+        background: $cta;
+        width: auto;
+        top: -31px;
+        height: 31px;
+        line-height: 31px;
+        font-size: 35px;
+        font-weight: bold;
+        border-radius: 3px 3px 0 0;
+    }
+
+    .mfp-content {
+        background: none;
+        margin-top:50px;
+        margin-bottom:50px;
+        max-width: 70%;
+    }
+
+    .mfp-figure {
+        border: 1px solid $cta;
+        padding: 19px;
+        background: white;
+        box-shadow: none;
+
+        &:after {
+            display:none;
+        }
+    }
+
+    .mfp-counter {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: $cta;
+        font-size: 12px;
+        line-height: 18px;
+        white-space: nowrap;
+        font-size: 16px;
+        margin: 0 16px 0 0;
+        font-weight: bold;
+    }
+    img.mfp-img {
+        padding-top:0;
+
+    }
+
+}
+
+.pod-image-carousel-container {
+    border: solid 1px #b1d9f2;
+    padding: 15px;
+    background: #e0f0f9;
+
+    .item {
+        background: $cta;
+        border: 3px solid white;
+    }
+
+    img {
+
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    .owl-nav {
+        div {
+            width:36px;
+            height:36px;
+            position:absolute;
+            top:33%;
+            overflow:hidden;
+            text-indent:-5000px;
+            color:#4a4a4a;
+            background:$cta;
+            &:before {
+                display: block;
+                text-indent: 0;
+                font-size: 20px;
+                font-family: FontAwesome;
+                padding-top: 6px;
+                color: white;
+                padding-left: 8px;
+            }
+        }
+    }
+    .owl-prev {
+        left:-16px;
+        &:before {
+            content: "\f053";
+        }
+    }
+    .owl-next {
+        right:-16px;
+        &:before {
+            content: "\f054";
+        }
+    }
+}

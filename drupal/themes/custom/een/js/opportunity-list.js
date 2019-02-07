@@ -1,5 +1,6 @@
 jQuery(function () {
-    if (window.location.pathname === '/partnering-opportunities') {
+    var windowPath = window.location.pathname;
+    if (windowPath === '/partnering-opportunities' || windowPath.indexOf('/aggregation') !== -1) {
         var $ = jQuery,
             countryWrapper = $('#edit-country--wrapper'),
             selectedCheckboxesCount = countryWrapper.find('input:checked').length,
@@ -15,7 +16,12 @@ jQuery(function () {
             $(".parent-country-regions #edit-country").wrapInner("<div class='regions hide'></div>");
 
             $(".parent-country-regions #edit-country .regions").before(anywhereField).before(europeField);
-            $('.regions').before('<div class="region-toggle"><span class="selected-countries">'+selectedCheckboxesCount+'</span> </div><a role="button" tabindex="0" class="accordion-toggle region-sh" href="#" aria-label="Toggle checkboxes">Show</a>');
+            $('.regions').before('<div class="region-toggle"></div>' +
+                '<div class="region-options">' +
+                '<a role="button" tabindex="0" class="accordion-toggle region-sh" href="#" aria-label="Toggle checkboxes">Show countries selected</a>' +
+                ' <span class="region-pipe">|</span>' +
+                '<a role="button" tabindex="0" class="region-sh js-clear-regions clear-regions" href="#" aria-label="Clear Checkboxes"> clear</a>' +
+                '</div>');
         }
 
 
@@ -30,7 +36,7 @@ jQuery(function () {
             $(document).on('click', '.accordion-toggle', function (e) {
                 e.preventDefault();
 
-                var accordionContent = $(this).next(panel);
+                var accordionContent = $(this).parent().next(panel);
 
                 //Expand or collapse this panel
                 $(accordionContent).slideToggle('slow', function () {

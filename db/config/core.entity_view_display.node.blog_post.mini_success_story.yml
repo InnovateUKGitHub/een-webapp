@@ -1,0 +1,103 @@
+uuid: cb72b70c-dffd-4b65-aaeb-f8c8eccd1fe6
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.mini_success_story
+    - field.field.node.blog_post.body
+    - field.field.node.blog_post.comment
+    - field.field.node.blog_post.field_associated_service
+    - field.field.node.blog_post.field_copyrighted_image
+    - field.field.node.blog_post.field_county
+    - field.field.node.blog_post.field_full_width_quote
+    - field.field.node.blog_post.field_location
+    - field.field.node.blog_post.field_meta_tags
+    - field.field.node.blog_post.field_persona
+    - field.field.node.blog_post.field_tags
+    - field.field.node.blog_post.field_yoast_seo
+    - image.style.mini_success_story
+    - node.type.blog_post
+  module:
+    - een_custom_fields
+    - field_formatter_class
+    - field_group
+    - user
+third_party_settings:
+  field_group:
+    group_header:
+      children: {  }
+      parent_name: ''
+      weight: 1
+      format_type: html_element
+      format_settings:
+        label: blog-lede
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: blog-lede
+      label: blog-lede
+    group_blog_feature_image:
+      children:
+        - field_copyrighted_image
+      parent_name: ''
+      weight: 2
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: blog-image
+        element: figure
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: blog-feature-image
+    group_body_content:
+      children: {  }
+      parent_name: ''
+      weight: 3
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: body-content
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: body-content
+id: node.blog_post.mini_success_story
+targetEntityType: node
+bundle: blog_post
+mode: mini_success_story
+content:
+  field_copyrighted_image:
+    weight: 0
+    label: visually_hidden
+    settings:
+      image_style: mini_success_story
+      image_link: content
+    third_party_settings:
+      field_formatter_class:
+        class: copyrighted-image
+    type: copyright_image
+    region: content
+hidden:
+  body: true
+  comment: true
+  field_associated_service: true
+  field_county: true
+  field_full_width_quote: true
+  field_location: true
+  field_meta_tags: true
+  field_persona: true
+  field_tags: true
+  field_yoast_seo: true
+  links: true
+  sharethis: true
+  workbench_moderation_control: true

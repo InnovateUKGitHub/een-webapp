@@ -1,0 +1,20 @@
+uuid: ccbe3161-ad0e-488d-be84-9e59c9a6688d
+langcode: en
+status: true
+dependencies:
+  module:
+    - een_common
+title: 'Queue: Generate email content'
+id: ultimate_cron_queue_pod_alert_notify_queue_contact
+weight: 8
+module: een_common
+callback: 'ultimate_cron.queue_worker:queueCallback'
+scheduler:
+  id: simple
+  configuration:
+    rules:
+      - '* * * * *'
+launcher:
+  id: serial
+logger:
+  id: database

@@ -15,8 +15,8 @@ source:
   urls: 'http://een.ec.europa.eu/tools/services/podv6/QueryService.svc?singleWsdl'
   function: GetEvents
   parameters:
-    Username: UK00774
-    Password: c9a0974cb8ba283ea6e31ca3683f9ebf
+    Username: 
+    Password: 
     StartDateAfter: 20170104
     StartDateBefore: null
     Countries: null

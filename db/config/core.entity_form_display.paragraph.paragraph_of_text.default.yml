@@ -1,0 +1,27 @@
+uuid: 1d95b492-718c-4f8c-8607-411b3b194907
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.paragraph_of_text.field_text
+    - paragraphs.paragraphs_type.paragraph_of_text
+  module:
+    - text
+    - workbench_moderation
+id: paragraph.paragraph_of_text.default
+targetEntityType: paragraph
+bundle: paragraph_of_text
+mode: default
+content:
+  field_text:
+    weight: 6
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

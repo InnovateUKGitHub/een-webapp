@@ -136,6 +136,15 @@ logout:
  requirements:
    _permission: 'access content'
 
+
+valid-user:
+ path: '/valid-user'
+ defaults:
+   _title: 'Login to your account'
+   _controller: '\Drupal\een_common\Controller\SignUpController::valid'
+ requirements:
+   _permission: 'access content'
+
 reset-password:
  path: '/reset-password'
  defaults:
@@ -206,3 +215,12 @@ alert-unsubscribe:
     _controller: '\Drupal\een_common\Controller\AlertController::unsubscribe'
   requirements:
     _permission: 'access content'
+
+unsubscribe:
+  path: '/unsubscribe'
+  defaults:
+    _title: 'Manage your email alerts'
+    _controller: '\Drupal\een_common\Controller\SignUpController::unsubscribe'
+  requirements:
+    _permission: 'access content'
+

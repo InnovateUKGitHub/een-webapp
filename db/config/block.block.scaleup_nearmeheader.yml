@@ -1,0 +1,28 @@
+uuid: e9da35d9-10bc-4725-a461-66384b04572c
+langcode: en
+status: true
+dependencies:
+  module:
+    - een_near_me
+    - system
+  theme:
+    - scaleup
+_core:
+  default_config_hash: PmXt7o0rTBqxjcRKNy9w9xeu-Qjj6VcgDRfzcrKF5CM
+id: scaleup_nearmeheader
+theme: scaleup
+region: content
+weight: -8
+provider: null
+plugin: een_near_me_header
+settings:
+  id: een_near_me_header
+  label: 'Near Me Header'
+  provider: een_near_me
+  label_display: visible
+visibility:
+  request_path:
+    id: request_path
+    pages: /near-me
+    negate: false
+    context_mapping: {  }

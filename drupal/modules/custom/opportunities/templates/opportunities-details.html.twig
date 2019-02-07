@@ -28,12 +28,6 @@
         
     {% endif %}
     <div>
-        <div>
-            <a class="back-link"
-               href="{{ url('opportunities.search', params) }}">
-                {{ '&lt; &nbsp;Back to search results'|t }}
-            </a>
-        </div>
         <div class="content-heading">
             <h1 tabindex="0">{{ 'Partnering opportunity'|t }}</h1>
             <h2 class="heading-large" tabindex="0">{{ opportunity.title.0.value }}</h2>
@@ -90,14 +84,37 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
-            <h3 class="heading-medium" id="partner_expertise_sought" tabindex="0">{{ 'Partner expertise sought'|t }}</h3>
-            <p>
-                {% if opportunity.field_partner_expertise_sought.0.value %}
-                    {{ opportunity.field_partner_expertise_sought.0.value|raw }}
-                {% else %}
-                    {{ 'Not available'|t }}
-                {% endif %}
-            </p>
+
+            {% if opportunity.field_opportunity_images %}
+                <div class="pod-image-carousel-container">
+                    <div class="pod-image-carousel owl-carousel pod-popup-gallery">
+                        {% for image in opportunity.field_opportunity_images %}
+                            <div class="item">
+                                <a href="{{ image.src }}"> <img src="{{ image.thumbnail_src }}"/></a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if opportunity.field_partner_expertise_sought.0.value %}
+                <h3 class="heading-medium" id="partner_expertise_sought" tabindex="0">{{ 'Partner expertise sought'|t }}</h3>
+                <p>
+                    {% if opportunity.field_partner_expertise_sought.0.value %}
+                        {{ opportunity.field_partner_expertise_sought.0.value|raw }}
+                    {% else %}
+                        {{ 'Not available'|t }}
+                    {% endif %}
+                </p>
+            {% elseif opportunity.field_partner_area.0.value %}
+
+                <h3 class="heading-medium" id="partner_expertise_sought" tabindex="0">{{ 'Partner expertise sought'|t }}</h3>
+                <p>
+                    {{ opportunity.field_partner_area.0.value|raw }}
+                </p>
+            {% endif %}
+
+
             <h3 class="heading-medium" id="description" tabindex="0">{{ 'Description'|t }}</h3>
             <p>
                 {% if opportunity.body.0.value %}
@@ -106,6 +123,9 @@
                     {{ 'Not available'|t }}
                 {% endif %}
             </p>
+
+
+
             <h3 class="heading-medium" id="advantages_and_innovations" tabindex="0">{{ 'Advantages and innovations'|t }}</h3>
             <p>
                 {% if opportunity.field_advantages_and_innovations.0.value %}
@@ -194,9 +214,6 @@
             {% endif %}
 
             <div id="login" class="login-block login-types hide">
-                <div class="private-beta-login-notice">
-                    <p>You can reset your password the first time you express an interest in a partnering opportunity. For security reasons, we couldn't migrate passwords from our old website.</p>
-                </div>
                 {{ form_login }}
                 <a class="showHideP show-password">Show password</a>
                 <a href="/reset-password" class="forgot-password">Forgotten your password?</a>
@@ -214,9 +231,6 @@
                     </div>
                     <form action="{{ form_email['#action'] }}" method="{{ form_email['#method'] }}" class="" id="email-verification-form">
                         {#Required hidden field for drupal form#}
-                        <div class="beta-login-warning">
-                            <p>You can reset your password the first time you express an interest in a partnering opportunity. For security reasons, we couldn't migrate passwords from our old website.</p>
-                        </div>
                         <div>
                             {{ form_email.emailverification }}
                             {{ form_email.actions }}
@@ -229,7 +243,12 @@
                     </form>
                     
                     <p class="js-rp-message">We just need to check you're a real person. We'll send you a confirmation email containing a
-                        6 digit verification code to unlock the form below.</p>
+                        6 digit verification code to unlock the form below.
+
+                        <br /> <br />
+                        If you're not from the UK, please <a href="https://een.ec.europa.eu/about/branches" target="_blank">contact your local EEN branch.</a>
+                    </p>
+
                 </div>
                 <div class="transp">
             {% endif %}

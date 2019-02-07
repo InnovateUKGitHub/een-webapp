@@ -17,9 +17,13 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
   sharethis:
     weight: 10
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_y: true
   field_youtube_home_title: true

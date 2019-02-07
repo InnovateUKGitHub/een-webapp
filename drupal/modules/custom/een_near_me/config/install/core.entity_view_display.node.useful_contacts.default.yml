@@ -1,0 +1,49 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.useful_contacts.body
+    - field.field.node.useful_contacts.field_contact_email
+    - field.field.node.useful_contacts.field_location
+    - field.field.node.useful_contacts.field_phone_number
+    - field.field.node.useful_contacts.field_county
+    - node.type.useful_contacts
+  module:
+    - geolocation
+    - text
+    - user
+id: node.useful_contacts.default
+targetEntityType: node
+bundle: useful_contacts
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  field_contact_email:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_location:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
+  field_phone_number:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  links:
+    weight: 100
+  sharethis:
+    weight: 10
+hidden: {  }

@@ -1,0 +1,67 @@
+// Themes
+
+// Blue Theme EEN Default
+.blue-theme {
+  background: -moz-linear-gradient(left, #006291 0%, #006ba6 100%);
+  background: -webkit-linear-gradient(left, #006291 0%, #006ba6 100%);
+  background: linear-gradient(to right, #006291 0%, #006ba6 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006291', endColorstr='#006ba6',GradientType=1 );
+}
+
+// Green Theme (clean growth)
+.paragraph--type--scaleup-growth-journey::before, .paragraph--type--key-insights-key-numbers {
+  background: -moz-linear-gradient(45deg, #003255 0%, #78be20 100%);
+  background: -webkit-linear-gradient(45deg, #003255 0%, #78be20 100%);
+  background: linear-gradient(45deg, #003255 0%, #78be20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#003255', endColorstr='#78be20',GradientType=1 );
+}
+// Ageing Society
+.ageing-society {
+  background: -moz-linear-gradient(left, #711f59 0%, #003255 89%, #003255 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #711f59 0%,
+    #003255 89%,
+    #003255 100%
+  );
+  background: linear-gradient(to right, #711f59 0%, #003255 89%, #003255 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#711f59', endColorstr='#003255',GradientType=1 );
+}
+
+// AI & Data Economy - second blue
+.ai-data {
+  background: -moz-linear-gradient(left, #2065b2 0%, #003255 89%, #003255 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #2065b2 0%,
+    #003255 89%,
+    #003255 100%
+  );
+  background: linear-gradient(to right, #2065b2 0%, #003255 89%, #003255 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2065b2', endColorstr='#003255',GradientType=1 );
+}
+
+// Smart - purple
+.smart {
+  background: -moz-linear-gradient(left, #7d4581 0%, #003255 89%, #003255 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #7d4581 0%,
+    #003255 89%,
+    #003255 100%
+  );
+  background: linear-gradient(to right, #7d4581 0%, #003255 89%, #003255 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d4581', endColorstr='#003255',GradientType=1 );
+}
+// Materials - brown
+.materials {
+  background: -moz-linear-gradient(left, #003255 0%, #003254 11%, #a6441f 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #003255 0%,
+    #003254 11%,
+    #a6441f 100%
+  );
+  background: linear-gradient(to right, #003255 0%, #003254 11%, #a6441f 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#003255', endColorstr='#a6441f',GradientType=1 );
+}

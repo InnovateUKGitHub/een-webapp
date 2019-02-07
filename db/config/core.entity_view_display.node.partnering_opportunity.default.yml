@@ -12,14 +12,17 @@ dependencies:
     - field.field.node.partnering_opportunity.field_contact_organisation
     - field.field.node.partnering_opportunity.field_contact_phone
     - field.field.node.partnering_opportunity.field_country_of_origin
+    - field.field.node.partnering_opportunity.field_deadline_date
     - field.field.node.partnering_opportunity.field_development_stage
     - field.field.node.partnering_opportunity.field_eoi_show
+    - field.field.node.partnering_opportunity.field_event_country_code
     - field.field.node.partnering_opportunity.field_intellectual_property
     - field.field.node.partnering_opportunity.field_location
     - field.field.node.partnering_opportunity.field_msummary
     - field.field.node.partnering_opportunity.field_opportunity_id
     - field.field.node.partnering_opportunity.field_opportunity_images
     - field.field.node.partnering_opportunity.field_opportunity_type
+    - field.field.node.partnering_opportunity.field_partner_area
     - field.field.node.partnering_opportunity.field_partner_expertise_sought
     - field.field.node.partnering_opportunity.field_submitted_date
     - field.field.node.partnering_opportunity.field_updated_date
@@ -106,6 +109,15 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_deadline_date:
+    weight: 122
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
   field_development_stage:
     weight: 106
     label: above
@@ -119,6 +131,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
+  field_event_country_code:
+    weight: 124
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   field_intellectual_property:
     weight: 107
@@ -166,6 +186,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_partner_area:
+    weight: 123
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
   field_partner_expertise_sought:
     weight: 104

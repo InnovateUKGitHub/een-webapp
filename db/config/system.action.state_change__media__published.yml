@@ -1,0 +1,11 @@
+uuid: f6f087fc-000d-4276-958a-9f2f66c80b0d
+langcode: en
+status: true
+dependencies:
+  module:
+    - workbench_moderation_actions
+id: state_change__media__published
+label: 'Set Media as Published'
+type: media
+plugin: 'state_change:media__published'
+configuration: {  }

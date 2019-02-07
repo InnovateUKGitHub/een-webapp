@@ -1,0 +1,9 @@
+uuid: b334943d-9f87-4e9a-91a1-fc81f8f648d3
+langcode: en
+status: true
+dependencies: {  }
+id: scaleup_growth_journey
+label: 'Scaleup growth journey'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

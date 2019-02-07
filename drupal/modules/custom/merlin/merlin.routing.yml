@@ -1,0 +1,9 @@
+module.merlin_rest_api:
+  path: '/api/merlin'
+  defaults:
+    _title: 'Get session information using basic authentication'
+  options:
+    no_cache: TRUE
+    _auth: ['basic_auth']
+  requirements:
+    _permission: 'administer site configuration'

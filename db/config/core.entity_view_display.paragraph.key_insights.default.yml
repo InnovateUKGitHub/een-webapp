@@ -1,0 +1,28 @@
+uuid: 369514cf-9e7c-485d-8cb9-fdc9a9551ae6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.key_insights.field_image
+    - image.style.large
+    - paragraphs.paragraphs_type.key_insights
+  module:
+    - een_custom_fields
+    - field_formatter_class
+id: paragraph.key_insights.default
+targetEntityType: paragraph
+bundle: key_insights
+mode: default
+content:
+  field_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: large
+      image_link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: 'key-insights-image media-image'
+    type: copyright_image
+    region: content
+hidden: {  }

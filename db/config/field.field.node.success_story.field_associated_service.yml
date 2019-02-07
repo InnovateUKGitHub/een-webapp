@@ -1,0 +1,28 @@
+uuid: 8d5e29b0-8801-443f-9945-a8db4bef05cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_associated_service
+    - node.type.services
+    - node.type.success_story
+id: node.success_story.field_associated_service
+field_name: field_associated_service
+entity_type: node
+bundle: success_story
+label: 'Associated Service'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      services: services
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

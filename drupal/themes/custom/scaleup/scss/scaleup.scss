@@ -1,0 +1,196 @@
+@font-face {
+  font-family: Produkt;
+  src: url("../fonts/productk/Produkt-Medium.otf");
+}
+
+$h1: 48px;
+$h1-mobile: 36px;
+$h2: 36px;
+$h2-mobile: 24px;
+$h3: 24px;
+$h3-mobile: 20px;
+$h4: 19px;
+$h4-mobile: 16px;
+$font_family: "Myriad Pro", Arial;
+$font_familyFeature: "Produkt", Arial;
+$base-color: #4a4a4a;
+$blue-dark: #1e3264;
+$blue-light: #006ba6;
+$whiteish: #fff;
+$blue-lighter: lightBlue;
+
+body {
+  line-height: 1.3;
+  font-family: $font_family;
+  color: $base-color;
+  margin: 0;
+}
+// removed cookiebar when logged in
+.user-logged-in {
+  .eu-cookie-compliance-banner-info {
+    display: none;
+  }
+}
+// toolbar fix
+.toolbar-menu {
+  li {
+    font-size: 12px;
+    a {
+      color: #006ba6;
+    }
+  }
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  @media (min-width: 992px) {
+    padding: 0;
+  }
+}
+
+h1 {
+  font-size: $h1-mobile;
+  font-weight: normal;
+  font-family: $font_familyFeature;
+  @media (min-width: 768px) {
+    font-size: $h1;
+  }
+}
+h2 {
+  font-size: $h2-mobile;
+  font-weight: normal;
+  font-family: $font_familyFeature;
+  @media (min-width: 768px) {
+    font-size: $h2;
+  }
+}
+h3 {
+  font-size: $h3-mobile;
+  font-weight: normal;
+  font-family: $font_familyFeature;
+  @media (min-width: 768px) {
+    font-size: $h3;
+  }
+}
+h4 {
+  font-size: $h4-mobile;
+  font-weight: normal;
+  @media (min-width: 768px) {
+    font-size: $h4;
+  }
+}
+p,
+li {
+  font-size: 16px;
+  @media (min-width: 768px) {
+    font-size: 18px;
+  }
+}
+.section-title {
+  font-size: $h1-mobile;
+  font-weight: normal;
+  margin-bottom: 30px;
+  color: $blue-light;
+  @media (min-width: 768px) {
+    font-size: $h1;
+  }
+}
+.media-image {
+  margin: 0;
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+  }
+}
+.views-exposed-form {
+  overflow: hidden;
+  margin-bottom: 30px;
+  div {
+    display: inline-block;
+  }
+}
+
+.see-more {
+  .panel {
+    overflow: hidden;
+    border: solid 1px $blue-light;
+    border-radius: 5px;
+  }
+}
+
+.closing-paragraph {
+  padding-left: 20%;
+  position: relative;
+  margin: 100px 0;
+
+  .field-heading {
+    color: $blue-light;
+    font-size: 18px;
+
+    &:before {
+      content: "";
+      display: block;
+      width: 10%;
+      height: 3px;
+      background: $blue-lighter;
+      position: absolute;
+      margin: 8px 0px 0 -11%;
+    }
+  }
+
+  p {
+    color: $blue-dark;
+    font-size: 18px;
+    line-height: 1.4em;
+  }
+}
+
+.quote-container {
+  width: 100%;
+  overflow: hidden;
+  margin: 0 0 0 70px;
+
+  .p-quote {
+    margin: 40px 0 20px 0;
+
+    p {
+      line-height: 36px;
+      font-size: 24px;
+    }
+
+    &:before {
+      font-size: 40px;
+      font-family: FontAwesome;
+      content: "\f10d";
+      color: $blue-light;
+    }
+  }
+
+  .p-quote-thumbnail {
+    float: left;
+    margin-right: 20px;
+  }
+
+  .p-quote-name {
+    font-size: 18px;
+    font-style: normal;
+  }
+  .p-quote-thumbnail {
+    font-size: 18px;
+    font-style: normal;
+  }
+}
+
+@import "partials/menu";
+@import "partials/hero";
+@import "partials/themes";
+@import "partials/story";
+@import "partials/panel";
+@import "partials/footer";
+@import "partials/admin";

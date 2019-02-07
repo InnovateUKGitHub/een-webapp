@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.success_story.field_associated_service
     - field.field.node.success_story.field_copyrighted_image
     - field.field.node.success_story.field_county
+    - field.field.node.success_story.field_feed_only_tag
     - field.field.node.success_story.field_full_width_quote
     - field.field.node.success_story.field_hero_stats
     - field.field.node.success_story.field_location
@@ -40,12 +41,12 @@ content:
     region: content
   created:
     type: datetime_timestamp
-    weight: 7
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     region: content
   field_associated_service:
-    weight: 26
+    weight: 15
     settings:
       match_operator: CONTAINS
       size: 60
@@ -54,7 +55,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_copyrighted_image:
-    weight: 5
+    weight: 6
     settings:
       show_default_crop: '1'
       warn_multiple_usages: '1'
@@ -66,6 +67,15 @@ content:
       show_crop_area: 0
     third_party_settings: {  }
     type: image_copyright_image
+    region: content
+  field_feed_only_tag:
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
     region: content
   field_full_width_quote:
     weight: 2
@@ -85,7 +95,7 @@ content:
     type: text_textarea_with_summary
     region: content
   field_location:
-    weight: 13
+    weight: 14
     settings:
       default_longitude: '0.1278'
       default_latitude: '51.5074'
@@ -120,7 +130,7 @@ content:
     type: geolocation_googlegeocoder
     region: content
   field_meta_tags:
-    weight: 11
+    weight: 12
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -135,7 +145,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_yoast_seo:
-    weight: 12
+    weight: 13
     settings:
       body: body
     third_party_settings: {  }
@@ -143,7 +153,7 @@ content:
     region: content
   path:
     type: path
-    weight: 10
+    weight: 11
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -151,14 +161,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 9
     third_party_settings: {  }
     region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 9
+    weight: 10
     third_party_settings: {  }
     region: content
   title:
@@ -171,7 +181,7 @@ content:
     region: content
   uid:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: 60

@@ -1,0 +1,24 @@
+uuid: bb179e79-90e8-4b5a-aabe-68cc62063efd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_scaleup_promo
+    - node.type.scaleup
+  module:
+    - text
+id: node.scaleup.field_scaleup_promo
+field_name: field_scaleup_promo
+entity_type: node
+bundle: scaleup
+label: 'Scaleup promo'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: "<div class=\"scaleup-promos\">\r\n                <div class=\"container\">\r\n                    <div class=\"col-1\">\r\n                        <div>\r\n                            <div class=\"box box-stat\">\r\n                                <div class=\"content\">\r\n                                    <div>\r\n                                        <h3>30</h3>\r\n                                        <p>Participating scaleup companies</p>\r\n                                        <a href=\"#\" class=\"btn\">Read their stories</a>\r\n                                    </div>    \r\n                                </div>    \r\n                            </div>\r\n                        </div>        \r\n                    </div>\r\n                    <div class=\"col-2\">\r\n                        <div>\r\n                            <div class=\"boxes-container\">\r\n                                <div class=\"box box-stat\">\r\n                                    <div class=\"content\">\r\n                                        <div>\r\n                                            <h3>£12m</h3>\r\n                                            <p>Invested in growth</p>\r\n                                        </div>    \r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"box box-blue\"></div>\r\n                            </div>\r\n                            <div class=\"box-container\">\r\n                                <div class=\"box box-text\">\r\n                                    <div class=\"content\">\r\n                                        <div>\r\n                                            <p>Scaleup companies are central to the future prosperity of the UK, creating new jobs and increasing the wealth of the nation. </p>\r\n                                            <a href=\"#\">More about the programme</a>\r\n                                        </div>\r\n                                    </div>\r\n                                </div> \r\n                            </div>\r\n                        </div>\r\n                        <div class=\"quote\">\r\n                            <blockquote class=\"blockquote\">\r\n                                <p>Sed tristique ornare erat sit amet rutrum. Duis semper et sapien vel aliquet. Fusce ut ante id augue semper porta. Donec ante nisi, efficitur vel dapibus ut, auctor ut ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam dictum aliquet venenatis.</p>\r\n                            </blockquote>\r\n                            <cite class=\"cite\"><img src=\"/themes/custom/scaleup/img/tony-profile.png\" class=\"profile \" alt=\"Tony\" /> <span>Tony <br /> Senior Development Technologist</span></cite>\r\n                        </div>  \r\n                    </div>    \r\n                </div>\r\n            </div>"
+    format: full_html
+default_value_callback: ''
+settings: {  }
+field_type: text_long

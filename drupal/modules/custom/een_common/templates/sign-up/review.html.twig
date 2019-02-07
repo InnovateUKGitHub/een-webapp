@@ -139,7 +139,7 @@
 
         {% if form.addressone_registered %}
             <div class="column-one-third">
-                <p class="sh-bold">Registered address</p>
+                <p class="sh-bold">Address</p>
             </div>
             <div class="column-two-thirds with-cta">
                 <div class="vcard">
@@ -153,28 +153,18 @@
                 </div>
                 <p><a href="{{ url('sign-up.steps', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">your address</span></a></p>
             </div>
+        {% endif %}
+
+        {% if form.requestednewaddress %}
 
             <div class="column-full">
                 <hr>
             </div>
-
-        {% endif %}
-
-        {% if form.addressone %}
-
             <div class="column-one-third correspondence">
-                <strong class="sh-bold">Correspondence address</strong>
+                <strong class="sh-bold">Request to update address</strong>
             </div>
             <div class="column-two-thirds with-cta">
-                <div class="vcard">
-                    <div class="adr" itemprop="address" itemscope="itemscope"
-                         itemtype="http://data-vocabulary.org/Address/">
-                        <span class="street-address-one" itemprop="street-address-one">{{ form.addressone }}</span>
-                        <span class="street-address-two" itemprop="street-address-two">{{ form.addresstwo }}</span>
-                        <span class="city" itemprop="locality">{{ form.city }}</span>
-                        <abbr class="post-code" itemprop="post-code">{{ form.postcode }}</abbr>
-                    </div>
-                </div>
+                {{ form.requestednewaddress }}
                 <p><a href="{{ url('sign-up.steps', {'id': form.id, 'type': type}) }}">Change <span class="sr-only">your address</span></a></p>
             </div>
         {% endif %}
@@ -221,10 +211,7 @@
     <!-- Send application -->
     <div class="row">
         <div class="column-two-thirds">
-            <h2 class="heading-medium">We'll be in touch within two working days</h2>
-            <div>
-                <p>Don't worry, we won't share any of your personal details with the client.</p>
-            </div>
+            <h2 class="heading-medium">We’ll be in touch in within 2 days, as part of the longer process to pass your enquiry to the profile owner.</h2>
             <p><a href="{{ url('sign-up.complete', {'id': form.id, 'type': type}) }}" class="button js-spb-click" {% if not loggedIn %}disabled="disabled"{% endif %} tabindex="0" role="button">Complete your submission</a></p>
         </div>
         <div class="column-one-third">

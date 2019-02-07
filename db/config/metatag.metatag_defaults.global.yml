@@ -7,5 +7,5 @@ _core:
 id: global
 label: Global
 tags:
-  canonical_url: 'http://www.enterprise-europe.co.uk/[current-page:url:relative]'
+  canonical_url: 'http://vagrant.een.co.uk/[current-page:url:relative]'
   title: '[current-page:title] | [site:name]'

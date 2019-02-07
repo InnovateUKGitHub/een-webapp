@@ -1,0 +1,63 @@
+uuid: 553a769d-98e5-4a70-8a8b-2a21e2aca27d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.useful_contacts.body
+    - field.field.node.useful_contacts.field_contact_email
+    - field.field.node.useful_contacts.field_county
+    - field.field.node.useful_contacts.field_location
+    - field.field.node.useful_contacts.field_phone_number
+    - node.type.useful_contacts
+  module:
+    - geolocation
+    - text
+    - user
+_core:
+  default_config_hash: zGommkM64LhcC_LSmTyZI-8-jacbh-ueN22lTipdMhY
+id: node.useful_contacts.default
+targetEntityType: node
+bundle: useful_contacts
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_contact_email:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_location:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
+    region: content
+  field_phone_number:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_county: true

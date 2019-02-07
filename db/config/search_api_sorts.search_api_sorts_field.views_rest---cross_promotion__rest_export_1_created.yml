@@ -1,0 +1,11 @@
+uuid: 93bfe4ee-49a8-44e7-947c-4c3cc51e9595
+langcode: en
+status: false
+dependencies: {  }
+id: views_rest---cross_promotion__rest_export_1_created
+display_id: views_rest---cross_promotion__rest_export_1
+field_identifier: created
+default_sort: false
+default_order: asc
+label: 'Authored on'
+weight: 0

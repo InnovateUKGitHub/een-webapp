@@ -1,0 +1,32 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\een_near_me\Controller\nearMeController;
+
+/**
+ * Calculate and insert value of 'County' field when entity is updated/added
+ * 
+ * @param EntityInterface $entity
+ */
+function een_near_me_entity_presave(EntityInterface $entity) {
+  $fields = $entity->toArray();
+  if(isset($fields['field_county']) && is_array($fields['field_county'])) {
+    // Get an instance of the controller
+    $nearMeController = new nearMeController();
+    if((isset($fields['field_location'][0]['lat']) && (isset($fields['field_location'][0]['lng'])))) {
+      $lat = $fields['field_location'][0]['lat'];
+      $long = $fields['field_location'][0]['lng'];
+      $postcode = $nearMeController->latLongToPostCode($lat, $long);
+      $county = $nearMeController->postCodeToCounty($nearMeController->getPostCodeSector($postcode));
+      $entity->set('field_county', $county);
+    }
+    elseif((isset($fields['field_user_location'][0]['lat']) && (isset($fields['field_user_location'][0]['lng'])))) {
+      // Have to check this field as well since the user location field has a different name (doh!)
+      $lat = $fields['field_user_location'][0]['lat'];
+      $long = $fields['field_user_location'][0]['lng'];
+      $postcode = $nearMeController->latLongToPostCode($lat, $long);
+      $county = $nearMeController->postCodeToCounty($nearMeController->getPostCodeSector($postcode));
+      $entity->set('field_county', $county);
+    }
+  }
+}

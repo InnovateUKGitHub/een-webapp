@@ -1,0 +1,34 @@
+uuid: 91bcb97a-bf62-4e96-96db-d2cbb925e18f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_growth_journey
+    - node.type.scaleup_story
+    - paragraphs.paragraphs_type.scaleup_growth_journey
+  module:
+    - entity_reference_revisions
+id: node.scaleup_story.field_growth_journey
+field_name: field_growth_journey
+entity_type: node
+bundle: scaleup_story
+label: 'Growth journey'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      scaleup_growth_journey: scaleup_growth_journey
+    target_bundles_drag_drop:
+      scaleup_growth_journey:
+        enabled: true
+        weight: 3
+      paragraph_of_text:
+        weight: 4
+        enabled: false
+field_type: entity_reference_revisions

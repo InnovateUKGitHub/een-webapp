@@ -1,0 +1,11 @@
+uuid: 65896cdc-f7b1-452a-83b7-8f6a52e0785d
+langcode: en
+status: true
+dependencies:
+  module:
+    - workbench_moderation_actions
+id: state_change__crop__needs_review
+label: 'Set Crop as Needs Review'
+type: crop
+plugin: 'state_change:crop__needs_review'
+configuration: {  }

@@ -1,0 +1,82 @@
+uuid: 8a0bce7a-33a0-4050-988c-31c4c9a9e0e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - field.storage.node.field_tags
+    - field.storage.node.field_copyrighted_image
+    - search_api.server.een_server
+  module:
+    - search_api
+    - node
+id: cross_promotion_search
+name: 'Cross promotion search'
+description: 'Used for cross promotion search'
+read_only: false
+field_settings:
+  body:
+    label: Body
+    datasource_id: 'entity:node'
+    property_path: body
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.body
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: !!float 2
+  created:
+    label: 'Authored on'
+    datasource_id: 'entity:node'
+    property_path: created
+    type: string
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: string
+  field_tags:
+    label: Tags
+    datasource_id: 'entity:node'
+    property_path: field_tags
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_tags
+  field_copyrighted_image:
+    label: 'Main Image'
+    datasource_id: 'entity:node'
+    property_path: field_copyrighted_image
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_copyrighted_image
+  status:
+    label: 'Publishing status'
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - blog_post
+        - success_story
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  rendered_item: {  }
+tracker_settings:
+  default: {  }
+options:
+  index_directly: true
+  cron_limit: 50
+server: een_server

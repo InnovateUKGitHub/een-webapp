@@ -1,0 +1,21 @@
+uuid: 830a9aeb-adeb-440f-bee8-5741c06988ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_updated_date
+    - node.type.partnering_opportunity
+  module:
+    - datetime
+id: node.partnering_opportunity.field_updated_date
+field_name: field_updated_date
+entity_type: node
+bundle: partnering_opportunity
+label: 'Updated Date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,28 @@
+uuid: 4ab39230-d178-4611-a2ca-19567bafd864
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_feed_only_tag
+    - node.type.blog_post
+    - taxonomy.vocabulary.tags
+id: node.blog_post.field_feed_only_tag
+field_name: field_feed_only_tag
+entity_type: node
+bundle: blog_post
+label: 'Tags - Feed only'
+description: 'These tags will only appear in the RSS feed. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags: tags
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

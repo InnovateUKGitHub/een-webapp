@@ -12,6 +12,12 @@ echo "Copying drupal configuration files..."
 
 #write password hash to config file.
 echo hash_key: $passwordhash > $htdocs/db/config/een_salesforce.settings.yml
+echo sfsoapuser: $sfsoapuser >> $htdocs/db/config/een_salesforce.settings.yml
+echo sfsoappassword: $sfsoappassword >> $htdocs/db/config/een_salesforce.settings.yml
+echo sfwsdlpath: $sfwsdlpath >> $htdocs/db/config/een_salesforce.settings.yml
+echo sfsoaptoken: $sfsoaptoken >> $htdocs/db/config/een_salesforce.settings.yml
+
+
 
 drupalSettings=$htdocs/drupal/sites/default/settings.php
 
@@ -35,6 +41,9 @@ cp $htdocs/build/templates/drupal/service_connection.settings.yml $elasticSearch
 sed -i -e "s/ELASTICSEARCHHOSTNAME/$servicehostname/g" "$elasticSearchSettings"
 sed -i -e "s/ELASTICSEARCHPROTO/$serviceproto/g" "$elasticSearchSettings"
 
+
+
+cp $htdocs/drupal/modules/custom/een_common/src/Phpforce/SoapClient/Client.php $htdocs/drupal/vendor/phpforce/soap-client/src/Phpforce/SoapClient/Client.php
 
 
 canonicalSettings=$htdocs/db/config/metatag.metatag_defaults.global.yml

@@ -1,0 +1,335 @@
+{# empty Twig template #}
+{#
+/**
+ * @file
+ * Theme override to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template in this directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ *
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - messages: Status and error messages. Should be displayed prominently.
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.header: Items for the header region.
+ * - page.primary_menu: Items for the primary menu region.
+ * - page.secondary_menu: Items for the secondary menu region.
+ * - page.highlighted: Items for the highlighted content region.
+ * - page.help: Dynamic help text, mostly for admin pages.
+ * - page.content: The main content of the current page.
+ * - page.sidebar_first: Items for the first sidebar.
+ * - page.sidebar_second: Items for the second sidebar.
+ * - page.footer: Items for the footer region.
+ * - page.breadcrumb: Items for the breadcrumb region.
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+<div>
+    <header role="banner" id="global-header" class="with-proposition">
+        <div class="global-header-inner">
+            <div class="header-wrapper">
+                <div class="header-global">
+                    {{ page.header }}
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-container">
+            <div class="header-proposition">
+                {{ page.primary_menu }}
+                {{ page.secondary_menu }}
+            </div>
+        </div>
+    </header>
+
+    {{ page.help }}
+
+    <div ng-app="een">
+        <main role="main" id="content" ng-controller="MainCtrl">
+            <a id="main-content" title="Main content"  tabindex="-1"></a>{# link is in html.html.twig #}
+            {{ page.highlighted }}
+            <div class="article-header">
+                <span class="heading-medium">Partnering opportunities</span>
+            </div>
+            <div class="layout-content">
+
+                {{ page.content }}
+
+                <hr class="divider"/>
+
+                <a href="/partnering-opportunities" class="button button--primary ga-new-search">Start new search</a>
+
+
+                {% set params = {} %}
+                {% if search %}
+                    {% set params = params|merge({'search': search}) %}
+                {% endif %}
+                {% if opportunity_type %}
+                    {% set params = params|merge({'opportunity_type': opportunity_type}) %}
+                {% endif %}
+                {% if country %}
+                    {% set params = params|merge({'country': country}) %}
+                {% endif %}
+
+                <div class="grid-row hide">
+                    <div class="column-fullwidth">
+                        <div class="column-full">
+                            <div class="search-container search-keywords-within-results" id="auto-2">
+                                <div id="form-container">
+
+                                    <form tabindex="0" ng-submit="submit()" data-drupal-selector="opportunity-super-search-form" action="/search-opportunities" method="POST" id="opportunity-super-search-form" accept-charset="UTF-8">
+
+                                        <label for="edit-search" class="form-label">Search by keyword <span class="suggestion-labels">e.g.  battery, engineering, biofuels</span></label>
+                                        <div class="mobile-handler">
+                                            <div class="js-form-item form-item js-form-type-textfield form-item-search js-form-item-search">
+                                                <span class="error-message"> </span>
+                                                <input  ng-model="data.search" ng-change="queryKeyUp()" tabindex="0" class="form-control form-text" placeholder="E.g. medical component distribution" data-drupal-selector="edit-search" type="text" id="edit-search" value="Car battery" size="60" maxlength="128" />
+                                            </div>
+                                            <input  data-drupal-selector="form-e-t6fe07qrvndnedqtkomo4xg06-y9owmnzs57da2eo" type="hidden" name="form_build_id" value="form-E-T6fe07qrVndnEDqtkOMo4xG06-y9OwmNZs57Da2eo" />
+                                            <input  data-drupal-selector="edit-opportunity-super-search-form-form-token" type="hidden" name="form_token" value="8ZhLfsD9AT3NyLV9vpKju7Z5HRZ6GUvc5GVui-vU7Iw" />
+                                            <input  data-drupal-selector="edit-opportunity-super-search-form" type="hidden" name="form_id" value="opportunity_super_search_form" />
+                                            <div class="ss-submit form-actions js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions">
+                                                <input  data-drupal-selector="edit-submit" type="submit" id="edit-submit" name="op" value="Search" class="button button--primary js-form-submit form-submit" />
+                                            </div>
+                                        </div>
+                                        <a class="button filter-results js-filter-results">Refine</a>
+
+                                    </form>
+                                </div>
+                                <p class="sb-results-wrapper ss-results-wrapper">
+                                    <span tabindex="0" class="sb-results" aria-live="assertive"><span>{{ total|number_format(0, '.', ',') }}</span> total opportunities</span>
+                                </p>
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if exactMatch %}
+                    <div id="exactMatch"></div>
+                {% endif %}
+
+                <div class="grid-row js-opportunities-list">
+                    <div class="column-one-third">
+                        <div class="filter-container">
+                            <div class="filter-wrap">
+                                <div class="mobile-only">
+                                    <a class="button refine-button js-filter-results">Refine results </a>
+                                </div>
+                                <h3 class="filter-heading">Filter your results</h3>
+                                {{ form }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column-two-thirds">
+                        <div class="row ss-row" ng-show="meta.searched" ng-cloak ng-class="{ transp: meta.searching }">
+                            <h3 class="results-list-heading" aria-live="assertive" tabindex="0">
+                                {[{ data.total | number }]} <span class="sr-only">opportunities</span>
+                                <ng-pluralize count="data.total"
+                                              when="{'0': 'opportunities found', 'one': 'opportunity found','other': 'opportunities found'}"/>
+                            </h3>
+                        </div>
+
+                        <div class="row ss-row" ng-show="!meta.searched" ng-class="{ transp: meta.searching }">
+                            {%  set displaycount = 0 %}
+                            {%  if results|length > 0 %}
+                                {%  set displaycount = total %}
+                            {%  endif %}
+                            <h3 class="gov uk results-list-heading" tabindex="0">{{ displaycount|number_format(0, '.', ',') }}  {{ 'opportunities '|t }}</h3>
+                        </div>
+
+                        <div class="results-list">
+
+                            <div class="update-bar">
+                                <p>Get updates to this list
+                                    <span class="email js-email"><i class="fa fa-envelope" aria-hidden="true"></i>Email </span>
+                                    {#<span class="rss"><i class="fa fa-rss" aria-hidden="true"></i> RSS</span>
+                                    <span class="embed">Embed these results <i class="fa fa-question-circle" aria-hidden="true"><span class="hover-box">You can now include partnering opportunities from EEN results pages to appear on your own web site page by embedding it within an iFrame (an iFrame is an HTML tag that displays another web page inside a block of the hosting page).</span></i></span>#}
+                                </p>
+                                <div class="js-email-signup">
+                                    <span class="close">Close</span>
+                                    <p>You’re signing up to all partnering opportunity alerts for:</p>
+                                    <p><i class="fa fa-search" aria-hidden="true"></i><small class="js-alert-search-value"></small><i class="fa fa-map-marker" aria-hidden="true"></i><small class="js-alert-countries-value"></small> <i class="fa fa-caret-right" aria-hidden="true"></i><small class="js-alert-opportunity-types-value"></small></p>
+                                    <hr />
+
+
+                                    <div class="alert-notifications js-alert-notifications-email hide">
+                                        <h4>Please check your inbox</h4>
+                                        <p>Thank you for verifying your email. We have sent you a confirmation email containing a 6 digit verification code to complete your subscription</p>
+                                    </div>
+
+                                    <div class="alert-notifications js-alert-notifications-success hide">
+                                        <h4>Thank you</h4>
+                                        <p>You've successfully created a subscription</p>
+                                    </div>
+
+                                    <div class="alert-notifications js-alert-notifications-error hide"></div>
+
+                                    <form action="" method="POST" class="js-alert-add" id="email-verification-form">
+
+                                        <div class="js-alert-form-content">
+                                            <div class="form-section terms">
+                                                <label class="block-label multiple-choice" for="edit-terms">
+                                                    <input id="edit-terms" name="terms" value="1" class="form-checkbox required" required="required" aria-required="true" type="checkbox">
+                                                    I have read and accept the <a href="/privacy-notice" target="_blank">privacy notice policy</a>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <div class="js-form-item form-item js-form-type-email form-item-emailverification js-form-item-emailverification">
+                                                    <label for="edit-emailverification" class="js-form-required form-required form-label">Enter your email to</label>
+                                                    <input  class="form-control form-email required" data-drupal-selector="edit-emailverification" type="email" id="edit-emailverification" name="emailverification" value="" size="60" maxlength="254" placeholder="Enter email address" required="required" aria-required="true" />
+                                                </div>
+
+                                                <div data-drupal-selector="edit-actions" class="form-actions js-form-wrapper form-wrapper" id="edit-actions--2"><div class="submit">
+                                                        <input  class="verify-my-email button button--primary js-form-submit form-submit" data-drupal-selector="edit-submit" type="submit" id="edit-submit--2" name="op" value="Submit" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <p><small>We just need to check you're a real person. We'll send you a confirmation email containing a 6 digit verification code to complete your subscription</small></p>
+
+                                            <div class="js-form-item form-item js-form-type-textfield form-item-token js-form-item-token">
+                                                <label for="edit-token" class="form-label">6 digit code</label>
+                                                <input  class="form-control disabled entered-verification form-text" disabled="disabled" data-drupal-selector="edit-token" type="text" id="edit-token" name="token" value="" size="60" maxlength="128" placeholder="6 digit code" />
+                                            </div>
+                                            <input  data-drupal-selector="edit-email-verification-form" type="hidden" name="form_id" value="email_verification_form" />
+                                            <input  data-drupal-selector="edit-id" type="hidden" name="id" value="ALERT" />
+                                        </div>
+                                    </form>
+
+                                    <form id="alert-signup-form"></form>
+
+                                </div>
+                            </div>
+
+                            <div class="contents-text-block">
+                                <h3 tabindex="0" class="sr-only">The search results below each have a summary which you may find useful
+                                    in determining if the opportunity is what you’re looking for.</h3>
+                            </div>
+                            <div class="row row-bordered" ng-show="meta.searched" ng-repeat="row in results" ng-cloak
+                                 ng-class="{ transp: meta.searching }">
+                                <h3 class="results-list-heading-item" tabindex="0">
+                                    <a ng-href="/opportunities/{[{row.id}]}" ng-bind-html="row.title | unsafe">
+                                        {[{ row.title }]}</span>
+                                    </a>
+                                </h3>
+
+                                <p class="description" ng-bind-html="row.summary | cut:true:240:'... ':row.id | unsafe">
+                                    {[{ row.summary }]}
+                                </p>
+
+                                <p class="meta-inline font-small">
+                                    {# lastupdated #}
+
+
+                                    <span ng-class="getFlagClass(row.country_code)" role="presentation"></span>
+                                    <span class="sr-only">Country of origin </span>{[{ row.country }]}
+                                </p>
+                            </div>
+
+                            {% for row in results %}
+
+                                <div class="row row-bordered" ng-show="!meta.searched"
+                                     ng-class="{ transp: meta.paging || meta.searching }">
+                                    <h3 class="results-list-heading-item" tabindex="0">
+                                        <a href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">
+                                            {{ row.title|raw }}
+                                        </a>
+                                    </h3>
+
+                                    <p class="description">
+                                        {{ row.summary| truncate(240, true) | raw }} <a
+                                                href="{{ url('opportunities.details', params|merge({'profileId': row.id})) }}">more</a>
+                                    </p>
+
+                                    <p class="meta-inline font-small">
+                                        {# lastupdated #}
+                                        {#
+                                        {% if row.date|date('U') > '-5 days'|date('U') %}
+                                            {{ row.date|time_diff }} |
+                                        {% endif %}
+                                        #}
+
+                                        {# Country of origin #}
+                                        {% set flag = row.country_code|lower %}
+                                        {% if flag == 'uk' %}
+                                            {% set flag = 'gb' %}
+                                        {% endif %}
+                                        <span class="flag-icon flag-icon-{{ flag }}"></span>
+                                        {{ row.country }}
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="cta-block">
+                            <div>
+                                <p>The right partner not here?</p>
+                                <p>Get in touch and we'll help you post a partnering opportunity</p>
+                            </div>
+                            <div>
+                                <a href="/contact-us" class="btn">Create an opportunity</a>
+                            </div>
+                        </div>
+
+                        {%  if results|length > 0 %}
+                            {% include '/themes/custom/een/templates/navigation/pagination.html.twig'
+                            with {
+                            'route': route,
+                            'params': params,
+                            'page': pageNumber,
+                            'resultPerPage': resultPerPage,
+                            'pageTotal': pageTotal,
+                            'ajax': true
+                            } only %}
+                        {% endif %}
+                    </div>
+
+                </div>
+
+
+                <a class="js-hash-rd hide" href="{{ hash }}">Hash</a>
+            </div>{# /.layout-content #}
+
+            {% if page.sidebar_first %}
+                <aside class="layout-sidebar-first" role="complementary">
+                    {{ page.sidebar_first }}
+                </aside>
+            {% endif %}
+
+            {% if page.sidebar_second %}
+                <aside class="layout-sidebar-second" role="complementary">
+                    {{ page.sidebar_second }}
+                </aside>
+            {% endif %}
+
+        </main>
+    </div>
+    <div class="contact-us-block">
+        <div class="wrapper">
+            <h4>Please <a href="/contact-us">contact us</a> to let us help your business</h4>
+        </div>
+    </div>    
+    {% include '/themes/custom/een/templates/layout/footer.html.twig' %} 
+</div>

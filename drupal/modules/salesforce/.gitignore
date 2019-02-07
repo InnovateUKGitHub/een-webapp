@@ -1,0 +1,3 @@
+*.patch
+.tags
+.vscode

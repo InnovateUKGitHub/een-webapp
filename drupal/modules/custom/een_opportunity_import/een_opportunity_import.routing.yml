@@ -1,0 +1,14 @@
+een_opportunity_import.import_pod_images:
+  path: '/admin/config/system/import-pod-images'
+  defaults:
+    _form:  '\Drupal\een_opportunity_import\Form\eenImportPodImagesForm'
+    _title: 'Import POD Images'
+  requirements:
+    _permission: 'administer site configuration'
+
+een_opportunity_import.import_queue_status:
+  path: '/admin/config/system/import-queue-status'
+  defaults:
+    _controller: '\Drupal\een_opportunity_import\Controller\eenImportQueueStatus::buildPage'
+  requirements:
+   _permission: 'administer site configuration'

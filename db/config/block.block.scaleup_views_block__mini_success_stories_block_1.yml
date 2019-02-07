@@ -1,0 +1,32 @@
+uuid: 25fa0a61-df78-4490-a207-9e37e748165d
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.mini_success_stories
+  module:
+    - ctools
+    - views
+  theme:
+    - scaleup
+id: scaleup_views_block__mini_success_stories_block_1
+theme: scaleup
+region: content
+weight: -1
+provider: null
+plugin: 'views_block:mini_success_stories-block_1'
+settings:
+  id: 'views_block:mini_success_stories-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      blog_post: blog_post
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

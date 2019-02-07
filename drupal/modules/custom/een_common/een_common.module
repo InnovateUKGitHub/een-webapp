@@ -64,6 +64,7 @@ function een_common_theme()
             'variables' => [
                 'form' => null,
                 'type' => null,
+                'accountoptions' => null,
             ],
             'template'  => 'sign-up/steps',
         ],
@@ -180,6 +181,13 @@ function een_common_theme()
             ],
             'template'  => 'alert/unsubscribe',
         ],
+        'unsubscribe' => [
+            'variables' => [
+                'form'        => null,
+                'verifyForm'  => null
+            ],
+            'template'  => 'unsubscribe',
+        ]
 
     ];
 }
@@ -215,4 +223,15 @@ function een_common_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateInte
   if (isset($form['field_pull_promo'])) {
     $form['field_pull_promo']['widget'][0]['value']['#maxlength'] = 300;
   }
+}
+
+
+function een_common_node_access(\Drupal\node\NodeInterface $node, $op, \Drupal\Core\Session\AccountInterface $account) {
+
+    /*if ($op == 'view' && $node->getType() == 'scaleup' && !$account->uid) {
+        return \Drupal\Core\Access\AccessResult::forbidden();
+    }
+    if ($op == 'view' && $node->getType() == 'scaleup_story' && !$account->uid) {
+        return \Drupal\Core\Access\AccessResult::forbidden();
+    }*/
 }

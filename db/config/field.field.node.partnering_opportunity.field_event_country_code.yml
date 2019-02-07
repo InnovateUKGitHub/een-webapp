@@ -1,0 +1,19 @@
+uuid: e55d6c96-c2b2-4d3a-bcc9-cf48a9dddc7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_country_code
+    - node.type.partnering_opportunity
+id: node.partnering_opportunity.field_event_country_code
+field_name: field_event_country_code
+entity_type: node
+bundle: partnering_opportunity
+label: 'Country Code'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

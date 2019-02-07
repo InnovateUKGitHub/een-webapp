@@ -1,0 +1,14 @@
+uuid: b807a9f0-9d35-46f5-9d6b-43e923d2e711
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.merlin
+  module:
+    - user
+id: user_add_role_action.merlin
+label: 'Add the Merlin role to the selected users'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: merlin

@@ -1,0 +1,31 @@
+uuid: 054e921b-9b80-4dc8-b948-08bde839eed1
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.client_options.field_newsletter_otions
+    - field.field.node.client_options.field_subjects_of_interest
+    - field.field.node.client_options.field_types_of_updates
+    - node.type.client_options
+  module:
+    - user
+id: node.client_options.teaser
+targetEntityType: node
+bundle: client_options
+mode: teaser
+content:
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_newsletter_otions: true
+  field_subjects_of_interest: true
+  field_types_of_updates: true

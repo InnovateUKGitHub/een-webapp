@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * Implements hook_schema
+ * 
+ * @return array
+ */
+function een_near_me_schema() {
+  $schema = array();
+  
+  $schema['uk_towns'] = array(
+    'description' => 'Lookup table for Ceremonial Counties',
+    'fields' => array(
+      'id' => array(
+        'type' => 'int',
+        'not null' => true,
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 45,
+      ),
+      'county' => array(
+        'type' => 'varchar',
+        'length' => 32,
+      ),
+      'country' => array(
+        'type' => 'varchar',
+        'length' => 16,
+      ),
+      'grid_reference' => array(
+        'type' => 'varchar',
+        'length' => 8,
+      ),
+      'easting' => array(
+        'type' => int,
+      ),
+      'northing' => array(
+        'type' => int,
+      ),
+      'latitude' => array(
+        'type' => 'numeric',
+        'precision' => 8,
+        'scale' => 5,
+      ),
+      'longitude' => array(
+        'type' => 'numeric',
+        'precision' => 8,
+        'scale' => 5,
+      ),
+      'postcode_sector' => array(
+        'type' => 'varchar',
+        'length' => 6,
+      ),
+      'local_government_area' => array(
+        'type' => 'varchar',
+        'length' => 44,
+      ),
+      'nuts_region' => array(
+        'type' => 'varchar',
+        'length' => 24,
+      ),
+      'type' => array(
+        'type' => 'varchar',
+        'length' => 16,
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'county' => array('county'),
+    ),
+  );
+  
+  return $schema;
+}

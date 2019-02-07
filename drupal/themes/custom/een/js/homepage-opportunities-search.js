@@ -441,8 +441,6 @@
                 },
                 appendTo: ".js-form-item-search",
                 select: function( event, ui ) {
-                    console.log( "Selected: " + ui.item.value + " aka " + ui.item.id );
-
                     $scope.data.search = ui.item.value;
                     liveQueryAPI();
                 },

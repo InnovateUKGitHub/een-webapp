@@ -1,0 +1,21 @@
+uuid: aebcbc72-3051-478b-957c-d91b9729ffbb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_deadline_date
+    - node.type.partnering_opportunity
+  module:
+    - datetime
+id: node.partnering_opportunity.field_deadline_date
+field_name: field_deadline_date
+entity_type: node
+bundle: partnering_opportunity
+label: 'Deadline date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

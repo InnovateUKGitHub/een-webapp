@@ -1,0 +1,21 @@
+uuid: a1d4d2e8-7dd5-4749-83af-9ec0e32fcde7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_submitted_date
+    - node.type.partnering_opportunity
+  module:
+    - datetime
+id: node.partnering_opportunity.field_submitted_date
+field_name: field_submitted_date
+entity_type: node
+bundle: partnering_opportunity
+label: 'Submitted Date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

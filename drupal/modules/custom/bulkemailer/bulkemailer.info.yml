@@ -1,0 +1,6 @@
+name: EEN BulkEmailer
+description: This is a temporary email to bulk send email
+core: 8.x
+package: EEN
+type: module
+type: module

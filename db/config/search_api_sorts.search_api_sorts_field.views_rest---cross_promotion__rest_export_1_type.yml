@@ -1,0 +1,11 @@
+uuid: e9f9b58f-f7e0-4292-a1c4-f277c962bf52
+langcode: en
+status: false
+dependencies: {  }
+id: views_rest---cross_promotion__rest_export_1_type
+display_id: views_rest---cross_promotion__rest_export_1
+field_identifier: type
+default_sort: false
+default_order: asc
+label: 'Content type'
+weight: 0

@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - een_near_me
+    - system
+  theme:
+    - een
+id: findcountysearchform
+theme: een
+region: content
+weight: -7
+provider: null
+plugin: een_near_me_find_county_block
+settings:
+  id: een_near_me_find_county_block
+  label: 'Find County Search Form'
+  provider: een_near_me
+  label_display: visible
+visibility:
+  request_path:
+    id: request_path
+    pages: /near-me
+    negate: false
+    context_mapping: {  }

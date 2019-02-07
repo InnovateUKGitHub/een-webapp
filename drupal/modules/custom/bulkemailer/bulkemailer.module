@@ -1,0 +1,36 @@
+<?php
+
+/*
+ * Get salesforce contacts.
+ */
+function bulkemailer_cron()
+{
+
+    db_truncate('bulkemailer')->execute();
+
+    $query = '
+SELECT COUNT()
+FROM Contact';
+
+    addContacts('query?q=' . urlencode($query));
+}
+
+/* Retrieve all contacts from salesforce and enter them into the bulkemailer table for further processing.
+ *
+ */
+function addContacts($query)
+{
+
+    $salesforce = \Drupal::service('salesforce.client');
+    $response = $salesforce->apiCall($query);
+    $totalRecords =  $response['totalSize'];
+    $offsetCount = 2000;
+    $howManyInTheQueue = round($totalRecords / $offsetCount);
+
+    $queue = \Drupal::queue('download_contacts_queue');
+    for ($x = 0; $x <= $howManyInTheQueue; $x++) {
+        $queue->createItem(['offset' => $x * $offsetCount, 'count' => $offsetCount]);
+    }
+
+    drupal_set_message('Cron job has been created.');
+}

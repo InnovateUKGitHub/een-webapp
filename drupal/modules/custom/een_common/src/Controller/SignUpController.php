@@ -11,16 +11,20 @@ use Drupal\een_common\Form\SignUp\SignUpStep2Form;
 use Drupal\een_common\Form\SignUp\SignUpStep3Form;
 use Drupal\een_common\Form\SignUp\SignUpStepsForm;
 use Drupal\een_common\Form\SignInForm;
+use Drupal\een_common\Form\UnsubscribeForm;
 use Drupal\message_notify\Exception\MessageNotifyException;
 use Drupal\opportunities\Form\ExpressionOfInterest\EmailVerificationForm;
 use Drupal\een_common\Form\VerifyCodeForm;
 use Drupal\een_common\Service\ContactService;
+use Drupal\een_common\Service\SalesforceService;
 use Drupal\opportunities\Service\OpportunitiesService;
 use Drupal\user\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use \Drupal\eoilog\EoiLogStorage;
+
 
 class SignUpController extends ControllerBase
 {
@@ -47,6 +51,13 @@ class SignUpController extends ControllerBase
      */
     private $oppService;
 
+
+    /**
+     *
+     * @var OpportunitiesService
+     */
+    private $sfService;
+
     /**
      * SignUpController constructor.
      *
@@ -58,12 +69,14 @@ class SignUpController extends ControllerBase
     public function __construct(
         OpportunitiesService $oppService,
         ContactService $service,
+        SalesforceService $sfService,
         PrivateTempStore $session,
         SessionManagerInterface $sessionManager
     )
     {
         $this->oppService = $oppService;
         $this->service = $service;
+        $this->sfService = $sfService;
         $this->session = $session;
         $this->sessionManager = $sessionManager;
 
@@ -84,6 +97,7 @@ class SignUpController extends ControllerBase
         return new self(
             $container->get('opportunities.service'),
             $container->get('contact.service'),
+            $container->get('salesforce.service'),
             $container->get('user.private_tempstore')->get('SESSION_ANONYMOUS'),
             $container->get('session_manager')
         );
@@ -174,6 +188,8 @@ class SignUpController extends ControllerBase
             'contact_email' => $this->session->get('contact_email'),
             'contact_phone' => $this->session->get('contact_phone'),
             'newsletter'    => $this->session->get('newsletter'),
+            'update_type'   => $this->session->get('update_type'),
+            'subjects'      => $this->session->get('subjects'),
 
             'company_name'   => $this->session->get('company_name'),
             'company_number' => $this->session->get('company_number'),
@@ -200,6 +216,8 @@ class SignUpController extends ControllerBase
             'terms'              => $this->session->get('terms'),
             'create_account'     => $this->session->get('create_account'),
             'password'           => $this->session->get('password'),
+            'sfaccount'          => $this->session->get('sfaccount'),
+            'requestednewaddress' => $this->session->get('requestednewaddress')
         ];
     }
 
@@ -214,6 +232,10 @@ class SignUpController extends ControllerBase
 
         $form = \Drupal::formBuilder()->getForm(SignUpStepsForm::class);
         $form['#action'] = Url::fromRoute('sign-up.steps', ['id' => $id, 'type' => $type])->toString();
+
+        $user = $this->service->getContactV2($this->session->get('contact_email'));
+
+
 
         if ($request->isMethod(Request::METHOD_GET)) {
             $form['firstname']['#value'] = $this->session->get('firstname');
@@ -246,18 +268,28 @@ class SignUpController extends ControllerBase
             $form['addresstwo_registered']['#value'] = $this->session->get('addresstwo_registered');
             $form['city_registered']['#value'] = $this->session->get('city_registered');
 
+            $form['sfaccount']['#value'] = $this->session->get('sfaccount');
+
             $this->addCheckboxAttributes($form, array($this->session->get('company_registered')), 'company_registered');
             $this->addCheckboxAttributes($form, $this->session->get('newsletter'), 'newsletter');
+            $this->addCheckboxAttributes($form, $this->session->get('subjects'), 'subjects');
+            $this->addCheckboxAttributes($form, $this->session->get('update_type'), 'update_type');
             $this->addCheckboxAttributes($form, $this->session->get('radiobutton'), 'radiobutton');
             $this->addCheckboxAttributes($form, array($this->session->get('alternative_address')), 'alternative_address', true);
             $this->addCheckboxAttributes($form, array($this->session->get('terms')), 'terms', true);
             $this->addCheckboxAttributes($form, array($this->session->get('create_account')), 'create_account');
+
+            $accountOptions = false;
+            if($user['Website_user_password__c'] != ''){
+                $accountOptions = true;
+            }
         }
 
         return [
             '#theme'        => 'sign_up_steps',
             '#form'         => $form,
             '#type'         => $type,
+            '#accountoptions' => $accountOptions
         ];
     }
 
@@ -392,7 +424,8 @@ class SignUpController extends ControllerBase
                 ->execute();
         }
 
-        $nid = array_shift(array_values($fids));
+        $values = array_values($fids);
+        $nid = array_shift($values);
 
         $entity_manager = \Drupal::entityManager();
         $results =  $entity_manager->getStorage('node')->load($nid)->toArray();
@@ -401,6 +434,7 @@ class SignUpController extends ControllerBase
 
         $formEmail = \Drupal::formBuilder()->getForm(EmailVerificationForm::class);
         $formEmail['id']['#value'] = $id;
+        $formEmail['emailverification']['#value'] = $form['email'];
 
         $loggedIn = false;
         if ($this->session->get('isLoggedIn')) {
@@ -428,6 +462,7 @@ class SignUpController extends ControllerBase
             return $redirect;
         }
 
+
         if($type == 'events'){
             $fids =  \Drupal::entityQuery('node')
                 ->condition('type', 'event')
@@ -439,17 +474,15 @@ class SignUpController extends ControllerBase
                 ->condition('field_opportunity_id', $id)
                 ->execute();
         }
-
-        $nid = array_shift(array_values($fids));
+        $values = array_values($fids);
+        $nid = array_shift($values);
 
         $entity_manager = \Drupal::entityManager();
         $results =  $entity_manager->getStorage('node')->load($nid)->toArray();
 
         $form = $this->getSession($id, $results['title'][0]['value']);
 
-
-
-        $user = $this->service->convertLead($form);
+        $user = $this->service->processUser($form);
 
         //add in contact information
         $form['org_contact_organisation'] = $results['field_contact_organisation'][0]['value'];
@@ -457,13 +490,45 @@ class SignUpController extends ControllerBase
         $form['org_contact_fullname'] = $results['field_contact_fullname'][0]['value'];
         $form['org_contact_phone'] = $results['field_contact_phone'][0]['value'];
         $form['org_contact_email'] = $results['field_contact_email'][0]['value'];
+
         
+
         if ($type === 'events') {
+
+            if(isset($user['Account']['Name'])){
+                $form['companyName'] = $user['Account']['Name'];
+            } else {
+                $form['companyName'] = $form['company_name'];
+            }
+
+            // delegate name
+            if(isset($user['Account']['Name'])){
+                $form['delegateName'] = $user['FirstName'].' '.$user['LastName'];
+            } else {
+                $form['delegateName'] = $form['first_name']. ' '. $form['last_name'];
+            }
+
+            // delegate email address
+            if(isset($user['Email1__c'])){
+                $form['delegateEmail'] = $user['Email1__c'];
+            } else {
+                $form['delegateEmail'] = $form['email'];
+            }
+
+
+            // event date
+            $eventDate = date('d/m/Y', strtotime($results['field_event_date'][0]['value']));
+            if($results['field_event_date'][0]['end_value'] && ($results['field_event_date'][0]['value'] != $results['field_event_date'][0]['end_value'])){
+                $eventDate .= ' - '. date('d/m/Y', strtotime($results['field_event_date'][0]['end_value']));
+            }
+            $form['eventDate'] = $eventDate;
+
             $data = [
                 'contact' => $user['Id'],
                 'event'   => $results['field_salesforce_id'][0]['value'],
                 'dietary' => $form['dietary'],
             ];
+
             $this->service->registerToEvent($data);
             $this->oppService->sendEventRegistrationNotificationEmail($form, $results);
         }
@@ -472,14 +537,11 @@ class SignUpController extends ControllerBase
 
             $sentToHoldingAccount = false;
 
-            if(!isset($user['Account']['Id'])) {
+            if($user['Account']['Id'] == '0012400001OKNpv') {
 
                 //send to holding account
                 $sentToHoldingAccount = true;
-                $user['Account']['Id'] = '0012400001OKNpv';
-
                 $message = "Missing account details, or account could not be created";
-
                 \Drupal::logger('salesforce')->warning('%title %data',
                     array(
                         '%title' => $message,
@@ -488,7 +550,6 @@ class SignUpController extends ControllerBase
                 );
             }
 
-
             $data = [
                 'account' => $user['Account']['Id'],
                 'profile' => $form['id'],
@@ -496,7 +557,6 @@ class SignUpController extends ControllerBase
                 'interest' => $form['interest'],
                 'more' => $form['more'],
             ];
-
 
             try {
 
@@ -563,16 +623,26 @@ class SignUpController extends ControllerBase
     }
 
 
+    public function valid(){
+        return new JsonResponse(
+            [
+                'loggedIn' => $this->session->get('isLoggedIn')
+            ]
+        );
+    }
+
+
 
     public function login(Request $request)
     {
+
         $this->session->set('isLoggedIn', false);
 
         $formLogin = \Drupal::formBuilder()->getForm(SignInForm::class);
 
         if(\Drupal::request()->isXmlHttpRequest() && !$request->get('popover')) {
             $password = $this->service->hashPassword($request->get('password'));
-            $email = $request->get('email');
+            $email = strtolower($request->get('email'));
             $token = $request->get('token');
             $user = $this->service->createLead($email);
 
@@ -582,13 +652,25 @@ class SignUpController extends ControllerBase
                         ['status' => 'failure', 'message' => 'Your verification code is invalid.']
                     );
                 } else {
+
+                    EoiLogStorage::update(array(
+                        'token' => $token,
+                        'code_verified' => 'Yes '.date('Y-m-d H:i:s')
+                    ));
+
                     $this->session->set('isLoggedIn', true);
                     $this->setSession($user);
 
+                    $response = [
+                        'success' => true
+                    ];
+
+                    if($this->session->get('link')){
+                        $response['link'] = $this->session->get('link');
+                    }
+
                     return new JsonResponse(
-                        [
-                            'success' => true
-                        ]
+                        $response
                     );
                 }
             }
@@ -645,79 +727,32 @@ class SignUpController extends ControllerBase
      */
     public function companies(Request $request)
     {
-        return new JsonResponse($this->service->getCompaniesList($request->get('q')));
+
+        $duplicates = $this->sfService->getDuplicates($request->get('q'));
+
+        $response = [];
+
+
+        if($duplicates){
+            foreach($duplicates as $item){
+                $response['items'][] =  $item;
+            }
+
+            $response['total_results'] = count($duplicates);
+        }
+
+
+        return new JsonResponse($response);
     }
 
 
     private function setSession($contact)
     {
+        $contactSession = $this->service->setContactSession($contact);
 
-        $this->session->set('type', $contact['Contact_Status__c']);
-
-        if (isset($contact['Phone'])) {
-            $this->session->set('phone', $contact['Phone']);
+        foreach($contactSession as $key => $value){
+            $this->session->set($key, $value);
         }
-
-        $this->session->set('step1', true);
-        $this->session->set('firstname', $contact['FirstName']);
-        $this->session->set('lastname', $contact['LastName']);
-        $this->session->set('email', $contact['Email1__c']);
-        $this->session->set('contact_email', $contact['Email']);
-        $this->session->set('contact_phone', $contact['MobilePhone']);
-
-        $this->session->set('step2', true);
-        $this->session->set('company_name', $contact['Account']['Name']);
-        if (isset($contact['Account']['Company_Registration_Number__c'])) {
-            $this->session->set('company_number', $contact['Account']['Company_Registration_Number__c']);
-        }
-        if (isset($contact['Account']['Website'])) {
-            $this->session->set('website', $contact['Account']['Website']);
-        }
-        if (isset($contact['Account']['Phone'])) {
-            $this->session->set('company_phone', $contact['Account']['Phone']);
-        }
-
-        $this->session->set('step3', true);
-        if (isset($contact['MailingPostalCode'])) {
-            $this->session->set('postcode', $contact['MailingPostalCode']);
-        }
-        if (isset($contact['MailingStreet'])) {
-            $this->session->set('addressone', $contact['MailingStreet']);
-        }
-        if (isset($contact['MailingCity'])) {
-            $this->session->set('city', $contact['MailingCity']);
-        }
-        if (isset($contact['Account']['BillingPostalCode'])) {
-            $this->session->set('postcode_registered', $contact['Account']['BillingPostalCode']);
-            $this->session->set('company_registered', 'yes');
-        }
-        if (isset($contact['Account']['BillingStreet'])) {
-            $this->session->set('addressone_registered', $contact['Account']['BillingStreet']);
-        }
-        if (isset($contact['Account']['BillingCity'])) {
-            $this->session->set('city_registered', $contact['Account']['BillingCity']);
-        }
-
-        if (isset($contact['Account']['BillingPostalCode'])) {
-            $this->session->set('alternative_address', true);
-        }
-
-        $activeNewsletters = array();
-        if($contact['Blogs_New_data__c'] == 1){            $activeNewsletters['Blogs_New_data__c'] = 'Blogs_New_data__c'; }
-        if($contact['Consultations_New_data__c'] == 1){    $activeNewsletters['Consultations_New_data__c'] = 'Consultations_New_data__c'; }
-        if($contact['National_New_data__c'] == 1){         $activeNewsletters['National_New_data__c'] = 'National_New_data__c'; }
-        if($contact['East_New_data__c'] == 1){             $activeNewsletters['East_New_data__c'] = 'East_New_data__c'; }
-        if($contact['London_New_data__c'] == 1){           $activeNewsletters['London_New_data__c'] = 'London_New_data__c'; }
-        if($contact['Midlands_New_data__c'] == 1){         $activeNewsletters['Midlands_New_data__c'] = 'Midlands_New_data__c'; }
-        if($contact['North_New_data__c'] == 1){            $activeNewsletters['North_New_data__c'] = 'North_New_data__c'; }
-        if($contact['NI_New_data__c'] == 1){               $activeNewsletters['NI_New_data__c'] = 'NI_New_data__c'; }
-        if($contact['South_East_New_data__c'] == 1){       $activeNewsletters['South_East_New_data__c'] = 'South_East_New_data__c'; }
-        if($contact['South_West_New_data__c'] == 1){       $activeNewsletters['South_West_New_data__c'] = 'South_West_New_data__c'; }
-        if($contact['Wales_New_data__c'] == 1){            $activeNewsletters['Wales_New_data__c'] = 'Wales_New_data__c'; }
-
-        $this->session->set('newsletter', $activeNewsletters);
-        $this->session->set('create_account', 1);
-        $this->session->set('terms', 1);
     }
 
     /*
@@ -802,6 +837,20 @@ class SignUpController extends ControllerBase
         return [
             '#theme' => 'reset_password_new',
             '#passwordform' => $passwordform
+        ];
+    }
+
+
+
+
+    public function unsubscribe()
+    {
+
+        $form = \Drupal::formBuilder()->getForm(UnsubscribeForm::class);
+
+        return [
+            '#theme' => 'unsubscribe',
+            '#form' => $form
         ];
     }
 

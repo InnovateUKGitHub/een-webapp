@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.success_story.field_associated_service
     - field.field.node.success_story.field_copyrighted_image
     - field.field.node.success_story.field_county
+    - field.field.node.success_story.field_feed_only_tag
     - field.field.node.success_story.field_full_width_quote
     - field.field.node.success_story.field_hero_stats
     - field.field.node.success_story.field_location
@@ -140,6 +141,7 @@ content:
 hidden:
   field_associated_service: true
   field_county: true
+  field_feed_only_tag: true
   field_full_width_quote: true
   field_hero_stats: true
   field_location: true

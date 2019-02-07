@@ -1,9 +1,8 @@
 jQuery(function () {
     var $ = jQuery,
         $keywords = $('#auto-1 #edit-search'),
-        $form = $('#auto-1 #opportunity-super-search-form');
-
-
+        $form = $('#auto-1 #opportunity-super-search-form'),
+        windowPath = window.location.pathname;
 
 
     var debounce = function (func, wait, immediate) {
@@ -26,7 +25,7 @@ jQuery(function () {
       };
     };
 
-    var ajaxSearch = function () {
+    /*var ajaxSearch = function () {
       var search = $.trim($keywords.val() ) ;
 
       return $.ajax({
@@ -42,7 +41,7 @@ jQuery(function () {
 
           $form.attr('action', '/opportunities#!/page/1?' + $.param(params));
       });
-    };
+    };*/
 
     var updateResults = debounce(function() {
       $('#auto-1 .sb-results').addClass('transp');
@@ -83,8 +82,6 @@ jQuery(function () {
         },
         appendTo: ".js-form-item-search",
         select: function( event, ui ) {
-            console.log( "Selected: " + ui.item.value + " aka " + ui.item.id );
-
             var params = {};
             params.search = ui.item.value;
             $form.attr('action', '/opportunities#!/page/1?' + $.param(params));
@@ -105,7 +102,7 @@ jQuery(function () {
     });
 
 
-    if($('.search-keywords-within-results').not('.widget .search-keywords-within-results, .find-partners .search-keywords-within-results').length){
+    if($('.search-keywords-within-results').not('.widget .search-keywords-within-results, .find-partners .search-keywords-within-results').length && windowPath === '/partnering-opportunities'){
 
         var searchbox = $('.search-keywords-within-results').not('.widget .search-keywords-within-results, .find-partners .search-keywords-within-results'),
             searchboxPosition = $(searchbox).position(),
@@ -152,5 +149,11 @@ jQuery(function () {
             return false;
         }
     });*/
+
+
+    if($('.js-hash-rd').length && !window.location.hash){
+        window.location.hash = $('.js-hash-rd').attr('href');
+        $('.js-hash-rd').remove();
+    }
 
 });

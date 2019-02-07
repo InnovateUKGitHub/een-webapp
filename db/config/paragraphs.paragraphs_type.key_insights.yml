@@ -1,0 +1,9 @@
+uuid: e47e5c27-9aa0-4d66-a1ce-bfa9cd5221e0
+langcode: en
+status: true
+dependencies: {  }
+id: key_insights
+label: 'Key insights - Image'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

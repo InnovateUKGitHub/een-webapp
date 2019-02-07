@@ -1,0 +1,19 @@
+uuid: 53d980ee-c2cc-42e5-ac93-80a1b7a54009
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_list_title
+    - node.type.scaleup_story
+id: node.scaleup_story.field_list_title
+field_name: field_list_title
+entity_type: node
+bundle: scaleup_story
+label: 'Title List Section'
+description: 'The title for all the list items - example ''Their Growth Journey'' '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

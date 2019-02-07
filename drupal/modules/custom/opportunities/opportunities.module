@@ -144,12 +144,21 @@ function opportunities_preprocess_html(&$variables)
 function opportunities_cron()
 {
     $today = date('Y-m-d');
-    $date = date('Y-m-d', strtotime('-1 year', strtotime($today)));
+    $fids =  \Drupal::entityQuery('node')
+        ->condition('type', 'partnering_opportunity')
+        ->condition('field_deadline_date', $today, '<')
+        ->condition('status', 1, '=')
+        ->execute();
+
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadMultiple($fids);
+    $storage_handler->delete($entities);
 
     $fids =  \Drupal::entityQuery('node')
         ->condition('type', 'partnering_opportunity')
-        ->condition('field_updated_date', $date, '<')
         ->condition('status', 1, '=')
+        ->notExists('field_deadline_date')
+        ->range(0, 500)
         ->execute();
 
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");

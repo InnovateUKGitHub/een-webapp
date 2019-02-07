@@ -1,0 +1,17 @@
+uuid: f7c3f70c-c931-48e4-88f8-ac715243dc06
+langcode: en
+status: true
+dependencies:
+  module:
+    - opportunities
+title: 'Default cron handler'
+id: opportunities_cron
+weight: -9
+module: opportunities
+callback: opportunities_cron
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

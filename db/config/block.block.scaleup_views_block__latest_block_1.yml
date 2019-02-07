@@ -1,0 +1,32 @@
+uuid: 6275dd91-66e9-4194-98de-4a72781ae8c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.latest
+  module:
+    - node
+    - views
+  theme:
+    - scaleup
+id: scaleup_views_block__latest_block_1
+theme: scaleup
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:latest-block_1'
+settings:
+  id: 'views_block:latest-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      services: services
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

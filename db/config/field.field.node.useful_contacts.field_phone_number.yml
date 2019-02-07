@@ -1,0 +1,21 @@
+uuid: e46ea609-03c8-4f52-9893-82fcb43f24f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_phone_number
+    - node.type.useful_contacts
+_core:
+  default_config_hash: Elfj0zomYi-EkPcywsiKJegJJN6as8mXkRd7IhxFPYU
+id: node.useful_contacts.field_phone_number
+field_name: field_phone_number
+entity_type: node
+bundle: useful_contacts
+label: 'Phone Number'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

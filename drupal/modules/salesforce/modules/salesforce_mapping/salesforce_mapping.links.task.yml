@@ -1,0 +1,3 @@
+salesforce_mapping.entities:
+  class: \Drupal\Core\Menu\LocalTaskDefault
+  deriver: \Drupal\salesforce_mapping\Plugin\Derivative\SalesforceMappingLocalTask

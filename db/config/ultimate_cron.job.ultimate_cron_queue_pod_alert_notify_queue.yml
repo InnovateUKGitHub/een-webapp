@@ -1,0 +1,20 @@
+uuid: a7c23136-c34f-4ef5-adb8-1e7302781950
+langcode: en
+status: true
+dependencies:
+  module:
+    - een_common
+title: 'Queue: Notify Send Queued Email'
+id: ultimate_cron_queue_pod_alert_notify_queue
+weight: 9
+module: een_common
+callback: 'ultimate_cron.queue_worker:queueCallback'
+scheduler:
+  id: simple
+  configuration:
+    rules:
+      - '* * * * *'
+launcher:
+  id: serial
+logger:
+  id: database

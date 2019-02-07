@@ -1,0 +1,6 @@
+api_key: teamandwhitelist-c75dc957-c9ab-420b-ad92-28e7159791b8-65d19ed6-b892-4c16-9f4a-77ec5d57d3d7
+verify_email_template_key: b4d361df-0f3b-4f35-91a7-5df3d6ca3382
+verify_sms_template_key: 57fac6e3-b5cd-4411-b5fb-b240281d2055
+eoi_notify_client_email_template_key: dcdaf480-5c28-4592-a13c-34b7363eea98
+eoi_notify_service_email_template_key: 30729854-b39d-4637-b8e2-11936dbfce00
+eoi_notify_error_email_template_key: bfe09584-2ead-4788-a27a-4fb9e75dfe72

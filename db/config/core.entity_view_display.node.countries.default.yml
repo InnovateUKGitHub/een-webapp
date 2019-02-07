@@ -1,0 +1,51 @@
+uuid: 93f20491-dbdd-4f42-a67b-db216965bb3f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.countries.body
+    - field.field.node.countries.field_country_code
+    - field.field.node.countries.field_country_name
+    - node.type.countries
+  module:
+    - text
+    - user
+id: node.countries.default
+targetEntityType: node
+bundle: countries
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_country_code:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_country_name:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

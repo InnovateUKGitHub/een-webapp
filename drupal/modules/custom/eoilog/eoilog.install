@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the dbtng_example module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Creates some default entries on this module custom table.
+ *
+ * @see hook_install()
+ *
+ * @ingroup dbtng_example
+ */
+function eoilog_install() {
+  // Add a default entry.
+  /*$fields = [
+    'name' => 'John',
+    'surname' => 'Doe',
+    'email' => 'example@example.com',
+  ];
+  db_insert('eoilog')
+    ->fields($fields)
+    ->execute();
+
+  // Add another entry.
+  $fields = [
+    'name' => 'John',
+    'surname' => 'Roe',
+    'email' => 'example2@example.com',
+  ];
+  db_insert('eoilog')
+    ->fields($fields)
+    ->execute();*/
+}
+
+/**
+ * Implements hook_schema().
+ *
+ * Defines the database tables used by this module.
+ *
+ * @see hook_schema()
+ *
+ * @ingroup dbtng_example
+ */
+function eoilog_schema() {
+  $schema['eoilog'] = [
+    'description' => 'Stores  person entries for emailing purposes.',
+    'fields' => [
+      'pid' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique person ID.',
+      ],
+      'uid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "Creator user's {users}.uid",
+      ],
+      'logtime' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+          'description' => 'datetime.'
+      ],
+      'email' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Email of the person.',
+      ],
+      'token' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+          'description' => 'Email of the person.',
+       ],
+      'code_sent' => [
+        'type' => 'varchar',
+        'length' => 3,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Whether code has been sent to the user',
+      ],
+      'code_delivered' => [
+          'type' => 'varchar',
+          'length' => 3,
+          'not null' => TRUE,
+          'default' => 0,
+          'description' => 'Whether email has been delivered with code',
+      ],
+      'code_verified' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Whether code has been verified',
+      ],
+        'cid' => [
+            'type' => 'varchar',
+            'length' => 20,
+            'not null' => TRUE,
+            'default' => '',
+            'description' => 'Email of the person.',
+        ],
+    ],
+    'primary key' => ['pid']
+  ];
+
+  return $schema;
+}

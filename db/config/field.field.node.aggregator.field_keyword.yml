@@ -1,0 +1,19 @@
+uuid: 76db3789-ad98-49db-a55e-d44ec218b01a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_keyword
+    - node.type.aggregator
+id: node.aggregator.field_keyword
+field_name: field_keyword
+entity_type: node
+bundle: aggregator
+label: Keyword
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

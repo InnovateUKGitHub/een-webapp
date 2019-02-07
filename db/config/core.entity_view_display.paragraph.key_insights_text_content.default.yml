@@ -1,0 +1,30 @@
+uuid: 0a237a81-bfa3-4743-8fe1-b7b6fe467c17
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.key_insights_text_content.field_key_text
+    - field.field.paragraph.key_insights_text_content.field_section_title
+    - paragraphs.paragraphs_type.key_insights_text_content
+id: paragraph.key_insights_text_content.default
+targetEntityType: paragraph
+bundle: key_insights_text_content
+mode: default
+content:
+  field_key_text:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_section_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden: {  }

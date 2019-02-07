@@ -1,0 +1,22 @@
+uuid: 451fd7ad-8064-47d4-9e20-5b8389da6857
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.aggregator
+  module:
+    - text
+id: node.aggregator.body
+field_name: body
+entity_type: node
+bundle: aggregator
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

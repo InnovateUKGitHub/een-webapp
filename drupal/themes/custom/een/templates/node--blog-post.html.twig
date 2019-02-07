@@ -79,7 +79,7 @@
   ]
 %}
 {{ attach_library('classy/node') }}
-<p class="summary">{{ node.body.summary }}</p>
+
 
 <article{{ attributes.addClass(classes) }}>
     <header class="blog-header">
@@ -95,6 +95,13 @@
     </header>
     
     <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
+
+        <div class="blog-tags">
+            <p>Filed under</p>
+            {{ content.field_tags }}
+        </div>
+
+        <p class="summary">{{ node.body.summary }}</p>
 
         {{ content }}
     </div>

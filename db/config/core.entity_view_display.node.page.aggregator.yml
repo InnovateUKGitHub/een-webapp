@@ -1,0 +1,32 @@
+uuid: 6bcf2498-8d9e-4c48-90c5-2ac495664f77
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.aggregator
+    - field.field.node.page.body
+    - field.field.node.page.field_meta_tags
+    - field.field.node.page.field_yoast_seo
+    - node.type.page
+  module:
+    - text
+    - user
+_core:
+  default_config_hash: oZ-7vpIJxjxL2up9B5KrJGD0lazQ9aN0P-fIPo6OrSU
+id: node.page.aggregator
+targetEntityType: node
+bundle: page
+mode: aggregator
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_meta_tags: true
+  field_yoast_seo: true
+  links: true
+  sharethis: true

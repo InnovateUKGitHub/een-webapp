@@ -42,7 +42,7 @@ and open the template in the editor.
         position:absolute;
         top:0;
         right:0;
-        font-size:16px;
+        font-size:14px;
         @media (max-width:640px) {
             font-size: 14px;
         }
@@ -100,4 +100,11 @@ and open the template in the editor.
         font-size:20px;
         color:#fff;
     }
+}
+
+.alert-notifications {
+    background: white;
+    padding:7px;
+    margin:7px 0;
+    border: 1px solid #E0F0FA;
 }

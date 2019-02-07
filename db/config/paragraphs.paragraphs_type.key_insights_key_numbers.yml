@@ -1,0 +1,9 @@
+uuid: d497147b-a6f1-43f2-8c94-3266899e3e47
+langcode: en
+status: true
+dependencies: {  }
+id: key_insights_key_numbers
+label: 'Key insights - key numbers'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

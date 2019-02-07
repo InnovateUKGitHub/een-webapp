@@ -1,0 +1,44 @@
+een_near_me.module_settings:
+  path: '/admin/config/system/een-near-me'
+  defaults:
+    _title: 'EEN Near Me'
+    _description: 'EEN Near Me Settings'
+    _form: '\Drupal\een_near_me\Form\eenNearMeSettingsForm'
+  requirements:
+    _permission: 'access administration pages'
+
+een_near_me.landing_page:
+  path: '/near-me'
+  defaults:
+    _controller: '\Drupal\een_near_me\Controller\nearMeController::buildPage'
+  requirements:
+   _permission: 'access content'
+   
+een_near_me.import_towns:
+  path: '/admin/config/system/import-towns-list'
+  defaults:
+    _form:  '\Drupal\een_near_me\Form\eenImportTownsListForm'
+    _title: 'Import Towns'
+  requirements:
+    _permission: 'administer site configuration'
+
+een_near_me.set_county:
+  path: '/ajax/user/set-county/{county}'
+  defaults:
+    _controller: '\Drupal\een_near_me\Controller\nearMeController::setCounty'
+  requirements:
+    _permission: 'access content'
+
+een_near_me.set_county_from_client:
+  path: '/ajax/user/set-county-from-client/{lat}/{long}'
+  defaults:
+    _controller: '\Drupal\een_near_me\Controller\nearMeController::setCountyFromClient'
+  requirements:
+    _permission: 'access content'
+    
+een_near_me.clear_county:
+  path: '/ajax/user/clear-county'
+  defaults:
+    _controller: '\Drupal\een_near_me\Controller\nearMeController::clearCounty'
+  requirements:
+    _permission: 'access content'

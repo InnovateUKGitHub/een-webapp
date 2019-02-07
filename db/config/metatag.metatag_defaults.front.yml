@@ -8,4 +8,6 @@ id: front
 label: 'Front page'
 tags:
   canonical_url: '[site:url]'
+  description: "We can help you can scale your business and succeed overseas. We're publicly funded and the world’s biggest innovation support network\r\n"
   shortlink: '[site:url]'
+  title: 'Enterprise Europe Network'

@@ -1,0 +1,8 @@
+{
+    "require": {
+        "php-http/guzzle6-adapter": "^1.1",
+        "alphagov/notifications-php-client": "^1.1",
+        "phpforce/common": "dev-master",
+        "phpforce/soap-client": "dev-master"
+    }
+}

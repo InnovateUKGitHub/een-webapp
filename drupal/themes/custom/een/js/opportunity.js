@@ -36,7 +36,7 @@ jQuery(function () {
     
     
     var newletterFormSection = $('#edit-newsletter--wrapper');
-    if($(newletterFormSection).length){
+    if($(newletterFormSection).length &&!$('.preferences').length){
         
         $(newletterFormSection).find('.block-label').each(function(i, item){
              if(i > 1){
@@ -80,6 +80,7 @@ jQuery(function () {
 
         $('#edit-token').removeClass('disabled').attr('disabled', false);
         $('#verify-code').removeClass('is-disabled').attr('disabled', false);
+        $('.js-alert-notifications-email').show();
 
         enableform();
         e.preventDefault();
@@ -115,4 +116,39 @@ jQuery(function () {
         $('.form-opportunities').find('textarea').attr('disabled', false).removeClass('is_disabled');
     }
 
+
+    var owl = $('.pod-image-carousel');
+    owl.owlCarousel({
+        loop: false,
+        navRewind: false,
+        nav:true,
+        margin:20,
+        responsive: {
+            0: {
+                items: 2
+            },
+            660: {
+                items: 4
+            },
+            1000: {
+                items: 5
+            }
+        }
+    });
+
+    $('.pod-popup-gallery').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        tLoading: 'Loading image #%curr%...',
+        mainClass: 'mfp-img-mobile pod-gallery-mfp',
+        image: {
+            verticalFit: true,
+            tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
+        },
+        gallery: {
+            enabled: true,
+            navigateByImgClick: true,
+            preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+        }
+    });
 });

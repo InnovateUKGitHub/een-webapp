@@ -18,17 +18,16 @@ if [ ! -z "$composerChanges" ] || [ ! -z "$forceCompile" ];then
     echo $composerChanges
 
     cd drupal
-    php ../bin/composer self-update
 
     echo "running composer (with dev packages)"
-    php ../bin/composer install --optimize-autoloader
+    php ./composer.phar install --optimize-autoloader
 
     cd ..
 else
     echo "drupal/composer.lock has not changed, only running autoload"
 
     cd drupal
-    php ../bin/composer dump-autoload
+    php ./composer.phar dump-autoload
     cd ..
 fi
 

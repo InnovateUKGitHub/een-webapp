@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.token
     - field.field.node.event.body
+    - field.field.node.event.field_checked_by_neg
     - field.field.node.event.field_copyrighted_image
     - field.field.node.event.field_county
     - field.field.node.event.field_event_city
@@ -17,7 +18,9 @@ dependencies:
     - field.field.node.event.field_event_url
     - field.field.node.event.field_featured_event
     - field.field.node.event.field_location
+    - field.field.node.event.field_location_details
     - field.field.node.event.field_meta_tags
+    - field.field.node.event.field_salesforce_id
     - field.field.node.event.field_yoast_seo
     - image.style.large
     - node.type.event
@@ -48,6 +51,7 @@ content:
     region: content
 hidden:
   body: true
+  field_checked_by_neg: true
   field_county: true
   field_event_city: true
   field_event_country: true

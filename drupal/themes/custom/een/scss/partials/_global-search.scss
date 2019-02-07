@@ -1,0 +1,184 @@
+
+.path-search {
+  h1 {
+    @extend .sr-only;
+  }
+}
+
+.global-search-view.results-list {
+
+  border-bottom:none;
+
+  form {
+
+
+    .multiple-choice {
+      color: $cta;
+      font-weight: bold;
+      cursor: pointer;
+      
+      &:hover {
+        color: #9B9B9B;
+      }
+    }
+    .multiple-choice.selected {
+      color: #9B9B9B;
+    }
+
+    .multiple-choice input {
+      opacity: 1;
+      width: auto;
+      height: auto;
+      position: relative;
+      margin:0 7px 0 0;
+      visibility: hidden;
+    }
+    
+    .form-item-search-api-fulltext input {
+      border:2px solid $cta;
+      width: 95%;
+      margin-bottom: 30px;
+      padding: 15px 2%;
+      font-size: 24px;
+    }
+    .form-item-search-api-fulltext label {
+      display: none;
+    }
+
+    fieldset[id^="edit-type--"]{
+      border-bottom: 2px solid #ccc;
+      legend {
+        display:none;
+      }
+    }
+
+    div[id^="edit-type"]{
+      text-align: center;
+      label {
+        display:inline-block;
+        float:none;
+      }
+    }
+
+    .submit {
+      visibility: hidden;
+    }
+  }
+
+  .global-search-row {
+
+    width:70%;
+    margin:auto;
+
+    .views-field-field-copyrighted-image {
+      float:right;
+      margin:0 0 15px 15px;
+
+      p {
+        display:none;
+      }
+
+
+      @media (max-width: 500px) {
+        float:none;
+        margin-left:0;
+      }
+    }
+    
+    .n-type {
+      float: left;
+    }
+
+    .search-country, .gs-event-location {
+      font-size:16px;
+    }
+
+    .views-field-field-event-city {
+      line-height: 1.8em;
+    }
+
+    .flag-icon {
+      float:left;
+      top: 3px;
+    }
+    .search-country {
+      position: relative;
+      top:1px;
+    }
+    .gs-event-location {
+      position: relative;
+      top:-3px;
+    }
+
+  }
+
+  .event-date-on-search.meta-left {
+    float:right;
+    margin:6px 0 15px 15px;
+
+    .time {
+      font-size: 16px;
+    }
+     .calendar {
+      height: 90px;
+    }
+  }
+}
+
+
+
+.pager {
+  clear:both;
+
+  ul.pager__items {
+
+    text-align: center;
+
+    li {
+      display: inline-block;
+      padding:0 5px;
+    }
+
+  }
+}
+
+
+@media (min-width: 767px) {
+
+  #global-header .home-header-background .menu-container .header-proposition #proposition-links li {
+    a {
+      &:after {
+        color:white;
+      }
+    }
+  }
+
+  #proposition-links {
+    position: relative;
+  }
+
+
+
+  #global-header .header-proposition #proposition-links li:last-of-type {
+    position: absolute;
+    right:0;
+    display:block;
+
+    a {
+      font-weight:600;
+      color: $cta;
+      text-transform: initial;
+      font-size: 16px;
+
+      &:after {
+        color: $dark-blue;
+        font-family: FontAwesome;
+        content: "\f002";
+        cursor: pointer;
+        font-size: 14px;
+        margin-left: 6px;
+      }
+    }
+  }
+}
+

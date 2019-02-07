@@ -1,0 +1,19 @@
+uuid: d70fd79f-5dd6-4c1e-a11d-24e6eaf8fe08
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_section_title
+    - paragraphs.paragraphs_type.scaleup_growth_journey
+id: paragraph.scaleup_growth_journey.field_section_title
+field_name: field_section_title
+entity_type: paragraph
+bundle: scaleup_growth_journey
+label: 'Section title'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

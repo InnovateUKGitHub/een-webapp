@@ -1,0 +1,220 @@
+uuid: 88db1ee5-a417-4403-88be-975ac569a61c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.scaleup_story.body
+    - field.field.node.scaleup_story.field_content
+    - field.field.node.scaleup_story.field_growth_journey
+    - field.field.node.scaleup_story.field_key_insights
+    - field.field.node.scaleup_story.field_list_title
+    - field.field.node.scaleup_story.field_other_success_stories
+    - field.field.node.scaleup_story.field_page_title
+    - field.field.node.scaleup_story.field_scaleup_hero_image
+    - field.field.node.scaleup_story.field_scaleup_tags
+    - field.field.node.scaleup_story.field_sub_title
+    - field.field.node.scaleup_story.field_summary
+    - node.type.scaleup_story
+  module:
+    - entity_reference_revisions
+    - field_formatter_class
+    - field_group
+    - image
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_media_image:
+      children:
+        - field_scaleup_hero_image
+      parent_name: group_content
+      weight: 23
+      format_type: html_element
+      format_settings:
+        label: media-image
+        element: figure
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: 'media-image hero-profile'
+      label: media-image
+    group_container:
+      children:
+        - group_content
+      parent_name: ''
+      weight: 0
+      format_type: html_element
+      format_settings:
+        label: container
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: 'container rings-story'
+      label: container
+    group_content:
+      children:
+        - group_herocontent
+        - group_media_image
+      parent_name: group_container
+      weight: 0
+      format_type: html_element
+      format_settings:
+        label: content
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: content-story
+      label: content
+    group_main_content:
+      children:
+        - field_sub_title
+        - body
+      parent_name: ''
+      weight: 1
+      format_type: html_element
+      format_settings:
+        label: 'Sub section'
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: 'container sub-section'
+      label: 'Sub section'
+    group_herocontent:
+      children:
+        - field_page_title
+        - field_summary
+      parent_name: group_content
+      weight: 20
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: hero-content
+        element: div
+        show_label: false
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: hero-content
+id: node.scaleup_story.default
+targetEntityType: node
+bundle: scaleup_story
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 106
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: body-text
+    region: content
+  field_content:
+    type: entity_reference_revisions_entity_view
+    weight: 107
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_growth_journey:
+    type: entity_reference_revisions_entity_view
+    weight: 108
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: scaleup-list-group
+    region: content
+  field_key_insights:
+    type: entity_reference_revisions_entity_view
+    weight: 109
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: key-insights
+    region: content
+  field_list_title:
+    weight: 2
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      field_formatter_class:
+        class: section-title
+    type: string
+    region: content
+  field_other_success_stories:
+    weight: 113
+    label: above
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    type: entity_reference_entity_view
+    region: content
+  field_page_title:
+    weight: 21
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: page-title
+    type: basic_string
+    region: content
+  field_scaleup_hero_image:
+    weight: 104
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  field_sub_title:
+    weight: 105
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      field_formatter_class:
+        class: section-title
+    type: string
+    region: content
+  field_summary:
+    weight: 22
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: summary
+    type: text_default
+    region: content
+hidden:
+  field_scaleup_tags: true
+  links: true
+  sharethis: true

@@ -1,0 +1,21 @@
+uuid: e6d2eb89-adc3-4c0a-8dad-1b828cdd63c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_partner_area
+    - node.type.partnering_opportunity
+  module:
+    - text
+id: node.partnering_opportunity.field_partner_area
+field_name: field_partner_area
+entity_type: node
+bundle: partnering_opportunity
+label: 'Partner area'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

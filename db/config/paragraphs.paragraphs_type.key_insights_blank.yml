@@ -1,0 +1,9 @@
+uuid: a04db644-5074-4af9-bc5c-45e5e28ee7de
+langcode: en
+status: true
+dependencies: {  }
+id: key_insights_blank
+label: 'Key insights - blank'
+icon_uuid: null
+description: 'This is a blank box'
+behavior_plugins: {  }

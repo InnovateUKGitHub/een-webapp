@@ -1,0 +1,159 @@
+uuid: dfd400c1-aeab-4fb0-8bb2-731dc7da09af
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - field.storage.node.field_location
+    - field.storage.node.field_event_url
+    - field.storage.node.field_event_date
+    - field.storage.node.field_event_city
+    - field.storage.node.field_event_country
+    - field.storage.node.field_event_country_code
+    - field.storage.node.field_featured_event
+    - field.storage.node.field_event_import_source
+    - search_api.server.een_server
+  module:
+    - search_api
+    - node
+id: een_event
+name: een_event
+description: ''
+read_only: false
+field_settings:
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: !!float 2
+  body:
+    label: Body
+    datasource_id: 'entity:node'
+    property_path: body
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.body
+  lat:
+    label: 'Location » Latitude'
+    datasource_id: 'entity:node'
+    property_path: 'field_location:lat'
+    type: decimal
+    dependencies:
+      config:
+        - field.storage.node.field_location
+  lng:
+    label: 'Location » Longitude'
+    datasource_id: 'entity:node'
+    property_path: 'field_location:lng'
+    type: decimal
+    dependencies:
+      config:
+        - field.storage.node.field_location
+  field_event_url:
+    label: 'Event URL'
+    datasource_id: 'entity:node'
+    property_path: field_event_url
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_event_url
+  field_event_date:
+    label: 'Event Date'
+    datasource_id: 'entity:node'
+    property_path: field_event_date
+    type: date
+    dependencies:
+      config:
+        - field.storage.node.field_event_date
+  end_value:
+    label: 'Event Date » End date value'
+    datasource_id: 'entity:node'
+    property_path: 'field_event_date:end_value'
+    type: date
+    dependencies:
+      config:
+        - field.storage.node.field_event_date
+  uuid:
+    label: UUID
+    datasource_id: 'entity:node'
+    property_path: uuid
+    type: string
+  field_event_city:
+    label: 'Event City'
+    datasource_id: 'entity:node'
+    property_path: field_event_city
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_event_city
+  field_event_country:
+    label: 'Event Country'
+    datasource_id: 'entity:node'
+    property_path: field_event_country
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_event_country
+  field_event_country_code:
+    label: 'Event Country Code'
+    datasource_id: 'entity:node'
+    property_path: field_event_country_code
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_event_country_code
+  field_featured_event:
+    label: 'Featured Event'
+    datasource_id: 'entity:node'
+    property_path: field_featured_event
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.node.field_featured_event
+  field_event_import_source:
+    label: 'Event Import Source'
+    datasource_id: 'entity:node'
+    property_path: field_event_import_source
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_event_import_source
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - event
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  entity_status: {  }
+  html_filter:
+    all_fields: false
+    fields:
+      - body
+    title: true
+    alt: true
+    tags:
+      h1: 5
+      h2: 3
+      h3: 2
+      strong: 2
+      b: 2
+      em: 1
+      u: 1
+    weights:
+      preprocess_index: -15
+      preprocess_query: -15
+  rendered_item: {  }
+tracker_settings:
+  default: {  }
+options:
+  index_directly: true
+  cron_limit: 50
+server: een_server

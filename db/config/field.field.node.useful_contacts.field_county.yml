@@ -1,0 +1,21 @@
+uuid: c8487f26-bb7a-443f-8c84-d773e09109e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_county
+    - node.type.useful_contacts
+_core:
+  default_config_hash: 80qmUkfQyslJohsKyRXMN4jRQ9bt6ViXfS7c4XEghbo
+id: node.useful_contacts.field_county
+field_name: field_county
+entity_type: node
+bundle: useful_contacts
+label: County
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

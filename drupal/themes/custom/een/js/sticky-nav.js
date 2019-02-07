@@ -70,8 +70,8 @@ jQuery(function () {
 			stickyNavbar();
 			return false;
 		}
-		
-           
+
+
             
                 //reset values 
                 var scroll = getScroll();

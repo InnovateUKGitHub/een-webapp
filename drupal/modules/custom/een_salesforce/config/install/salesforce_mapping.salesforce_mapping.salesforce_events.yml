@@ -1,0 +1,76 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.event.body
+    - field.field.node.event.field_event_date
+    - field.field.node.event.field_event_price
+    - field.field.node.event.field_event_url
+    - field.field.node.event.field_location
+  module:
+    - salesforce_pull
+id: salesforce_events
+label: 'Salesforce Events'
+weight: 0
+locked: false
+type: salesforce_mapping
+key: ''
+async: false
+push_standalone: false
+pull_trigger_date: LastModifiedDate
+pull_where_clause: ''
+sync_triggers:
+  push_create: false
+  push_update: false
+  push_delete: false
+  pull_create: true
+  pull_update: true
+  pull_delete: true
+salesforce_object_type: Event__c
+drupal_entity_type: node
+drupal_bundle: event
+field_mappings:
+  -
+    drupal_field_type: properties
+    drupal_field_value: body
+    salesforce_field: Event_Description__c
+    direction: sf_drupal
+  -
+    drupal_field_type: properties
+    drupal_field_value: field_event_price
+    salesforce_field: Attendance_Fee__c
+    direction: sf_drupal
+  -
+    drupal_field_type: properties
+    drupal_field_value: field_event_url
+    salesforce_field: Event_website_address__c
+    direction: sf_drupal
+  -
+    drupal_field_type: properties
+    drupal_field_value: title
+    salesforce_field: Title__c
+    direction: sf_drupal
+  -
+    drupal_field_type: event_date
+    drupal_field_value: field_event_date
+    salesforce_field: Start_Date_time__c
+    direction: sf_drupal
+  -
+    drupal_field_type: event_date
+    drupal_field_value: field_event_date
+    salesforce_field: End_Date_Time__c
+    direction: sf_drupal
+  -
+    drupal_field_type: properties
+    drupal_field_value: field_location
+    salesforce_field: Venue_Location__Latitude__s
+    direction: sf_drupal
+  -
+    drupal_field_type: properties
+    drupal_field_value: field_location
+    salesforce_field: Venue_Location__Longitude__s
+    direction: sf_drupal
+push_limit: 0
+push_retries: 3
+push_frequency: 0
+pull_frequency: 0

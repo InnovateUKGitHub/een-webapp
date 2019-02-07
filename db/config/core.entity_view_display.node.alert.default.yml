@@ -43,5 +43,7 @@ content:
   sharethis:
     weight: 10
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_text_content: true
